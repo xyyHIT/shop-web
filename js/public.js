@@ -1,153 +1,10 @@
 var host = "http://"+location.host;
 //var host = "http://tst.yijiapai.com:8080";
 //var host = "http://192.168.1.239:8731";
-$(function(){
-	if((host == "http://tst.yijiapai.com:8080")||(host == "http://192.168.1.239:8731")){
-		$("body").append("<div class='footer footerInit footerDay'><a href='/yjpai/platform/scene/scene.html?from=wechat'><i></i>拍卖</a><a href='/yjpai/news/list.html'><i class=''></i>资讯</a><a class='public_publishImg'><i></i>发布</a><a href='/yjpai/platform/message/messageIndex.html'><i> <b class='alert_msg iconfont icon-dian'></b></i>消息</a><a href='/yjpai/platform/my/myCenter.html'><i></i>我的</a></div>");
-		$.ajax({
-			url: host+'/yjpai/platform/UI/Icon',
-			type: "post",
-			beforeSend:function(){
-			},
-			success: function(rs) {
-				allFun.publicIcon();
-				if(rs.resCode!=1){
-					$(".footer").removeClass("footerDay");
-					$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-dibudaohangshouyeoff");
-					$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-dibudaohangfenleioff");
-					$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-dibudaohangfabuoff");
-					$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-dibudaohangguanzhuoff");
-					$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
-					$(".footerInit a:nth-child(1).on i").attr("class","iconfont icon-dibudaohangshouyeon");
-					$(".footerInit a:nth-child(2).on i").attr("class","iconfont icon-dibudaohangfenleion");
-					$(".footerInit a:nth-child(3).on i").attr("class","iconfont icon-dibudaohangfabuon");
-					$(".footerInit a:nth-child(4).on i").attr("class","iconfont icon-dibudaohangguanzhuon");
-					$(".footerInit a:nth-child(5).on i").attr("class","iconfont icon-dibudaohangwodeon");
-                    return false;
-				}
-				$(".footer").removeClass("footerInit");
-				$(".footer i").attr("class","");
-				/*
-				 拍卖type=15  点击后的type=18   资讯type=16  点击后的type=19  发布type=17  我的消息type=14 点击后的type=20
-				 * */
-				var iconData = rs.data;
-				$(".footerDay a:nth-child(1) i").css("background-image","url("+iconData[0].url+")");
-				$(".footerDay a:nth-child(1).on i").css("background-image","url("+iconData[1].url+")");
-				$(".footerDay a:nth-child(2) i").css("background-image","url("+iconData[2].url+")");
-				$(".footerDay a:nth-child(2).on i").css("background-image","url("+iconData[3].url+")");
-				$(".footerDay a:nth-child(3) i").css("background-image","url("+iconData[4].url+")");
-				$(".footerDay a:nth-child(4) i").css("background-image","url("+iconData[5].url+")");
-				$(".footerDay a:nth-child(4).on i").css("background-image","url("+iconData[6].url+")");
-				$(".footerDay a:nth-child(5) i").css("background-image","url("+iconData[7].url+")");
-				$(".footerDay a:nth-child(5).on i").css("background-image","url("+iconData[8].url+")");
-			}
-		});
-	}else{
-		$("body").append("<div class='footer footerInit footerDay'><a href='/yjpai/platform/wx/init?from=wechat'><i></i>拍卖</a><a href='/yjpai/news/list.html'><i></i>资讯</a><a class='public_publishImg'><i></i>发布</a><a href='/yjpai/platform/message/messageIndex.html'><i><b class='alert_msg iconfont icon-dian'></b></i>消息</a><a href='/yjpai/platform/wx/center'><i></i>我的</a></div>");
-		$.ajax({
-			url: host+'/yjpai/platform/UI/Icon',
-			type: "post",
-			beforeSend:function(){
-			},
-			success: function(rs) {
-				allFun.publicIcon();
-				if(rs.resCode!=1){
-					$(".footer").removeClass("footerDay");
-					$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-dibudaohangshouyeoff");
-					$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-dibudaohangfenleioff");
-					$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-dibudaohangfabuoff");
-					$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-dibudaohangguanzhuoff");
-					$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
-					$(".footerInit a:nth-child(1).on i").attr("class","iconfont icon-dibudaohangshouyeon");
-					$(".footerInit a:nth-child(2).on i").attr("class","iconfont icon-dibudaohangfenleion");
-					$(".footerInit a:nth-child(3).on i").attr("class","iconfont icon-dibudaohangfabuon");
-					$(".footerInit a:nth-child(4).on i").attr("class","iconfont icon-dibudaohangguanzhuon");
-					$(".footerInit a:nth-child(5).on i").attr("class","iconfont icon-dibudaohangwodeon");
-                    return false;
-				}
-				$(".footer").removeClass("footerInit");
-				$(".footer i").attr("class","");
-				/*
-				 拍卖type=15  点击后的type=18   资讯type=16  点击后的type=19  发布type=17  我的消息type=14 点击后的type=20
-				 * */
-				var iconData = rs.data;
-				$(".footerDay a:nth-child(1) i").css("background-image","url("+iconData[0].url+")");
-				$(".footerDay a:nth-child(1).on i").css("background-image","url("+iconData[1].url+")");
-				$(".footerDay a:nth-child(2) i").css("background-image","url("+iconData[2].url+")");
-				$(".footerDay a:nth-child(2).on i").css("background-image","url("+iconData[3].url+")");
-				$(".footerDay a:nth-child(3) i").css("background-image","url("+iconData[4].url+")");
-				$(".footerDay a:nth-child(4) i").css("background-image","url("+iconData[5].url+")");
-				$(".footerDay a:nth-child(4).on i").css("background-image","url("+iconData[6].url+")");
-				$(".footerDay a:nth-child(5) i").css("background-image","url("+iconData[7].url+")");
-				$(".footerDay a:nth-child(5).on i").css("background-image","url("+iconData[8].url+")");
-			}
-		});
-	}
-
-
-//打开发布弹出层
-	$(".public_publishImg").on("click", function () {
-		var _t = $(this);
-		if (_t.hasClass("onon")) {
-			_t.removeClass("onon");
-			$(".publishTanchu").css("bottom", "0").css("-webkit-transform", "translate(0,100%)").fadeOut();
-			$(".bg2").fadeOut();
-		} else {
-			$.ajax({
-				type: "POST",
-				url: host + "/yjpai/platform/user/subsricb",
-				success: function (rs) {
-					var d = rs.data;
-					if (d == "no") {//未关注公众号
-						allFun.gzewm();
-					} else {
-						$.ajax({
-							type: "POST",
-							url: host + "/yjpai/platform/user/getUser",
-							success: function (rs) {
-								var d = rs.data;
-								if (d.mobile == null) {//没有手机号
-									location.href = "/yjpai/platform/publish/validatePhone.html";
-								} else {
-									_t.addClass("onon");
-									if ($(".publishTanchu").length <= 0) {
-										$("body").append("<div class='from_bottom_to_top publishTanchu'><a href='/yjpai/platform/scene/creatingScene.html'><img src='/yjpai/imgs/icon/icon_fabu2.png' /><br />自建拍场</a><a href='/yjpai/platform/publish/picturePreview.html'><img src='/yjpai/imgs/icon/icon_fabu1.png' /><br />发布拍品</a><div><p></p><i></i></div></div>");
-									}
-									if ($(".bg2").length <= 0) {
-										$("body").append("<div class='bg2'></div>");
-									}
-									$(".bg2").fadeIn('fast');
-									$(".publishTanchu").fadeIn('fast').css("bottom", "7rem").css("-webkit-transform", "translate(0,0)");
-								}
-							},
-							error: function () {
-								location.href = "/yjpai/platform/wx/index";
-							}
-						});
-					}
-				},
-				error: function () {
-					location.href = "/yjpai/platform/wx/index";
-				}
-			});
-		}
-	});
-	//关闭发布弹出层
-	$("body").on("click", ".bg2", function () {
-		$(".public_publishImg").removeClass("onon");
-		$(".publishTanchu").css("bottom", "0").css("-webkit-transform", "translate(0,100%)").fadeOut();
-		$(".bg2").fadeOut();
-	});
-	$("body").on("click", ".bg,.from_bottom_to_top .icon-chacha", function () {
-		allFun.fromTopToBottom(".from_bottom_to_top");
-	});
-
-});
-
 (function() {
 	$(function() {
-		$.ajax({
-			url: host+'/yjpai/jssdk/wx/getJsConfig',
+		/*$.ajax({
+			url: host+'/shop/jssdk/wx/getJsConfig',
 			type: "get",
 			data: {
 				'url': encodeURIComponent(window.location.href.split('#')[0])
@@ -179,10 +36,24 @@ $(function(){
 					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 				});
 			}
-		});
+		});*/
 		wx.ready(function(){
 			wx.hideAllNonBaseMenuItem();
-		})
+		});
+		//添加底部导航
+		$("body").append("<div class='footer footerInit footerDay'><a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a><a href='/shop/html/category/category.html'><i></i>发现</a><a href='/shop/html/shopping/shopping.html'><i></i>购物袋</a><a href='/shop/html/my/myBuyer.html'><i></i>我的</a></div>");
+		allFun.publicIcon();
+		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-dibudaohangshouyeoff");
+		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-dibudaohangfenleioff");
+		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-dibudaohangfabuoff");
+		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-dibudaohangguanzhuoff");
+		$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
+		$(".footerInit a:nth-child(1).on i").attr("class","iconfont icon-dibudaohangshouyeon");
+		$(".footerInit a:nth-child(2).on i").attr("class","iconfont icon-dibudaohangfenleion");
+		$(".footerInit a:nth-child(3).on i").attr("class","iconfont icon-dibudaohangfabuon");
+		$(".footerInit a:nth-child(4).on i").attr("class","iconfont icon-dibudaohangguanzhuon");
+		$(".footerInit a:nth-child(5).on i").attr("class","iconfont icon-dibudaohangwodeon");
+		
 	});
 })();
 
@@ -298,7 +169,7 @@ var allFun = {
 	},
 	gzewm: function () {
 		if ($(".gzewm").length <= 0) {
-			$("body").append("<div class='gzewm animated bounceInDown'><img src='/yjpai/imgs/test/erweima.jpg' /><div>~长按二维码关注我们~<span>Wuli小艺关注后就能接收消息提醒哦！ </span></div></div>");
+			$("body").append("<div class='gzewm animated bounceInDown'><img src='/shop/imgs/test/erweima.jpg' /><div>~长按二维码关注我们~<span>Wuli小艺关注后就能接收消息提醒哦！ </span></div></div>");
 		}
 		if ($(".bg1").length <= 0) {
 			$("body").append("<div class='bg1 animated fadeIn' onclick=$('.gzewm,.bg1').hide()></div>");
@@ -366,7 +237,7 @@ var allFun = {
 	publicIcon: function () {
 		var publicNavUrl = window.location.href.split('#')[0];
 		// 用数组存关键词
-		var publicNavKeywords = ["/index/", "/sort/", "/publish/", "/message/", "/my/", "/news/"];
+		var publicNavKeywords = ["/index/", "/category/", "/shopping/", "/my/"];
 		// 创建正则
 		var publicNavReg = new RegExp(publicNavKeywords.join('|'));
 		// 如果想知道匹配到哪个，那么用match
@@ -377,38 +248,16 @@ var allFun = {
 				case "/index/":
 					$(".footer a").eq(0).addClass("on");
 					break;
-				case "/sort/":
+				case "/category/":
 					$(".footer a").eq(1).addClass("on");
 					break;
-				case "/publish/":
+				case "/shopping/":
 					$(".footer a").eq(2).addClass("on");
 					break;
-				case "/message/":
-					$(".footer a").eq(3).addClass("on");
-					break;
 				case "/my/":
-					$(".footer a").eq(4).addClass("on");
+					$(".footer a").eq(3).addClass("on");
 					break;
 			}
 		}
 	}
-}
-
-alertMessage()
-setInterval(alertMessage,5000)
-function alertMessage(){
-	$.ajax({
-	   	type: "POST",
-	   	url: host+"/yjpai/platform/stationMsg/hasNewMsg",
-	   	success: function(rs){
-	   		if(rs.resCode!=1){
-	   			return false;
-	   		}
-	   		if(rs.data=="no"){
-	   			$(".alert_msg").hide()
-	   		}else{
-	   			$(".alert_msg").show();
-	   		}
-	   	}
-	});
 }

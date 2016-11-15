@@ -1,0 +1,24 @@
+/*.keybordpw{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f8f7f7; z-index: 9997;}
+.keybord_t{ padding: 0 1.6rem; text-align: center;}
+.keybord_t h6{ padding: 1rem; font-size: 1.25rem; color: #878787;}
+.keybord_t ul li{ float: left; width: 4.8rem; height: 4.8rem; line-height: 4.8rem; font-size: 1.5rem; text-align: center; border-top: 1px solid #EFEFEF; border-left: 1px solid #EFEFEF; border-bottom: 1px solid #EFEFEF; background: #fff;}
+.keybord_t ul li:last-child{ border-right: 1px solid #EFEFEF;}
+.keybord_d{ position: fixed; left: 0; bottom: 0; width: 100%; background: #fff;}
+.keybord_list{ width: 100%; background: url(/yjpai/imgs/icon/keybord_bg.png) no-repeat center; background-size: 44%;}
+.keybord_list span,.keybord_list em{ display: inline-block; width: 33.33%; height: 5.5rem; line-height: 5.5rem; font-size: 1.8rem; color: #5f5f5f; text-align: center; border-top: 1px solid #EFEFEF; border-right: 1px solid #EFEFEF;}
+.keybord_list span:nth-child(3),.keybord_list span:nth-child(6),.keybord_list span:nth-child(9){ border-right: none;}
+.keybord_list em.keybord_back{ border-right: none; background: url(/yjpai/imgs/icon/icon_keybord_back.png) no-repeat center; background-size: 40%;}
+.keybord_list em.keybord_back i{ visibility: hidden;}*/
+.keybordpw{ position: fixed; bottom: 0; left: 0; background: #fff; z-index: 9997;}
+.keybordpw h6{ position: relative; height: 4.5rem; line-height: 4.5rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; background: #FAF9FB; border-bottom: 1px solid #EFEFEF;}
+.keybordpw h6 i{ position: absolute; right: 0; top: 0; width: 4.5rem; height: 4.5rem; font-size: 1.6rem; color: #999;}
+.keybord_t{ margin: 1.5rem 0; padding: 0 1.6rem; text-align: center;}
+.keybord_t ul li{ float: left; width: 4.8rem; height: 4.8rem; text-align: center; border-top: 1px solid #EFEFEF; border-left: 1px solid #EFEFEF; border-bottom: 1px solid #EFEFEF; background: #fff;}
+.keybord_t ul li:last-child{ border-right: 1px solid #EFEFEF;}
+.keybord_t ul li i.icon-dian{ font-size: 4rem; color: #000;}
+.keybord_list{ width: 100%; background: url(/yjpai/imgs/icon/keybord_bg.png) no-repeat center; background-size: 44%;}
+.keybord_list span,.keybord_list em{ display: inline-block; width: 33.33%; height: 5.5rem; line-height: 5.5rem; font-size: 1.8rem; color: #5f5f5f; text-align: center; border-top: 1px solid #EFEFEF; border-right: 1px solid #EFEFEF;}
+.keybord_list span:nth-child(3),.keybord_list span:nth-child(6),.keybord_list span:nth-child(9){ border-right: none;}
+.keybord_list em.keybord_back{ border-right: none; background: url(/yjpai/imgs/icon/icon_keybord_back.png) no-repeat center; background-size: 40%;}
+.keybord_list em.keybord_back i{ visibility: hidden;}
+input::-webkit-input-placeholder {color:#878787;}

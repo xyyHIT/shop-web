@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>商品分类</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/swiper.min.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <style>
+        body{background: #f9f9f9; height:100%;}
+         .pro-info {padding:1rem 1.5rem; border-top: 1px solid #ddd; overflow: hidden;position: relative;background: #fff;}
+        .pro-info .name { font-size: 1.3rem; color: #3c3c3c;  line-height: 2rem; }
+        .pro-info .price { font-size: 1.5rem; color: #ec4747; margin:0.3rem 0;  }
+        .pro-info .kinds span{color:#aaa; font-size:1.2rem; margin-right:1rem; }
+        .pro-info .like{position: absolute; right:1rem; bottom:1rem;color:#878787; font-size:1rem; }
+        .pro-info .like .img{background:url("/shop/imgs/test/1.jpg") no-repeat 1rem top;  margin-bottom:.3rem;  background-size:2.4rem 2.4rem; height:2.4rem;}
+
+        .ways{height:4rem; line-height: 4rem; background: #fcfcfc; padding:0 1rem;}
+        .ways .freight{font-size: 1.2rem; color: #aaa;}
+        .ways .sales{font-size: 1.2rem; color: #808080;}
+        .ways span{display: inline-block;background:url("/shop/imgs/test/1.jpg") no-repeat; margin:.9rem .7rem 0 0; background-size:2rem 2rem; width: 2rem; height:2rem;}
+
+        .faxian { position: relative; margin:.5rem 0;height: 7rem; padding: 1.4rem 1rem; font-size: 1.3rem; color: #5F5F5F;  background: #fff;}
+        .faxian dt img{  width: 4rem; height: 4rem; border-radius: 100%; margin-right:1.5rem;}
+        .faxian h3{font-size: 1.3rem; color: #3c3c3c;margin-top:.5rem;}
+        .faxian h3 span{display: inline-block; float: left; margin-right:.5rem;background:url("/shop/imgs/test/1.jpg") no-repeat left center; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
+        .faxian dd p{margin-top:.5rem;}
+        .faxian dd p span{font-size: 1.1rem; color: #878787;}
+        .faxian em{position: absolute; right:1rem; top:2.4rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;
+            border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}
+        .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
+
+        .trade{width: 100%; line-height:4rem; background: #fff;}
+        .trade span{width:50%; position: relative; text-align: center; font-size: 1.5rem; display: inline-block; color:#a8a8a8;}
+        .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
+
+        .trade_contents{ padding: 0 1rem; overflow: hidden;}
+        .trade_contents ol{ display: none; background: #faf9fb;}
+        .trade_contents ol.current{ display: block;}
+        .goodsHot{}
+        .goodsHot .goodsTitle{background:#fff;width: 100%; padding-left:1rem; margin:.5rem 0; line-height:4rem;height: 4rem; font-size: 1.3rem; color: #5f5f5f;}
+        .pre-info{margin:.5rem;    overflow: hidden;}
+        .pre-list {  list-style: none;  margin: 0; margin-left: 1.5%;  margin-bottom: -10px;overflow: hidden;  }
+        .pre-list-2 li {width: 50%; float: left; overflow: hidden;  }
+        .pre-item {margin: 0 4% 4% 0; background: #fff;overflow:hidden; position: relative;  }
+        .pre-item a {display: block;overflow: hidden;  }
+        .pre-img {width: 100%;}
+        .pre-price {font-size:1.3rem;color: #ec4747;position: relative;}
+        .pre-subtitle {margin-bottom: 5px;font-size:1.1rem;color: #535353;overflow: hidden;  }
+        .payment{font-size: 1.1rem; color: #aaa;}
+
+        .attMian{width:45%;}
+        .footer{display: none;}
+        .detailFooter{    padding: .4rem 0 .3rem 0;position: fixed; width: 100%;  bottom: 0;  left: 0;  border-top: 1px solid #e5e5e5;  background: rgba(250,250,250,.95);  z-index: 999;}
+        .detailFooter i{ position: relative;display: block; width: 2.5rem; height: 2.5rem; margin: 0 auto; margin-bottom: .35rem; font-size: 2.5rem; line-height: 2.5rem; background-size: 100%;}
+        .detailFooter a{width:18%;}
+        .detailFooter a.end{position:absolute; width:28%; right:0;line-height: 4.8rem; top:0;display: inline-block; background: #ec4747; color:#fff; text-align: center;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <!--轮播banner-->
+    <div class="swiper-container banner" id="goodsBanner">
+        <div class="swiper-wrapper" id="banner">
+            <div class="swiper-slide">
+                <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
+            </div>
+            <div class="swiper-slide">
+                <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
+            </div>
+            <div class="swiper-slide">
+                <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="pro-info">
+        <p class="name">冻顶乌龙 著名茶家何健监制 山田土出品 台湾进口 2016春茶 火漆印章茶礼</p>
+        <p class="price">¥1180</p>
+        <p class="kinds"><span>1万人付款</span><span>90%好评</span></p>
+        <div class="like">
+            <p class="img iconfont icon-xihuan"></p>
+            <p>10人喜欢</p>
+        </div>
+    </div>
+
+    <div class="ways">
+        <div class="left sales"><span class="left"></span>七天无理由退货</div><div class="right freight">运费：10元</div>
+    </div>
+    <div class="attention">
+        <dl class='faxian'>
+                <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
+                <dd  class="left">
+                    <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
+                    <p class=""><span>商品999</span><span>关注999</span></p>
+                </dd>
+                <em>+关注</em>
+
+        </dl>
+    </div>
+<!--图文详情和评价-->
+    <div class="trade">
+        <span class="current"><em class="alert"></em>图文详情</span><span>商品评价</span>
+    </div>
+    <div class="trade_contents">
+        <ol class="current" id="rradeMain">
+          dddd
+
+        </ol>
+        <ol>
+            <div class="attention">
+                <dl class='faxian'>
+                    <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
+                    <dd  class="left attMian">
+                        <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
+                        <p class=""><span  class="over over1">淡淡的的地方淡淡的的地方</span></p>
+                    </dd>
+                    <em class="noLine">2016.12.12</em>
+
+                </dl>
+            </div>
+            <div class="attention">
+                <dl class='faxian'>
+                    <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
+                    <dd  class="left attMian">
+                        <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
+                        <p class=""><span  class="over over1">淡淡的的地方淡淡的的地方</span></p>
+                    </dd>
+                    <em class="noLine">2016.12.12</em>
+
+                </dl>
+            </div>
+        </ol>
+    </div>
+
+    <div class="goodsHot">
+        <div class="goodsTitle">热门推荐</div>
+
+        <ul class="pre-list pre-list-2">
+            <li>
+                <div class="pre-item">
+                    <a href="">
+                        <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                    </a>
+                    <div class="pre-info">
+                        <p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                        <p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="pre-item">
+                    <a href="">
+                        <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                    </a>
+                    <div class="pre-info">
+                        <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                        <p class="pre-price"><span>¥2680</span></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="pre-item">
+                    <a href="">
+                        <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                    </a>
+                    <div class="pre-info">
+                        <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                        <p class="pre-price"><span>¥2680</span></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="detailFooter footerInit footerDay">
+        <a href="/shop/html/index/index.html?from=wechat"><i></i>年货节</a><a href="/shop/html/my/myBuyer.html"><i></i>客服</a><a href="/shop/html/category/category.html"><i></i>进入小店</a><a href="/shop/html/shopping/shopping.html"><i></i>购物袋</a><a
+            href="javascript:;" class="end">放入购物袋</a>
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/swiper.min.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+
+    $(function () {
+        //banner轮播
+        var swiper = new Swiper('#goodsBanner', {
+            pagination: '.swiper-pagination',
+            autoplay: 3500,
+            autoplayDisableOnInteraction : false,
+            loop: true
+        });
+
+        $(".trade span").each(function(index) { //带参数遍历各个选项卡
+            $(this).click(function() { //注册每个选卡的单击事件
+                $(".trade span.current").removeClass("current"); //移除已选中的样式
+                $(this).addClass("current"); //增加当前选中项的样式
+                //显示选项卡对应的内容并隐藏未被选中的内容
+                $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
+            });
+        });
+    })
+
+</script>
+</html>

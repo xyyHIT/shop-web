@@ -7,24 +7,388 @@
 		<meta name="format-detection" content="telephone=no">
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/swiper.min.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
-			
+			body{background: #f9f9f9;  height:100%;}
+			.swiper-container {
+				width: 100%;
+				height: 100%;
+			}
+			.swiper-slide {
+				font-size: 18px; background: #fff;
+				/* Center slide text vertically */
+				display: -webkit-box;  display: -ms-flexbox;  display: -webkit-flex;  display: flex;
+				-webkit-box-pack: center;  -ms-flex-pack: center;  -webkit-justify-content: center;  justify-content: center;  -webkit-box-align: center;  -ms-flex-align: center;  -webkit-align-items: center;  align-items: center;
+			}
+
+			.vertical-view{background: #fff; margin-top:1rem; overflow: hidden;}
+			.vertical-view a{font-size:1.4rem; color:#3c3c3c;}
+			.vertical-view dl{width:33.33%; text-align: center; float: left;}
+			.vertical-view dl dt.icon{background: url("../imgs/kind/icon.png") no-repeat center center; height: 5rem; background-size: 5rem 5rem;}
+			.vertical-view dl dt.icon2{background: url("../imgs/kind/icon2.png") no-repeat center center; background-size: 5rem 5rem;}
+			.vertical-view dl dt.icon3{background: url("../imgs/kind/icon3.png") no-repeat center center; background-size: 5rem 5rem;}
+			.vertical-view dl dt.icon4{background: url("../imgs/kind/icon4.png") no-repeat center center; background-size: 5rem 5rem;}
+			.vertical-view dl dd{padding:1rem 0;}
+
+			.swp_list .inner{padding: 0 5px;}
+			.swp_list .inner img{width: 100%;margin-bottom: 4px;}
+			.swp_list .inner h4{width: 100%;height: 40px;  line-height: 20px;  color: #333;  font-size: 12px;  margin-bottom: 2px;}
+			.swp_list .inner p{color: #ec4747;  font-family: Helvetica;  font-size: 1rem;}
+			.swp_list{padding:10px 0px;background: #fff;margin: 10px 0;}
+
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			
+			<div class="mask"></div>
+			<header >
+				<nav class="top_nav">
+					<a href="/shop/html/index/index.html "class="rent">精品</a><a href="/shop/html/index/goodsCategory.html">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a href="javascript:;" class="up_list"><em class="up"></em></a>
+				</nav>
+				<div class="nav_mian">
+					<h2>全部分类</h2>
+					<ul>
+						<li>
+							<a href="">
+								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
+								<div class="pro_title">精选</div>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
+								<div class="pro_title">精选</div>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
+								<div class="pro_title">精选</div>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
+								<div class="pro_title">精选</div>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
+								<div class="pro_title">精选</div>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
+								<div class="pro_title">精选</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</header>
+
+			<div class="search_button">
+				<a href="/shop/html/index/goodsSearch.html">
+					<img src="/yjpai/imgs/test/search_button.png" alt="" width="100%"/>
+				</a>
+			</div>
+
+			<div class="warp">
+				<!--轮播banner-->
+				<div class="swiper-container banner" id="indexBanner">
+					<div class="swiper-wrapper" id="banner">
+						<div class="swiper-slide">
+							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
+						</div>
+						<div class="swiper-slide">
+							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
+						</div>
+						<div class="swiper-slide">
+							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
+						</div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+
+				<div class="vertical-view">
+					<a href="#">
+						<dl>
+							<dt class="icon"></dt>
+							<dd>拍卖</dd>
+						</dl>
+					</a>
+
+					<a href="#">
+						<dl>
+							<dt class="icon icon2"></dt>
+							<dd>众筹</dd>
+						</dl>
+					</a>
+
+					<a href="#">
+						<dl>
+							<dt class="icon icon3"></dt>
+							<dd>资讯</dd>
+						</dl>
+					</a>
+
+				</div>
+
+				<!--产品展示-->
+				<div class="swiper-container swp_views">
+					<div class="swiper-wrapper swp_list">
+						<div class="swiper-slide">
+							<div class="inner">
+								<a href="javascript:;">
+									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+									<h4>48小时特惠 勾搭衣架 挑时</h4>
+									<p>¥<span>99</span></p>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="inner">
+								<a href="javascript:;">
+									<img src="http://prod.image.yit.com/5/8/58119f30d1df1.jpg-h5thumb" alt="">
+									<h4>48小时特惠 勾搭衣架 挑时</h4>
+									<p>¥<span>99</span></p>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="inner">
+								<a href="javascript:;">
+									<img src="http://prod.image.yit.com/5/8/58228fab88fa0.jpg-h5thumb" alt="">
+									<h4>48小时特惠 勾搭衣架 挑时</h4>
+									<p>¥<span>99</span></p>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="inner">
+								<a href="javascript:;">
+									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+									<h4>48小时特惠 勾搭衣架 挑时</h4>
+									<p>¥<span>99</span></p>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="inner">
+								<a href="javascript:;">
+									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+									<h4>48小时特惠 勾搭衣架 挑时</h4>
+									<p>¥<span>99</span></p>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="inner">
+								<a href="javascript:;">
+									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+									<h4>48小时特惠 勾搭衣架 挑时</h4>
+									<p>¥<span>99</span></p>
+								</a>
+							</div>
+						</div>
+
+
+					</div>
+					<!-- Add Pagination -->
+				</div>
+
+				<div class="sale_all">
+					<div class="gather_node">
+						<div class="gather_tit">
+							<a href="javascript:;">
+								<h3>热销推荐<b></b></h3>
+							</a>
+						</div>
+
+						<div class="topic"><a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a> </div>
+
+						<div class="swiper-container swp_views">
+							<div class="swiper-wrapper swp_list">
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/58119f30d1df1.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/58228fab88fa0.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+
+
+							</div>
+							<!-- Add Pagination -->
+						</div>
+
+					</div>
+
+					<div class="gather_node">
+						<div class="gather_tit">
+							<a href="javascript:;">
+								<h3>热销推荐<b></b></h3>
+							</a>
+						</div>
+
+						<div class="topic"><a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a> </div>
+
+						<div class="swiper-container swp_views">
+							<div class="swiper-wrapper swp_list">
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/58119f30d1df1.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/58228fab88fa0.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="inner">
+										<a href="javascript:;">
+											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
+											<h4>48小时特惠 勾搭衣架 挑时</h4>
+											<p>¥<span>99</span></p>
+										</a>
+									</div>
+								</div>
+
+
+							</div>
+							<!-- Add Pagination -->
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 		</div>
 	</body>
 	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="/shop/js/swiper.min.js"></script>
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		$(function () {
-			
+		//banner轮播
+		var swiper = new Swiper('#indexBanner', {
+			pagination: '.swiper-pagination',
+			autoplay: 3500,
+			autoplayDisableOnInteraction : false,
+			loop: true
 		});
+		//多图轮播
+		var swiper = new Swiper('.swp_views', {
+			slidesPerView: 3.5,
+			paginationClickable: true,
+			spaceBetween: 0
+		});
+		$(function () {
+			$(".up_list").click(function() {
+				if( $(".up_list>em").hasClass("up")){
+					$(".up_list>em").removeClass("up").addClass("down");
+				}else if($(".up_list>em").hasClass("down")){
+					$(".up_list>em").removeClass("down").addClass("up");
+				}
+				$(".nav_mian").toggle();
+				$(".mask").toggle();
+				if($(".mask").css('display')=='block'){
+					$("body,html").css({"overflow":"hidden"});
+					return false;
+				}else{
+					$("body,html").css({"overflow":"auto"});
+				}
+			});
+
+		})
+
 	</script>
 </html>

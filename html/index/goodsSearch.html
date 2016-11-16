@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>搜索</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <style>
+        body{background: #f9f9f9;  height:100%;}
+
+        .header{padding: 1rem 1.5rem;background-color:#fff;position: relative;z-index: 200;}
+        .header input{font-size:1.1rem;float:left;width: 60%;height:2.5rem;border-top-right-radius :5px;border-bottom-right-radius:5px;padding:0 1rem; color:#9e9e9e; background: #EFEFEF;border:1px solid #EFEFEF;background-size: 1.6rem;background-position-y: 0.3rem;background-position-x: 0.5rem;}
+
+        .s-input-tab{display:inline-block;position:relative; background: #EFEFEF;border-top-left-radius :5px;border-bottom-left-radius:5px; }
+        .s-input-tab .s-input-tab-txt{width:3.6rem;height:2.5rem;line-height:2.5rem;text-indent:10px;color:#3c3c3c;font-size:1.1rem;}
+        .s-input-tab .s-input-tab-nav{position:absolute;left:0;top:30px;z-index:101;padding:10px; display: none;}
+        .s-input-tab .s-input-tab-nav.off{display:none}
+        .s-input-tab .s-input-tab-nav ul{background:#3c3c3c;border-radius:6px;width:10rem;overflow:hidden;color:#c7c8c9}
+        .s-input-tab .s-input-tab-nav ul:after{position:absolute;left:20px;top:5px;content:'';display:inline-block;width:10px;height:10px;background:#3c3c3c;-webkit-transform:rotate(45deg)}
+        .s-input-tab .s-input-tab-nav li{border-top:1px solid #707476;margin-top:-1px;height:3rem;line-height:3rem; text-align: center;}
+
+        #search-button{float:right;border:1px solid #878787;border-radius:4px;width:5rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#606060;}
+        .nav{display:none;padding: 1rem 1.5rem;background-color: #FFFFFF;font-size: 0;position: relative;z-index: 200;}
+        .nav span{display: inline-block;width: 50%;font-size: 1.4rem;color:#666666;text-align: center;}
+        .nav span i.iconfont {display: inline-block;margin-left:  .4rem;font-size: 1.2rem;font-weight: bold; vertical-align: middle;}
+        .nav span.up,.nav span.down{ color: #3C3C3C;}
+        .nav span i.iconfont{ display: inline-block; margin: -.2rem 0 0 .3rem; font-size: 1.2rem; font-weight: bold; vertical-align: middle;}
+        .nav span.up i.iconfont{ color: #eb4849;}
+        .nav span.down i.iconfont{ color: #eb4849; -webkit-transform: rotate(180deg); transform: rotate(180deg);}
+        .nonePageImg{z-index: 100;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header fix">
+        <div class="s-input-tab left">
+            <div class="s-input-tab-txt"><em></em>商品</div>
+            <div class="s-input-tab-nav" id="J_TabNav">
+                <ul>
+                    <li class="all">商品</li>
+                    <li class="shop">店铺</li>
+                </ul>
+            </div>
+        </div>
+        <form action="javascript:void(0)">
+            <input type="search" id="searchInput" placeholder="请输入搜索的商品名称..." autocapitalize="off" autocorrect="off" />
+        </form>
+        <span id="search-button">搜索</span>
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    $(function () {
+        $(".s-input-tab-txt").click(function() {
+            $("#J_TabNav").toggle();
+        });
+        $("#J_TabNav li").click(function() {
+            var text=$(this).text();
+            $(".s-input-tab-txt").html(text);
+            $("#J_TabNav").hide();
+        });
+
+    });
+</script>
+</html>

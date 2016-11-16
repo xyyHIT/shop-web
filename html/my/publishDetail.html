@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>宝贝描述</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<script src="/shop/js/rem.js"></script>
+		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<style>
+			.footer{ display: none;}
+			body{ background: #f9f9f9;}
+			
+			.info{ font-size: 1.2rem; color: #878787;}
+			.noData{ padding: 10rem 0; font-size: 1.3rem; color: #878787; text-align: center; letter-spacing: 1px; background: #fff;}
+			
+			.dData{ position: relative; margin-bottom: .5rem; padding-bottom: 5rem; background: #fff;}
+			.dData p{ padding: 1rem 1rem 0 1rem; line-height: 1.8rem;}
+			.dData a{ position: absolute; right: 1rem; bottom: 1.2rem; display: block; width: 4.8rem; height: 2.3rem; line-height: 2.3rem; text-align: center; border:1px solid #878787; border-radius:5px; letter-spacing: 1px;}
+			.dData img{ width: 100%;}
+			
+			.operate{}
+			.operate > div{ width: 50%; float: left; padding: 3.5rem 0; text-align: center;}
+			.operate > div i{ font-size: 4rem;}
+			
+			.confirm{ position: fixed; left: 0; bottom: 0; width: 100%; height: 4.8rem; line-height: 4.8rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; background: #EC4747;}
+			
+			.tanchu{ display: none; position: fixed; left: 0; bottom: 0; width: 100%; font-size: 1.3rem; color: #878787; background: #C4C4C4; z-index: 9991;}
+			.tanchu a{ display: block; height: 5rem; line-height: 5rem; text-align: center; background: #fff;}
+			.tanchu a.tanchu_del,a.tanchu_update{ border-top: 1px solid #EFEFEF;}
+			.tanchu a.tanchu_cancel{ margin-top: .5rem;}
+			
+			.editFont{ display: none; position: fixed; left: 50%; top: 50%; width: 92%; height: 30rem; text-align: center; background: #fff; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9991;}
+			.editFont h2{ position: relative; height: 5rem; line-height: 5rem; margin-bottom: .5rem; background: #FAF9FB;}
+			.editFont h2 i{ position: absolute; right: 0; width: 4rem; font-size: 1.6rem; text-align: center;}
+			.editFont textarea{ width: 95%; height: 17rem; padding: .8rem 1rem; font-size: 1.2rem; line-height: 1.8rem; border:1px solid #EFEFEF; border-radius:5px;}
+			.editFont_a{ display: inline-block; width: 95%; height: 4rem; margin-top: 1.3rem; line-height: 4rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; border-radius: 5px; background: #EC4747;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="info">
+				<!--<div class="noData">
+					点击下方按钮添加宝贝描述吧！
+				</div>-->
+				<div class="haveData">
+					<div class="dData">
+						<p>功夫茶具套装四合一陶瓷茶杯茶壶套装整套茶具茶盘茶盘。陶瓷茶杯茶壶套装整套茶具茶盘茶盘。</p>
+						<a>编辑</a>
+					</div>
+					<div class="dData">
+						<img src="../../imgs/test/1.jpg" />
+						<a>编辑</a>
+					</div>
+				</div>
+			</div>
+			<div class="operate fix">
+				<div>
+					<i class="iconfont icon-baozhengjin"></i>
+				</div>
+				<div>
+					<i class="iconfont icon-baozhengjin"></i>
+				</div>
+			</div>
+			<a class="confirm">确认</a>
+		</div>
+		<div class="tanchu">
+			<a class="tanchu_revise">修改文字</a>
+			<a class="tanchu_update">替换图片</a>
+			<a class="tanchu_del">删除</a>
+			<a class="tanchu_cancel">取消</a>
+		</div>
+		<div class="editFont">
+			<h2><i class="iconfont icon-chacha"></i></h2>
+			<textarea name="" rows="" cols="" placeholder="请输入内容,不超过5000个字"></textarea>
+			<a class="editFont_a">确认</a>
+		</div>
+	</body>
+	
+	<script src="/shop/js/jquery-2.1.4.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/fastclick.js"></script>
+	<script>
+		$(function () {
+			//编辑
+			$("body").on("click",".dData a",function(){
+				$("body").append("<div class='bg'></div>");
+				$(".bg,.tanchu").show();
+			})
+			//关闭编辑列表
+			$("body").on("click",".bg,.tanchu a",function(){
+				$(".bg").remove();
+				$(".bg,.tanchu").hide();
+			})
+			//弹出文字输入框
+			$("body").on("click",".tanchu_revise",function(){
+				$("body").append("<div class='bg'></div>");
+				$(".bg,.editFont").show();
+			})
+			//关闭文字输入框
+			$("body").on("click",".bg,.editFont h2 i,.editFont_a",function(){
+				$(".bg").remove();
+				$(".bg,.editFont").hide();
+			})
+			
+		});
+	</script>
+</html>

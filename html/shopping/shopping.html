@@ -9,12 +9,63 @@
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
+			body{ background: #f9f9f9;}
+			.noData{ position: fixed; left: 50%; top: 50%; text-align: center; -webkit-transform: translate(-50%,-50%);}
+			.noData i.iconfont{ font-size: 9rem;}
+			.noData span{ display: inline-block; margin: .3rem; font-size: 1.3rem; color: #aaa;}
+			.noData em{ font-size: 1.5rem; color: #5F5F5F;}
+			.noData a{ display: inline-block; width: 8rem; height: 2.8rem; margin-top: 2rem; line-height: 2.8rem; font-size: 1.2rem; color: #EC4747; text-align: center; border: 1px solid #EC4747; border-radius: 5px;}
 			
+			.box{ margin-bottom: .5rem;}
+			.box h2{ height: 4rem; line-height: 4rem; background: #FAF9FB;}
+			.box ul{ background: #fff;}
+			.box ul li{ position: relative; padding: 1rem 0 1rem 12rem; border-bottom: 1px solid #EFEFEF;}
+			.box ul li i.icon-duigou{ position: absolute; left: 1rem; top: 3rem}
+			.box ul li > img{ position: absolute; top: 1rem; left: 4rem; width: 7rem; height: 7rem; border-radius: 5px;}
+			
+			
+			.operate{ position: fixed; left: 0; bottom: 4.8rem; width: 100%; height: 4.8rem; padding: 0 11rem 0 4rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; line-height: 4.8rem; background: #fff;}
+			.operate i{ position: absolute; left: 0; width: 4rem; font-size: 1.8rem; text-align: center;}
+			.operate span{ font-size: 1.5rem; color: #EC4747;}
+			.operate a{ position: absolute; right: 0; top: 0; display: block; width: 10rem; font-size: 1.3rem; color: #fff; text-align: center; background: #EC4747; word-break: break-all;}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			
+			<!--<div class="noData">
+				<i class="iconfont icon-chacha"></i><br />
+				<span>购物袋是空的</span><br />
+				<em>去首页逛逛吧</em><br />
+				<a href="/shop/html/index/index.html">去首页</a>
+			</div>-->
+			<div class="list">
+				<div class="box">
+					<h2>
+						<i class="iconfont icon-duigou"></i>
+						viishow旗舰店
+						<i class="iconfont icon-duigou"></i>
+					</h2>
+					<ul>
+						<li>
+							<i class="iconfont icon-duigou"></i>
+							<img src="../../imgs/test/0.jpg" />
+							<strong>自然造物 | 一物 ·【看道·寻瓷】</strong>
+							<p>
+								<span>¥200</span><em>x1</em>
+							</p>
+							<div class="addSubtract">
+								<input /><i></i><i></i>
+							</div>
+							<i class="iconfont icon-duigou"></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="operate">
+			<i class="iconfont icon-duigou"></i>
+			合计：<span>¥600.00</span>
+			<a>结算（1）</a>
 		</div>
 	</body>
 	

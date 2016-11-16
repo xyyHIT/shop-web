@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>发布</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<script src="/shop/js/rem.js"></script>
+		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<style>
+			.footer{ display: none;}
+			body{ background: #f9f9f9;}
+			.marDiv{ height: .5rem; background: #f9f9f9;}
+			.container{}
+			h1{ padding: 1.4rem 1rem; font-size: 1.2rem; color: #878787; background: #fff;}
+			.imgList{ height: 5rem; margin-bottom: 1.4rem; background: #fff; overflow: hidden;}
+			.imgList li{ position: relative; float: left; width: 5rem; height: 5rem; margin-left: 1.2rem; overflow: hidden;}
+			.imgList li img{ width: 100%;}
+			.imgList li i{ position: absolute; display: block; width: 1.5rem; height: 1.5rem; top: 0; right: 0;}
+			
+			.item{ font-size: 1.2rem; color: #878787; background: #fff;}
+			.item li{ position: relative; height: 5rem; padding: 0 1rem; line-height: 5rem; overflow: hidden;}
+			.item li.borderB{ border-bottom: 1px solid #EFEFEF;}
+			.item label{ position: absolute; left: 1rem; display: block; height: 5rem; color: #5F5F5F;}
+			.item input{ width: 100%; height: 5rem; padding-left: 6rem; font-size: 1.2rem; color: #5F5F5F; border: none;}
+			.item li i{ margin-left: .5rem; font-size: 1.6rem; color: #878787; vertical-align: middle;}
+			.item .liR{ position: absolute; top: 0; right: .7rem;}
+			
+			.operate{ margin-top: 3rem; text-align: center;}
+			.operate a{ display: inline-block; width: 44%; height: 4rem; margin: 0 .5rem; line-height: 4rem; font-size: 1.3rem; color: #fff; text-align: center; background: #5F5F5F; border-radius: 5px;}
+			.operate a.on{ background: #ec4747;}
+			
+			.fenlei{ display: none; position: fixed; left: 0; bottom: 0; width: 100%; height: 60%; padding-top: 5rem; font-size: 1.3rem; color: #878787; z-index: 9991;}
+			.fenlei h2,.fenlei .fenleiT,.fenlei li{ height: 5rem; padding: 0 1rem; line-height: 5rem; overflow: hidden;}
+			.fenlei h2{ position: absolute; top: 0; left: 0; width: 100%; font-size: 1.3rem; color: #878787; background: #FAF9FB;}
+			.fenlei .fenleiBox{ position: relative; height: 100%; overflow-y: auto; overflow-x: hidden;}
+			.fenlei i{ position: absolute; right: 0; width: 4rem; font-size: 1.6rem; text-align: center;}
+			.fenlei .fenleiT{ border-bottom: 1px solid #EFEFEF; background: #fff;}
+			.fenlei .fenleiT i{ -webkit-transform:rotate(90deg);}
+			.fenlei .fenleiT.on i{ -webkit-transform:rotate(-90deg);}
+			.fenlei ul{ display: none;}
+			.fenlei ul li{ text-align: center; background: #F9F9F9;}
+			.fenlei ul li.on{ color: #fff; background: #EC4747;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>上传商品图片</h1>
+			<ul class="imgList fix">
+				<li>
+					<img src="../../imgs/test/0.jpg" />
+					<i class="iconfont icon-chacha"></i>
+				</li>
+				<li>
+					<img src="../../imgs/test/0.jpg" />
+					<i class="iconfont icon-chacha"></i>
+				</li>
+				<li>
+					<img src="../../imgs/test/0.jpg" />
+					<i class="iconfont icon-chacha"></i>
+				</li>
+				<li>
+					<img src="../../imgs/test/0.jpg" />
+					<i class="iconfont icon-chacha"></i>
+				</li>
+				<li>
+					<img src="../../imgs/test/0.jpg" />
+					<i class="iconfont icon-chacha"></i>
+				</li>
+				<li>
+					<img src="../../imgs/test/0.jpg" />
+					<i class="iconfont icon-chacha"></i>
+				</li>
+			</ul>
+			<div class="marDiv"></div>
+			<ul class="item">
+				<li class="borderB">
+					<label for="gTitle">商品标题</label>
+					<input type="text" id="gTitle" placeholder="请输入商品标题" />
+				</li>
+				<li>
+					<label for="gCategory">商品分类</label>
+					<input type="text" id="gCategory" readonly="readonly" />
+					<div class="liR">
+						<i class="iconfont icon-jiantou"></i>
+					</div>
+				</li>
+				<div class="marDiv"></div>
+				<li class="borderB">
+					<label for="gPrice">商品价格</label>
+					<input type="text" id="gPrice" placeholder="请输入商品价格" />
+				</li>
+				<li class="borderB">
+					<label for="gRepertory">商品库存</label>
+					<input type="text" id="gRepertory" placeholder="请输入商品库存" />
+				</li>
+				<li class="borderB">
+					<label for="gTransportation">运费</label>
+					<input type="tel" id="gTransportation" value="10" />
+				</li>
+				<li>
+					<label for="gWarning">库存预警</label>
+					<input type="tel" id="gWarning" value="200" />
+				</li>
+				<div class="marDiv"></div>
+				<li class="goPublishDetail">
+					<label>宝贝描述</label>
+					<div class="liR alreadyEdit">
+						已编辑<i class="iconfont icon-jiantou"></i>
+					</div>
+				</li>
+			</ul>
+			<div class="operate">
+				<a class="draft">保存草稿</a><a class="on publish">立即发布</a>
+			</div>
+		</div>
+		<div class="fenlei">
+			<h2>商品分类<i class="iconfont icon-chahao"></i></h2>
+			<div class="fenleiBox">
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+				<div class="fenleiT">饰界<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>金银</li>
+					<li>玉器</li>
+					<li>宝石</li>
+				</ul>
+				<div class="fenleiT">文玩<i class="iconfont icon-jiantou"></i></div>
+				<ul>
+					<li>文玩1</li>
+					<li>文玩2</li>
+				</ul>
+			</div>
+		</div>
+		
+	</body>
+	
+	<script src="/shop/js/jquery-2.1.4.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/fastclick.js"></script>
+	<script>
+		$(function () {
+			
+			//弹出分类列表
+			$("body").on("click","#gCategory",function(){
+				$("body").append("<div class='bg'></div>");
+				$(".bg,.fenlei").show();
+			})
+			//关闭分类列表
+			$("body").on("click",".bg,.fenlei h2 i,.fenlei ul li",function(){
+				$(".bg").remove();
+				$(".bg,.fenlei").hide();
+			})
+			//点击商品一级分类列表
+			$("body").on("click",".fenleiT",function(){
+				var _t = $(this);
+				if(_t.hasClass("on")){
+					_t.removeClass("on");
+					_t.next("ul").hide();
+				}else{
+					$(".fenlei .fenleiT").removeClass("on");
+					$(".fenlei ul").hide();
+					_t.addClass("on");
+					_t.next("ul").show();
+				}
+			})
+			//点击商品二级分类列表
+			$("body").on("click",".fenlei ul li",function(){
+				var _t = $(this);
+				$(".fenlei ul li").removeClass("on");
+				_t.addClass("on").siblings().removeClass("on");
+				$("#gCategory").val(_t.text());
+			})
+			//跳到宝贝描述
+			$("body").on("click",".goPublishDetail",function(){
+				location.href = "publishDetail.html";
+			})
+		});
+	</script>
+</html>

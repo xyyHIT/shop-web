@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>我的</title>
+		<title>我是商家</title>
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
 		<script src="/shop/js/rem.js"></script>
@@ -18,11 +18,10 @@
 			.top .head{ position: absolute; left: 1.5rem; top: 1.5rem; width: 5rem; height: 5rem; border-radius: 100%;}
 			.top i{ position: absolute; right: 1rem; top: 3rem; font-size: 1.6rem; color: #979797;}
 			
-			.dBox{ margin-bottom: .5rem; background: #fff;}
-			.dBox > a{ position: relative; display: block; height: 4rem; padding: 0 1.5rem; line-height: 4rem; font-size: 1.3rem; color: #878787; border-bottom: 1px solid #EFEFEF;}
-			.dBox > a i{ position: absolute; right: 1rem; font-size: 1.5rem;}
-			.dBox > div a{ float: left; display: block; width: 25%; padding: 2rem 0 1.5rem 0; font-size: 1.2rem; color: #878787; text-align: center;}
-			.dBox > div a i{ display: block; margin-bottom: .2rem; font-size: 1.8rem;}
+			.box{ background: #fff;}
+			.box a{ float: left; display: block; width: 25%; height: 7.5rem; font-size: 1.2rem; color: #878787; text-align: center; border-bottom: 1px solid #EFEFEF; border-right: 1px solid #EFEFEF;}
+			.box a:nth-child(4n){ border-right: none;}
+			.box a i.iconfont{ display: block; margin: 1.7rem 0 .2rem 0; font-size: 1.8rem;}
 			
 		</style>
 	</head>
@@ -30,36 +29,19 @@
 		<div class="container">
 			<div class="top">
 				<h1 class="over"><img src="../../imgs/test/0.jpg" />时间流逝时间流逝时间流逝时间流逝时间流</h1>
-				<p>关注9</p>
+				<p>粉丝8</p>
 				<img class="head" src="../../imgs/test/0.jpg" />
 				<i class="iconfont icon-jiantou"></i>
 			</div>
-			<div class="dBox">
-				<a>我的订单<i class="iconfont icon-jiantou"></i></a>
-				<div class="fix">
-					<a><i class="iconfont icon-caogao"></i>待付款</a>
-					<a><i class="iconfont icon-caogao"></i>待发货</a>
-					<a><i class="iconfont icon-caogao"></i>待收货</a>
-					<a><i class="iconfont icon-caogao"></i>待评价</a>
-				</div>
-			</div>
-			<div class="dBox">
-				<a href="mySaler.html" style="border: none;">我是商家<i class="iconfont icon-jiantou"></i></a>
-			</div>
-			<div class="dBox">
-				<a>常用入口</a>
-				<div class="fix">
-					<a><i class="iconfont icon-chongzhi"></i>我的钱包</a>
-					<a><i class="iconfont icon-chongzhi"></i>喜欢的宝贝</a>
-					<a><i class="iconfont icon-chongzhi"></i>关注的店铺</a>
-					<a><i class="iconfont icon-chongzhi"></i>我的积分</a>
-				</div>
-			</div>
-			<div class="dBox">
-				<a>旗下产品</a>
-				<div class="fix">
-					<a><i class="iconfont icon-chongzhi"></i>艺加拍卖</a>
-				</div>
+			<div class="box fix">
+				<a href="publish.html"><i class="iconfont icon-chongzhi"></i>发布商品</a>
+				<a><i class="iconfont icon-chongzhi"></i>商品管理</a>
+				<a><i class="iconfont icon-chongzhi"></i>交易管理</a>
+				<a><i class="iconfont icon-chongzhi"></i>营销工具</a>
+				<a><i class="iconfont icon-chongzhi"></i>我的钱包</a>
+				<a></a>
+				<a></a>
+				<a></a>
 			</div>
 		</div>
 	</body>

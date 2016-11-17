@@ -237,7 +237,7 @@ var allFun = {
 	publicIcon: function () {
 		var publicNavUrl = window.location.href.split('#')[0];
 		// 用数组存关键词
-		var publicNavKeywords = ["/index/", "/category/", "/shopping/", "/my/"];
+		var publicNavKeywords = ["/index/", "/category/", "/shopping/", "/my/", "/order/"];
 		// 创建正则
 		var publicNavReg = new RegExp(publicNavKeywords.join('|'));
 		// 如果想知道匹配到哪个，那么用match
@@ -255,6 +255,9 @@ var allFun = {
 					$(".footer a").eq(2).addClass("on");
 					break;
 				case "/my/":
+					$(".footer a").eq(3).addClass("on");
+					break;
+				case "/order/":
 					$(".footer a").eq(3).addClass("on");
 					break;
 			}

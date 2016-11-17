@@ -1,0 +1,66 @@
+/*订单列表*/
+nav{ height: 4rem; line-height: 4rem; background: #fff;}
+nav a{ display: inline-block; font-size: 1.3rem; color: #3C3C3C; text-align: center; letter-spacing: 1px;}
+nav a.on{ color: #EC4747; border-bottom: 2px solid #EC4747;}
+nav.nav2 a{ width: 50%;}
+nav.nav3 a{ width: 33.33%;}
+nav.nav4 a{ width: 25%;}
+nav.nav5 a{ width: 20%;}
+
+.box{ margin-top: .5rem; background: #fff;}
+.box h2{ position: relative; height: 3rem; padding: 0 1.5rem; line-height: 3rem;}
+.box h2 i{ display: inline-block; vertical-align: top;}
+.box h2 i.icon-zhankai-copy{ font-size: 1rem; color: #3C3C3C;}
+.box h2 a{ display: inline-block; max-width: 70%; height: 3rem; font-size: 1.1rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all;}
+.box h2 em{ position: absolute; right: 1.5rem; display: block; top: 0;}
+.box ul li{ position: relative; height: 10rem; margin-bottom: .5rem; padding: 1.5rem 1.5rem 1.5rem 9.5rem; background: #FAF9FB;}
+.box ul li:last-child{ margin-bottom: 0;}
+.box ul li > img{ position: absolute; top: 1.6rem; left: 1.5rem; width: 7rem; height: 7rem; border-radius: 5px;}
+.box ul li strong{ font-size: 1.2rem; color: #3C3C3C; word-break: break-all;}
+.box ul li p{ margin-top: .5rem; font-size: 1.2rem;}
+.box ul li p span{ color: #3C3C3C;}
+.box ul li p em{ float: right; color: #878787;}
+
+.dTotal{ height: 4rem; line-height: 4rem; padding: 0 1.5rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; background: #fff;}
+.dTotal span{ font-size: 1.5rem; color: #EC4747;}
+
+.dOperate{ height: 4.5rem; text-align: right; border-top: 1px solid #EFEFEF; background: #fff;}
+.dOperate a{ display: inline-block; width: 7rem; height: 2.5rem; line-height: 2.5rem; margin: 1rem .5rem; font-size: 1.1rem; color: #878787; text-align: center; border: 1px solid #878787; border-radius: 5px;}
+.dOperate a.on{ color: #fff; border: 1px solid #EC4747; background: #EC4747;}
+
+/*订单详情*/
+.dTop{ padding: 2.2rem 1.5rem 2rem 1.5rem; background: #EC4747;}
+.dTop .dTopL i{ margin-right: 1rem; font-size: 3rem;}
+.dTop > div{ display: table-cell; vertical-align: middle; font-size: 1.1rem; color: #fff;}
+.dTop > div span{ font-size: 1.5rem;}
+.dTop > div p{ margin-top: .3rem;}
+
+.dAddress{ position: relative; background: #fff;}
+.dAddress .dAddressHave{ padding: 1rem 1rem .8rem 1rem;}
+.dAddress i.icon-dizhi{ margin-right: 1rem; font-size: 3rem; color: #8E9DB0; vertical-align: middle;}
+.dAddress .dAddressHave > div{ display: table-cell; vertical-align: top; padding-top: .2rem;}
+.dAddress .dAddressHave > div.dAddressM,.dAddress > div.dAddressR{ padding-top: .2rem;}
+.dAddress .dAddressHave > div.dAddressM{ width: 5.5rem;}
+.dAddress .dAddressHave > div em{ color: #3C3C3C;}
+.dAddress .dAddressHave > div span{ color: #878787; word-break: break-all;}
+.dAddress .dAddressHave > div p{ margin-top: .3rem;}
+
+.dAddress .dAddressNo{ position: relative; margin-top: .3rem; padding: .7rem 1rem .5rem 1rem; font-size: 1.2rem; color: #3C3C3C;}
+.dAddress .dAddressNo i.icon-zhankai-copy{ position: absolute; right: 1rem; top: 1.6rem; font-size: 1.4rem;}
+
+.sundry{ height: 4rem; line-height: 4rem; padding: 0 1.5rem; border-bottom: 1px solid #EFEFEF; background: #fff;}
+.sundry span{ float: right;}
+
+.dElse{ margin-top: .5rem; padding: .7rem 1.5rem .5rem 1.5rem; font-size: 1.1rem; color: #878787; line-height: 1.8rem; background: #fff;}
+
+.dfixed{ position: fixed; left: 0; bottom: 0; width: 100%;}
+.dfixed > a.goHome{ position: absolute; left: 1.5rem; top: -5.5rem; width: 4.5rem; height: 4.5rem;}
+.dfixed > a.goHome i{ font-size: 4rem; color: #8E9DB0;}
+.dfixed > div{ height: 4.8rem; line-height: 4.8rem; font-size: 1.3rem; text-align: center;}
+.dfixed a{ display: inline-block; letter-spacing: 1px;}
+.dfixed.dfixed1 a{ width: 100%;}
+.dfixed.dfixed2 a{ width: 50%;}
+.dfixed.dfixed3 a{ width: 33.33%;}
+.dfixed a.on1{ color: #fff; background: #EC4747;}
+.dfixed a.on2{ color: #fff; background: #5F5F5F;}
+.dfixed a.on3{ color: #878787; background: #FAF9FB;}

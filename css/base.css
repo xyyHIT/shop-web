@@ -6,7 +6,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     vertical-align: baseline;
 }
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display: block;}
-body {font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif; padding-bottom: 4.8rem; max-width: 640px; margin: 0 auto;}
+body {font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif; padding-bottom: 5rem; max-width: 640px; margin: 0 auto; background: #F9F9F9;}
 ol,ul{ list-style: none;}
 li{ list-style: none;}
 table {border-collapse: collapse; border-spacing: 0;}

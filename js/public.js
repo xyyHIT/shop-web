@@ -43,15 +43,15 @@ var host = "http://"+location.host;
 		//添加底部导航
 		$("body").append("<div class='footer footerInit footerDay'><a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a><a href='/shop/html/category/category.html'><i></i>发现</a><a href='/shop/html/shopping/shopping.html'><i></i>购物袋</a><a href='/shop/html/my/myBuyer.html'><i></i>我的</a></div>");
 		allFun.publicIcon();
-		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-dibudaohangshouyeoff");
-		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-dibudaohangfenleioff");
-		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-dibudaohangfabuoff");
-		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-dibudaohangguanzhuoff");
+		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-nianhuojie");
+		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-faxian");
+		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-gouwudai");
+		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-wode1");
 		$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
-		$(".footerInit a:nth-child(1).on i").attr("class","iconfont icon-dibudaohangshouyeon");
-		$(".footerInit a:nth-child(2).on i").attr("class","iconfont icon-dibudaohangfenleion");
-		$(".footerInit a:nth-child(3).on i").attr("class","iconfont icon-dibudaohangfabuon");
-		$(".footerInit a:nth-child(4).on i").attr("class","iconfont icon-dibudaohangguanzhuon");
+		$(".footerInit a:nth-child(1).on i").attr("class","iconfont icon-nianhuojie");
+		$(".footerInit a:nth-child(2).on i").attr("class","iconfont icon-faxian");
+		$(".footerInit a:nth-child(3).on i").attr("class","iconfont icon-gouwudai");
+		$(".footerInit a:nth-child(4).on i").attr("class","iconfont icon-wode1");
 		$(".footerInit a:nth-child(5).on i").attr("class","iconfont icon-dibudaohangwodeon");
 		
 	});

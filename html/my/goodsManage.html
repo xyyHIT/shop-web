@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>商品管理</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <style>
+
+        .trade{width: 100%; line-height:4rem; background: #fff;}
+        .trade span{width:33.33%; position: relative; text-align: center; font-size: 1.3rem; display: inline-block; color:#3C3C3C;}
+        .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
+
+        .trade_contents{ overflow: hidden;}
+        .trade_contents ol{ display: none; background: #faf9fb;}
+        .trade_contents ol.current{ display: block;}
+
+        .header{padding: 1rem 1.5rem;background-color:#fff; margin:0.5rem 0;position: relative;z-index: 200;}
+        .header input{font-size:1.1rem;color:#9e9e9e;float:left;height:2.5rem;width:21.9rem;padding-left:3rem;background:#e7e7e7;border:none;border-radius:5px;background-size: 1.6rem;background-position-y: 0.3rem;background-position-x: 0.5rem;}
+        #search-button{float:right;border-radius:4px; border:1px solid #5f5f5f;width:6rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#5f5f5f;}
+        .searchBg{position: absolute; top:1.5rem; left:2rem; font-size: .16rem; color:#6e6e6e;}
+
+        .goodsList{margin-bottom:1rem; }
+        .goodsList .goodsContent{height:10rem; background: #fff;padding:0 1.5rem;}
+        .goodsList .goodsContent a{width:100%; height:100%; overflow: hidden; display: inline-block;}
+        .goodsList .goodsContent dl{padding-top:1.5rem; overflow: hidden;}
+        .goodsList .goodsContent dl dt{width:7rem; height: 7rem; margin-right:1.5rem; background: #f00; border-radius: 5px;}
+        .goodsList .goodsContent dl dt img{width:100%;}
+        .goodsList .goodsContent dl dd{}
+        .goodsList .goodsContent dl dd .title{font-size: 1.2rem; color:#3c3c3c; padding-top:.5rem;}
+        .goodsList .goodsContent dl .repertory{color:#aaa;font-size: 1.2rem; margin-right:2rem;}
+        .goodsList .goodsContent dl .num{margin-top:.3rem;}
+        .goodsList .goodsContent dl .warn{width:5rem; text-align: center; background: #ec4747;font-size: 1rem; color:#fff; height:2rem; line-height: 2rem; display: inline-block; border-radius: 25px;}
+        .handle{margin-top:.2rem;}
+        .handle ul{ background: #fff; overflow: hidden; padding:1rem 0;}
+        .handle ul li{ float: left; width:33.33%; text-align: center;}
+        .handles ul li{ width:50%;}
+        .handle ul li .del{color:#b5bac0; font-size: 1.9rem}
+        .handle ul li .redact{color:#ffc77e; font-size: 1.9rem}
+        .handle ul li .Unshelve{color:#6aabd3; font-size: 1.9rem}
+        .handle ul li .shelve{color:#ec4747; font-size: 1.9rem}
+        .sketch{color:#878787; font-size: 1.1rem;margin-top:.3rem;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="trade">
+        <span class="current">出售中</span><span>已下架</span><span>草稿</span>
+    </div>
+    <div class="header fix">
+        <div class="searchBg iconfont icon-sousuo"></div>
+        <form action="javascript:void(0)">
+            <input type="search" id="searchInput" placeholder="输入搜索的商品名称..." autocapitalize="off" autocorrect="off">
+        </form>
+        <span id="search-button">搜索</span>
+    </div>
+    <div class="trade_contents">
+        <ol class="current" >
+            <div class="goodsList">
+                <div class="goodsContent">
+                    <a href="javascript:;">
+                        <dl>
+                                <dt class="left"><img src="" alt=""></dt>
+                                <dd class="">
+                                    <p class="over over1 title">输入搜索的商品名称</p>
+                                    <p class="price title">$2000</p>
+                                    <p class="num"><span class="repertory">库存1000</span><span class="warn">库存预警</span></p>
+                                </dd>
+                        </dl>
+                    </a>
+                </div>
+                <div class="handle">
+                    <ul>
+                        <li>
+                          <div class="iconfont icon-shanchu71 del"></div>
+                            <div class="sketch">删除</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-bianji redact"></div>
+                            <div class="sketch">编辑</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-xiajia Unshelve"></div>
+                            <div class="sketch">下架</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="goodsList">
+                <div class="goodsContent">
+                    <a href="javascript:;">
+                        <dl>
+                            <dt class="left"><img src="" alt=""></dt>
+                            <dd class="">
+                                <p class="over over1 title">输入搜索的商品名称</p>
+                                <p class="price title">$2000</p>
+                                <p class="num"><span class="repertory">库存1000</span><span class="warn">库存预警</span></p>
+                            </dd>
+                        </dl>
+                    </a>
+                </div>
+                <div class="handle">
+                    <ul>
+                        <li>
+                            <div class="iconfont icon-shanchu71 del"></div>
+                            <div class="sketch">删除</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-bianji redact"></div>
+                            <div class="sketch">编辑</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-xiajia Unshelve"></div>
+                            <div class="sketch">下架</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="goodsList">
+                <div class="goodsContent">
+                    <a href="javascript:;">
+                        <dl>
+                            <dt class="left"><img src="" alt=""></dt>
+                            <dd class="">
+                                <p class="over over1 title">输入搜索的商品名称</p>
+                                <p class="price title">$2000</p>
+                                <p class="num"><span class="repertory">库存1000</span></p>
+                            </dd>
+                        </dl>
+                    </a>
+                </div>
+                <div class="handle">
+                    <ul>
+                        <li>
+                            <div class="iconfont icon-shanchu71 del"></div>
+                            <div class="sketch">删除</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-bianji redact"></div>
+                            <div class="sketch">编辑</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-shangjia shelve"></div>
+                            <div class="sketch">上架</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ol>
+        <ol>
+            <div class="goodsList">
+                <div class="goodsContent">
+                    <a href="javascript:;">
+                        <dl>
+                            <dt class="left"><img src="" alt=""></dt>
+                            <dd class="">
+                                <p class="over over1 title">输入搜索的商品名称</p>
+                                <p class="price title">$2000</p>
+                                <p class="num"><span class="repertory">库存1000</span><span class="warn">库存预警</span></p>
+                            </dd>
+                        </dl>
+                    </a>
+                </div>
+                <div class="handle handles">
+                    <ul>
+                        <li>
+                            <div class="iconfont icon-shanchu71 del"></div>
+                            <div class="sketch">删除</div>
+                        </li>
+                        <li>
+                            <div class="iconfont icon-bianji redact"></div>
+                            <div class="sketch">编辑</div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </ol>
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    $(function () {
+        $(".trade span").each(function(index) { //带参数遍历各个选项卡
+            $(this).click(function() { //注册每个选卡的单击事件
+                $(".trade span.current").removeClass("current"); //移除已选中的样式
+                $(this).addClass("current"); //增加当前选中项的样式
+                //显示选项卡对应的内容并隐藏未被选中的内容
+                $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
+            });
+        });
+    });
+</script>
+</html>

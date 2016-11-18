@@ -8,18 +8,11 @@
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<script src="/shop/css/font/iconfont.js"></script>
 		<link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
 		<style>
 			.footer{ display: none;}
 			
-			.dScanCode{ display: none; position: fixed; left: 50%; top: 50%; width: 92%; padding-bottom: 2rem; text-align: center; background: #F9F9F9; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9991;}
-			.dScanCode h2{ position: relative; height: 5rem; line-height: 5rem; margin-bottom: .5rem; background: #FAF9FB;}
-			.dScanCode h2 i{ position: absolute; right: .3rem; width: 4rem; font-size: 1.6rem; color: #3C3C3C; text-align: center;}
-			.dScanCode p{ position: relative; height: 5rem; padding: 0 1.5rem; font-size: 1.2rem; color: #5F5F5F; text-align: left; line-height: 5rem; background: #fff;}
-			.dScanCode p label,.dScanCode p i{ position: absolute;}
-			.dScanCode p i{ right: .3rem; width: 4rem; font-size: 2rem; color: #8E9DB0; text-align: center;}
-			.dScanCode p input{ width: 100%; line-height: 5rem; padding: 0 3rem 0 6rem; font-size: 1.2rem; color: #5F5F5F; border: none;}
-			.dScanCode > a{ display: inline-block; width: 95%; height: 4rem; margin-top: 6rem; line-height: 4rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; border-radius: 5px; background: #EC4747;}
 			
 		</style>
 	</head>
@@ -106,14 +99,22 @@
 				<div>
 					<a class="on3">延长收货</a><a class="on2">查看物流</a><a class="on1">确认收货</a>
 				</div>
-				<a class="goHome"><i class="iconfont icon-qushouye"></i></a>
+				<a class="goHome">
+					<svg class="icon" aria-hidden="true">
+					    <use xlink:href="#icon-qushouye"></use>
+					</svg>
+				</a>
 			</div>-->
 			<div class="dfixed dfixed1">
 				<div>
 					<!--<a class="on3">延长收货</a><a class="on2">查看物流</a><a class="on1">确认收货</a>-->
 					<a class="on1" id="aQuFaHuo">去发货</a>
 				</div>
-				<a class="goHome"><i class="iconfont icon-qushouye"></i></a>
+				<a class="goHome">
+					<svg class="icon" aria-hidden="true">
+					    <use xlink:href="#icon-qushouye"></use>
+					</svg>
+				</a>
 			</div>
 		</div>
 		<div class="dScanCode">

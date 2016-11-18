@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>收银台</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<script src="/shop/js/rem.js"></script>
+		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<script src="/shop/css/font/iconfont.js"></script>
+		<style>
+			ul li{ position: relative; height: 6rem; margin-bottom: .5rem; padding: 0 6rem; background: #fff;}
+			ul li p{ padding: 1.2rem 0 .2rem 0; font-size: 1.3rem; color: #3C3C3C;}
+			ul li span{ font-size: 1.1rem; color: #aaa;}
+			ul li svg.icon{ position: absolute; top: 1.5rem; left: 1.5rem; width: 3rem; height: 3rem;}
+			ul li i.iconfont{ position: absolute; top: 0; right: 1.5rem; font-size: 2.6rem; line-height: 6rem;}
+			ul li i.icon-querenoff1{ color: #aaa;}
+			ul li i.icon-queren1{ color: #EC4747;}
+			
+			.operate{ position: fixed; left: 0; bottom: 4.8rem; width: 100%; height: 4.8rem; padding: 0 11rem 0 1rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; line-height: 4.8rem; background: #fff;}
+			.operate span{ font-size: 1.5rem; color: #EC4747;}
+			.operate a{ position: absolute; right: 0; top: 0; display: block; width: 10rem; font-size: 1.3rem; color: #fff; text-align: center; background: #EC4747; word-break: break-all;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li>
+					<p>余额支付</p>
+					<span>¥20000元</span>
+					<svg class="icon" aria-hidden="true">
+					    <use xlink:href="#icon-qushouye"></use>
+					</svg>
+					<i class="iconfont icon-queren1"></i>
+				</li>
+				<li>
+					<p>微信零钱</p>
+					<span>单笔最高5000-500000元</span>
+					<svg class="icon" aria-hidden="true">
+					    <use xlink:href="#icon-qushouye"></use>
+					</svg>
+					<i class="iconfont icon-querenoff1"></i>
+				</li>
+				<li>
+					<p>银行卡</p>
+					<span>支持借借记卡和贷记卡</span>
+					<svg class="icon" aria-hidden="true">
+					    <use xlink:href="#icon-qushouye"></use>
+					</svg>
+					<i class="iconfont icon-querenoff1"></i>
+				</li>
+				<li>
+					<p>汇款登记</p>
+					<span>支持借借记卡和贷记卡</span>
+					<svg class="icon" aria-hidden="true">
+					    <use xlink:href="#icon-qushouye"></use>
+					</svg>
+					<i class="iconfont icon-querenoff1"></i>
+				</li>
+			</ul>
+			<div class="operate">
+				合计：<span>¥600.00</span><a>确认支付</a>
+			</div>
+		</div>
+	</body>
+	
+	<script src="/shop/js/jquery-2.1.4.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/fastclick.js"></script>
+	<script>
+		$(function () {
+						
+		});
+	</script>
+</html>

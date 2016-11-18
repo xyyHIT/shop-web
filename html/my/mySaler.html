@@ -11,17 +11,21 @@
 		<style>
 			body{ background: #f9f9f9;}
 			
-			.top{ position: relative; height: 8rem; padding: 1.5rem 3rem 0 8rem; background: #FAF9FB;}
+			.top{ position: relative; height: 8rem; padding: 1.5rem 1rem 0 8rem; background: #FAF9FB;}
 			.top h1{ font-size: 1.4rem; color: #545454; letter-spacing: 1px;}
 			.top h1 img{ width: 3.6rem; height: 1.8rem; margin-right: .3rem;}
 			.top p{ margin-top: 1rem; font-size: 1.2rem; color: #3C3C3C; letter-spacing: 1px;}
 			.top .head{ position: absolute; left: 1.5rem; top: 1.5rem; width: 5rem; height: 5rem; border-radius: 100%;}
 			.top i{ position: absolute; right: 1rem; top: 3rem; font-size: 1.6rem; color: #979797;}
 			
-			.box{ background: #fff;}
+			.dMoney{ padding: 1.8rem 1rem 1.5rem 1rem; font-size: 1.2rem; color: #aaa; text-align: center; background: #fff;}
+			.dMoney span{ display: block; margin-top: .5rem; font-size: 1.8rem; color: #EC4747;}
+			
+			.box{ margin-top: .5rem; background: #fff;}
 			.box a{ float: left; display: block; width: 25%; height: 7.5rem; font-size: 1.2rem; color: #878787; text-align: center; border-bottom: 1px solid #EFEFEF; border-right: 1px solid #EFEFEF;}
 			.box a:nth-child(4n){ border-right: none;}
 			.box a i.iconfont{ display: block; margin: 1.5rem 0 .1rem 0; font-size: 2.3rem;}
+			.box a i.icon-open-release{ color: #EC4747;}
 			.box a i.icon-fahuoguanli{ color: #79b3e8;}
 			.box a i.icon-jiaoyiguanli{ color: #e5c775;}
 			.box a i.icon-wodeqianbao{ color: #ff8383;}
@@ -36,15 +40,17 @@
 				<img class="head" src="../../imgs/test/0.jpg" />
 				<i class="iconfont icon-jiantou"></i>
 			</div>
+			<div class="dMoney">
+				累计收入<span>¥1000.00</span>
+			</div>
 			<div class="box fix">
-				<a href="publish.html"><i class="iconfont icon-chongzhi"></i>发布商品</a>
+				<a href="publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
 				<a><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
 				<a><i class="iconfont icon-jiaoyiguanli"></i>交易管理</a>
-				<a><i class="iconfont icon-chongzhi"></i>营销工具</a>
 				<a><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
+				<!--<a></a>
 				<a></a>
-				<a></a>
-				<a></a>
+				<a></a>-->
 			</div>
 		</div>
 	</body>

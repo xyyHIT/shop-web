@@ -171,6 +171,13 @@ pre {
 	-webkit-transform:rotate(-135deg);}
 
 
+svg.icon {
+	width: 16px; height: 16px;
+	vertical-align: -0.15rem;
+	fill: currentColor;
+	overflow: hidden;
+}
+
 /*动画*/
 .animated {
 	-webkit-animation-duration: 1s;

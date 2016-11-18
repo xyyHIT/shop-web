@@ -10,7 +10,7 @@ nav.nav5 a{ width: 20%;}
 .box{ margin-top: .5rem; background: #fff;}
 .box h2{ position: relative; height: 3rem; padding: 0 1.5rem; line-height: 3rem;}
 .box h2 i{ display: inline-block; vertical-align: top;}
-.box h2 i.icon-zhankai-copy{ font-size: 1rem; color: #878787;}
+.box h2 i.icon-zhankai-copy{ font-size: 1rem; color: #979797;}
 .box h2 a{ display: inline-block; max-width: 70%; height: 3rem; font-size: 1.1rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all;}
 .box h2 em{ position: absolute; right: 1.5rem; display: block; top: 0;}
 .box ul li{ position: relative; height: 10rem; margin-bottom: .5rem; padding: 1.5rem 1.5rem 1.5rem 9.5rem; background: #FAF9FB;}
@@ -49,7 +49,7 @@ nav.nav5 a{ width: 20%;}
 .dAddress .dAddressHave > div p{ margin-top: .3rem;}
 
 .dAddress .dAddressNo{ position: relative; display: block; margin-top: .3rem; padding: .7rem 1rem .5rem 1rem; font-size: 1.2rem; color: #3C3C3C;}
-.dAddress .dAddressNo i.icon-zhankai-copy{ position: absolute; right: 1rem; top: 1.6rem; font-size: 1.4rem; color: #878787;}
+.dAddress .dAddressNo i.icon-zhankai-copy{ position: absolute; right: 1rem; top: 1.6rem; font-size: 1.4rem; color: #979797;}
 
 .sundry{ height: 4rem; line-height: 4rem; padding: 0 1.5rem; font-size: 1.1rem; color: #5F5F5F; border-bottom: 1px solid #EFEFEF; background: #fff; overflow: hidden;}
 .sundry span{ float: right;}
@@ -57,9 +57,18 @@ nav.nav5 a{ width: 20%;}
 
 .dElse{ margin-top: .5rem; padding: .7rem 1.5rem .5rem 1.5rem; font-size: 1.1rem; color: #878787; line-height: 1.8rem; background: #fff;}
 
+.dScanCode{ display: none; position: fixed; left: 50%; top: 50%; width: 92%; padding-bottom: 2rem; text-align: center; background: #F9F9F9; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9991;}
+.dScanCode h2{ position: relative; height: 5rem; line-height: 5rem; margin-bottom: .5rem; background: #FAF9FB;}
+.dScanCode h2 i{ position: absolute; right: .3rem; width: 4rem; font-size: 1.6rem; color: #979797; text-align: center;}
+.dScanCode p{ position: relative; height: 5rem; padding: 0 1.5rem; font-size: 1.2rem; color: #5F5F5F; text-align: left; line-height: 5rem; background: #fff;}
+.dScanCode p label,.dScanCode p i{ position: absolute;}
+.dScanCode p i{ right: .3rem; width: 4rem; font-size: 2rem; color: #8E9DB0; text-align: center;}
+.dScanCode p input{ width: 100%; line-height: 5rem; padding: 0 3rem 0 6rem; font-size: 1.2rem; color: #5F5F5F; border: none;}
+.dScanCode > a{ display: inline-block; width: 95%; height: 4rem; margin-top: 6rem; line-height: 4rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; border-radius: 5px; background: #EC4747;}
+
 .dfixed{ position: fixed; left: 0; bottom: 0; width: 100%;}
-.dfixed > a.goHome{ position: absolute; left: 1.5rem; top: -5.5rem; width: 4.5rem; height: 4.5rem;}
-.dfixed > a.goHome i{ font-size: 4rem; color: #8E9DB0;}
+.dfixed > a.goHome{ position: absolute; left: 1.5rem; top: -6rem; width: 4.5rem; height: 4.5rem;}
+.dfixed > a.goHome svg.icon{ width: 4.5rem; height: 4.5rem;}
 .dfixed > div{ height: 4.8rem; line-height: 4.8rem; font-size: 1.3rem; text-align: center;}
 .dfixed a{ display: inline-block; letter-spacing: 1px;}
 .dfixed.dfixed1 a{ width: 100%;}
@@ -68,3 +77,4 @@ nav.nav5 a{ width: 20%;}
 .dfixed a.on1{ color: #fff; background: #EC4747;}
 .dfixed a.on2{ color: #fff; background: #5F5F5F;}
 .dfixed a.on3{ color: #878787; background: #FAF9FB;}
+

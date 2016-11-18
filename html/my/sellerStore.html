@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>卖家店铺</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <style>
+        .faxian { position: relative; height: 8rem; padding: 1.4rem 1rem; font-size: 1.3rem; color: #5F5F5F;  background: #faf9fb;}
+        .faxian dt img{  width: 5rem; height: 5rem; border-radius: 100%; margin-right:1.5rem;}
+        .faxian h3{font-size: 1.4rem; color: #3c3c3c;margin-top:.4rem;}
+        .faxian dd p.more{margin-top:.8rem;}
+        .faxian dd p span{font-size: 1rem; color: #878787; margin-right:1rem;}
+        .faxian em{position: absolute; right:1rem; top:2.8rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;  border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}
+        .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
+
+        .trade .red{color: #ec4747;}
+        .trade{width: 100%; line-height:3.5rem; margin-bottom: .5rem; background: #fff;}
+        .trade span{width:24.5%; position: relative; text-align: center; font-size: 1.2rem; display: inline-block; color: #3c3c3c;;}
+        /*.trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }*/
+        .trade span .arrows{font-size:1.4rem; color:#3c3c3c; float: right;  margin-right: 1rem;  font-size: 1.4rem;
+            transform:rotate(-90deg);
+            -ms-transform:rotate(-90deg); 	/* IE 9 */
+            -moz-transform:rotate(-90deg); 	/* Firefox */
+            -webkit-transform:rotate(-90deg); /* Safari 和 Chrome */
+            -o-transform:rotate(-90deg); 	/* Opera */}
+        .trade_contents{ overflow: hidden;}
+        .trade_contents ol{ display: none; background: #faf9fb;}
+        .trade_contents ol.current{ display: block;}
+
+        .pre-info{margin:.5rem;    overflow: hidden;}
+        .pre-list {  list-style: none;  margin: 0; margin-left: 1.5%;  margin-bottom: -10px;overflow: hidden;  }
+        .pre-list-2 li {width: 50%; float: left; overflow: hidden;  }
+        .pre-item {margin: 0 4% 4% 0; background: #fff;overflow:hidden; position: relative;  }
+        .pre-item a {display: block;overflow: hidden;  }
+        .pre-img {width: 100%;}
+        .pre-price {font-size:1.3rem;color: #ec4747;position: relative;}
+        .pre-subtitle {margin-bottom: 5px;font-size:1.1rem;color: #535353;overflow: hidden;  }
+        .payment{font-size: 1.1rem; color: #aaa;}
+        .tel{position: fixed; left:1.5rem; bottom:6rem; background: #ec4747; width:5rem; height:5rem; z-index: 9999}
+        .tel a{font-size: 4.5rem; color:#ec4747;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="tel"><a href="javascript:;" class="iconfont"></a></div>
+        <div class="seller">
+            <a href="javascript:;">
+            <dl class='faxian'>
+                <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
+                <dd  class="left">
+                    <h3><p class="over over1">淡淡的的地方</p></h3>
+                    <p class="more"><span>123人收藏</span><span>12%好评</span></p>
+                </dd>
+                <em>+关注</em>
+
+            </dl>
+            </a>
+        </div>
+
+    <div class="trade">
+        <span class="red">全部商品</span><span>上新</span><span><i class="arrows iconfont icon-zhankai-copy"></i>价格</span><span ><i class="arrows iconfont icon-zhankai-copy"></i>热销</span>
+    </div>
+    <div class="trade_contents">
+        <ol class="current">
+            <ul class="pre-list pre-list-2">
+                <li>
+                    <div class="pre-item">
+                        <a href="">
+                            <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                        </a>
+                        <div class="pre-info">
+                            <p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                            <p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="pre-item">
+                        <a href="">
+                            <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                        </a>
+                        <div class="pre-info">
+                            <p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                            <p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="pre-item">
+                        <a href="">
+                            <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                        </a>
+                        <div class="pre-info">
+                            <p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                            <p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </ol>
+        <ol>
+           aaa
+        </ol>
+        <ol>
+            wqewqeqw
+        </ol>
+        <ol>
+            dddaaa
+        </ol>
+    </div>
+
+
+
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    $(function () {
+        $(".trade span").each(function(index) { //带参数遍历各个选项卡
+            $(this).click(function() { //注册每个选卡的单击事件
+                $(".trade span.current").removeClass("current"); //移除已选中的样式
+                $(this).addClass("current"); //增加当前选中项的样式
+                //显示选项卡对应的内容并隐藏未被选中的内容
+                $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
+            });
+        });
+    });
+</script>
+</html>

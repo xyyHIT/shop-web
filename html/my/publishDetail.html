@@ -16,8 +16,8 @@
 			.noData{ padding: 10rem 0; font-size: 1.3rem; color: #878787; text-align: center; letter-spacing: 1px; background: #fff;}
 			
 			.dData{ position: relative; margin-bottom: .5rem; padding-bottom: 5rem; background: #fff;}
-			.dData p{ padding: 1rem 1rem 0 1rem; line-height: 1.8rem;}
-			.dData a{ position: absolute; right: 1rem; bottom: 1.2rem; display: block; width: 4.8rem; height: 2.3rem; line-height: 2.3rem; text-align: center; border:1px solid #878787; border-radius:5px; letter-spacing: 1px;}
+			.dData pre{ padding: 1rem 1rem 0 1rem; line-height: 1.8rem; word-break: break-all;}
+			.dData > a{ position: absolute; right: 1rem; bottom: 1.2rem; display: block; width: 4.8rem; height: 2.3rem; line-height: 2.3rem; text-align: center; border:1px solid #878787; border-radius:5px; letter-spacing: 1px;}
 			.dData img{ width: 100%;}
 			
 			.operate{}
@@ -41,12 +41,12 @@
 	<body>
 		<div class="container">
 			<div class="info">
-				<!--<div class="noData">
+				<div class="noData">
 					点击下方按钮添加宝贝描述吧！
-				</div>-->
+				</div>
 				<div class="haveData">
 					<div class="dData">
-						<p>功夫茶具套装四合一陶瓷茶杯茶壶套装整套茶具茶盘茶盘。陶瓷茶杯茶壶套装整套茶具茶盘茶盘。</p>
+						<pre>功夫茶具套装四合一陶瓷茶杯茶壶套装整套茶具茶盘茶盘。陶瓷茶杯茶壶套装整套茶具茶盘茶盘。</pre>
 						<a>编辑</a>
 					</div>
 					<div class="dData">
@@ -65,17 +65,17 @@
 			</div>
 			<a class="confirm">确认</a>
 		</div>
-		<div class="tanchu">
-			<a class="tanchu_revise">修改文字</a>
-			<a class="tanchu_update">替换图片</a>
-			<a class="tanchu_del">删除</a>
-			<a class="tanchu_cancel">取消</a>
-		</div>
-		<div class="editFont">
-			<h2><i class="iconfont icon-123"></i></h2>
-			<textarea name="" rows="" cols="" placeholder="请输入内容,不超过5000个字"></textarea>
-			<a class="editFont_a">确认</a>
-		</div>
+		<!--<div class='tanchu'>
+			<a class='tanchu_revise'>修改文字</a>
+			<a class='tanchu_update'>替换图片</a>
+			<a class='tanchu_del'>删除</a>
+			<a class='tanchu_cancel'>取消</a>
+		</div>-->
+		<!--<div class='editFont'>
+			<h2><i class='iconfont icon-123'></i></h2>
+			<textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea>
+			<a class='editFont_a'>确认</a>
+		</div>-->
 	</body>
 	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
@@ -83,26 +83,51 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var fontType = 0;//0:添加文字，1修改文字
 		$(function () {
 			//编辑
 			$("body").on("click",".dData a",function(){
+				var _t = $(this);
+				_t.parents(".dData").append("<div class='tanchu'><a class='tanchu_revise'>修改文字</a><a class='tanchu_update'>替换图片</a><a class='tanchu_del'>删除</a><a class='tanchu_cancel'>取消</a></div>");
 				$("body").append("<div class='bg'></div>");
 				$(".bg,.tanchu").show();
 			})
 			//关闭编辑列表
-			$("body").on("click",".bg,.tanchu a",function(){
-				$(".bg").remove();
-				$(".bg,.tanchu").hide();
-			})
+			/*$("body").on("click",".bg,.tanchu a",function(){
+				$(".bg,.tanchu").remove();
+			})*/
 			//弹出文字输入框
-			$("body").on("click",".tanchu_revise",function(){
-				$("body").append("<div class='bg'></div>");
+			$("body").on("click",".tanchu_revise,.icon-tianjiawenzi1",function(){
+				if($(this).attr("class") == "tanchu_revise"){//修改文字
+					fontType = 1;
+					$(".bg").remove();
+					$(this).parents(".dData").append("<div class='editFont'><h2><i class='iconfont icon-123'></i></h2><textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea><a class='editFont_a'>确认</a></div><div class='bg'></div>");
+					$("#fontContent").val($(this).parents('.dData').find('pre').html());
+					$(".tanchu").remove();
+				}else{
+					fontType = 0;
+					$("body").append("<div class='editFont'><h2><i class='iconfont icon-123'></i></h2><textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea><a class='editFont_a'>确认</a></div><div class='bg'></div>");
+				}
 				$(".bg,.editFont").show();
 			})
 			//关闭文字输入框
 			$("body").on("click",".bg,.editFont h2 i,.editFont_a",function(){
 				$(".bg").remove();
 				$(".bg,.editFont").hide();
+			})
+			//添加文字
+			$("body").on("click",".editFont_a",function(){
+				var fontContent = $("#fontContent").val();
+				if(fontType == 0){//添加文字
+					if(fontContent != ""){
+						$(".haveData").append("<div class='dData'><pre>"+fontContent+"</pre><a>编辑</a></div>");
+					}
+				}else{//编辑
+					if(fontContent != ""){
+						$(this).parents(".dData").find("pre").html(fontContent);
+					}
+				}
+				$(".bg,.editFont,.tanchu").remove();
 			})
 			
 		});

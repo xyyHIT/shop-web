@@ -12,7 +12,7 @@
 		<style>
 			body{background: #f9f9f9; }
 			html, body {position: relative;height: 100%;  }
-
+			.container{padding-bottom:4rem;}
 			.swiper-container {  width: 100%;  height: 100%;  }
 			.swiper-slide {font-size: 18px; background: #fff; display: -webkit-box;  display: -ms-flexbox;  display: -webkit-flex;  display: flex;  -webkit-box-pack: center;  -ms-flex-pack: center;  -webkit-justify-content: center;  justify-content: center;  -webkit-box-align: center;  -ms-flex-align: center;  -webkit-align-items: center;  align-items: center;  }
 
@@ -21,6 +21,7 @@
 			.vertical-view dl{width:33.33%; text-align: center; float: left;}
 			.vertical-view dl dt.icon{ font-size: 4rem;}
 		    .vertical-view dl dd{padding:1rem 0;}
+
 
 			.swp_list .inner{padding: 0 5px;}
 			.swp_list .inner img{width: 100%;margin-bottom: 4px;max-width: 8rem; max-height: 8rem;}
@@ -355,37 +356,69 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		//banner轮播
-		var swiper = new Swiper('#indexBanner', {
-			pagination: '.swiper-pagination',
-			autoplay: 3500,
-			autoplayDisableOnInteraction : false,
-			loop: true
-		});
-		//多图轮播
-		var swiper = new Swiper('.swp_views', {
-			slidesPerView: 3.5,
-			paginationClickable: true,
-			spaceBetween: 0
-		});
 		$(function () {
-			$(".up_list").click(function() {
-				if( $(".up_list>em").hasClass("up")){
-					$(".up_list>em").removeClass("up").addClass("down");
-				}else if($(".up_list>em").hasClass("down")){
-					$(".up_list>em").removeClass("down").addClass("up");
-				}
-				$(".nav_mian").toggle();
-				$(".mask").toggle();
-				if($(".mask").css('display')=='block'){
-					$("body,html").css({"overflow":"hidden"});
+			//banner轮播
+			/*$.ajax({
+			url: host+'/yjpai/platform/banner/bannerList?category=1',
+			type: "post",
+			beforeSend:function(){
+				//allFun.loading()
+			},
+			success: function(rs) {
+				//allFun.removeLoading();
+				if(rs.resCode!=1){
+					allFun.alertDiv(rs.msg);
 					return false;
-				}else{
-					$("body,html").css({"overflow":"auto"});
 				}
+				var data = rs.data;
+				var bannerList = "";
+				for(var i = 0;i<data.length;i++){
+					bannerList+='<div class="swiper-slide"><a href="'+data[i].url+'"><img src="'+data[i].banner+'/platform"/></a></div>'
+				}
+				$("#banner").html(bannerList);
+
+				var swiper = new Swiper('#indexBanner', {
+					pagination: '.swiper-pagination',
+					autoplay: 3500,
+					autoplayDisableOnInteraction : false,
+					loop: true
+				});
+			}
+		});*/
+			//多图轮播
+
+			var swiper = new Swiper('#indexBanner', {
+				pagination: '.swiper-pagination',
+				autoplay: 3500,
+				autoplayDisableOnInteraction: false,
+				loop: true
 			});
+			//多图轮播
+			var swiper = new Swiper('.swp_views', {
+				slidesPerView: 3.5,
+				paginationClickable: true,
+				spaceBetween: 0
+			});
+			$(function () {
+				$(".up_list").click(function () {
+					if ($(".up_list>em").hasClass("up")) {
+						$(".up_list>em").removeClass("up").addClass("down");
+					} else if ($(".up_list>em").hasClass("down")) {
+						$(".up_list>em").removeClass("down").addClass("up");
+					}
+					$(".nav_mian").toggle();
+					$(".mask").toggle();
+					if ($(".mask").css('display') == 'block') {
+						$("body,html").css({"overflow": "hidden"});
+						return false;
+					} else {
+						$("body,html").css({"overflow": "auto"});
+					}
+				});
 
-		})
+			})
 
+
+		});
 	</script>
 </html>

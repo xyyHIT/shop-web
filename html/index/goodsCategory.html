@@ -29,7 +29,7 @@
     <div class="mask"></div>
     <header >
         <nav class="top_nav">
-            <a href="/shop/html/index/index.html ">精品</a><a href="/shop/html/index/goodsCategory.html" class="rent">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></a>
+            <a href="/shop/html/index/index.html ">精品</a><a href="/shop/html/index/goodsCategory.html" class="rent">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a  class="up_list"><em class="up iconfont icon-zhankai-copy"></em></a>
         </nav>
         <div class="nav_mian">
             <h2>全部分类</h2>
@@ -257,6 +257,12 @@
         spaceBetween: 0
     });
     $(function () {
+        //一级导航
+        $(".top_nav a").click(function(){
+            $(this).addClass("rent").siblings().removeClass("rent");
+            $(".top_nav a:last").css("border-bottom","none");
+        });
+        //二级导航
         $(".up_list").click(function() {
             if( $(".up_list>em").hasClass("up")){
                 $(".up_list>em").removeClass("up").addClass("down");
@@ -264,6 +270,7 @@
                 $(".up_list>em").removeClass("down").addClass("up");
             }
             $(".nav_mian").toggle();
+            //遮罩
             $(".mask").toggle();
             if($(".mask").css('display')=='block'){
                 $("body,html").css({"overflow":"hidden"});

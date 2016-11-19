@@ -357,6 +357,38 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
+			//banner轮播
+		/*	$.ajax({
+				url: host+'/yjpai/platform/banner/bannerList?category=1',
+				type: "post",
+				beforeSend:function(){
+					//allFun.loading()
+				},
+				success: function(rs) {
+					//allFun.removeLoading();
+					if(rs.resCode!=1){
+						allFun.alertDiv(rs.msg);
+						return false;
+					}
+					var data = rs.data;
+					var bannerList = "";
+					for(var i = 0;i<data.length;i++){
+						bannerList+='<div class="swiper-slide"><a href="'+data[i].url+'"><img src="'+data[i].banner+'/platform"/></a></div>'
+					}
+					$("#banner").html(bannerList);
+
+					var swiper = new Swiper('#indexBanner', {
+						pagination: '.swiper-pagination',
+						autoplay: 3500,
+						autoplayDisableOnInteraction: false,
+						loop: true
+					});
+
+				}
+			});*/
+
+
+
 			var swiper = new Swiper('#indexBanner', {
 				pagination: '.swiper-pagination',
 				autoplay: 3500,

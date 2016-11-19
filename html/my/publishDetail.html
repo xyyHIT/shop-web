@@ -26,12 +26,15 @@
 			
 			.confirm{ position: fixed; left: 0; bottom: 0; width: 100%; height: 4.8rem; line-height: 4.8rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; background: #EC4747;}
 			
-			.tanchu{ display: none; position: fixed; left: 0; bottom: 0; width: 100%; font-size: 1.3rem; color: #878787; background: #C4C4C4; z-index: 9991;}
+			.tanchu{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9991;}
+			.tanchu div.cc{ position: absolute; left: 0; bottom: 0; width: 100%; font-size: 1.3rem; color: #878787; background: #C4C4C4; z-index: 9993;}
+			.tanchu div.bb,.editFont div.bb{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,.6); z-index: 9992;}
 			.tanchu a{ display: block; height: 5rem; line-height: 5rem; text-align: center; background: #fff;}
 			.tanchu a.tanchu_del,a.tanchu_update{ border-top: 1px solid #EFEFEF;}
 			.tanchu a.tanchu_cancel{ margin-top: .5rem;}
 			
-			.editFont{ display: none; position: fixed; left: 50%; top: 50%; width: 92%; height: 30rem; text-align: center; background: #fff; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9991;}
+			.editFont{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9991;}
+			.editFont div.cc{ position: absolute;left: 50%; top: 50%; width: 92%; height: 30rem; text-align: center; background: #fff; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9993;}
 			.editFont h2{ position: relative; height: 5rem; line-height: 5rem; margin-bottom: .5rem; background: #FAF9FB;}
 			.editFont h2 i{ position: absolute; right: 0; width: 4rem; font-size: 1.6rem; color: #979797; text-align: center;}
 			.editFont textarea{ width: 95%; height: 17rem; padding: .8rem 1rem; font-size: 1.2rem; line-height: 1.8rem; border:1px solid #EFEFEF; border-radius:5px;}
@@ -45,14 +48,18 @@
 					点击下方按钮添加宝贝描述吧！
 				</div>
 				<div class="haveData">
-					<div class="dData">
-						<pre>功夫茶具套装四合一陶瓷茶杯茶壶套装整套茶具茶盘茶盘。陶瓷茶杯茶壶套装整套茶具茶盘茶盘。</pre>
-						<a>编辑</a>
+					<!--<div class="dData">
+						<div class='dDataB'>
+							<pre>功夫茶具套装四合一陶瓷茶杯茶壶套装整套茶具茶盘茶盘。陶瓷茶杯茶壶套装整套茶具茶盘茶盘。</pre>
+						</div>
+						<a class='aEdit'>编辑</a>
 					</div>
 					<div class="dData">
-						<img src="../../imgs/test/1.jpg" />
-						<a>编辑</a>
-					</div>
+						<div class='dDataB'>
+							<img src='../../imgs/test/1.jpg' />
+						</div>
+						<a class='aEdit'>编辑</a>
+					</div>-->
 				</div>
 			</div>
 			<div class="operate fix">
@@ -66,15 +73,21 @@
 			<a class="confirm">确认</a>
 		</div>
 		<!--<div class='tanchu'>
-			<a class='tanchu_revise'>修改文字</a>
-			<a class='tanchu_update'>替换图片</a>
-			<a class='tanchu_del'>删除</a>
-			<a class='tanchu_cancel'>取消</a>
+			<div class='cc'>
+				<a class='tanchu_revise'>修改文字</a>
+				<a class='tanchu_update'>替换图片</a>
+				<a class='tanchu_del'>删除</a>
+				<a class='tanchu_cancel'>取消</a>
+			</div>
+			<div class='bb'></div>
 		</div>-->
 		<!--<div class='editFont'>
-			<h2><i class='iconfont icon-123'></i></h2>
-			<textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea>
-			<a class='editFont_a'>确认</a>
+			<div class='cc'>
+				<h2><i class='iconfont icon-123'></i></h2>
+				<textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea>
+				<a class='editFont_a'>确认</a>
+			</div>
+			<div class='bb'></div>
 		</div>-->
 	</body>
 	
@@ -83,51 +96,63 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		var fontType = 0;//0:添加文字，1修改文字
 		$(function () {
-			//编辑
-			$("body").on("click",".dData a",function(){
-				var _t = $(this);
-				_t.parents(".dData").append("<div class='tanchu'><a class='tanchu_revise'>修改文字</a><a class='tanchu_update'>替换图片</a><a class='tanchu_del'>删除</a><a class='tanchu_cancel'>取消</a></div>");
-				$("body").append("<div class='bg'></div>");
-				$(".bg,.tanchu").show();
-			})
-			//关闭编辑列表
-			/*$("body").on("click",".bg,.tanchu a",function(){
-				$(".bg,.tanchu").remove();
-			})*/
+			
 			//弹出文字输入框
 			$("body").on("click",".tanchu_revise,.icon-tianjiawenzi1",function(){
 				if($(this).attr("class") == "tanchu_revise"){//修改文字
-					fontType = 1;
-					$(".bg").remove();
-					$(this).parents(".dData").append("<div class='editFont'><h2><i class='iconfont icon-123'></i></h2><textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea><a class='editFont_a'>确认</a></div><div class='bg'></div>");
+					$(this).parents(".dData").append("<div class='editFont'><div class='cc'><h2><i class='iconfont icon-123'></i></h2><textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea><a class='editFont_a'>确认</a></div><div class='bb'></div></div>");
 					$("#fontContent").val($(this).parents('.dData').find('pre').html());
 					$(".tanchu").remove();
-				}else{
-					fontType = 0;
-					$("body").append("<div class='editFont'><h2><i class='iconfont icon-123'></i></h2><textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea><a class='editFont_a'>确认</a></div><div class='bg'></div>");
+				}else{//添加文字
+					$("body").append("<div class='editFont'><div class='cc'><h2><i class='iconfont icon-123'></i></h2><textarea id='fontContent' placeholder='请输入内容,不超过5000个字'></textarea><a class='editFont_a' data_t='0'>确认</a></div><div class='bb'></div></div>");
 				}
-				$(".bg,.editFont").show();
 			})
-			//关闭文字输入框
-			$("body").on("click",".bg,.editFont h2 i,.editFont_a",function(){
-				$(".bg").remove();
-				$(".bg,.editFont").hide();
+			
+			//点击编辑
+			$("body").on("click",".dData a.aEdit",function(){
+				var _t = $(this);
+				_t.parents(".dData").append("<div class='tanchu'><div class='cc'><a class='tanchu_revise'>修改文字</a><a class='tanchu_update'>替换图片</a><a class='tanchu_del'>删除</a><a class='tanchu_cancel'>取消</a></div><div class='bb'></div></div>");
 			})
+			
 			//添加文字
 			$("body").on("click",".editFont_a",function(){
 				var fontContent = $("#fontContent").val();
-				if(fontType == 0){//添加文字
-					if(fontContent != ""){
-						$(".haveData").append("<div class='dData'><pre>"+fontContent+"</pre><a>编辑</a></div>");
+				if($(this).attr("data_t") == 0){//添加文字
+					if(fontContent != ""){//为空的时候不添加
+						$(".noData").remove();
+						$(".haveData").append("<div class='dData'><div class='dDataB'><pre>"+fontContent+"</pre></div><a class='aEdit'>编辑</a></div>");
 					}
 				}else{//编辑
-					if(fontContent != ""){
-						$(this).parents(".dData").find("pre").html(fontContent);
-					}
+					$(this).parents(".dData").find("div.dDataB").html("<pre>"+fontContent+"</pre>");
 				}
-				$(".bg,.editFont,.tanchu").remove();
+				$(".editFont").remove();
+			})
+			
+			//关闭文字输入框
+			$("body").on("click",".editFont .bb,.editFont h2 i,.editFont_a",function(){
+				$(".editFont").remove();
+			})
+			
+			//关闭编辑列表
+			$("body").on("click",".tanchu .bb,.tanchu_cancel",function(){
+				$(".tanchu").remove();
+			})
+			
+			//删除
+			$("body").on("click",".tanchu_del",function(){
+				$(this).parents(".dData").remove();
+			})
+			
+			//添加图片
+			$("body").on("click",".tanchu_update,.icon-tianjiatupian1",function(){
+				if($(this).attr("class") == "tanchu_update"){//替换图片
+					$(this).parents(".dData").find("div.dDataB").html("<img src='../../imgs/test/1.jpg' />");
+					$(".tanchu").remove();
+				}else{//添加图片
+					$(".noData").remove();
+					$(".haveData").append("<div class='dData'><div class='dDataB'><img src='../../imgs/test/1.jpg' /></div><a class='aEdit'>编辑</a></div>");
+				}
 			})
 			
 		});

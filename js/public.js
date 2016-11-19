@@ -262,5 +262,18 @@ var allFun = {
 					break;
 			}
 		}
-	}
+	},
+	//格式化金额
+	fmoney: function(s, n) {
+	    n = n > 0 && n <= 20 ? n : 2;  
+	    f = s < 0 ? "-" : ""; //判断是否为负数
+	    s = parseFloat((Math.abs(s) + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";//取绝对值处理, 更改这里n数也可确定要保留的小数位
+	    var l = s.split(".")[0].split("").reverse(),  
+	    r = s.split(".")[1];  
+	    t = "";  
+	    for(i = 0; i < l.length; i++ ) {  
+	       t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");  
+	    }  
+	    return f + t.split("").reverse().join("") + "." + r.substring(0,2);//保留2位小数  如果要改动 把substring 最后一位数改动就可
+	}  
 }

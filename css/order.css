@@ -11,7 +11,7 @@ nav.nav5 a{ width: 20%;}
 .box h2{ position: relative; height: 3rem; padding: 0 1.5rem; line-height: 3rem;}
 .box h2 i{ display: inline-block; vertical-align: top;}
 .box h2 i.icon-zhankai-copy{ font-size: 1rem; color: #979797;}
-.box h2 a{ display: inline-block; max-width: 70%; height: 3rem; font-size: 1.1rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all;}
+.box h2 a{ display: inline-block; max-width: 70%; height: 3rem; font-size: 1.1rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all; white-space: nowrap;}
 .box h2 em{ position: absolute; right: 1.5rem; display: block; top: 0;}
 .box ul li{ position: relative; height: 10rem; margin-bottom: .5rem; padding: 1.5rem 1.5rem 1.5rem 9.5rem; background: #FAF9FB;}
 .box ul li:last-child{ margin-bottom: 0;}

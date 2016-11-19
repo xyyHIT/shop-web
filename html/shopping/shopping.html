@@ -24,7 +24,7 @@
 			.box h2 i{ display: inline-block; vertical-align: top;}
 			.box h2 i.icon-queren1,.box h2 i.icon-querenoff1{ margin-left: .3rem; width: 3.2rem; text-align: center;}
 			.box h2 i.icon-zhankai-copy{ font-size: 1.1rem; color: #979797;}
-			.box h2 a{ display: inline-block; max-width: 60%; height: 4rem; font-size: 1.3rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all;}
+			.box h2 a{ display: inline-block; max-width: 60%; height: 4rem; font-size: 1.3rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all; white-space: nowrap;}
 			.box ul{ background: #fff;}
 			.box ul li{ position: relative; height: 13rem; padding: 1.5rem 1.5rem 1.5rem 11.5rem; border-bottom: 1px solid #EFEFEF;}
 			.box ul li:last-child{ border-bottom: none;}
@@ -60,12 +60,12 @@
 				<div class="box">
 					<h2>
 						<i class="iconfont icon-querenoff1 icon-radio"></i>
-						<a>viishow旗舰店</a>
+						<a>viishow旗舰店viishow旗舰店viishow旗舰店</a>
 						<i class="iconfont icon-zhankai-copy"></i>
 					</h2>
 					<ul>
 						<li>
-							<i class="iconfont icon-queren1 icon-radio"></i>
+							<i class="iconfont icon-querenoff1 icon-radio"></i>
 							<img src="../../imgs/test/0.jpg" />
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】</strong>
 							<p class="fix">
@@ -82,13 +82,13 @@
 				</div>
 				<div class="box">
 					<h2>
-						<i class="iconfont icon-queren1 icon-radio"></i>
+						<i class="iconfont icon-querenoff1 icon-radio"></i>
 						<a>viishow旗舰店</a>
 						<i class="iconfont icon-zhankai-copy"></i>
 					</h2>
 					<ul>
 						<li>
-							<i class="iconfont icon-queren1 icon-radio"></i>
+							<i class="iconfont icon-querenoff1 icon-radio"></i>
 							<img src="../../imgs/test/0.jpg" />
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
 							<p class="fix">
@@ -97,12 +97,12 @@
 							<div class="addSubtract">
 								<svg class="icon" aria-hidden="true">
 								    <use xlink:href="#icon-jianshao"></use>
-								</svg><input type="tel" maxlength="4" /><i class="iconfont icon-zengjia"></i>
+								</svg><input type="tel" value="1" maxlength="4" /><i class="iconfont icon-zengjia"></i>
 							</div>
 							<i class="iconfont icon-shanchu71"></i>
 						</li>
 						<li>
-							<i class="iconfont icon-queren1 icon-radio"></i>
+							<i class="iconfont icon-querenoff1 icon-radio"></i>
 							<img src="../../imgs/test/0.jpg" />
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
 							<p class="fix">
@@ -111,16 +111,16 @@
 							<div class="addSubtract">
 								<svg class="icon" aria-hidden="true">
 								    <use xlink:href="#icon-jianshao"></use>
-								</svg><input type="tel" maxlength="4" /><i class="iconfont icon-zengjia"></i>
+								</svg><input type="tel" value="1" maxlength="4" /><i class="iconfont icon-zengjia"></i>
 							</div>
 							<i class="iconfont icon-shanchu71"></i>
 						</li>
 					</ul>
 				</div>
 				<div class="operate">
-					<i class="iconfont icon-queren1 icon-radio"></i>
-					合计：<span>¥600.00</span>
-					<a>结算（1）</a>
+					<i class="iconfont icon-querenoff1 icon-radio"></i>
+					合计：<span>¥<b id="summation">0.00</b></span>
+					<a>结算（<b id="settleAccounts">0</b>）</a>
 				</div>
 			</div>
 		</div>
@@ -131,8 +131,41 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		
 		$(function () {
 			
+			//加
+			$("body").on("click",".icon-zengjia",function(){
+				var _t = $(this),
+					num = parseInt(_t.parents(".addSubtract").find("input").val())+1;
+				_t.parents(".addSubtract").find("input").val(num);
+				_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+				funMoneyAndNum();
+			})
+			//减
+			$("body").on("click",".addSubtract svg.icon",function(){
+				var _t = $(this),
+					num = parseInt(_t.parents(".addSubtract").find("input").val());
+				if(num > 1){
+					_t.parents(".addSubtract").find("input").val(num-1);
+					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					funMoneyAndNum();
+				}
+			})
+			//删除
+			$("body").on("click",".icon-shanchu71",function(){
+				var _t = $(this);
+				if(_t.parents("ul").find("li").length <= 1){
+					_t.parents(".box").remove();
+				}else{
+					_t.parents("li").remove();
+				}
+				//去掉全选按钮选中状态
+				if($(".list .box ul li .icon-radio").length == 0){
+					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				}
+				funMoneyAndNum();
+			})
 			//点击单个商品的单选按钮
 			$("body").on("click",".list .box ul li .icon-radio",function(){
 				var _t = $(this);
@@ -141,24 +174,41 @@
 				}else{
 					_t.removeClass("icon-querenoff1").addClass("icon-queren1");
 				}
+				
+				var len1 = _t.parents("ul").find(".icon-radio").length,
+					len2 = _t.parents("ul").find(".icon-queren1").length;
+				if(len1 == len2){
+					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+				}else{
+					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				}
+				
+				var len3 = _t.parents(".list").find(".box .icon-radio").length,
+					len4 = _t.parents(".list").find(".box .icon-queren1").length;
+				if(len3 == len4){
+					$(".operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+				}else{
+					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				}
+				funMoneyAndNum();
 			})
 			//点击店铺的单选按钮
 			$("body").on("click",".list .box h2 .icon-radio",function(){
 				var _t = $(this);
 				if(_t.hasClass("icon-queren1")){
-					_t.removeClass("icon-queren1").addClass("icon-querenoff1");
+					_t.parents(".box").find(".icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}else{
-					_t.removeClass("icon-querenoff1").addClass("icon-queren1");
+					_t.parents(".box").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 				}
 				
-				_t.parents(".box").find("ul li").each(function(){
-					var tt = $(this).find(".icon-radio");
-					if(_t.hasClass("icon-queren1")){
-						tt.removeClass("icon-queren1 icon-querenoff1").addClass("icon-queren1");
-					}else{
-						tt.removeClass("icon-queren1 icon-querenoff1").addClass("icon-querenoff1");
-					}
-				})
+				var len5 = _t.parents(".list").find(".box h2 .icon-radio").length,
+					len6 = _t.parents(".list").find(".box h2 .icon-queren1").length;
+				if(len5 == len6){
+					$(".operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+				}else{
+					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				}
+				funMoneyAndNum();
 			})
 			//点击全选按钮
 			$("body").on("click",".operate .icon-radio",function(){
@@ -168,7 +218,32 @@
 				}else{
 					$(".list .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 				}
+				funMoneyAndNum();
+			})
+			//结算
+			$("body").on("click",".operate a",function(){
+				if($(".list .box ul li .icon-queren1").length == 0){
+					allFun.alertDiv("你还没有选择商品哦！");
+					return false;
+				}
+				//funMoneyAndNum();
 			})
 		});
+		
+		//合计钱数，件数
+		function funMoneyAndNum(){
+			var moneyAll = 0,//合计钱数
+				numAll = 0;//件数
+			$(".list .box ul li .icon-radio").each(function(){
+				var _t = $(this);
+				if(_t.hasClass("icon-queren1")){
+					numAll += parseFloat(_t.parents("li").find("input").val());
+					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseFloat(_t.parents("li").find("input").val());
+				}
+			})
+			$("#summation").text(moneyAll);//合计
+			$("#settleAccounts").text(numAll);//件数
+			//return numAll;
+		}
 	</script>
 </html>

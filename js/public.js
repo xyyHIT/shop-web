@@ -55,8 +55,6 @@ var host = "http://"+location.host;
 		$(".footerInit a:nth-child(5).on i").attr("class","iconfont icon-dibudaohangwodeon");
 		
 	});
-
-	//添加头部导航
 })();
 
 var allFun = {

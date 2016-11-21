@@ -34,21 +34,44 @@
 			.box ul li p{ margin-top: .5rem; font-size: 1.2rem;}
 			.box ul li p span{ color: #EC4747;}
 			.box ul li p em{ float: right; padding-right: 2rem; color: #878787;}
-			.box ul li .addSubtract{ position: absolute; left: 14rem; bottom: 1.2rem; width: 7rem; height: 2.5rem; background: #FAF9FB;}
-			.box ul li .addSubtract input{ width: 5rem; height: 2.5rem; margin-left: 1rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; border: none; background: #FAF9FB;}
-			.box ul li .addSubtract i.iconfont,.box ul li .addSubtract svg.icon{ position: absolute; top: -.1rem; width: 2.5rem; height: 2.5rem; font-size: 2.5rem;}
-			.box ul li .addSubtract svg.icon{ left: -2rem; color: #EFEFEF;}
-			.box ul li .addSubtract i.icon-zengjia{ right: -2rem; color: #878787;}
-			.box ul li .addSubtract svg.icon { display: block; width: 2.6rem; height: 2.6rem; fill: currentColor; overflow: hidden;}
+			.box ul li .liInput{ position: absolute; left: 14rem; bottom: 1.2rem; width: 7rem; height: 2.5rem; background: #FAF9FB;}
+			.box ul li .liInput input{ width: 5rem; height: 2.5rem; margin-left: 1rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; border: none; background: #FAF9FB;}
+			.box ul li .liInput i{ position: absolute; top: 0; width: 2.5rem; height: 2.5rem; line-height: 2.6rem; font-size: 1.8rem; color: #fff; text-align: center; font-weight: 100; background: #878787; border-radius: 3px;}
+			.box ul li .liInput i.jianshao{ left: -2rem;}
+			.box ul li .liInput i.zengjia{ right: -2rem;}
+			.box ul li .liInput i.on{ color: #aaa; background: #EFEFEF;}
 			.box ul li i.icon-shanchu71{ position: absolute; right: 1rem; bottom: 1.2rem; width: 2.5rem; height: 2.5rem; line-height: 2.5rem; font-size: 1.5rem; color: #5F5F5F; text-align: center;}
 			
 			.operate{ position: fixed; left: 0; bottom: 4.8rem; width: 100%; height: 4.8rem; padding: 0 11rem 0 4rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; line-height: 4.8rem; background: #fff;}
 			.operate i{ position: absolute; left: 0; width: 4rem; text-align: center;}
 			.operate span{ font-size: 1.5rem; color: #EC4747;}
 			.operate a{ position: absolute; right: 0; top: 0; display: block; width: 10rem; font-size: 1.3rem; color: #fff; text-align: center; background: #EC4747; word-break: break-all;}
+			
+			.editDIv{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9991;}
+			.editDIv div.bb{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,.6); z-index: 9992;}
+			.editDIv div.cc{ position: absolute;left: 50%; top: 50%; width: 92%; padding-top: 2rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; background: #fff; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9993;}
+			.editDIv .editInput{ position: relative; width: 12rem; height: 3rem; margin: 0 auto; margin-top: 2.5rem; margin-bottom: 2.5rem; background: #FAF9FB;}
+			.editDIv .editInput input{ width: 8rem; height: 3rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; border: none; background: #FAF9FB;}
+			.editDIv .editInput i{ position: absolute; top: 0; width: 3rem; height: 3rem; line-height: 3.1rem; font-size: 1.8rem; color: #fff; text-align: center; font-weight: 100; background: #878787; border-radius: 3px;}
+			.editDIv .editInput i.jianshao{ left: -2rem;}
+			.editDIv .editInput i.zengjia{ right: -2rem;}
+			.editDIv .editInput i.on{ color: #aaa; background: #EFEFEF;}
+			.editDIv a{ display: inline-block; width: 50%; height: 4rem; line-height: 4rem; font-size: 1.3rem; color: #fff; letter-spacing: 2px; text-align: center; background: #EC4747;}
+			.editDIv a.editInput_cancel{ color: #878787; border-top: 1px solid #EFEFEF; background: #fff;}
+			.editDIv a.editInput_confirm{ border-top: 1px solid #EC4747;}
 		</style>
 	</head>
 	<body>
+		<!--<div class='editDIv'>
+			<div class='cc'>
+				修改购买数量
+				<div class='editInput addSubtract'>
+					<i class='jianshao on'>－</i><input type='tel' value='1' maxlength='4' /><i class='zengjia'>＋</i>
+				</div>
+				<a class='editInput_cancel'>取消</a><a class='editInput_confirm'>确定</a>
+			</div>
+			<div class='bb'></div>
+		</div>-->
 		<div class="container">
 			<!--<div class="noData">
 				<i class="iconfont icon-gouwudai_kong"></i><br />
@@ -71,10 +94,8 @@
 							<p class="fix">
 								<span>¥200</span><em>x1</em>
 							</p>
-							<div class="addSubtract">
-								<svg class="icon" aria-hidden="true">
-								    <use xlink:href="#icon-jianshao"></use>
-								</svg><input type="tel" value="1" maxlength="4" /><i class="iconfont icon-zengjia"></i>
+							<div class="liInput addSubtract">
+								<i class="jianshao on">－</i><input type="tel" value="1" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
 							</div>
 							<i class="iconfont icon-shanchu71"></i>
 						</li>
@@ -94,10 +115,8 @@
 							<p class="fix">
 								<span>¥200</span><em>x1</em>
 							</p>
-							<div class="addSubtract">
-								<svg class="icon" aria-hidden="true">
-								    <use xlink:href="#icon-jianshao"></use>
-								</svg><input type="tel" value="1" maxlength="4" /><i class="iconfont icon-zengjia"></i>
+							<div class="liInput addSubtract">
+								<i class="jianshao on">－</i><input type="tel" value="1" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
 							</div>
 							<i class="iconfont icon-shanchu71"></i>
 						</li>
@@ -108,10 +127,8 @@
 							<p class="fix">
 								<span>¥200</span><em>x1</em>
 							</p>
-							<div class="addSubtract">
-								<svg class="icon" aria-hidden="true">
-								    <use xlink:href="#icon-jianshao"></use>
-								</svg><input type="tel" value="1" maxlength="4" /><i class="iconfont icon-zengjia"></i>
+							<div class="liInput addSubtract">
+								<i class="jianshao">－</i><input type="tel" value="10" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
 							</div>
 							<i class="iconfont icon-shanchu71"></i>
 						</li>
@@ -134,19 +151,67 @@
 		
 		$(function () {
 			
-			//加
-			$("body").on("click",".icon-zengjia",function(){
+			//弹出输入数量框
+			$("body").on("click",".liInput input",function(){
 				var _t = $(this),
-					num = parseInt(_t.parents(".addSubtract").find("input").val())+1;
-				_t.parents(".addSubtract").find("input").val(num);
+					num = parseInt(_t.val());
+				_t.parents("li").append("<div class='editDIv'><div class='cc'>修改购买数量<div class='editInput addSubtract'><i class='jianshao'>－</i><input type='tel' value='1' maxlength='4' /><i class='zengjia'>＋</i></div><a class='editInput_cancel'>取消</a><a class='editInput_confirm'>确定</a></div><div class='bb'></div></div>")
+				if(num == 1){
+					_t.parents("li").find(".editDIv .jianshao").addClass("on");
+				}
+				$(".editDIv input").val(num);
+			})
+			//输入框输入限制
+			$("body").on("keyup",".editDIv .editInput input",function(){
+				if(this.value.length==1){
+					this.value=this.value.replace(/[^1-9]/g,'');
+				}else{
+					this.value=this.value.replace(/\D/g,'');
+				}
+				if(this.value > 1){
+					$(this).prev(".jianshao").removeClass("on");
+				}else{
+					$(this).prev(".jianshao").addClass("on");
+				}
+			})
+			//确定数量
+			$("body").on("click",".editDIv .editInput_confirm",function(){
+				var _t= $(this),
+					num = _t.parents(".editDIv").find("input").val();
+				if(num != ""){
+					_t.parents("li").find(".addSubtract input").val(num);
+					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					if(num == 1){
+						_t.parents("li").find(".liInput .jianshao").addClass("on");
+					}
+					if(num > 1){
+						_t.parents("li").find(".liInput .jianshao").removeClass("on");
+					}
+				}
+				$(".editDIv").remove();
+				funMoneyAndNum();
+			})
+			//关闭数量输入框
+			$("body").on("click",".editDIv .editInput_cancel,.editDIv .bb",function(){
+				$(".editDIv").remove();
+			})
+			//加
+			$("body").on("click",".zengjia",function(){
+				var _t = $(this),
+					num = parseInt(_t.parents(".addSubtract").find("input").val());
+				_t.parents(".addSubtract").find("input").val(num+1);
+				_t.parents(".addSubtract").find("i.jianshao").removeClass("on");
 				_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 				funMoneyAndNum();
 			})
 			//减
-			$("body").on("click",".addSubtract svg.icon",function(){
+			$("body").on("click",".addSubtract .jianshao",function(){
 				var _t = $(this),
 					num = parseInt(_t.parents(".addSubtract").find("input").val());
 				if(num > 1){
+					if(num == 2){
+						_t.addClass("on");
+					}
 					_t.parents(".addSubtract").find("input").val(num-1);
 					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 					funMoneyAndNum();
@@ -167,7 +232,7 @@
 				funMoneyAndNum();
 			})
 			//点击单个商品的单选按钮
-			$("body").on("click",".list .box ul li .icon-radio",function(){
+			$("body").on("click",".list li .icon-radio",function(){
 				var _t = $(this);
 				if(_t.hasClass("icon-queren1")){
 					_t.removeClass("icon-queren1").addClass("icon-querenoff1");
@@ -222,7 +287,7 @@
 			})
 			//结算
 			$("body").on("click",".operate a",function(){
-				if($(".list .box ul li .icon-queren1").length == 0){
+				if($(".list li .icon-queren1").length == 0){
 					allFun.alertDiv("你还没有选择商品哦！");
 					return false;
 				}
@@ -234,11 +299,11 @@
 		function funMoneyAndNum(){
 			var moneyAll = 0,//合计钱数
 				numAll = 0;//件数
-			$(".list .box ul li .icon-radio").each(function(){
+			$(".list li .icon-radio").each(function(){
 				var _t = $(this);
 				if(_t.hasClass("icon-queren1")){
-					numAll += parseFloat(_t.parents("li").find("input").val());
-					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseFloat(_t.parents("li").find("input").val());
+					numAll += parseInt(_t.parents("li").find("input").val());
+					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseInt(_t.parents("li").find("input").val());
 				}
 			})
 			$("#summation").text(moneyAll);//合计

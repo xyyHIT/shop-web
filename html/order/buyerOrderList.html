@@ -16,7 +16,7 @@
 	<body>
 		<div class="container">
 			<nav class="nav5">
-				<a class="on">全部</a><a>待付款</a><a>待发货</a><a>待收货</a><a>已完成</a>
+				<a class='on' data_type ='0'>全部</a><a data_type ='1'>待付款</a><a data_type ='2'>待发货</a><a data_type ='3'>待收货</a><a data_type ='4'>已完成</a>
 			</nav>
 			<div class="list">
 				<div class="box">
@@ -73,14 +73,40 @@
 			</div>
 		</div>
 	</body>
+	<input type="hidden" id="showType" value="" />
 	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var index = 0,
+			nextCursor = 0,
+			count = 10,
+			linkType = allFun.getRequest("linkType"); 
 		$(function () {
+			$("#showType").val(linkType);
+			if(linkType == undefined){
+				linkType = 0;
+			}
 			
+			if($("#showType").val() != ""){
+				linkType = $("#showType").val();
+			}
+			
+			$("nav a").each(function(){
+				if($(this).attr("data_type") == linkType){
+					$(this).addClass("on").siblings().removeClass("on");
+				}
+			})
+			
+			//tab切换
+			$("nav a").click(function () {
+		        $(this).addClass("on").siblings().removeClass("on");
+		        $("#showType").val($(this).attr("data_type"));
+		        nextCursor = 0;
+		        //ajaxList($("#showType").val(),0);
+		    })
 		});
 	</script>
 </html>

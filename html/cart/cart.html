@@ -80,24 +80,24 @@
 				<a href="/shop/html/index/index.html">去首页</a>
 			</div>-->
 			<div class="list">
-				<div class="box">
+				<!--<div class='box'>
 					<h2>
-						<i class="iconfont icon-querenoff1 icon-radio"></i>
+						<i class='iconfont icon-querenoff1 icon-radio'></i>
 						<a>viishow旗舰店viishow旗舰店viishow旗舰店</a>
-						<i class="iconfont icon-zhankai-copy"></i>
+						<i class='iconfont icon-zhankai-copy'></i>
 					</h2>
 					<ul>
 						<li>
-							<i class="iconfont icon-querenoff1 icon-radio"></i>
-							<img src="../../imgs/test/0.jpg" />
-							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】</strong>
-							<p class="fix">
+							<i class='iconfont icon-querenoff1 icon-radio'></i>
+							<img src='../../imgs/test/0.jpg' />
+							<strong class='over over2'>自然造物 | 一物 ·【看道·寻瓷】</strong>
+							<p class='fix'>
 								<span>¥200</span><em>x1</em>
 							</p>
-							<div class="liInput addSubtract">
-								<i class="jianshao on">－</i><input type="tel" value="1" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
+							<div class='liInput addSubtract'>
+								<i class='jianshao on'>－</i><input type='tel' value='1' maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i>
 							</div>
-							<i class="iconfont icon-shanchu71"></i>
+							<i class='iconfont icon-shanchu71'></i>
 						</li>
 					</ul>
 				</div>
@@ -134,11 +134,11 @@
 						</li>
 					</ul>
 				</div>
-				<div class="operate">
-					<i class="iconfont icon-querenoff1 icon-radio"></i>
-					合计：<span>¥<b id="summation">0.00</b></span>
-					<a>结算（<b id="settleAccounts">0</b>）</a>
-				</div>
+				<div class='operate'>
+					<i class='iconfont icon-querenoff1 icon-radio'></i>
+					合计：<span>¥<b id='summation'>0.00</b></span>
+					<a>结算（<b id='settleAccounts'>0</b>）</a>
+				</div>-->
 			</div>
 		</div>
 	</body>
@@ -149,8 +149,49 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		
+		function getGoodsList(){
+			$.ajax({
+				url: host + '/index.php?app=cart&act=ejIndex',
+				type: "post",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data,
+							obj = "";
+							
+						$.each(d, function(i,v) {
+							obj += "<div class='box'><h2><i class='iconfont icon-querenoff1 icon-radio'></i>"
+								+ "<a href=/shop/html/my/sellerStore.html>"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
+							for(var i = 0; i < v.goods.length; i++){
+								obj += "<li><i class='iconfont icon-querenoff1 icon-radio' data_goodsId="+v.goods[i].goods_id+"></i><img src='../../imgs/test/0.jpg' />"
+									+ "<strong class='over over2'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
+									+ "<span>¥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p><div class='liInput addSubtract'>"
+									+ "<i class='jianshao on'>－</i><input type='tel' value="+v.goods[i].quantity+" maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i>"
+									+ "</div><i class='iconfont icon-shanchu71'></i></li>";
+							}
+							obj += "</ul></div>"
+						});
+						obj += "<div class='operate'><i class='iconfont icon-querenoff1 icon-radio'></i>"
+							+ "合计：<span>¥<b id='summation'>0.00</b></span>"
+							+ "<a>结算（<b id='settleAccounts'>0</b>）</a></div>";
+						$(".list").html(obj);
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
+		}
+		
 		$(function () {
-			
+			getGoodsList();
 			//弹出输入数量框
 			$("body").on("click",".liInput input",function(){
 				var _t = $(this),

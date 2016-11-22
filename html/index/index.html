@@ -39,6 +39,7 @@
 	<body>
 		<div class="container">
 			<div class="mask"></div>
+			<!--//导航-->
 			<header >
 				<nav class="top_nav">
 					<a href="/shop/html/index/index.html "class="rent">精品</a><a href="/shop/html/index/goodsCategory.html">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></a>
@@ -85,7 +86,7 @@
 					</ul>
 				</div>
 			</header>
-
+            <!--搜索-->
             <div class="header fix">
 				<a href="/shop/html/index/goodsSearch.html">
 					<div class="searchBg iconfont icon-sousuo"></div>
@@ -343,7 +344,6 @@
 						</div>
 
 					</div>
-
 				</div>
 
 			</div>
@@ -357,18 +357,81 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
-			var swiper = new Swiper('#indexBanner', {
-				pagination: '.swiper-pagination',
-				autoplay: 3500,
-				autoplayDisableOnInteraction: false,
-				loop: true
-			});
-			//多图轮播
-			var swiper = new Swiper('.swp_views', {
-				slidesPerView: 3.5,
-				paginationClickable: true,
-				spaceBetween: 0
-			});
+			gooodsList();
+			function gooodsList(){
+				$.ajax({
+					url: host+'/index.php?app=default&act=ejIndex',
+					type: "post",
+					beforeSend:function(){
+						allFun.loading()
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code!=0){
+							allFun.alertDiv(rs.msg);
+							return false;
+						}
+						//banner轮播
+						var bannerData = rs.data.cycleImages;
+						var bannerList = "";
+						for(var z = 0;z<bannerData.length;z++){
+							console.log(bannerData[z].ad_image_url);
+							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].ad_link_url+'"><img src="'+bannerData[z].ad_image_url+'"/></a></div>'
+						}
+						$("#banner").html(bannerList);
+						var swiper = new Swiper('#indexBanner', {
+							pagination: '.swiper-pagination',
+							autoplay: 3500,
+							autoplayDisableOnInteraction: false,
+							loop: true
+						});
+
+						//推荐产品
+						var goodsData = rs.data.recommend;
+						console.log(goodsData);
+						var goodsList = '';
+						for(i = 0;i<goodsData.length;i++){
+							res='',listData=goodsData[i].items;
+							for( j = 0;j<listData.length;j++) {
+								res += '<div class="swiper-slide">'
+										+ '<div class="inner">'
+										+ '<a href="javascript:;" data_lotid="'+listData[j].goods_id+'">'
+										+ '<img src="'+listData[j].default_image+'" alt="">'
+										+ '<h4>'+listData[j].goods_name+'</h4>'
+										+ '<p>¥<span>'+listData[j].price+'</span></p>'
+										+ '</a>'
+										+ '</div>'
+										+ '</div>'
+							}
+							goodsList+='<div class="gather_node">'
+									+'<div class="gather_tit">'
+									+'<a href="javascript:;">'
+									+'<h3>'+goodsData[i].recom_name+'<b class="iconfont icon-zhankai-copy"></b></h3>'
+									+'</a>'
+									+'</div>'
+									+'<div class="topic" data-hrefid="'+goodsData[i].recom_id+'"><a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a> </div>'
+									+'<div class="swiper-container swp_views">'
+									+'<div class="swiper-wrapper swp_list">'
+									+res
+									+'</div>'
+									+'</div>'
+
+									+'</div>'
+						}
+						$(".sale_all").html(goodsList);
+
+						//多图轮播
+						var swiper = new Swiper('.swp_views', {
+							slidesPerView: 3.5,
+							paginationClickable: true,
+							spaceBetween: 0
+						});
+					}
+				});
+			}
+
+
+//二级导航
 			$(function () {
 				$(".up_list").click(function () {
 					if ($(".up_list>em").hasClass("up")) {

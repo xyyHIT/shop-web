@@ -1,6 +1,5 @@
 var host = "http://"+location.host;
-//var host = "http://tst.yijiapai.com:8080";
-//var host = "http://192.168.1.239:8731";
+//var host = "http://192.168.1.23";
 (function() {
 	$(function() {
 		/*$.ajax({

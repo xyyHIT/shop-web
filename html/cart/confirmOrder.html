@@ -49,14 +49,14 @@
 				</a>
 			</div>
 			<div class="list">
-				<div class="box">
+				<!--<div class="box">
 					<h2>
 						<a>viishow旗舰店</a>
 						<i class="iconfont icon-zhankai-copy"></i>
 					</h2>
 					<ul>
 						<li>
-							<a href="/shop/html/index/goodsDetails.html">
+							<a href='/shop/html/index/goodsDetails.html'>
 								<img src="../../imgs/test/0.jpg" />
 							</a>
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
@@ -74,19 +74,19 @@
 							</p>
 						</li>
 					</ul>
+					<div class='sundry fix'>
+						快递费用<span>5元</span>
+					</div>
+					<div class='sundry fix'>
+						买家留言<input placeholder='选填：对本次交易的说明最多50字' maxlength='50' />
+					</div>
+					<div class='dTotal'>
+						合计：<span>¥300.00</span>
+					</div>
 				</div>
-			</div>
-			<div class="sundry fix">
-				快递费用<span>5元</span>
-			</div>
-			<div class="sundry fix">
-				买家留言<input placeholder="选填：对本次交易的说明最多50字" maxlength="50" />
-			</div>
-			<div class="dTotal">
-				合计：<span>¥300.00</span>
-			</div>
-			<div class="operate">
-				合计：<span>¥600.00</span><a>确认下单</a>
+				<div class='operate'>
+					合计：<span>¥600.00</span><a id='placeAnOrder'>确认下单</a>
+				</div>-->
 			</div>
 		</div>
 	</body>
@@ -96,8 +96,75 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var recid = allFun.getRequest("recid") || "";
+		
 		$(function () {
-						
+			getInfo();
+			//下单
+			$("body").on("click","#placeAnOrder",function(){
+				$.ajax({
+					url: host + '/index.php?app=order&act=actorder',
+					type: "post",
+					dataType: "json",
+					data:{"recid":'['+recid+']'},//购物车id集合 默认可不传此参数（如果不传此参数，默认为获取本人购物车中全部商品 ==全选）
+					beforeSend:function(){
+						allFun.loading();
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code == 0) {
+							//location.href = "paySuccess.html";
+						} else {
+							allFun.alertDiv(rs.msg);
+						}
+					},
+					error: function() {
+						allFun.removeLoading();
+						allFun.alertDiv("error!")
+					}
+				})
+			})
+			
 		});
+		
+		function getInfo(){
+			$.ajax({
+				url: host + '/index.php?app=order&act=checkout',
+				type: "post",
+				dataType: "json",
+				data:{"recid":'['+recid+']'},//购物车id集合 默认可不传此参数（如果不传此参数，默认为获取本人购物车中全部商品 ==全选）
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data.list,
+							obj = "";
+						$.each(d, function(i,v) {
+							obj += "<div class='box'><h2><a href=/shop/html/my/sellerStore.html>"+v.store_name+"</a>"
+								+ "<i class='iconfont icon-zhankai-copy'></i></h2><ul>";
+							for(var i = 0; i < v.goods.length; i++){
+								obj += "<li><a href='/shop/html/index/goodsDetails.html'>"
+									+ "<img src='../../imgs/test/0.jpg' /></a>"
+									+ "<strong class='over over2'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
+									+ "<span>¥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p></li>";
+							}
+							obj += "</ul></div>"
+								+ "<div class='sundry fix'>快递费用<span>"+v.shiprice+"</span></div>"
+								+ "<div class='dTotal'>小计：<span>¥"+v.amount+"</span></div>";
+						});
+						obj += "<div class='operate'>合计：<span>¥"+rs.data.totalamount+"</span><a id='placeAnOrder'>确认下单</a></div>";
+						$(".list").html(obj);
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
+		}
 	</script>
 </html>

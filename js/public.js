@@ -1,5 +1,5 @@
 var host = "http://"+location.host;
-//var host = "http://192.168.1.23";
+var host = "http://192.168.1.23";
 (function() {
 	$(function() {
 		/*$.ajax({

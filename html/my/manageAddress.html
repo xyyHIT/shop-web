@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>管理地址</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<script src="/shop/js/rem.js"></script>
+		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<style>
+			.ulList{}
+			.ulList li{ padding: 1rem 1.5rem .8rem 1.5rem; line-height: 2.2rem; font-size: 1.25rem; color: #3C3C3C; border-bottom: 1px solid #EFEFEF;}
+			.ulList li div{ display: table-cell; width: 27rem; vertical-align: middle; word-break: break-all;}
+			.ulList li i.icon-queren1{ display: table-cell; padding-left: 1rem; font-size: 2.5rem; color: #D1D1D1; text-align: center; vertical-align: middle;}
+			.ulList li.on i.icon-queren1{ color: #EC4747;}
+			.ulList li h6{ font-size: 1.3rem; color: #000;}
+			a.jia{ display: block; padding: 1.4rem 0; color: #000; text-align: center; border-bottom: 1px solid #EFEFEF;}
+			a.jia i.icon-tianjia{ font-size: 3.5rem;}
+			
+			.tanchu{ position: fixed; left: 0; bottom: 0; width: 100%; font-size: 1.4rem; color: #3C3C3C; background: #C4C4C4; z-index: 9999; -webkit-transform: translate(0,100%); -webkit-transition: all .5s; -webkit-transition-timing-function:ease;}
+			.tanchu a{ display: block; padding: 1rem 0; text-align: center; background: #fff;}
+			.tanchu a.tanchu_del,a.tanchu_update{ border-top: 1px solid #C1C1C1;}
+			.tanchu a.tanchu_cancel{ margin-top: .5rem;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<ul class="ulList">
+				<li class='on'>
+					<div>
+						<h6>姓名</h6>
+						<span>联系方式：<em>186185545781</em></span>
+						<p>地址：<em>地址</em></p>
+					</div>
+					<i class='iconfont icon-queren1'></i>
+				</li>
+			</ul>
+			<a class="jia" href="addAddress.html">
+				<i class="iconfont icon-tianjia"></i>
+			</a>
+		</div>
+		<div class="tanchu">
+			<a class="tanchu_set">设为默认地址</a>
+			<a class="tanchu_update">修改地址</a>
+			<a class="tanchu_del">删除地址</a>
+			<a class="tanchu_cancel">取消</a>
+		</div>
+		<div class="bg"></div>
+	</body>
+	
+	<script src="/shop/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/fastclick.js"></script>
+	<script>
+		var id = 0,//地址id
+			addressPageId = allFun.getRequest("addressPageId"),//地址栏标示id
+			orderId = allFun.getRequest("orderId"),
+			lotId = allFun.getRequest("lotId"),
+		    userName = "",
+		    telNumber = "",
+		    detalsInfo= "";
+		$(function () {
+			//postAjax();
+			//弹出div层
+			$("body").on("click",".ulList li",function(){
+				var _this = $(this);
+				userName = _this.find("h6").html();
+				telNumber = _this.find("span em").html();
+				detalsInfo = _this.find("p em").html();
+				id = $(this).attr("data_id");
+				//判断是需要调用地址还是只是展示页面
+				if(addressPageId == undefined || addressPageId == 'undefined'){
+					$(".bg").show();
+					$(".tanchu").css("-webkit-transform","translate(0,0)");
+				}else if(addressPageId == 0){//从买家订单详情页(待付款)过来的
+					//从买家订单详情页(待付款)过来需要的参数
+					/*var orderId = allFun.getRequest("orderId"),
+						name = $(this).find("h6").html(),
+						phone = $(this).find("span").find("em").html(),
+						address = $(this).find("p").find("em").html();
+					window.location.href = "/shop/platform/my/buyerOrderdetails.html?orderId="+orderId+"&addressPageId=0&name="+name+"&phone="+phone+"&address="+address+"";
+					*/
+					_this.addClass("on").siblings().removeClass("on");
+					$.ajax({
+						url: host+'/shop/platform/order/orderBuyerAddress?orderId='+orderId+'&addressId='+id+'',
+						type: "get",
+						dataType: "json",
+						beforeSend:function(){
+							allFun.loading();
+						},
+						success: function(rs) {
+							allFun.removeLoading();
+							if (rs.resCode == 1) {
+								window.location.href = "/shop/platform/my/buyerOrderdetails.html?orderId="+orderId+"";
+							}else{
+								allFun.alertDiv(rs.msg);
+							}
+						}
+					});
+					
+				}else if(addressPageId == 1){//从卖家订单详情页(退款)过来的
+					_this.addClass("on").siblings().removeClass("on");
+					window.location.href = "/shop/platform/my/refundAddAddress.html?orderId="+orderId+"&lotId="+lotId+"&id="+id;
+				}
+			})
+			
+			
+			
+			//隐藏div层
+			$("body").on("click",".bg,.tanchu_cancel",function(){
+				$(".bg").hide();
+				$(".tanchu").css("-webkit-transform","translate(0,100%)");
+			})
+			//删除地址
+			$("body").on("click",".tanchu_del",function(){
+				delAddress(id);
+				$(".bg").hide();
+				$(".tanchu").css("-webkit-transform","translate(0,100%)");
+			})
+			//修改地址
+			$("body").on("click",".tanchu_update",function(){
+				window.location.href = "/shop/html/my/addAddress.html?status=0&userName1="+userName+"&telNumber1="+telNumber+"&detalsInfo1="+detalsInfo+"&id="+id;
+				//				window.location.href = "/shop/platform/myPurse/payBail.html?status=0&lotId="+lotId+"&bidPrice="+parseInt($('.money_input').html())+"";
+				$(".bg").hide();
+				$(".tanchu").css("-webkit-transform","translate(0,100%)");
+			})
+			//设为默认地址
+			$("body").on("click",".tanchu_set",function(){
+				setAddress(id);
+				$(".bg").hide();
+				$(".tanchu").css("-webkit-transform","translate(0,100%)");
+			})
+		});
+		
+		//列表
+		function postAjax(){
+			$.ajax({
+				url: host+'/shop/platform/address/getlist',
+				type: "get",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 1) {
+						var d = rs.data,obj = "";
+						if(d.length > 0){
+							for (var i = 0; i < d.length; i++) {
+								if(d[i].isDefault == 1){//默认地址
+									obj += "<li class='on' data_id="+d[i].id+">";
+								}else{
+									obj += "<li data_id="+d[i].id+">";
+								}
+								//返回值直接为详细信息。没有省市区
+//								obj += "<div><h6>"+d[i].userName+"</h6><span>联系方式：<em>"+d[i].telNumber+"</em></span><p>地址：<em>"+d[i].provinceName+""+d[i].cityName+""+d[i].countryName+""+d[i].detailInfo+"</em></p>"
+//									+ "</div><i class='iconfont icon-duigou'></i></li>";
+									obj += "<div><h6>"+d[i].userName+"</h6><span>联系方式：<em>"+d[i].telNumber+"</em></span><p>地址：<em>"+d[i].detailInfo+"</em></p>"
+									+ "</div><i class='iconfont icon-duigou'></i></li>";
+							}
+							$(".ulList").html(obj);
+						}
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error:function(){
+					allFun.removeLoading();
+					allFun.alertDiv("出错，请重试");
+				}
+			});
+		}
+		
+		//删除地址
+		function delAddress(id){
+			$.ajax({
+				url: host+'/shop/platform/address/delete',
+				type: "post",
+				data:{"id":id},
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading("正在删除");
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 1) {
+						$(".ulList li").each(function(){
+							if($(this).attr("data_id") == id){
+								$(this).remove();
+								return false;
+							}
+						})
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				}
+			});
+		}
+		
+		//设置默认地址
+		function setAddress(id){
+			$.ajax({
+				url: host+'/shop/platform/address/setDefaultAddress',
+				type: "post",
+				data:{"id":id},
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading("正在设置");
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 1) {
+						$(".ulList li").removeClass("on");
+						$(".ulList li").each(function(){
+							if($(this).attr("data_id") == id){
+								$(this).addClass("on");
+								return false;
+							}
+						})
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				}
+			});
+		}
+		
+	</script>
+</html>

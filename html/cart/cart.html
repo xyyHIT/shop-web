@@ -8,7 +8,6 @@
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
-		<script src="/shop/css/font/iconfont.js"></script>
 		<style>
 			body{ padding-bottom: 10rem; background: #f9f9f9;}
 			.noData{ position: fixed; left: 50%; top: 50%; text-align: center; -webkit-transform: translate(-50%,-50%);}
@@ -26,7 +25,7 @@
 			.box h2 i.icon-zhankai-copy{ font-size: 1.1rem; color: #979797;}
 			.box h2 a{ display: inline-block; max-width: 60%; height: 4rem; font-size: 1.3rem; color: #3C3C3C; overflow: hidden; text-overflow: ellipsis; word-break: break-all; white-space: nowrap;}
 			.box ul{ background: #fff;}
-			.box ul li{ position: relative; height: 13rem; padding: 1.5rem 1.5rem 1.5rem 11.5rem; border-bottom: 1px solid #EFEFEF;}
+			.box ul li{ position: relative; height: 11rem; padding: 1.5rem 1.5rem 1.5rem 11.5rem; border-bottom: 1px solid #EFEFEF;}
 			.box ul li:last-child{ border-bottom: none;}
 			.box ul li i.icon-queren1,.box ul li i.icon-querenoff1{ position: absolute; left: .3rem; top: 5.2rem; width: 3.2rem; height: 3.2rem; line-height: 3.2rem; text-align: center;}
 			.box ul li > img{ position: absolute; top: 1.6rem; left: 3.8rem; width: 7rem; height: 7rem; border-radius: 5px;}
@@ -51,7 +50,7 @@
 			.editDIv div.bb{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,.6); z-index: 9992;}
 			.editDIv div.cc{ position: absolute;left: 50%; top: 50%; width: 92%; padding-top: 2rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; background: #fff; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9993;}
 			.editDIv .editInput{ position: relative; width: 12rem; height: 3rem; margin: 0 auto; margin-top: 2.5rem; margin-bottom: 2.5rem; background: #FAF9FB;}
-			.editDIv .editInput input{ width: 8rem; height: 3rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; border: none; background: #FAF9FB;}
+			.editDIv .editInput input{ width: 12rem; height: 3rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; border: none; background: #FAF9FB;}
 			.editDIv .editInput i{ position: absolute; top: 0; width: 3rem; height: 3rem; line-height: 3.1rem; font-size: 1.8rem; color: #fff; text-align: center; font-weight: 100; background: #878787; border-radius: 3px;}
 			.editDIv .editInput i.jianshao{ left: -2rem;}
 			.editDIv .editInput i.zengjia{ right: -2rem;}
@@ -62,42 +61,32 @@
 		</style>
 	</head>
 	<body>
-		<!--<div class='editDIv'>
-			<div class='cc'>
-				修改购买数量
-				<div class='editInput addSubtract'>
-					<i class='jianshao on'>－</i><input type='tel' value='1' maxlength='4' /><i class='zengjia'>＋</i>
-				</div>
-				<a class='editInput_cancel'>取消</a><a class='editInput_confirm'>确定</a>
-			</div>
-			<div class='bb'></div>
-		</div>-->
 		<div class="container">
-			<!--<div class="noData">
-				<i class="iconfont icon-gouwudai_kong"></i><br />
-				<span>购物袋是空的</span><br />
-				<em>去首页逛逛吧</em><br />
-				<a href="/shop/html/index/index.html">去首页</a>
-			</div>-->
-			<div class="list">
-				<div class="box">
+			<div class='list'>
+				<!--<div class='noData'>
+					<i class='iconfont icon-gouwudai_kong'></i><br />
+					<span>购物袋是空的</span><br />
+					<em>去首页逛逛吧</em><br />
+					<a href='/shop/html/index/index.html'>去首页</a>
+				</div>-->
+				<div class='box'>
 					<h2>
-						<i class="iconfont icon-querenoff1 icon-radio"></i>
+						<i class='iconfont icon-querenoff1 icon-radio'></i>
 						<a>viishow旗舰店viishow旗舰店viishow旗舰店</a>
-						<i class="iconfont icon-zhankai-copy"></i>
+						<i class='iconfont icon-zhankai-copy'></i>
 					</h2>
 					<ul>
 						<li>
-							<i class="iconfont icon-querenoff1 icon-radio"></i>
-							<img src="../../imgs/test/0.jpg" />
-							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】</strong>
-							<p class="fix">
+							<i class='iconfont icon-querenoff1 icon-radio'></i>
+							<img src='../../imgs/test/0.jpg' />
+							<strong class='over over2'>自然造物 | 一物 ·【看道·寻瓷】</strong>
+							<p class='fix'>
 								<span>¥200</span><em>x1</em>
 							</p>
-							<div class="liInput addSubtract">
-								<i class="jianshao on">－</i><input type="tel" value="1" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
+							<div class='liInput addSubtract'>
+								<i class='jianshao on'>－</i><input type='tel' value='1' maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i>
 							</div>
-							<i class="iconfont icon-shanchu71"></i>
+							<i class='iconfont icon-shanchu71'></i>
 						</li>
 					</ul>
 				</div>
@@ -134,13 +123,23 @@
 						</li>
 					</ul>
 				</div>
-				<div class="operate">
-					<i class="iconfont icon-querenoff1 icon-radio"></i>
-					合计：<span>¥<b id="summation">0.00</b></span>
-					<a>结算（<b id="settleAccounts">0</b>）</a>
+				<div class='operate'>
+					<i class='iconfont icon-querenoff1 icon-radio'></i>
+					合计：<span>¥<b id='summation'>0.00</b></span>
+					<a>结算（<b id='settleAccounts'>0</b>）</a>
 				</div>
 			</div>
 		</div>
+		<!--<div class='editDIv'>
+			<div class='cc'>
+				修改购买数量
+				<div class='editInput addSubtract'>
+					<i class='jianshao on'>－</i><input type='tel' value='1' maxlength='4' /><i class='zengjia'>＋</i>
+				</div>
+				<a class='editInput_cancel'>取消</a><a class='editInput_confirm'>确定</a>
+			</div>
+			<div class='bb'></div>
+		</div>-->
 	</body>
 	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
@@ -150,12 +149,12 @@
 	<script>
 		
 		$(function () {
-			
+			//getGoodsList();
 			//弹出输入数量框
 			$("body").on("click",".liInput input",function(){
 				var _t = $(this),
 					num = parseInt(_t.val());
-				_t.parents("li").append("<div class='editDIv'><div class='cc'>修改购买数量<div class='editInput addSubtract'><i class='jianshao'>－</i><input type='tel' value='1' maxlength='4' /><i class='zengjia'>＋</i></div><a class='editInput_cancel'>取消</a><a class='editInput_confirm'>确定</a></div><div class='bb'></div></div>")
+				_t.parents("li").append("<div class='editDIv'><div class='cc'>修改购买数量<div class='editInput addSubtract'><input type='tel' value='1' maxlength='4' /></div><a class='editInput_cancel'>取消</a><a class='editInput_confirm'>确定</a></div><div class='bb'></div></div>")
 				if(num == 1){
 					_t.parents("li").find(".editDIv .jianshao").addClass("on");
 				}
@@ -177,19 +176,22 @@
 			//确定数量
 			$("body").on("click",".editDIv .editInput_confirm",function(){
 				var _t= $(this),
+					spec_id = _t.parents("li").attr("data_spec_id"),
 					num = _t.parents(".editDIv").find("input").val();
 				if(num != ""){
-					_t.parents("li").find(".addSubtract input").val(num);
-					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-					if(num == 1){
-						_t.parents("li").find(".liInput .jianshao").addClass("on");
-					}
-					if(num > 1){
-						_t.parents("li").find(".liInput .jianshao").removeClass("on");
-					}
+					updateGoodsNum(spec_id,num,function(){
+						_t.parents("li").find(".addSubtract input").val(num);
+						_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+						if(num == 1){
+							_t.parents("li").find(".liInput .jianshao").addClass("on");
+						}
+						if(num > 1){
+							_t.parents("li").find(".liInput .jianshao").removeClass("on");
+						}
+						$(".editDIv").remove();
+						funMoneyAndNum();
+					});
 				}
-				$(".editDIv").remove();
-				funMoneyAndNum();
 			})
 			//关闭数量输入框
 			$("body").on("click",".editDIv .editInput_cancel,.editDIv .bb",function(){
@@ -198,38 +200,66 @@
 			//加
 			$("body").on("click",".zengjia",function(){
 				var _t = $(this),
-					num = parseInt(_t.parents(".addSubtract").find("input").val());
-				_t.parents(".addSubtract").find("input").val(num+1);
-				_t.parents(".addSubtract").find("i.jianshao").removeClass("on");
-				_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-				funMoneyAndNum();
+					spec_id = _t.parents("li").attr("data_spec_id"),
+					num = parseInt(_t.parents(".addSubtract").find("input").val())+1;
+				updateGoodsNum(spec_id,num,function(){
+					_t.parents("li").find(".addSubtract input").val(num);
+					_t.parents("li").find(".addSubtract i.jianshao").removeClass("on");
+					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					funMoneyAndNum();
+				});
 			})
 			//减
 			$("body").on("click",".addSubtract .jianshao",function(){
 				var _t = $(this),
-					num = parseInt(_t.parents(".addSubtract").find("input").val());
-				if(num > 1){
-					if(num == 2){
-						_t.addClass("on");
-					}
-					_t.parents(".addSubtract").find("input").val(num-1);
-					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-					funMoneyAndNum();
-				}
+					spec_id = _t.parents("li").attr("data_spec_id");
+					num = parseInt(_t.parents(".addSubtract").find("input").val())-1;
+				if(num > 0){
+					updateGoodsNum(spec_id,num,function(){
+						if(num == 1){
+							_t.parents("li").find(".addSubtract i.jianshao").addClass("on");
+						}
+						_t.parents("li").find(".addSubtract input").val(num);
+						_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+						funMoneyAndNum();
+					})
+				};
 			})
 			//删除
 			$("body").on("click",".icon-shanchu71",function(){
-				var _t = $(this);
-				if(_t.parents("ul").find("li").length <= 1){
-					_t.parents(".box").remove();
-				}else{
-					_t.parents("li").remove();
-				}
-				//去掉全选按钮选中状态
-				if($(".list .box ul li .icon-radio").length == 0){
-					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
-				}
-				funMoneyAndNum();
+				var _t = $(this),
+					rec_id = _t.attr("data_rec_id");
+				
+				$.ajax({
+					url: host + '/index.php?app=cart&act=ejDrop',
+					type: "post",
+					dataType: "json",
+					data:{"rec_id":rec_id},
+					beforeSend:function(){
+						allFun.loading("正在删除中！");
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code == 0) {
+							if(_t.parents("ul").find("li").length <= 1){
+								_t.parents(".box").remove();
+							}else{
+								_t.parents("li").remove();
+							}
+							//去掉全选按钮选中状态
+							if($(".list .box ul li .icon-radio").length == 0){
+								$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+							}
+							funMoneyAndNum();
+						} else {
+							allFun.alertDiv(rs.msg);
+						}
+					},
+					error: function() {
+						allFun.removeLoading();
+						allFun.alertDiv("error!")
+					}
+				})
 			})
 			//点击单个商品的单选按钮
 			$("body").on("click",".list li .icon-radio",function(){
@@ -238,22 +268,6 @@
 					_t.removeClass("icon-queren1").addClass("icon-querenoff1");
 				}else{
 					_t.removeClass("icon-querenoff1").addClass("icon-queren1");
-				}
-				
-				var len1 = _t.parents("ul").find(".icon-radio").length,
-					len2 = _t.parents("ul").find(".icon-queren1").length;
-				if(len1 == len2){
-					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-				}else{
-					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
-				}
-				
-				var len3 = _t.parents(".list").find(".box .icon-radio").length,
-					len4 = _t.parents(".list").find(".box .icon-queren1").length;
-				if(len3 == len4){
-					$(".operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-				}else{
-					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}
 				funMoneyAndNum();
 			})
@@ -264,14 +278,6 @@
 					_t.parents(".box").find(".icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}else{
 					_t.parents(".box").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-				}
-				
-				var len5 = _t.parents(".list").find(".box h2 .icon-radio").length,
-					len6 = _t.parents(".list").find(".box h2 .icon-queren1").length;
-				if(len5 == len6){
-					$(".operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
-				}else{
-					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}
 				funMoneyAndNum();
 			})
@@ -291,7 +297,13 @@
 					allFun.alertDiv("你还没有选择商品哦！");
 					return false;
 				}
-				//funMoneyAndNum();
+				var recid = [];
+				$(".list li .icon-radio").each(function(){
+					if($(this).hasClass("icon-queren1")){
+						recid.push($(this).attr("data_rec_id"));
+					}
+				})
+				location.href = "confirmOrder.html?recid="+recid;
 			})
 		});
 		
@@ -301,6 +313,22 @@
 				numAll = 0;//件数
 			$(".list li .icon-radio").each(function(){
 				var _t = $(this);
+				
+				var len1 = _t.parents("ul").find(".icon-radio").length,
+					len2 = _t.parents("ul").find(".icon-queren1").length;
+				if(len1 == len2){
+					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+				}else{
+					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				}
+				
+				var len3 = _t.parents(".list").find(".box .icon-radio").length,
+					len4 = _t.parents(".list").find(".box .icon-queren1").length;
+				if(len3 == len4){
+					$(".operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+				}else{
+					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				}
 				if(_t.hasClass("icon-queren1")){
 					numAll += parseInt(_t.parents("li").find("input").val());
 					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseInt(_t.parents("li").find("input").val());
@@ -309,6 +337,81 @@
 			$("#summation").text(moneyAll);//合计
 			$("#settleAccounts").text(numAll);//件数
 			//return numAll;
+		}
+		
+		//购物车商品数量变更
+		function updateGoodsNum(spec_id,quantity,fn){//spec_id 规格ID   quantity 商品数量   fn
+			$.ajax({
+				url: host + '/index.php?app=cart&act=ejUpdate',
+				type: "post",
+				dataType: "json",
+				data:{"spec_id":spec_id,"quantity":quantity},
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						fn();
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
+		}
+		
+		//购物车商品列表
+		function getGoodsList(){
+			$.ajax({
+				url: host + '/index.php?app=cart&act=ejIndex',
+				type: "post",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data,
+							obj = "";
+						if(d.length == 0){
+							obj += "<div class='noData'><i class='iconfont icon-gouwudai_kong'></i><br /><span>购物袋是空的</span><br /><em>去首页逛逛吧</em><br /><a href='/shop/html/index/index.html'>去首页</a></div>";
+						}else{
+							$.each(d, function(i,v) {
+								obj += "<div class='box'><h2><i class='iconfont icon-querenoff1 icon-radio'></i>"
+									+ "<a href=/shop/html/my/sellerStore.html>"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
+								for(var i = 0; i < v.goods.length; i++){
+									obj += "<li data_spec_id="+v.goods[i].spec_id+"><i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i><img src='../../imgs/test/0.jpg' />"
+										+ "<strong class='over over2'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
+										+ "<span>¥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p><div class='liInput addSubtract'>";
+									if(v.goods[i].quantity == 1){
+										obj += "<i class='jianshao on'>－</i>";
+									}else{
+										obj += "<i class='jianshao'>－</i>";
+									}
+									obj += "<input type='tel' value="+v.goods[i].quantity+" maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i>"
+										+ "</div><i class='iconfont icon-shanchu71' data_rec_id="+v.goods[i].rec_id+"></i></li>";
+								}
+								obj += "</ul></div>";
+							});
+							obj += "<div class='operate'><i class='iconfont icon-querenoff1 icon-radio'></i>"
+								+ "合计：<span>¥<b id='summation'>0.00</b></span>"
+								+ "<a>结算（<b id='settleAccounts'>0</b>）</a></div>";
+						}
+						$(".list").html(obj);
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
 		}
 	</script>
 </html>

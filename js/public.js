@@ -40,7 +40,7 @@ var host = "http://192.168.1.23";
 			wx.hideAllNonBaseMenuItem();
 		});
 		//添加底部导航
-		$("body").append("<div class='footer footerInit footerDay'><a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a><a href='/shop/html/category/category.html'><i></i>发现</a><a href='/shop/html/shopping/shopping.html'><i></i>购物袋</a><a href='/shop/html/my/myBuyer.html'><i></i>我的</a></div>");
+		$("body").append("<div class='footer footerInit footerDay'><a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a><a href='/shop/html/category/category.html'><i></i>发现</a><a href='/shop/html/cart/cart.html'><i></i>购物袋</a><a href='/shop/html/my/myBuyer.html'><i></i>我的</a></div>");
 		allFun.publicIcon();
 		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-nianhuojie");
 		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-faxian");
@@ -236,7 +236,7 @@ var allFun = {
 	publicIcon: function () {
 		var publicNavUrl = window.location.href.split('#')[0];
 		// 用数组存关键词
-		var publicNavKeywords = ["/index/", "/category/", "/shopping/", "/my/", "/order/"];
+		var publicNavKeywords = ["/index/", "/category/", "/cart/", "/my/", "/order/"];
 		// 创建正则
 		var publicNavReg = new RegExp(publicNavKeywords.join('|'));
 		// 如果想知道匹配到哪个，那么用match
@@ -250,7 +250,7 @@ var allFun = {
 				case "/category/":
 					$(".footer a").eq(1).addClass("on");
 					break;
-				case "/shopping/":
+				case "/cart/":
 					$(".footer a").eq(2).addClass("on");
 					break;
 				case "/my/":

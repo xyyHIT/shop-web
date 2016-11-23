@@ -7,6 +7,7 @@
 		<meta name="format-detection" content="telephone=no">
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/index.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/swiper.min.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
@@ -42,11 +43,11 @@
 			<!--//导航-->
 			<header >
 				<nav class="top_nav">
-					<a href="/shop/html/index/index.html "class="rent">精品</a><a href="/shop/html/index/goodsCategory.html">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></a>
-				</nav>
+					<!--<a href="/shop/html/index/index.html "class="rent">精品</a><a href="/shop/html/index/goodsCategory.html">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></a>
+				--></nav>
 				<div class="nav_mian">
 					<h2>全部分类</h2>
-					<ul>
+					<ul class="nav_list">
 						<li>
 							<a href="">
 								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
@@ -65,24 +66,7 @@
 								<div class="pro_title">精选</div>
 							</a>
 						</li>
-						<li>
-							<a href="">
-								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
-								<div class="pro_title">精选</div>
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
-								<div class="pro_title">精选</div>
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
-								<div class="pro_title">精选</div>
-							</a>
-						</li>
+
 					</ul>
 				</div>
 			</header>
@@ -98,15 +82,9 @@
 				<!--轮播banner-->
 				<div class="swiper-container banner" id="indexBanner">
 					<div class="swiper-wrapper" id="banner">
-						<div class="swiper-slide">
+						<!--<div class="swiper-slide">
 							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-						</div>
-						<div class="swiper-slide">
-							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-						</div>
-						<div class="swiper-slide">
-							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-						</div>
+						</div>-->
 					</div>
 					<div class="swiper-pagination"></div>
 				</div>
@@ -137,8 +115,8 @@
 
 				<!--产品展示-->
 				<div class="swiper-container swp_views">
-					<div class="swiper-wrapper swp_list">
-						<div class="swiper-slide">
+					<div class="swiper-wrapper swp_list" id="recommend">
+						<!--<div class="swiper-slide">
 							<div class="inner">
 								<a href="javascript:;">
 									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
@@ -146,133 +124,14 @@
 									<p>¥<span>99</span></p>
 								</a>
 							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="inner">
-								<a href="javascript:;">
-									<img src="http://prod.image.yit.com/5/8/58119f30d1df1.jpg-h5thumb" alt="">
-									<h4 class="over over2">48小时特惠 勾搭衣架 挑时</h4>
-									<p>¥<span>99</span></p>
-								</a>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="inner">
-								<a href="javascript:;">
-									<img src="http://prod.image.yit.com/5/8/58228fab88fa0.jpg-h5thumb" alt="">
-									<h4 class="over over2">48小时特惠 勾搭衣架 挑时</h4>
-									<p>¥<span>99</span></p>
-								</a>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="inner">
-								<a href="javascript:;">
-									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-									<h4 class="over over2">48小时特惠 勾搭衣架 挑时</h4>
-									<p>¥<span>99</span></p>
-								</a>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="inner">
-								<a href="javascript:;">
-									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-									<h4 class="over over2">48小时特惠 勾搭衣架 挑时</h4>
-									<p>¥<span>99</span></p>
-								</a>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="inner">
-								<a href="javascript:;">
-									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-									<h4 class="over over2">48小时特惠 勾搭衣架 挑时</h4>
-									<p>¥<span>99</span></p>
-								</a>
-							</div>
-						</div>
-
+						</div>-->
 
 					</div>
 					<!-- Add Pagination -->
 				</div>
 
 				<div class="sale_all">
-					<div class="gather_node">
-						<div class="gather_tit">
-							<a href="javascript:;">
-								<h3>热销推荐<b class="iconfont icon-zhankai-copy"></b></h3>
-							</a>
-						</div>
-
-						<div class="topic"><a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a> </div>
-
-						<div class="swiper-container swp_views">
-							<div class="swiper-wrapper swp_list">
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4 class="over over2">48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/58119f30d1df1.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/58228fab88fa0.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-
-
-							</div>
-							<!-- Add Pagination -->
-						</div>
-
-					</div>
-
-					<div class="gather_node">
+					<!--<div class="gather_node">
 						<div class="gather_tit">
 							<a href="javascript:;">
 								<h3>热销推荐<b class="iconfont icon-zhankai-copy"></b></h3>
@@ -292,58 +151,11 @@
 										</a>
 									</div>
 								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/58119f30d1df1.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/58228fab88fa0.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-
-
 							</div>
-							<!-- Add Pagination -->
+							&lt;!&ndash; Add Pagination &ndash;&gt;
 						</div>
 
-					</div>
+					</div>-->
 				</div>
 
 			</div>
@@ -357,7 +169,84 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
+            navList();
 			gooodsList();
+			//导航
+            function navList(){
+                $.ajax({
+                    url: host+'/index.php?app=default&act=ejIndex',
+                    type: "post",
+                    beforeSend:function(){
+                        allFun.loading()
+                    },
+                    success: function(rs) {
+                        allFun.removeLoading();
+                        if(rs.code!=0){
+                            allFun.alertDiv(rs.msg);
+                            return false;
+                        }
+                        //nav
+                        var navData = rs.data.categories;
+                        console.log(navData);
+                        str='',str2='', nId=0;
+                        str+='<a href="javascript:;" nav_id='+nId+' class="rent">精选</a>';
+                        for(var i=0; i<navData.length; i++){
+                            str+='<a href="javascript:;" nav_id='+navData[i].id+'>'+navData[i].cateName+'</a>'
+                        }
+                        str+='<span href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></span>';
+                        $(".top_nav").html(str);
+                        //一级导航
+                        $(".top_nav a").click(function () {
+                            //获取导航的id
+                            var nav_id=$(this).attr("nav_id");
+                            $(this).addClass("rent").siblings().removeClass("rent");
+                            if(nav_id==0){
+                                $(".vertical-view").show();
+                                $("#banner").show();
+                                $("#recommend").show();
+                                gooodsList(0);
+                            }else {
+								$(".vertical-view").hide();
+								$("#banner").hide();
+								$("#recommend").hide();
+								cate(nav_id);
+                            }
+                        });
+
+                        for(var i=0; i<navData.length; i++){
+                            str2+='<li nav_id="'+navData[i].id+'"><a href="javascript:;"><div class="icon_img"><img src="'+navData[i].imageURL+'" alt=""></div> <div class="pro_title">'+navData[i].cateName+'</div> </a> </li>'
+                        }
+                        $(".nav_list").html(str2);
+                        //二级导航
+                        $(".up_list").click(function () {
+                            if ($(".up_list>em").hasClass("up")) {
+                                $(".up_list>em").removeClass("up").addClass("down");
+                            } else if ($(".up_list>em").hasClass("down")) {
+                                $(".up_list>em").removeClass("down").addClass("up");
+                            }
+                            $(".nav_mian").toggle();
+                            $(".mask").toggle();
+                            if ($(".mask").css('display') == 'block') {
+                                $("body,html").css({"overflow": "hidden"});
+                                return false;
+                            } else {
+                                $("body,html").css({"overflow": "auto"});
+                            }
+                        });
+
+                        $(".nav_list li").click(function () {
+                            //获取导航的id
+                            var nav_id=$(this).attr("nav_id");
+                            $(".nav_mian").hide();
+                            $(".mask").hide();
+                            cate(nav_id);
+                        });
+
+                    }
+                });
+
+            }
+            //精选
 			function gooodsList(){
 				$.ajax({
 					url: host+'/index.php?app=default&act=ejIndex',
@@ -371,6 +260,7 @@
 							allFun.alertDiv(rs.msg);
 							return false;
 						}
+
 						//banner轮播
 						var bannerData = rs.data.cycleImages;
 						var bannerList = "";
@@ -386,14 +276,15 @@
 							loop: true
 						});
 
-						//推荐产品
+						//推荐产品和产品列表
 						var goodsData = rs.data.recommend;
-						console.log(goodsData);
-						var goodsList = '';
+						console.log(goodsData,goodsData.recom_name);
+						var goodsList = '';recommend='';
 						for(i = 0;i<goodsData.length;i++){
-							res='',listData=goodsData[i].items;
-							for( j = 0;j<listData.length;j++) {
-								res += '<div class="swiper-slide">'
+							var res='', res2='',listData=goodsData[i].items,recom_name=goodsData[i].recom_name;
+							if(recom_name=="精品推荐"){
+								for( j = 0;j<listData.length;j++){
+								recommend+='<div class="swiper-slide">'
 										+ '<div class="inner">'
 										+ '<a href="javascript:;" data_lotid="'+listData[j].goods_id+'">'
 										+ '<img src="'+listData[j].default_image+'" alt="">'
@@ -402,24 +293,39 @@
 										+ '</a>'
 										+ '</div>'
 										+ '</div>'
-							}
-							goodsList+='<div class="gather_node">'
-									+'<div class="gather_tit">'
-									+'<a href="javascript:;">'
-									+'<h3>'+goodsData[i].recom_name+'<b class="iconfont icon-zhankai-copy"></b></h3>'
-									+'</a>'
-									+'</div>'
-									+'<div class="topic" data-hrefid="'+goodsData[i].recom_id+'"><a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a> </div>'
-									+'<div class="swiper-container swp_views">'
-									+'<div class="swiper-wrapper swp_list">'
-									+res
-									+'</div>'
-									+'</div>'
+								}
+							}else {
+                                res2 += '<div class="topic"><a href="javascript:;"  data-hrefid="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
+								for( j = 1;j<listData.length;j++) {
+                                    res +='<div class="swiper-slide">'
+													+ '<div class="inner">'
+														+ '<a href="javascript:;" data_lotid="'+listData[j].goods_id+'">'
+														+ '<img src="'+listData[j].default_image+'" alt="">'
+														+ '<h4>'+listData[j].goods_name+'</h4>'
+														+ '<p>¥<span>'+listData[j].price+'</span></p>'
+														+ '</a>'
+													+ '</div>'
+										        + '</div>'
 
-									+'</div>'
+								}
+								goodsList+='<div class="gather_node">'
+										+'<div class="gather_tit">'
+										+'<a href="javascript:;">'
+										+'<h3>'+goodsData[i].recom_name+'<b class="iconfont icon-zhankai-copy"></b></h3>'
+										+'</a>'
+										+'</div>'
+                                        +res2
+										+'<div class="swiper-container swp_views">'
+										+'<div class="swiper-wrapper swp_list">'
+											+res
+										+'</div>'
+										+'</div>'
+										+'</div>';
+							}
+
 						}
 						$(".sale_all").html(goodsList);
-
+						$("#recommend").html(recommend);
 						//多图轮播
 						var swiper = new Swiper('.swp_views', {
 							slidesPerView: 3.5,
@@ -428,30 +334,57 @@
 						});
 					}
 				});
+
 			}
 
+			function cate(nav_id) {
+                $.ajax({
+                    url: host + '/index.php?app=catinfo&cate_id='+nav_id+'',
+                    type: "post",
+					data:{"cate_id":nav_id},
+                    beforeSend: function () {
+                        allFun.loading()
+                    },
+                    success: function (rs) {
+                        allFun.removeLoading();
+                        if (rs.code != 0) {
+                            allFun.alertDiv(rs.msg);
+                            return false;
+                        }
+                        var cate=rs.data,cateList='';
+                        console.log(cate);
+                        for(var z=0; z<cate.length;z++){
+                            var obj='',obj2='',catinfo=cate[z].goodslist;
+                            obj+='<div class="topic"><a href="" cate_id="'+catinfo[0].cate_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
+                            for(var w=1; w<catinfo.length;w++){
+                                obj2+='<div class="swiper-slide">'
+                                +'<div class="inner">'
+                                +'<a href="javascript:;">'
+                                +'<img src="'+catinfo[w].default_image+'"  alt="">'
+                                +'<h4 class="over over2">'+catinfo[w].goods_name+'</h4>'
+                                +'<p>¥<span>'+catinfo[w].price+'</span></p>'+'</a>'
+                                +' </div>'
+                                +' </div>'
+							}
+                            cateList+='<div class="sale_all">'
+                                +'<div class="gather_node">'
+                                +'<div class="gather_tit">'
+                                +'<a href="javascript:;"> <h3>'+cate[z].cate_name+'<b class="iconfont icon-zhankai-copy"></b></h3></a>'
+                                +'</div>'
+								+obj
+								+'<div class="swiper-container swp_views">'
+                                +'<div class="swiper-wrapper swp_list">'
+                                +obj2
+                                +' </div>'
+                                +' </div>'
+                                +' </div>'
+						}
+						$(".sale_all").html(cateList);
+                    }
+                });
+				
+            }
 
-//二级导航
-			$(function () {
-				$(".up_list").click(function () {
-					if ($(".up_list>em").hasClass("up")) {
-						$(".up_list>em").removeClass("up").addClass("down");
-					} else if ($(".up_list>em").hasClass("down")) {
-						$(".up_list>em").removeClass("down").addClass("up");
-					}
-					$(".nav_mian").toggle();
-					$(".mask").toggle();
-					if ($(".mask").css('display') == 'block') {
-						$("body,html").css({"overflow": "hidden"});
-						return false;
-					} else {
-						$("body,html").css({"overflow": "auto"});
-					}
-				});
-
-			})
-
-
-		});
+        });
 	</script>
 </html>

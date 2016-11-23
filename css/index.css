@@ -1,0 +1,42 @@
+
+/*导航*/
+.top_nav{height:4rem; line-height: 4rem; background: #fff; position: relative;}
+.top_nav a{display: inline-block; color: #878787; font-size: 1.3rem;width:16.666%; text-align: center;}
+.top_nav a.rent{  color: #ec4747; border-bottom: 2px solid #ec4747; }
+
+.top_nav .up{ font-size: 1.2rem; color: #ec4747;display: inline-block;
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg); 	/* IE 9 */
+    -moz-transform:rotate(90deg); 	/* Firefox */
+    -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+    -o-transform:rotate(90deg); 	/* Opera */}
+.top_nav .down{font-size: 1.2rem; color: #ec4747;display: inline-block;
+    transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg); 	/* IE 9 */
+    -moz-transform:rotate(-90deg); 	/* Firefox */
+    -webkit-transform:rotate(-90deg); /* Safari 和 Chrome */
+    -o-transform:rotate(-90deg); 	/* Opera */}
+.nav_mian{background: #fff; width:100%; background: #fff; overflow: hidden; display: none; position: fixed; top:0; left: 0;z-index: 6666;}
+.up_list{ position: absolute;  z-index: 88888;background: #fff;height:4rem;        right: 0rem;
+    padding: 0 1.8rem;}
+.nav_mian h2{ height:4rem; line-height: 4rem;color: #5f5f5f; text-align: center; background:#f9f9f9;font-size: 1.3rem; overflow: hidden;}
+.nav_mian ul{padding:2rem 0 0; overflow: hidden;}
+.nav_mian ul li a{color:#878787;width:100%; height:100%; display: inline-block; }
+.nav_mian ul li{display: inline-block; float: left; width:25%; padding-bottom:1rem;text-align: center}
+.nav_mian ul li .icon_img img{width: 3rem;height:3rem;}
+.nav_mian ul li .pro_title{font-size:1.1rem; padding:.4rem 0; }
+.topic img{ width:100%; height: 100%;}
+.mask{width:100%; height: 100%; opacity: .5; background: #000; z-index: 5555; position: fixed; left: 0; top:0; display: none; overflow: hidden;}
+/*搜索*/
+.search_button{background-color: #fff;padding: 1rem 2rem; margin-top: .5rem; }
+.search_button{display: block;}
+.search_button a{display: block;}
+.search_button img{width: 100%;}
+/*banner和图片轮播*/
+.banner a{display: block;width:100%;font-size: 0;}
+.banner img{width:100%;}
+/*首页标题样式*/
+.gather_tit{text-align: center;}
+.gather_tit, .gather_tit h3 {  height: 48px;  line-height: 48px; background: #fff;  position: relative;  }
+.gather_tit h3 {display: inline-block;  padding: 0 20px;  font-size: 1.2rem;  color: #333; font-weight: 600; }
+.gather_tit h3 b {  position: absolute;   right: 0; top:.1rem ;font-size:.8rem;display: inline-block;}

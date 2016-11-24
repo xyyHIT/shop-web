@@ -146,7 +146,7 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
-			
+			getOrderDetail();
 			//点击去发货弹出div
 			$("body").on("click","#aQuFaHuo",function(){
 				$("body").append("<div class='bg'></div>");
@@ -158,6 +158,43 @@
 				$(".dScanCode").hide();
 			})
 			
-		});
+		})
+		function getOrderDetail(){
+			$.ajax({
+				url: host + '/index.php?app=buyer_order&act=view',
+				type: "post",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data.orderlist, obj = "";
+						if(d.length > 0){//有数据
+							$.each(d, function(i,v) {
+								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"
+									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
+								for(var i = 0; i < v.order_goods.length; i++){
+									obj += "<li><a href=buyerOrderDetail.html?orderId="+v.order_goods[i].order_id+">"
+										+ "<img src='../../imgs/test/0.jpg' /></a><strong class='over2'>"+v.order_goods[i].goods_name+"</strong>"
+										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
+								}
+								obj += "</ul><div class='dTotal'>合计：<span>¥"+v.order_amount+"</span></div>"+v.button+"</div>";
+							});
+						}else{
+							obj += allFun.noDataImg();
+						}
+						$(".list").append(obj);
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
+		}
 	</script>
 </html>

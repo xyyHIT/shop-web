@@ -343,7 +343,7 @@
 			//关闭分类列表
 			$("body").on("click",".bg,.fenlei h2 i,.fenlei ul li",function(){
 				$(".bg").remove();
-				$(".bg,.fenlei").hide();
+				$(".fenlei").hide();
 			})
 			//点击商品一级分类列表
 			$("body").on("click",".fenleiT",function(){
@@ -454,14 +454,6 @@
 						var d = rs.data,obj = "";
 						
 						obj += "<h2>商品分类<i class='iconfont icon-123'></i></h2><div class='fenleiBox'>";
-						/*for(var i = 0; i < d.length; i++){
-							obj += "<div class='fenleiT'>饰界<i class='iconfont icon-zhankai-copy'></i></div><ul>";
-							for(var i = 0; i < d.length; i++){
-								obj += "<li>金银</li>";
-							}
-							obj += "</ul>";
-						}*/
-						
 						$.each(d, function(i,v) {
 							obj += "<div class='fenleiT'>"+v.value+"<i class='iconfont icon-zhankai-copy'></i></div><ul>";
 							for(var i = 0; i < v.children.length; i++){
@@ -480,7 +472,7 @@
 				},
 				error: function() {
 					allFun.removeLoading();
-					allFun.alertDiv("error!")
+					allFun.alertDiv("获取分类错误！")
 				}
 			})
 		}

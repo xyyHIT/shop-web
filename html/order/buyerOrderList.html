@@ -16,26 +16,32 @@
 	<body>
 		<div class="container">
 			<nav class="nav5">
-				<a class='on' data_type ='0'>全部</a><a data_type ='1'>待付款</a><a data_type ='2'>待发货</a><a data_type ='3'>待收货</a><a data_type ='4'>已完成</a>
+				<a data_type='all'>全部</a><a data_type='pending'>待付款</a><a data_type='accepted'>待发货</a><a data_type='shipped'>待收货</a><a data_type='finished'>已完成</a>
 			</nav>
 			<div class="list">
-				<div class="box">
+				<!--<div class='box'>
 					<h2>
 						<a>viishow旗舰店</a>
-						<i class="iconfont icon-zhankai-copy"></i>
+						<i class='iconfont icon-zhankai-copy'></i>
 						<em>卖家已发货</em>
 					</h2>
 					<ul>
 						<li>
-							<a href="buyerOrderDetail.html">
-								<img src="../../imgs/test/0.jpg" />
+							<a href='buyerOrderDetail.html'>
+								<img src='../../imgs/test/0.jpg' />
 							</a>
-							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
-							<p class="fix">
+							<strong class='over2'>自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
+							<p class='fix'>
 								<span>¥200</span><em>x1</em>
 							</p>
 						</li>
 					</ul>
+					<div class='dTotal'>
+						合计：<span>¥300.00</span>
+					</div>
+					<div class='dOperate'>
+						<a class='chakanwuliu'>查看物流</a>
+					</div>
 				</div>
 				<div class="box">
 					<h2>
@@ -63,27 +69,13 @@
 							</p>
 						</li>
 					</ul>
-				</div>
-			</div>
-			<div class="dTotal">
-				合计：<span>¥300.00</span>
-			</div>
-			<div class='dOperate'>
-				<!--买家待付款-->
-				<!--<a class='quxiaodingdan'>取消订单</a><a class='qufukuan'>去付款</a>-->
-				<!--买家待发货-->
-				<!--<a class='tixingfahuo'>提醒发货</a>-->
-				<!--买家待收货-->
-				<!--<a class='yanchangshouhuo'>延长收货</a><a class='chakanwuliu'>查看物流</a><a class="querenshouhuo">确认收货</a>-->
-				<!--买家已完成-->
-				<!--<a class='chakanwuliu'>查看物流</a>-->
-				
-				<!--卖家待发货-->
-				<!--<a class='qufahuo'>去发货</a>-->
-				<!--卖家待收货-->
-				<!--<a class='chakanwuliu'>查看物流</a>-->
-				<!--卖家已完成-->
-				<a class='chakanwuliu'>查看物流</a>
+					<div class='dTotal'>
+						合计：<span>¥300.00</span>
+					</div>
+					<div class='dOperate'>
+						<a class='chakanwuliu'>查看物流</a>
+					</div>
+				</div>-->
 			</div>
 		</div>
 	</body>
@@ -99,28 +91,99 @@
 			count = 10,
 			linkType = allFun.getRequest("linkType"); 
 		$(function () {
+			getOrderList();
+			
 			$("#showType").val(linkType);
 			if(linkType == undefined){
-				linkType = 0;
+				linkType = 'all';
 			}
-			
 			if($("#showType").val() != ""){
 				linkType = $("#showType").val();
 			}
-			
 			$("nav a").each(function(){
 				if($(this).attr("data_type") == linkType){
 					$(this).addClass("on").siblings().removeClass("on");
 				}
 			})
-			
 			//tab切换
 			$("nav a").click(function () {
 		        $(this).addClass("on").siblings().removeClass("on");
 		        $("#showType").val($(this).attr("data_type"));
-		        nextCursor = 0;
-		        //ajaxList($("#showType").val(),0);
+		        $(".list").empty();
+		        getOrderList($("#showType").val());
 		    })
-		});
+			
+			//取消订单
+			$("body").on("click",".quxiaodingdan",function(){
+				var _t = $(this),
+					order_id = _t.parents(".box").attr("data_order_id");
+				$.ajax({
+					url: host + '/index.php?app=buyer_order&act=cancel_order',
+					type: "post",
+					dataType: "json",
+					data:{"order_id":order_id},
+					beforeSend:function(){
+						allFun.loading("正在取消订单！");
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code == 0) {
+							_t.parents(".dOperate").remove();
+							_t.parents(".box").find("h2 em").html("交易取消");
+						} else {
+							allFun.alertDiv(rs.msg);
+						}
+					},
+					error: function() {
+						allFun.removeLoading();
+						allFun.alertDiv("error!")
+					}
+				})
+			})
+			//去付款
+			$("body").on("click",".qufukuan",function(){
+				var order_id = $(this).parents(".box").attr("data_order_id");
+				location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id;
+			})
+			
+		})
+		function getOrderList(tp){//tp类别   （全部：all 待付款：pending 待发货：accepted 待收货：shipped 待评价：finished）
+			$.ajax({
+				url: host + '/index.php?app=buyer_order&act=index',
+				type: "post",
+				dataType: "json",
+				data:{"type":tp},
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data.orderlist, obj = "";
+						if(d.length > 0){//有数据
+							$.each(d, function(i,v) {
+								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"
+									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
+								for(var i = 0; i < v.order_goods.length; i++){
+									obj += "<li><a href=buyerOrderDetail.html?orderId="+v.order_goods[i].order_id+">"
+										+ "<img src='../../imgs/test/0.jpg' /></a><strong class='over2'>"+v.order_goods[i].goods_name+"</strong>"
+										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
+								}
+								obj += "</ul><div class='dTotal'>合计：<span>¥"+v.order_amount+"</span></div>"+v.button+"</div>";
+							});
+						}else{
+							obj += allFun.noDataImg();
+						}
+						$(".list").append(obj);
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
+		}
 	</script>
 </html>

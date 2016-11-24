@@ -141,7 +141,6 @@
 									</div>
 								</div>
 							</div>
-							&lt;!&ndash; Add Pagination &ndash;&gt;
 						</div>
 
 					</div>-->
@@ -275,7 +274,7 @@
 								for( j = 0;j<listData.length;j++){
 								recommend+='<div class="swiper-slide">'
 										+ '<div class="inner">'
-										+ '<a href="javascript:;" data_lotid="'+listData[j].goods_id+'">'
+										+ '<a href="/shop/html/index/goodsDetails.html?data_lotid='+listData[j].goods_id+'" data_lotid="'+listData[j].goods_id+'">'
 										+ '<img src="'+listData[j].default_image+'" alt="">'
 										+ '<h4>'+listData[j].goods_name+'</h4>'
 										+ '<p>¥<span>'+listData[j].price+'</span></p>'
@@ -284,11 +283,11 @@
 										+ '</div>'
 								}
 							}else {
-                                res2 += '<div class="topic"><a href="javascript:;"  data-hrefid="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
+                                res2 += '<div class="topic"><a href="/shop/html/index/goodsDetails.html?data_lotid='+listData[0].goods_id+'"  data_lotid="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
 								for( j = 1;j<listData.length;j++) {
                                     res +='<div class="swiper-slide">'
 													+ '<div class="inner">'
-														+ '<a href="javascript:;" data_lotid="'+listData[j].goods_id+'">'
+														+ '<a href="/shop/html/index/goodsDetails.html?data_lotid='+listData[j].goods_id+'" data_lotid="'+listData[j].goods_id+'">'
 														+ '<img src="'+listData[j].default_image+'" alt="">'
 														+ '<h4>'+listData[j].goods_name+'</h4>'
 														+ '<p>¥<span>'+listData[j].price+'</span></p>'
@@ -325,7 +324,7 @@
 				});
 
 			}
-
+//点击导航其他选项的列表
 			function cate(nav_id) {
                 $.ajax({
                     url: host + '/index.php?app=catinfo&cate_id='+nav_id+'',

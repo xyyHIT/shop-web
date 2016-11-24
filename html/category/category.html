@@ -27,8 +27,8 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="daily-life-list">
-				<div class="life-item">
+			<div class="daily-life-list" id="category">
+				<!--<div class="life-item">
 					<div class="item-type">
 						<a href="/shop/html/index/goodsSearch.html">
 							<div class="classty-txt left"><span><i>图书</i></span></div>
@@ -125,7 +125,7 @@
 						<li><a href="javascript:;"><span>艺术</span></a></li>
 
 					</ul>
-				</div>
+				</div>-->
 			</div>
 
 		</div>
@@ -136,8 +136,44 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		$(function () {
-			
-		});
+        $(function () {
+
+            $.ajax({
+                url: host + '/index.php?app=category&act=ejindex',
+                type: "post",
+                beforeSend: function () {
+                    allFun.loading()
+                },
+                success: function (rs) {
+                    allFun.removeLoading();
+                    if (rs.code != 0) {
+                        allFun.alertDiv(rs.msg);
+                        return false;
+                    }
+                    var categoryData = rs.data;
+                    console.log(categoryData);
+                    cate = '', cate2 = '';
+                    for (var i = 0; i < categoryData.length; i++) {
+                        category = categoryData[i].children;
+                        for (j = 0; j < category.length; j++) {
+                            cate2 +='<li><a href="javascript:;"><span>' + category[j].value + '</span></a></li>'
+                        }
+                        cate += '<div class="life-item">'
+                            + '<div class="item-type">'
+                            + '<a href="/shop/html/index/goodsSearch.html">'
+                            + '<div class="classty-txt left"><span><i>' + categoryData[i].value + '</i></span></div>'
+                            + '<div class="classify-pic right"><img src="' + categoryData[i].imageurl + '" alt="" width="100%"></div>'
+                            + '</a>'
+                            + '</div>'
+                            + '<ul class="item-list">'
+                            + cate2
+                            + '</ul>'
+                            + '</div>'
+                    }
+                    $("#category").html(cate);
+                }
+            });
+
+        });
 	</script>
 </html>

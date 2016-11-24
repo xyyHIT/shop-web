@@ -16,8 +16,8 @@
         .pro-info .price { font-size: 1.5rem; color: #ec4747; margin:0.3rem 0;  }
         .pro-info .kinds span{color:#aaa; font-size:1.2rem; margin-right:1rem; }
         .pro-info .like{position: absolute; right:1rem; bottom:1rem;color:#878787; font-size:1rem; }
-        .pro-info .like .heart{  margin-bottom:.3rem;  text-align: center; font-size: 2.4rem;color: #ec4747;}
-        .pro-info .like .grey{color: #9e9e9e;}
+        .pro-info .like .heart{  margin-bottom:.3rem;  text-align: center; font-size: 2.4rem;}
+        .pro-info .like .red{color: #ec4747;}
         .ways{height:4rem; line-height: 4rem; background: #fcfcfc; padding:0 1rem;}
         .ways .freight{font-size: 1.2rem; color: #aaa;}
         .ways .sales{font-size: 1.2rem; color: #808080;}
@@ -30,7 +30,6 @@
         .faxian dd p{margin-top:.2rem;  }
         .faxian dd p span{font-size: 1.1rem; margin-right:1rem;color: #878787;}
         .faxian em{position: absolute; right:1rem; top:2.4rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;  border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}
-        .faxian em i{width:100%; height:100%; display:inline-block;}
         .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
 
         .trade{width: 100%; line-height:4rem; background: #fff;}
@@ -86,7 +85,7 @@
         <p class="price">￥<span></span></p>
         <p class="kinds"><span><em class="person"></em>人付款</span><span><em class="assess"></em>好评</span></p>
         <div class="like">
-            <div class="liks"></div>
+            <p class="heart iconfont icon-xihuan red"  rel="like"></p>
             <p><em class="num likeCount" id="likeCount"></em>人喜欢</p>
         </div>
     </div>
@@ -101,13 +100,13 @@
                     <h3><span class="level"></span><p class="over over1 name"></p></h3>
                     <p class=""><span>商品<i class="p_num"></i></span><span>关注<i class="g_num"></i></span></p>
                 </dd>
-                <em class="gz"></em>
+                <em>+关注</em>
 
         </dl>
     </div>
 <!--图文详情和评价-->
     <div class="trade">
-        <span class="current"><em class="alert"></em>图文详情</span><!--<span id="buyer">商品评价</span>-->
+        <span class="current"><em class="alert"></em>图文详情</span><span id="buyer">商品评价</span>
     </div>
     <div class="trade_contents">
         <ol class="current" id="rradeMain">
@@ -132,6 +131,29 @@
         <div class="goodsTitle">热门推荐</div>
 
         <ul class="pre-list pre-list-2">
+
+       <!-- <li>
+                 <div class="pre-item">
+                     <a href="">
+                         <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                     </a>
+                     <div class="pre-info">
+                         <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                         <p class="pre-price"><span>¥2680</span></p>
+                     </div>
+                 </div>
+             </li>
+             <li>
+                 <div class="pre-item">
+                     <a href="">
+                         <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                     </a>
+                     <div class="pre-info">
+                         <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                         <p class="pre-price"><span>¥2680</span></p>
+                     </div>
+                 </div>
+             </li>-->
         </ul>
     </div>
 
@@ -168,118 +190,57 @@
                         return false;
                     }
                     var goodsData=rs.data.goods,storeData=rs.data.store;
-                    console.log(rs.data);
                     console.log(goodsData);
                     $(".pro-info .name").html(goodsData.goods_name);
                     $(".pro-info .price span").html(goodsData.ship_price);
                     $(".pro-info .kinds .person").html(goodsData.sales);
-                    status=goodsData.collectsign;
-                    $(".liks").html('<p class="heart iconfont icon-xihuan" item_id="'+goodsData.goods_id+'" status="'+status+'"></p>');
-
                     $(".pro-info .kinds .assess").html(goodsData.good_comment);
                     $(".ways .freight em").html(goodsData.ship_price);
                     $(".like p .num").html(goodsData.collects);
                     //点击喜欢和不喜欢
-                    $(".liks p").click(function (){
-                        var t=$(this);
-                        var num=parseInt($("#likeCount").html());
-                        item_id=t.attr("item_id");
-                        if(t.hasClass("grey")){
-                            $("#likeCount").html(num-1);
-                            attention("goods",1,t);
-                        }else{
-                            $("#likeCount").html(num+1);
-                            attention("goods",0,t);
+                    $(".heart").click(function (){
+                        var C=parseInt($("#likeCount").html());
+                        var D=$(this).attr("rel");
+                        if(D === 'like') {
+                            $("#likeCount").html(C+1);
+                            $(this).removeClass("red").attr("rel","unlike");
+                        }
+                        else{
+                            $("#likeCount").html(C-1);
+                            $(this).addClass("red").attr("rel","like");
                         }
                     });
-
                     //店铺关注
                     console.log(storeData);
                     $(".faxian dt img").attr("src",storeData.logo);
                     $(".faxian dd .name").html(storeData.name);
                     $(".faxian dd .p_num").html(storeData.goods_count);
                     $(".faxian dd .g_num").html(storeData.collect_count);
-                    var status=storeData.collectsign;
-                    if(status==0){
-                        $(".faxian .gz").html('<i item_id="'+goodsData.store_id+'" >+关注</i>');
-                    }else {
-                        $(".faxian .gz").html('<i item_id="'+goodsData.store_id+'" >已关注</i>');
-                    }
-
                     $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
                     $("#rradeMain").html('<p>'+goodsData.vediourl+'</p><p>'+goodsData.detail_image+'</p><p>'+goodsData.detail_desc+'</p>');
-
-                    //添加关注
-                    $(".gz i").click(function () {
-                        var t=$(this);
-                        item_id=t.attr("item_id");
-                        console.log(item_id);
-                        if(t.hasClass("on")){
-                            attention("store",1,t);
-                        }else{
-                            attention("store",0,t);
-                        }
-
-                    });
 
                     //热门推荐
                     var mend='', commend=goodsData.commend_goods;
                     console.log(commend);
                     $.each(commend,function (j,v) {
+
                              mend+='<li><div class="pre-item">'
-                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+commend[j].goods_id+'" data_lotid="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'" alt=""> </a>'
+                                +'<a href=""><img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt=""> </a>'
                                 +'<div class="pre-info">'
-                                +'<p class="pre-subtitle over over1" >'+commend[j].goods_name+'</p>'
-                                +'<p class="pre-price"><span class="left">¥<em>'+commend[j].price+'</em></span><span class="right payment">7人付款</span></p>'
+                                +'<p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>'
+                                +'<p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>'
                                 +' </div>'
                                 +'</div></li>'
+
+
                     });
-                    $(".pre-list").html(mend);
 
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
+                    $(".pre-list").html(mend)
+
                 }
             });
 
         }
-
-        //关注和喜欢
-        function attention(type,status,t) {// type=store 商品 type=goods  //status: 0-关注 1-取消关注
-            $.ajax({
-                url: host + '/index.php?app=my_favorite&act=add&type='+type+'&item_id='+item_id+'&status='+status+'',
-                type: "get",
-                beforeSend: function () {
-                },
-                success: function (rs) {
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                    if(type=="store"){
-                        if(status == 1){//取消关注
-                            t.removeClass("on").html("+关注");
-                        }else{
-                            t.addClass("on").html("已关注");
-                        }
-                    }else if(type=="goods"){
-                        if(status == 1) {
-                            t.removeClass("grey");
-                        }
-                        else{
-                            t.addClass("grey");
-                        }
-                    }
-
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
-            });
-        }
-
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',

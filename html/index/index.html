@@ -38,116 +38,65 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<div class="mask"></div>
-			<!--//导航-->
-			<header >
-				<nav class="top_nav">
-					<!--<a href="/shop/html/index/index.html "class="rent">精品</a><a href="/shop/html/index/goodsCategory.html">画展</a><a href="javascript:;">文玩</a><a href="javascript:;">精品</a><a href="javascript:;">画展</a><a href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></a>
-				--></nav>
-				<div class="nav_mian">
-					<h2>全部分类</h2>
-					<ul class="nav_list">
-						<!--<li>
-							<a href="">
-								<div class="icon_img"><img src="/shop/imgs/test/0.jpg" alt=""></div>
-								<div class="pro_title">精选</div>
-							</a>
-						</li>
-						-->
+	<div class="container">
+		<div class="mask"></div>
+		<!--//导航-->
+		<header>
+			<nav class="top_nav"></nav>
+			<div class="nav_mian">
+				<h2>全部分类</h2>
+				<ul class="nav_list"></ul>
+			</div>
+		</header>
+		<!--搜索-->
+		<div class="header fix">
+			<a href="/shop/html/index/goodsSearch.html">
+				<div class="searchBg iconfont icon-sousuo"></div>
+				<div id="searchInput">输入搜索的商品名称...</div>
+			</a>
+		</div>
 
-					</ul>
+		<div class="warp">
+			<!--轮播banner-->
+			<div class="swiper-container banner" id="indexBanner">
+				<div class="swiper-wrapper" id="banner">
 				</div>
-			</header>
-            <!--搜索-->
-            <div class="header fix">
-				<a href="/shop/html/index/goodsSearch.html">
-					<div class="searchBg iconfont icon-sousuo"></div>
-					<div id="searchInput">输入搜索的商品名称...</div>
+				<div class="swiper-pagination"></div>
+			</div>
+
+			<div class="vertical-view">
+				<a href="#">
+					<dl>
+						<dt class="icon iconfont icon-paimai"></dt>
+						<dd>拍卖</dd>
+					</dl>
 				</a>
-            </div>
+				<a href="#">
+					<dl>
+						<dt class="icon iconfont icon-zhongchou"></dt>
+						<dd>众筹</dd>
+					</dl>
+				</a>
+				<a href="#">
+					<dl>
+						<dt class="icon iconfont icon-zixun"></dt>
+						<dd>资讯</dd>
+					</dl>
+				</a>
+			</div>
 
-			<div class="warp">
-				<!--轮播banner-->
-				<div class="swiper-container banner" id="indexBanner">
-					<div class="swiper-wrapper" id="banner">
-						<!--<div class="swiper-slide">
-							<a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-						</div>-->
-					</div>
-					<div class="swiper-pagination"></div>
+			<!--产品展示-->
+			<div class="swiper-container swp_views">
+				<div class="swiper-wrapper swp_list" id="recommend">
 				</div>
+			</div>
 
-				<div class="vertical-view">
-					<a href="#">
-						<dl>
-							<dt class="icon iconfont icon-paimai"></dt>
-							<dd>拍卖</dd>
-						</dl>
-					</a>
-
-					<a href="#">
-						<dl>
-							<dt class="icon iconfont icon-zhongchou"></dt>
-							<dd>众筹</dd>
-						</dl>
-					</a>
-
-					<a href="#">
-						<dl>
-							<dt class="icon iconfont icon-zixun"></dt>
-							<dd>资讯</dd>
-						</dl>
-					</a>
-
-				</div>
-
-				<!--产品展示-->
-				<div class="swiper-container swp_views">
-					<div class="swiper-wrapper swp_list" id="recommend">
-						<!--<div class="swiper-slide">
-							<div class="inner">
-								<a href="javascript:;">
-									<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-									<h4 class="over over2">48小时特惠 48小时特惠勾搭衣架勾搭衣架 挑时</h4>
-									<p>¥<span>99</span></p>
-								</a>
-							</div>
-						</div>-->
-
-					</div>
-					<!-- Add Pagination -->
-				</div>
-
-				<div class="sale_all">
-					<!--<div class="gather_node">
-						<div class="gather_tit">
-							<a href="javascript:;">
-								<h3>热销推荐<b class="iconfont icon-zhankai-copy"></b></h3>
-							</a>
-						</div>
-
-						<div class="topic"><a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a> </div>
-
-						<div class="swiper-container swp_views">
-							<div class="swiper-wrapper swp_list">
-								<div class="swiper-slide">
-									<div class="inner">
-										<a href="javascript:;">
-											<img src="http://prod.image.yit.com/5/8/582412afce343.jpg-h5thumb" alt="">
-											<h4>48小时特惠 勾搭衣架 挑时</h4>
-											<p>¥<span>99</span></p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>-->
-				</div>
+			<div class="sale_all">
 
 			</div>
+
 		</div>
+	</div>
 	</body>
 	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
@@ -230,6 +179,10 @@
                             cate(nav_id);
                         });
 
+                    },
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
                     }
                 });
 
@@ -310,7 +263,6 @@
 										+'</div>'
 										+'</div>';
 							}
-
 						}
 						$(".sale_all").html(goodsList);
 						$("#recommend").html(recommend);
@@ -320,9 +272,12 @@
 							paginationClickable: true,
 							spaceBetween: 0
 						});
-					}
+					},
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
+                    }
 				});
-
 			}
 //点击导航其他选项的列表
 			function cate(nav_id) {
@@ -343,7 +298,7 @@
                         console.log(cate);
                         for(var z=0; z<cate.length;z++){
                             var obj='',obj2='',catinfo=cate[z].goodslist;
-                            obj+='<div class="topic"><a href="" cate_id="'+catinfo[0].cate_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
+                            obj+='<div class="topic"><a href="javascript:;" cate_id="'+catinfo[0].cate_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
                             for(var w=1; w<catinfo.length;w++){
                                 obj2+='<div class="swiper-slide">'
                                 +'<div class="inner">'
@@ -368,11 +323,13 @@
                                 +' </div>'
 						}
 						$(".sale_all").html(cateList);
+                    },
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
                     }
                 });
-				
             }
-
         });
 	</script>
 </html>

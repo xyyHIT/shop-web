@@ -155,7 +155,6 @@
         function searchGoods() {
             $("body").on('click',"#search-button",function(){
                 keyword=$("#searchInput").val();
-                console.log(keyword);
                 $(".pre-list").empty();
                 if(keyword==""){
                     allFun.alertDiv("请输入搜索内容");
@@ -167,7 +166,6 @@
             $(document).keydown(function (event){
                 if(event.keyCode === 13) {
                     keyword=$("#searchInput").val();
-                    $(".pre-list").empty();
                     if(keyword==""){
                         allFun.alertDiv("请输入搜索内容");
                         return false;

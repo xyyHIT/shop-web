@@ -218,6 +218,10 @@
                     });
                     $(".pre-list").html(mend);
 
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
                 }
             });
 
@@ -245,8 +249,9 @@
                     }*/
 
                 },
-                error:function(){
-                    alert("错误")
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
                 }
             });
         }

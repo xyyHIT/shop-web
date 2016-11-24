@@ -179,6 +179,10 @@
                             cate(nav_id);
                         });
 
+                    },
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
                     }
                 });
 
@@ -268,7 +272,11 @@
 							paginationClickable: true,
 							spaceBetween: 0
 						});
-					}
+					},
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
+                    }
 				});
 			}
 //点击导航其他选项的列表
@@ -315,6 +323,10 @@
                                 +' </div>'
 						}
 						$(".sale_all").html(cateList);
+                    },
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
                     }
                 });
             }

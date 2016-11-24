@@ -145,6 +145,7 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var order_id = allFun.getRequest("orderId");
 		$(function () {
 			getOrderDetail();
 			//点击去发货弹出div
@@ -164,6 +165,7 @@
 				url: host + '/index.php?app=buyer_order&act=view',
 				type: "post",
 				dataType: "json",
+				data:{"order_id":order_id},
 				beforeSend:function(){
 					allFun.loading();
 				},

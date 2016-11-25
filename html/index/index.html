@@ -16,7 +16,7 @@
 			html, body {position: relative;height: 100%;  }
 			.container{padding-bottom:4rem;}
 			.swiper-container {  width: 100%;  height: 100%;  }
-			.swiper-slide {font-size: 18px; background: #fff; display: -webkit-box;  display: -ms-flexbox;  display: -webkit-flex;  display: flex;  -webkit-box-pack: center;  -ms-flex-pack: center;  -webkit-justify-content: center;  justify-content: center;  -webkit-box-align: center;  -ms-flex-align: center;  -webkit-align-items: center;  align-items: center;  }
+			.swiper-slide {font-size: 1.3rem; background: #fff; display: -webkit-box;  display: -ms-flexbox;  display: -webkit-flex;  display: flex;  -webkit-box-pack: center;  -ms-flex-pack: center;  -webkit-justify-content: center;  justify-content: center;  -webkit-box-align: center;  -ms-flex-align: center;  -webkit-align-items: center;  align-items: center;  }
 
 			.vertical-view{background: #fff; margin-top:1rem; padding-top:1rem; overflow: hidden;}
 			.vertical-view a{font-size:1.4rem; color:#3c3c3c;}
@@ -43,11 +43,14 @@
 		<div class="mask"></div>
 		<!--//导航-->
 		<header>
-			<nav class="top_nav"></nav>
-			<div class="nav_mian">
-				<h2>全部分类</h2>
-				<ul class="nav_list"></ul>
-			</div>
+			<nav class="tNav">
+				<div class="swiper-container" id="nav">
+					<div class="swiper-wrapper" id="navList">
+						<!--<div class="swiper-slide">精选</div>
+						<div class="swiper-slide">书画</div>-->
+					</div>
+				</div>
+			</nav>
 		</header>
 		<!--搜索-->
 		<div class="header fix">
@@ -125,7 +128,64 @@
                         }
                         //nav
                         var navData = rs.data.categories;
+                        var str='',str2='', nId=0;
+                        str+='<div class="swiper-slide rent" nav_id='+nId+'>精选</div>';
+                        for(var i=0; i<navData.length; i++){
+                            str+='<div class="swiper-slide " nav_id='+navData[i].id+'>'+navData[i].cateName+'</div>'
+                        }
+                        $("#navList").html(str);
+                        var swiper = new Swiper('#nav', {
+                            slidesPerView: 5,
+                            paginationClickable: true,
+                            spaceBetween: 0,
+                            freeMode: true
+                        });
+
+                        //一级导航
+                        $(".tNav #navList>div").click(function () {
+                            //获取导航的id
+                            var nav_id=$(this).attr("nav_id");
+                            $(this).addClass("rent").siblings().removeClass("rent");
+                            if(nav_id==0){
+                                $(".vertical-view").show();
+                                $("#banner").show();
+                                $("#recommend").show();
+                                gooodsList(0);
+                            }else {
+                                $(".vertical-view").hide();
+                                $("#banner").hide();
+                                $("#recommend").hide();
+                                cate(nav_id);
+                            }
+                        });
+                    },
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
+                    }
+                });
+
+            }
+            /*function navList(){
+                $.ajax({
+                    url: host+'/index.php?app=default&act=ejIndex',
+                    type: "post",
+                    beforeSend:function(){
+                        allFun.loading()
+                    },
+                    success: function(rs) {
+                        allFun.removeLoading();
+                        if(rs.code!=0){
+                            allFun.alertDiv(rs.msg);
+                            return false;
+                        }
+                        //nav
+                        var navData = rs.data.categories;
                         str='',str2='', nId=0;
+
+
+
+
                         str+='<a href="javascript:;" nav_id='+nId+' class="rent">精选</a>';
                         for(var i=0; i<navData.length; i++){
                             str+='<a href="javascript:;" nav_id='+navData[i].id+'>'+navData[i].cateName+'</a>'
@@ -150,39 +210,7 @@
                             }
                         });
 
-                        for(var i=0; i<navData.length; i++){
-                            str2+='<li nav_id="'+navData[i].id+'"><div class="icon_img"><img src="'+navData[i].imageURL+'" alt=""></div> <div class="pro_title">'+navData[i].cateName+'</div> </li>'
-                        }
-                        $(".nav_list").html(str2);
-                        //二级导航
-                        $(".up_list").click(function () {
-                            if ($(".up_list>em").hasClass("up")) {
-                                $(".up_list>em").removeClass("up").addClass("down");
-                            } else if ($(".up_list>em").hasClass("down")) {
-                                $(".up_list>em").removeClass("down").addClass("up");
-                            }
-                            $(".nav_mian").toggle();
-                            $(".top_nav a").removeClass("rent");
-                            $(".mask").toggle();
-                            if ($(".mask").css('display') == 'block') {
-                                $("body,html").css({"overflow": "hidden"});
-                                return false;
-                            } else {
-                                $("body,html").css({"overflow": "auto"});
-                            }
-                        });
 
-                        $(".nav_list li").click(function () {
-                            //获取导航的id
-                            var nav_id=$(this).attr("nav_id");
-                            $(this).addClass("ons").siblings().removeClass("ons");
-                            $(".nav_mian").hide();
-                            $(".mask").hide();
-                            $(".vertical-view").hide();
-                            $("#banner").hide();
-                            $("#recommend").hide();
-                            cate(nav_id);
-                        });
 
                     },
                     error: function() {
@@ -191,7 +219,7 @@
                     }
                 });
 
-            }
+            }*/
             //精选
 			function gooodsList(){
 				$.ajax({
@@ -223,8 +251,10 @@
 						//推荐产品和产品列表
 						var goodsData = rs.data.recommend;
 						var goodsList = '';recommend='';
+                        console.log(goodsData);
 						for(i = 0;i<goodsData.length;i++){
 							var res='', res2='',listData=goodsData[i].items,recom_name=goodsData[i].recom_name;
+
 							if(recom_name=="精品推荐"){
 								for( j = 0;j<listData.length;j++){
 								recommend+='<div class="swiper-slide">'

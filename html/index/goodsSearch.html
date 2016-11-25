@@ -109,10 +109,9 @@
 <script>
 
     $(function () {
-        var curr_page=1,keyword="",item_count='',pageper=10;
-        goodsList(keyword);
-        searchGoods();
-
+        var cateId = allFun.getRequest("cateId");//商品id
+        var curr_page=1,keyword="",item_count='',pageper=10;//curr_page 当前页码 pageper 分页条数  item_count 总条数
+        //选择商品点击搜索按钮
         function searchGoods() {
             $("body").on('click',"#search-button",function(){
                 keyword=$("#searchInput").val();
@@ -121,7 +120,7 @@
                     allFun.alertDiv("请输入搜索内容");
                     return false;
                 }
-                goodsList(keyword);
+                goodsList(cateId,keyword);
             });
             //点击虚拟按键搜索
             $(document).keydown(function (event){
@@ -131,10 +130,15 @@
                         allFun.alertDiv("请输入搜索内容");
                         return false;
                     }
-                    goodsList(keyword);
+                    goodsList(cateId,keyword);
                 }
             });
         }
+        $(".all").click(function () {
+            $('.select').show();
+            searchGoods();
+        });
+        //选择店铺点击搜索按钮
         function searchStore() {
             $("body").on('click',"#search-button",function(){
                 keyword=$("#searchInput").val();
@@ -158,21 +162,20 @@
                 }
             });
         }
-        $(".all").click(function () {
-            $('.select').show();
-            searchGoods();
-            goodsList(keyword);
-        });
         $(".shop").click(function () {
             $('.select').hide();
             searchStore();
-            storeList(keyword);
         });
-       // 搜索商品
-        function  goodsList(){
+
+       // 搜索商品列表
+        function  goodsList(cateId,keyword){
             $.ajax({
-                url: host + '/index.php?app=search&act=ejGoods&keyword='+keyword+'',
+                url: host + '/index.php?app=search&act=ejGoods',
                 type: "post",
+                data:{
+                    "keyword":keyword,
+                    "cate_id":cateId
+                },
                 beforeSend: function () {
                     allFun.loading();
                 },
@@ -197,8 +200,7 @@
                 }
             });
         }
-
-        // 搜索店铺
+        // 搜索店铺列表
         function  storeList(keyword){
             $.ajax({
                 url: host + '/index.php?app=search&act=ejStore&keyword='+keyword+'',
@@ -230,7 +232,6 @@
                 }
             });
         }
-
         $(".s-input-tab-txt").click(function() {
             $("#J_TabNav").toggle();
         });

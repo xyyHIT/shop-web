@@ -27,7 +27,7 @@
 					</h2>
 					<ul>
 						<li>
-							<a href='buyerOrderDetail.html'>
+							<a href='orderDetail.html'>
 								<img src='../../imgs/test/0.jpg' />
 							</a>
 							<strong class='over2'>自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
@@ -51,7 +51,7 @@
 					</h2>
 					<ul>
 						<li>
-							<a href="buyerOrderDetail.html">
+							<a href="orderDetail.html">
 								<img src="../../imgs/test/0.jpg" />
 							</a>
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
@@ -60,7 +60,7 @@
 							</p>
 						</li>
 						<li>
-							<a href="buyerOrderDetail.html">
+							<a href="orderDetail.html">
 								<img src="../../imgs/test/0.jpg" />
 							</a>
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
@@ -84,16 +84,13 @@
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/order.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		var index = 0,
-			nextCursor = 0,
-			count = 10,
-			linkType = allFun.getRequest("linkType"); 
+		var linkType = allFun.getRequest("linkType"),//tab类型
+			type = allFun.getRequest("type");//0买家 1卖家
+		$("#showType").val(linkType);
 		$(function () {
-			getOrderList();
-			
-			$("#showType").val(linkType);
 			if(linkType == undefined){
 				linkType = 'all';
 			}
@@ -105,6 +102,7 @@
 					$(this).addClass("on").siblings().removeClass("on");
 				}
 			})
+			getOrderList();
 			//tab切换
 			$("nav a").click(function () {
 		        $(this).addClass("on").siblings().removeClass("on");
@@ -113,43 +111,16 @@
 		        getOrderList($("#showType").val());
 		    })
 			
-			//取消订单
-			$("body").on("click",".quxiaodingdan",function(){
-				var _t = $(this),
-					order_id = _t.parents(".box").attr("data_order_id");
-				$.ajax({
-					url: host + '/index.php?app=buyer_order&act=cancel_order',
-					type: "post",
-					dataType: "json",
-					data:{"order_id":order_id},
-					beforeSend:function(){
-						allFun.loading("正在取消订单！");
-					},
-					success: function(rs) {
-						allFun.removeLoading();
-						if(rs.code == 0) {
-							_t.parents(".dOperate").remove();
-							_t.parents(".box").find("h2 em").html("交易取消");
-						} else {
-							allFun.alertDiv(rs.msg);
-						}
-					},
-					error: function() {
-						allFun.removeLoading();
-						allFun.alertDiv("error!")
-					}
-				})
-			})
-			//去付款
-			$("body").on("click",".qufukuan",function(){
-				var order_id = $(this).parents(".box").attr("data_order_id");
-				location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id;
-			})
-			
 		})
 		function getOrderList(tp){//tp类别   （全部：all 待付款：pending 待发货：accepted 待收货：shipped 待评价：finished）
+			var uu = "";
+			if(type == 1){//卖家
+				uu = "/index.php?app=seller_order&act=index";
+			}else{//买家
+				uu = "/index.php?app=buyer_order&act=index";
+			}
 			$.ajax({
-				url: host + '/index.php?app=buyer_order&act=index',
+				url: host + uu,
 				type: "post",
 				dataType: "json",
 				data:{"type":tp},
@@ -165,7 +136,7 @@
 								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"
 									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
-									obj += "<li><a href=buyerOrderDetail.html?orderId="+v.order_goods[i].order_id+">"
+									obj += "<li><a href=orderDetail.html?orderId="+v.order_goods[i].order_id+"&type=0>"
 										+ "<img src='../../imgs/test/0.jpg' /></a><strong class='over2'>"+v.order_goods[i].goods_name+"</strong>"
 										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
 								}

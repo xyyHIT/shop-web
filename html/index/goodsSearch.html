@@ -95,47 +95,8 @@
             </ol>
             <ol>ddd</ol>
         </div>
-        <!--  <div class="shops">
-       <div class="attention">
-           <dl class='faxian'>
-               <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
-               <dd  class="left">
-                   <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
-                   <p class=""><span>50个粉丝</span></p>
-               </dd>
-               <em>+关注</em>
-
-           </dl>
-       </div>
-
-       <div class="attention">
-           <dl class='faxian'>
-               <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
-               <dd  class="left">
-                   <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
-                   <p class=""><span>503个粉丝</span></p>
-               </dd>
-               <em>+关注</em>
-
-           </dl>
-       </div>
-
-       <div class="attention">
-           <dl class='faxian'>
-               <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
-               <dd  class="left">
-                   <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
-                   <p class=""><span>12个粉丝</span></p>
-               </dd>
-               <em>+关注</em>
-
-           </dl>
-       </div>
-   </div>-->
     </div>
 
-
-    <!--店铺-->
 
 
 </div>
@@ -177,7 +138,6 @@
         function searchStore() {
             $("body").on('click',"#search-button",function(){
                 keyword=$("#searchInput").val();
-                console.log(keyword);
                 $(".pre-list").empty();
                 if(keyword==""){
                     allFun.alertDiv("请输入搜索内容");
@@ -223,7 +183,6 @@
                         return false;
                     }
                    var goodsList=rs.data.goods;
-                    console.log(goodsList);
                     var mend='';
                     $.each(goodsList,function (j,v) {
                         mend+='<li><div class="pre-item">'
@@ -254,7 +213,6 @@
                         return false;
                     }
                     var shopData=rs.data.stores;
-                    console.log(shopData);
                     var mend='';
                     $.each(shopData,function (j,v) {
                         mend+='<div class="attention"><dl class="faxian">'

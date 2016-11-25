@@ -12,6 +12,7 @@
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
 			body{background: #f9f9f9; }
+			.ons{color:#ec4747;}
 			html, body {position: relative;height: 100%;  }
 			.container{padding-bottom:4rem;}
 			.swiper-container {  width: 100%;  height: 100%;  }
@@ -124,7 +125,6 @@
                         }
                         //nav
                         var navData = rs.data.categories;
-                        console.log(navData);
                         str='',str2='', nId=0;
                         str+='<a href="javascript:;" nav_id='+nId+' class="rent">精选</a>';
                         for(var i=0; i<navData.length; i++){
@@ -151,7 +151,7 @@
                         });
 
                         for(var i=0; i<navData.length; i++){
-                            str2+='<li nav_id="'+navData[i].id+'"><a href="javascript:;"><div class="icon_img"><img src="'+navData[i].imageURL+'" alt=""></div> <div class="pro_title">'+navData[i].cateName+'</div> </a> </li>'
+                            str2+='<li nav_id="'+navData[i].id+'"><div class="icon_img"><img src="'+navData[i].imageURL+'" alt=""></div> <div class="pro_title">'+navData[i].cateName+'</div> </li>'
                         }
                         $(".nav_list").html(str2);
                         //二级导航
@@ -162,6 +162,7 @@
                                 $(".up_list>em").removeClass("down").addClass("up");
                             }
                             $(".nav_mian").toggle();
+                            $(".top_nav a").removeClass("rent");
                             $(".mask").toggle();
                             if ($(".mask").css('display') == 'block') {
                                 $("body,html").css({"overflow": "hidden"});
@@ -174,8 +175,12 @@
                         $(".nav_list li").click(function () {
                             //获取导航的id
                             var nav_id=$(this).attr("nav_id");
+                            $(this).addClass("ons").siblings().removeClass("ons");
                             $(".nav_mian").hide();
                             $(".mask").hide();
+                            $(".vertical-view").hide();
+                            $("#banner").hide();
+                            $("#recommend").hide();
                             cate(nav_id);
                         });
 
@@ -206,7 +211,6 @@
 						var bannerData = rs.data.cycleImages;
 						var bannerList = "";
 						for(var z = 0;z<bannerData.length;z++){
-							console.log(bannerData[z].ad_image_url);
 							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].ad_link_url+'"><img src="'+bannerData[z].ad_image_url+'"/></a></div>'
 						}
 						$("#banner").html(bannerList);
@@ -216,10 +220,8 @@
 							autoplayDisableOnInteraction: false,
 							loop: true
 						});
-
 						//推荐产品和产品列表
 						var goodsData = rs.data.recommend;
-						console.log(goodsData,goodsData.recom_name);
 						var goodsList = '';recommend='';
 						for(i = 0;i<goodsData.length;i++){
 							var res='', res2='',listData=goodsData[i].items,recom_name=goodsData[i].recom_name;
@@ -295,14 +297,13 @@
                             return false;
                         }
                         var cate=rs.data,cateList='';
-                        console.log(cate);
                         for(var z=0; z<cate.length;z++){
                             var obj='',obj2='',catinfo=cate[z].goodslist;
-                            obj+='<div class="topic"><a href="javascript:;" cate_id="'+catinfo[0].cate_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
+                            obj+='<div class="topic"><a href="/shop/html/index/goodsDetails.html?data_lotid='+cate[0].cate_id+'" data_lotid="'+cate[0].cate_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
                             for(var w=1; w<catinfo.length;w++){
                                 obj2+='<div class="swiper-slide">'
                                 +'<div class="inner">'
-                                +'<a href="javascript:;">'
+                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+cate[w].cate_id+'" data_lotid="'+cate[w].cate_id+'">'
                                 +'<img src="'+catinfo[w].default_image+'"  alt="">'
                                 +'<h4 class="over over2">'+catinfo[w].goods_name+'</h4>'
                                 +'<p>¥<span>'+catinfo[w].price+'</span></p>'+'</a>'

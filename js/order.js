@@ -16,8 +16,9 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
-						_t.parents(".box").find("h2 em").html("交易取消");
-						_t.parents(".dOperate").remove();
+						allFun.alertDiv("取消订单成功！");
+						/*_t.parents(".box").find("h2 em").html("交易取消");
+						_t.parents(".dOperate").remove();*/
 					} else {
 						allFun.alertDiv(rs.msg);
 					}
@@ -40,7 +41,7 @@
 			var _t = $(this),
 				order_id = _t.parents(".box").attr("data_order_id");
 			$.ajax({
-				url: host + '/index.php?app=buyer_order&act=cancel_order',
+				url: host + '',
 				type: "post",
 				dataType: "json",
 				data:{"order_id":order_id},
@@ -50,6 +51,7 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
+						allFun.alertDiv("提醒发货成功！");
 						/*_t.parents(".box").find("h2 em").html("交易取消");
 						_t.parents(".dOperate").remove();*/
 					} else {
@@ -123,6 +125,7 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
+						allFun.alertDiv("确认收货成功！")
 						/*_t.parents(".box").find("h2 em").html("交易取消");
 						_t.parents(".dOperate").remove();*/
 					} else {
@@ -150,6 +153,7 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
+						allFun.alertDiv("延长收货成功！")
 						/*_t.parents(".box").find("h2 em").html("交易取消");
 						_t.parents(".dOperate").remove();*/
 					} else {

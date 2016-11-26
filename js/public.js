@@ -1,6 +1,6 @@
 var host = "http://"+location.host;
-var host = "http://localhost/shopphp";
-var host = "http://192.168.1.23:84";
+var host = "http://192.168.1.88/shopphp";
+//var host = "http://192.168.1.23:84";
 (function() {
 	$(function() {
 		/*$.ajax({
@@ -85,9 +85,7 @@ var allFun = {
 	},
 	//加载中
 	loading: function (msg) {
-		if (msg) {
-
-		} else {
+		if (!msg) {
 			msg = "拼命加载中...";
 		}
 		if ($(".loading").length > 0) {
@@ -151,6 +149,9 @@ var allFun = {
 		}
 	},
 	noDataImg: function (msg) {
+		if(!msg){
+			msg = "暂时没有数据！";
+		}
 		return "<div class='nonePageImg'><i class='iconfont icon-zanwujilu'></i>" + msg + "</div>";
 	},
 	showAllNonBaseMenuItem: function () {

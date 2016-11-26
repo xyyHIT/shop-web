@@ -271,7 +271,7 @@
             });
         }
         //取消关注和喜欢
-        function unattention(type,status,t) {// type=store 商品 type=goods  //status: 0-关注 1-取消关注
+        function unattention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 dorp-取消关注
             $.ajax({
                 url: host + '/index.php?app=my_favorite&act=drop&type='+type+'&item_id='+item_id+'&status='+status+'',
                 type: "get",

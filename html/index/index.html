@@ -329,11 +329,12 @@
                         var cate=rs.data,cateList='';
                         for(var z=0; z<cate.length;z++){
                             var obj='',obj2='',catinfo=cate[z].goodslist;
-                            obj+='<div class="topic"><a href="/shop/html/index/goodsDetails.html?data_lotid='+cate[0].cate_id+'" data_lotid="'+cate[0].cate_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
+                            console.log(catinfo);
+                            obj+='<div class="topic"><a href="/shop/html/index/goodsDetails.html?data_lotid='+catinfo[0].goods_id+'" data_lotid="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
                             for(var w=1; w<catinfo.length;w++){
                                 obj2+='<div class="swiper-slide">'
                                 +'<div class="inner">'
-                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+cate[w].cate_id+'" data_lotid="'+cate[w].cate_id+'">'
+                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+catinfo[w].goods_id+'" data_lotid="'+catinfo[w].goods_id+'">'
                                 +'<img src="'+catinfo[w].default_image+'"  alt="">'
                                 +'<h4 class="over over2">'+catinfo[w].goods_name+'</h4>'
                                 +'<p>¥<span>'+catinfo[w].price+'</span></p>'+'</a>'
@@ -354,6 +355,12 @@
                                 +' </div>'
 						}
 						$(".sale_all").html(cateList);
+                        //多图轮播
+                        var swiper = new Swiper('.swp_views', {
+                            slidesPerView: 3.5,
+                            paginationClickable: true,
+                            spaceBetween: 0
+                        });
                     },
                     error: function() {
                         allFun.removeLoading();

@@ -96,9 +96,6 @@
             <ol>ddd</ol>
         </div>
     </div>
-
-
-
 </div>
 </body>
 
@@ -110,64 +107,49 @@
 
     $(function () {
         var cateId = allFun.getRequest("cateId");//商品id
-        var curr_page=1,keyword="",item_count='',pageper=10;//curr_page 当前页码 pageper 分页条数  item_count 总条数
-        //选择商品点击搜索按钮
-        function searchGoods() {
-            $("body").on('click',"#search-button",function(){
-                keyword=$("#searchInput").val();
-                $(".pre-list").empty();
-                if(keyword==""){
-                    allFun.alertDiv("请输入搜索内容");
-                    return false;
-                }
-                goodsList(cateId,keyword);
-            });
-            //点击虚拟按键搜索
-            $(document).keydown(function (event){
-                if(event.keyCode === 13) {
-                    keyword=$("#searchInput").val();
-                    if(keyword==""){
-                        allFun.alertDiv("请输入搜索内容");
-                        return false;
-                    }
-                    goodsList(cateId,keyword);
-                }
-            });
-        }
-        $(".all").click(function () {
+        var curr_page=1,keyword="",item_count='',pageper=10;//curr_page 当前页码 pageper 分页条数  item_count 总条数 keyword搜索关键词
+
+        //点击搜索按钮
+        $("body").on('click',"#search-button",function(){
+            keyword=$("#searchInput").val();
             $(".pre-list").empty();
-            $('.select').show();
-            searchGoods();
+            if(keyword==""){
+                allFun.alertDiv("请输入搜索内容");
+                return false;
+            }
+            var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
+            console.log(textSpan);
+            if(textSpan==="商品"){
+                $(".pre-list").empty();
+                $('.select').show();
+                goodsList(cateId,keyword);
+            }else if(textSpan==="店铺") {
+                $(".pre-list").empty();
+                $('.select').hide();
+                storeList(keyword);
+            }
         });
-        //选择店铺点击搜索按钮
-        function searchStore() {
-            $("body").on('click',"#search-button",function(){
+        //点击虚拟按键搜索
+        $(document).keydown(function (event){
+            if(event.keyCode === 13) {
                 keyword=$("#searchInput").val();
                 $(".pre-list").empty();
                 if(keyword==""){
                     allFun.alertDiv("请输入搜索内容");
                     return false;
                 }
-                storeList(keyword);
-            });
-            //点击虚拟按键搜索
-            $(document).keydown(function (event){
-                if(event.keyCode === 13) {
-                    keyword=$("#searchInput").val();
+                var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
+                console.log(textSpan);
+                if(textSpan==="商品"){
                     $(".pre-list").empty();
-                    if(keyword==""){
-                        allFun.alertDiv("请输入搜索内容");
-                        return false;
-                    }
+                    goodsList(cateId,keyword);
+                }else if(textSpan==="店铺") {
+                    $(".pre-list").empty();
                     storeList(keyword);
                 }
-            });
-        }
-        $(".shop").click(function () {
-            $(".pre-list").empty();
-            $('.select').hide();
-            searchStore();
+            }
         });
+
 
        // 搜索商品列表
         function  goodsList(cateId,keyword){
@@ -205,8 +187,11 @@
         // 搜索店铺列表
         function  storeList(keyword){
             $.ajax({
-                url: host + '/index.php?app=search&act=ejStore&keyword='+keyword+'',
+                url: host + '/index.php?app=search&act=ejStore',
                 type: "post",
+                data:{
+                    "keyword":keyword
+                },
                 beforeSend: function () {
                     allFun.loading();
                 },
@@ -234,11 +219,21 @@
                 }
             });
         }
+
         $(".s-input-tab-txt").click(function() {
             $("#J_TabNav").toggle();
         });
+        $(".all").click(function() {
+            $('.select').show();
+            $(".pre-list").empty();
+        });
+        $(".shop").click(function() {
+            $('.select').hide();
+            $(".pre-list").empty();
+        });
         $("#J_TabNav li").click(function() {
             var text=$(this).text();
+            console.log(text);
             $(".s-input-tab-txt span").html(text);
             $("#J_TabNav").hide();
         });

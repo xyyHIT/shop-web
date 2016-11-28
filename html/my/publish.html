@@ -36,7 +36,7 @@
 			.divOneInfo .fenlei{ display: none; position: fixed; left: 0; bottom: 0; width: 100%; height: 60%; padding-top: 5rem; font-size: 1.3rem; color: #878787; z-index: 9991;}
 			.divOneInfo .fenlei h2,.fenlei .fenleiT,.fenlei li{ height: 5rem; padding: 0 1rem; line-height: 5rem; overflow: hidden;}
 			.divOneInfo .fenlei h2{ position: absolute; top: 0; left: 0; width: 100%; font-size: 1.3rem; color: #878787; background: #FAF9FB;}
-			.divOneInfo .fenlei .fenleiBox{ position: relative; height: 100%; overflow-y: auto; overflow-x: hidden;}
+			.divOneInfo .fenlei .fenleiBox{ position: relative; height: 100%; background: #fff; overflow-y: auto; overflow-x: hidden;}
 			.divOneInfo .fenlei i{ position: absolute; right: 0; width: 4rem; font-size: 1.6rem; color: #979797; text-align: center;}
 			.divOneInfo .fenlei .fenleiT{ border-bottom: 1px solid #EFEFEF; background: #fff;}
 			.divOneInfo .fenlei .fenleiT i{ -webkit-transform:rotate(90deg);}
@@ -147,20 +147,7 @@
 					<div class="noData">
 						点击下方按钮添加宝贝描述吧！
 					</div>
-					<div class="haveData">
-						<!--<div class="dData">
-							<div class='dDataB'>
-								<pre>功夫茶具套装四合一陶瓷茶杯茶壶套装整套茶具茶盘茶盘。陶瓷茶杯茶壶套装整套茶具茶盘茶盘。</pre>
-							</div>
-							<a class='aEdit'>编辑</a>
-						</div>
-						<div class="dData">
-							<div class='dDataB'>
-								<img src='../../imgs/test/1.jpg' />
-							</div>
-							<a class='aEdit'>编辑</a>
-						</div>-->
-					</div>
+					<div class="haveData"></div>
 				</div>
 				<div class="operate fix">
 					<div>
@@ -197,17 +184,18 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var id = allFun.getRequest("id");
+		
 		$(function () {
+			if(id != undefined){
+				getGoodsInfo(id);
+			}
 			
 			//发布
 			$("body").on("click",".publish",function(){
-				var d = {};
-				d.goods_name = $("#gTitle").val();//商品标题
-				d.cate_id = $("#gTitle").attr("data_cate_id");//分类ID
-				d.price = $("#gPrice").val();//商品价格
-				d.stock = $("#gRepertory").val();//商品库存
-				d.shiprice = $("#gTransportation").val();//运费
-				d.shiprice = $("#gWarning").val();//库存预警
+				var obj = {};
+					obj.is_draft = 0;//0 发布
+				
 				/*if($(".imgList img").length <= 0){
 					allFun.alertDiv("请至少选择一张图片");
 					return false;
@@ -228,23 +216,19 @@
 					allFun.alertDiv("请输入商品库存");
 					return false;
 				}
-				$.ajax({
-					url: host+'/index.php?app=my_goods&_act=ejStore',
-					type: "post",
-					data: d,
-					dataType: "json",
-					beforeSend:function(){
-				   		allFun.loading("正在发布中！");
-				   	},
-					success: function(rs) {
-						allFun.removeLoading();
-						if (rs.resCode == 0) {
-							
-						} else {
-							allFun.alertDiv(rs.msg);
-						}
-					}
-				});
+				publishAndDraft(obj);
+				
+			})
+			//保存草稿
+			$("body").on("click",".draft",function(){
+				var obj = {};
+					obj.is_draft = 1;//1 保存草稿
+				
+				if($("#gTitle").val() == ""){
+					allFun.alertDiv("请输入商品标题");
+					return false;
+				}
+				publishAndDraft(obj);
 				
 			})
 			
@@ -374,11 +358,13 @@
 			
 			/********************商品的图文详情*********************/
 			
-			//关闭商品的图文详情div
+			//点击商品的图文详情确定按钮
 			$("body").on("click",".confirm",function(){
 				$(".divTwoInfo").hide();
 				$(".divOneInfo").show();
-				$(".alreadyEdit b").text("已编辑");
+				if($(".haveData").text() != ""){
+					$(".alreadyEdit b").text("已编辑");
+				}
 			})
 			//弹出文字输入框
 			$("body").on("click",".tanchu_revise,.icon-tianjiawenzi1",function(){
@@ -439,11 +425,98 @@
 			
 		});
 		
+		//发布or保存草稿
+		function publishAndDraft(obj){
+			obj.goods_name = $("#gTitle").val();//商品标题
+			obj.cate_id = $("#gCategory").attr("data_categoryid");//分类ID
+			obj.cate_name = $("#gCategory").val();//分类名
+			obj.price = $("#gPrice").val();//商品价格
+			obj.stock = $("#gRepertory").val();//商品库存
+			obj.shiprice = $("#gTransportation").val();//运费
+			obj.shiprice = $("#gWarning").val();//库存预警
+			
+			//图文详情内容
+			var des = {records: []};
+			$(".divTwoInfo .haveData .dData").each(function(){
+				var _t = $(this),
+					row = {};
+				if(_t.find("img").length <= 0){//文字
+					row.k = 0;
+					row.v = _t.find("pre").html();
+				}else{//图片
+					row.k = 1;
+					row.v = _t.find("img").attr("src");
+				}
+				des.records.push(row);
+			})
+			obj.description = JSON.stringify(des);
+			
+			$.ajax({
+				url: host+'/index.php?app=my_goods&act=ejStore',
+				type: "post",
+				data: obj,
+				dataType: "json",
+				beforeSend:function(){
+			   		allFun.loading();
+			   	},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 0) {
+						if(obj.is_draft == 0){//发布
+							
+						}else{
+							
+						}
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				}
+			})
+		}
+		
 		//获取商品分类
 		function goodsCategoryList(){
 			$.ajax({
 				url: host + '/index.php?app=category&act=ejindex',
 				type: "post",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data,obj = "";
+						
+						obj += "<h2>商品分类<i class='iconfont icon-123'></i></h2><div class='fenleiBox'>";
+						$.each(d, function(i,v) {
+							obj += "<div class='fenleiT'>"+v.value+"<i class='iconfont icon-zhankai-copy'></i></div><ul>";
+							for(var i = 0; i < v.children.length; i++){
+								obj += "<li data_categoryId="+v.children[i].id+">"+v.children[i].value+"</li>";
+							}
+							obj += "</ul>";
+						});
+						
+						obj += "</div>";
+						$(".fenlei").html(obj);
+						$("body").append("<div class='bg'></div>");
+						$(".bg,.fenlei").show();
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("获取分类错误！")
+				}
+			})
+		}
+		
+		//获取商品分类
+		function getGoodsInfo(id){
+			$.ajax({
+				url: host + '/index.php?app=goods&act=index&id='+id,
+				type: "get",
 				dataType: "json",
 				beforeSend:function(){
 					allFun.loading();

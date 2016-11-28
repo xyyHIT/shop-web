@@ -88,28 +88,44 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		var linkType = allFun.getRequest("linkType"),//tab类型
-			type = allFun.getRequest("type");//0买家 1卖家
+			type = allFun.getRequest("type"),//0买家 1卖家
+			curr_page = 1,//当前页
+			finished = true;
 		$("#showType").val(linkType);
 		$(function () {
-			if(linkType == undefined){
-				linkType = 'all';
+			if(!$("#showType").val()){
+				$("#showType").val("all");
 			}
-			if($("#showType").val() != ""){
-				linkType = $("#showType").val();
+			if(!type){
+				type = 0;
 			}
 			$("nav a").each(function(){
-				if($(this).attr("data_type") == linkType){
+				if($(this).attr("data_type") == $("#showType").val()){
 					$(this).addClass("on").siblings().removeClass("on");
 				}
 			})
-			getOrderList();
+			getOrderList($("#showType").val());
 			//tab切换
 			$("nav a").click(function () {
 		        $(this).addClass("on").siblings().removeClass("on");
 		        $("#showType").val($(this).attr("data_type"));
 		        $(".list").empty();
+		        curr_page = 1;
 		        getOrderList($("#showType").val());
 		    })
+			//点击查看更多
+			$(window).on('scroll', function () {
+				var dHeight = document.documentElement.offsetHeight;
+                var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+                var wHeight = document.documentElement.clientHeight;
+                if (finished && dHeight - (sHeight + wHeight) < 200) {
+                	finished = false;
+                	if($(".seemore").attr("data_d") != "no"){
+                		curr_page++;
+                		getOrderList($("#showType").val());
+                	}
+                }
+            })
 			
 		})
 		function getOrderList(tp){//tp类别   （全部：all 待付款：pending 待发货：accepted 待收货：shipped 待评价：finished）
@@ -120,18 +136,28 @@
 				uu = "/index.php?app=buyer_order&act=index";
 			}
 			$.ajax({
-				url: host + uu,
-				type: "post",
+				url: host + uu + "&type=" + tp + "&page=" + curr_page,
+				type: "get",
 				dataType: "json",
-				data:{"type":tp},
 				beforeSend:function(){
-					allFun.loading();
+					if(curr_page == 1){//第一次
+						allFun.loading();
+					}
 				},
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
-						var d = rs.data.orderlist, obj = "";
-						if(d.length > 0){//有数据
+						$(".seemore").remove();
+						curr_page = rs.data.page.curr_page;
+						finished = true;
+						var obj = "",
+							d = rs.data.orderlist,
+							item_count = rs.data.page.item_count,//总条数
+							pageper = rs.data.page.pageper;//每页条数
+						
+						if(item_count == 0){//无数据(第一次进来)
+							obj += allFun.noDataImg();
+						}else{
 							$.each(d, function(i,v) {
 								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"
 									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
@@ -142,8 +168,11 @@
 								}
 								obj += "</ul><div class='dTotal'>合计：<span>¥"+v.order_amount+"</span></div>"+v.button+"</div>";
 							});
-						}else{
-							obj += allFun.noDataImg();
+							if(curr_page < Math.ceil(item_count/pageper)){//有数据
+								obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";
+							}else{//没有更多数据
+								obj += "<div class='seemore' data_d='no'>没有更多</div>";
+							}
 						}
 						$(".list").append(obj);
 					} else {

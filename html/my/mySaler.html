@@ -9,11 +9,9 @@
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
-			body{ background: #f9f9f9;}
-			
 			.top{ position: relative; height: 8rem; padding: 1.5rem 3rem 0 8rem; background: #FAF9FB;}
 			.top h1{ font-size: 1.4rem; color: #545454; letter-spacing: 1px;}
-			.top h1 img{ width: 3.6rem; height: 1.8rem; margin-right: .3rem;}
+			.top h1 img{ width: 1.8rem; height: 1.8rem; margin-right: .3rem;}
 			.top p{ margin-top: 1rem; font-size: 1.2rem; color: #3C3C3C; letter-spacing: 1px;}
 			.top .head{ position: absolute; left: 1.5rem; top: 1.5rem; width: 5rem; height: 5rem; border-radius: 100%;}
 			.top i{ position: absolute; right: 1rem; top: 3rem; font-size: 1.6rem; color: #979797;}
@@ -35,10 +33,10 @@
 	<body>
 		<div class="container">
 			<div class="top">
-				<img class="head" src="../../imgs/test/0.jpg" />
+				<!--<img class="head" src="../../imgs/test/0.jpg" />
 				<h1 class="over"><img src="../../imgs/test/0.jpg" />时间流逝时间流逝时间流逝时间流逝时间流</h1>
 				<p>粉丝8</p>
-				<i class="iconfont icon-zhankai-copy"></i>
+				<i class="iconfont icon-zhankai-copy"></i>-->
 			</div>
 			<div class="dMoney">
 				累计收入<span>¥1000.00</span>
@@ -47,7 +45,7 @@
 				<a href="publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
 				<a href="goodsManage.html"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
 				<a><i class="iconfont icon-jiaoyiguanli"></i>交易管理</a>
-				<a><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
+				<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
 				<!--<a></a>
 				<a></a>
 				<a></a>-->
@@ -61,7 +59,42 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
+			getMyInfo();
+			//点击头像跳到店铺
+			$("body").on("click",".head",function(event){
+				event.stopPropagation();
+				location.href = "sellerStore.html?userId="+$(this).attr("data_id");
+			})
+			//点击顶部跳到设置
+			$("body").on("click",".top",function(){
+				location.href = hostPm+"/yjpai/platform/my/mySet.html";
+			})
+			//点击跳到我的钱包
+			$("body").on("click","#wodeqianbao",function(){
+				location.href = hostPm+"/yjpai/platform/my/myWallet.html";
+			})
 			
 		});
+		//获取个人信息
+		function getMyInfo(){
+			$.ajax({
+				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
+				type: "get",
+				dataType: "json",
+				beforeSend: function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode==1){
+						var d = rs.data,obj = "";
+						obj += "<img class='head' src="+d.wxUser.avatar+" data_id="+d.userAccount.userId+" /><h1 class='over'>"
+							+ "<img src=/shop/imgs/level/saler"+d.salerLevel.level+".png />"+d.wxUser.nickname+"</h1>"
+							+ "<p>粉丝"+d.wxUser.fansCount+"</p><i class='iconfont icon-zhankai-copy'></i>"
+						$(".top").html(obj);
+					}
+				}
+			})
+		}
 	</script>
 </html>

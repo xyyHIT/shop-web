@@ -8,7 +8,6 @@
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
-		<script src="/shop/css/font/iconfont.js"></script>
 		<style>
 			ul li{ position: relative; height: 6rem; margin-bottom: .5rem; padding: 0 6rem; background: #fff;}
 			ul li p{ padding: 1.7rem 0 .5rem 0; font-size: 1.3rem; line-height: 1.3rem; color: #3C3C3C;}
@@ -58,7 +57,7 @@
 				</li>-->
 			</ul>
 			<div class="operate">
-				合计：<span></span><a>确认支付</a>
+				合计：<span></span><a class="recharge_a">确认支付</a>
 			</div>
 		</div>
 	</body>
@@ -72,6 +71,57 @@
 			totalamount = allFun.getRequest("totalamount") || 0;
 		$(function () {
 			$(".operate span").html("¥"+totalamount+"");
+			
+			//支付
+			$("body").on("click",".recharge_a",function(){
+				$(this).addClass("on").html("正在支付中");
+				//微信支付
+				var data = {};
+				data.orderId = orderId;
+				data.payType = 1;//交易方式 0余额支付 1微信支付 2快捷支付
+				data.tradeType = 1;//交易类型 0充值1订单支付2保证金支付3提现
+				data.payAmount = money;//payAmount  支付金额
+				$.ajax({
+					url: host+"/yjpai/platform/cashier/toPay",
+					cache: false,
+					dataType: "json",
+					type: "POST",
+					data: data,
+					success: function(rs) {
+						if (rs.resCode == 1) {
+							var d = rs.data;
+							WeixinJSBridge.invoke(
+								'getBrandWCPayRequest', {
+									'appId': d.appId,
+									'timeStamp': d.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+									'nonceStr': d.nonceStr, // 支付签名随机串，不长于 32 位
+									'package': d.packageInfo, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+									'signType': d.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+									'paySign': d.appsign // 支付签名
+								},function(res) {
+									if(res.err_msg == "get_brand_wcpay_request:ok"){//支付成功
+										location.href = "paySuccess.html?price="+money+"&orderId="+orderId+"";
+									}else if(res.err_msg == "get_brand_wcpay_request:cancel"){//取消支付
+										$(".recharge_a").removeClass("on").html("确认支付");
+									}else if(res.err_msg == "get_brand_wcpay_request:fail"){//支付失败
+										allFun.alertDiv("支付失败，请重新支付");
+									}
+								}
+							);
+						}else{
+							$(".recharge_a").removeClass("on").html("确认支付");
+							allFun.alertDiv(rs.msg);
+						}
+					},
+					timeout: function() {
+						$(".recharge_a").removeClass("on").html("确认支付");
+					},
+					error: function() {
+						$(".recharge_a").removeClass("on").html("确认支付");
+					}
+				})
+			})
+			
 		});
 	</script>
 </html>

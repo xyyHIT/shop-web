@@ -136,8 +136,8 @@
     </div>
 
     <div class="detailFooter footerInits">
-        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="/shop/html/my/myBuyer.html"><i class="iconfont icon-kefu1"></i>客服</a><a href="/shop/html/category/category.html"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋<em class="r-red">1</em></a><a
-            href="javascript:;" class="end">放入购物袋</a>
+        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a href="/shop/html/category/category.html"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋<em class="r-red">0</em></a><a
+            href="javascript:;" class="end cart">放入购物袋</a>
     </div>
 </div>
 </body>
@@ -219,12 +219,13 @@
                     });
                     //热门推荐
                     var mend='', commend=goodsData.commend_goods;
+                    console.log(commend);
                     $.each(commend,function (j,v) {
                              mend+='<li><div class="pre-item">'
                                 +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+commend[j].goods_id+'" data_lotid="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'" alt=""> </a>'
                                 +'<div class="pre-info">'
                                 +'<p class="pre-subtitle over over1" >'+commend[j].goods_name+'</p>'
-                                +'<p class="pre-price"><span class="left">¥<em>'+commend[j].price+'</em></span><span class="right payment">7人付款</span></p>'
+                                +'<p class="pre-price"><span class="left">¥<em>'+commend[j].price+'</em></span><span class="right payment"><em>'+commend[j].sales+'</em>人付款</span></p>'
                                 +' </div>'
                                 +'</div></li>'
                     });
@@ -270,32 +271,28 @@
                 }
             });
         }
-        //取消关注和喜欢
-        function unattention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 dorp-取消关注
+        //加入购物车
+        $(".cart").click(function() {
+            var quantity=parseInt($(".r-red").html());
+            $(".r-red").html(quantity+1);
+            cart(lotId,quantity);
+        });
+        function cart(lotId,quantity) {
             $.ajax({
-                url: host + '/index.php?app=my_favorite&act=drop&type='+type+'&item_id='+item_id+'&status='+status+'',
-                type: "get",
+                url: host + '/index.php?app=cart&act=ejAdd',
+                type: "post",
+                data:{
+                    "spec_id":lotId,
+                    "quantity":quantity
+                },
                 beforeSend: function () {
                 },
                 success: function (rs) {
                     if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
+                        //allFun.alertDiv(rs.msg);
                         return false;
                     }
-                    if(type=="store"){
-                        if(status == 1){//取消关注
-                            t.removeClass("on").html("+关注");
-                        }else{
-                            t.addClass("on").html("已关注");
-                        }
-                    }else if(type=="goods"){
-                        if(status == 1) {
-                            t.removeClass("grey");
-                        }
-                        else{
-                            t.addClass("grey");
-                        }
-                    }
+
 
                 },
                 error: function() {
@@ -304,6 +301,7 @@
                 }
             });
         }
+
 
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {

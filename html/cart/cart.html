@@ -368,7 +368,7 @@
 		function getGoodsList(){
 			$.ajax({
 				url: host + '/index.php?app=cart&act=ejIndex',
-				type: "post",
+				type: "get",
 				dataType: "json",
 				beforeSend:function(){
 					allFun.loading();

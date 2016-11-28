@@ -15,38 +15,27 @@
 			.operate{ position: fixed; left: 0; bottom: 0; width: 100%; height: 4.8rem; padding: 0 11rem 0 1rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; line-height: 4.8rem; background: #fff;}
 			.operate span{ font-size: 1.5rem; color: #EC4747;}
 			.operate a{ position: absolute; right: 0; top: 0; display: block; width: 10rem; font-size: 1.3rem; color: #fff; text-align: center; background: #EC4747; word-break: break-all;}
+			
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="dAddress">
-				<!--<a class="dAddressHave">
-					<div class="dAddressL">
-						<i class="iconfont icon-dizhi"></i>
+			<div class='dAddress'>
+				<!--<a class='dAddressHave'>
+					<div class='dAddressL'>
+						<i class='iconfont icon-dizhi'></i>
 					</div>
-					<div class="dAddressM">
-						<p>
-							<em>收件人：</em>
-						</p>
-						<p>
-							<em>收件地址：</em>
-						</p>
+					<div class='dAddressC'>
+						<em>收件人：</em><span>某某某  13561035912</span><br />
+						<em>收件地址：</em><span>北京市朝阳区北京市朝阳区北京市朝阳区北京市朝阳区北京市朝阳区北京市朝阳区</span>
 					</div>
-					<div class="dAddressR">
-						<p>
-							<span>某某某  13561035912</span>
-						</p>
-						<p>
-							<span>北京市朝阳区高碑店乡通惠河畔1100号北京市朝阳区高碑店乡通惠河畔1100号</span>
-						</p>
+					<div class='dAddressR'>
+						<i class='iconfont icon-zhankai-copy'></i>
 					</div>
-					<div class="dAddressE">
-						<i class="iconfont icon-zhankai-copy"></i>
-					</div>
-				</a>-->
-				<a class="dAddressNo">
-					<i class="iconfont icon-dizhi"></i>请填写收货地址<i class="iconfont icon-zhankai-copy"></i>
 				</a>
+				<a class='dAddressNo'>
+					<i class='iconfont icon-dizhi'></i>请填写收货地址<i class='iconfont icon-zhankai-copy'></i>
+				</a>-->
 			</div>
 			<div class="list">
 				<!--<div class="box">
@@ -96,24 +85,34 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		var recid = allFun.getRequest("recid") || "";
+		var recid = allFun.getRequest("recid"),
+			consignee = "",
+			phone_mob = "",
+			address = "";
 		
 		$(function () {
+			getAddress();
 			getInfo();
 			//下单
 			$("body").on("click","#placeAnOrder",function(){
+				if(consignee == "" || phone_mob == "" || address == ""){
+					allFun.alertDiv("请先选择收货地址！");
+					return false;
+				}
 				$.ajax({
 					url: host + '/index.php?app=order&act=actorder',
 					type: "post",
 					dataType: "json",
-					data:{"recid":'['+recid+']',"consignee":"卢君剑","address":"北京市朝阳区高碑店乡通惠河畔1100号泰丰汇","phone_mob":"18618666666"},//购物车id集合 默认可不传此参数（如果不传此参数，默认为获取本人购物车中全部商品 ==全选）
+					data:{"recid":'['+recid+']',"consignee":consignee,"address":address,"phone_mob":phone_mob},//购物车id集合 默认可不传此参数（如果不传此参数，默认为获取本人购物车中全部商品 ==全选）
 					beforeSend:function(){
 						allFun.loading();
 					},
 					success: function(rs) {
 						allFun.removeLoading();
 						if(rs.code == 0) {
-							//location.href = "paySuccess.html";
+							var d = rs.data;
+							//pordersn总订单号 totalamount支付金额
+							location.href = "cashierDesk.html?pordersn="+d.pordersn+"&totalamount="+d.totalamount+"";
 						} else {
 							allFun.alertDiv(rs.msg);
 						}
@@ -126,11 +125,11 @@
 			})
 			
 		});
-		
+		//获取信息
 		function getInfo(){
 			$.ajax({
 				url: host + '/index.php?app=order&act=checkout',
-				type: "post",
+				type: "get",
 				dataType: "json",
 				data:{"recid":'['+recid+']'},//购物车id集合 默认可不传此参数（如果不传此参数，默认为获取本人购物车中全部商品 ==全选）
 				beforeSend:function(){
@@ -165,6 +164,45 @@
 					allFun.alertDiv("error!")
 				}
 			})
+		}
+		
+		//获取地址
+		function getAddress(){
+			$.ajax({
+				url: hostPm+'/yjpai/platform/address/getlist',
+				type: "get",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 1) {
+						var d = rs.data,obj = "";
+						if(d.length > 0){//有地址
+							for (var i = 0; i < d.length; i++) {
+								if(d[i].isDefault == 1){//默认地址
+									consignee = d[i].userName;
+									phone_mob = d[i].telNumber;
+									address = d[i].detailInfo;
+									obj += "<a class='dAddressHave'><div class='dAddressL'><i class='iconfont icon-dizhi'></i></div><div class='dAddressC'>"
+										+ "<em>收件人：</em><span>"+consignee+"  "+phone_mob+"</span><br />"
+										+ "<em>收件地址：</em><span>"+address+"</span></div><div class='dAddressR'><i class='iconfont icon-zhankai-copy'></i></div></a>";
+								}
+							}
+						}else{
+							obj += "<a class='dAddressNo'><i class='iconfont icon-dizhi'></i>请填写收货地址<i class='iconfont icon-zhankai-copy'></i></a>";
+						}
+						$(".dAddress").html(obj);
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error:function(){
+					allFun.removeLoading();
+					allFun.alertDiv("出错，请重试");
+				}
+			});
 		}
 	</script>
 </html>

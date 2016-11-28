@@ -1,4 +1,5 @@
 var host = "http://"+location.host;
+var hostPm = "http://tst.yijiapai.com:8080";
 var host = "http://192.168.1.88/shopphp";
 //var host = "http://192.168.1.23:84";
 (function() {

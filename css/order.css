@@ -36,19 +36,18 @@ nav.nav5 a{ width: 20%;}
 .dTop > div p{ margin-top: .3rem;}
 
 .dAddress{ position: relative; background: #fff;}
-.dAddress .dAddressHave{ display: block; padding: 1rem 1rem .8rem 1rem;}
 .dAddress i.icon-dizhi{ margin-right: 1rem; font-size: 3rem; color: #8E9DB0; vertical-align: middle;}
-.dAddress i.icon-zhankai-copy{ color: #878787;}
-.dAddress .dAddressHave > div{ display: table-cell; vertical-align: top; padding-top: .2rem;}
-.dAddress .dAddressHave > div.dAddressM,.dAddress > div.dAddressR{ padding-top: .2rem;}
-.dAddress .dAddressHave > div.dAddressM{ width: 5.5rem;}
-.dAddress .dAddressHave > div.dAddressE{ vertical-align: middle;}
+.dAddress i.icon-zhankai-copy{ color: #979797;}
+.dAddress .dAddressHave{ display: block; padding: 1rem 1rem .8rem 1rem;}
+.dAddress .dAddressHave > div{ display: table-cell; vertical-align: middle; text-align: left;}
+.dAddress .dAddressHave > div.dAddressL{ width: 10%;}
+.dAddress .dAddressHave > div.dAddressC{ line-height: 1.6rem;}
+.dAddress .dAddressHave > div.dAddressR{ width: 8%; text-align: right;}
 .dAddress .dAddressHave > div em{ color: #3C3C3C;}
 .dAddress .dAddressHave > div span{ color: #878787; word-break: break-all;}
-.dAddress .dAddressHave > div p{ margin-top: .3rem;}
 
-.dAddress .dAddressNo{ position: relative; display: block; margin-top: .3rem; padding: .7rem 1rem .5rem 1rem; font-size: 1.2rem; color: #3C3C3C;}
-.dAddress .dAddressNo i.icon-zhankai-copy{ position: absolute; right: 1rem; top: 1.6rem; font-size: 1.4rem; color: #979797;}
+.dAddress .dAddressNo{ position: relative; display: block; margin-top: .3rem; padding: .7rem 1rem .5rem 1rem; font-size: 1.2rem; color: #3C3C3C; vertical-align: middle;}
+.dAddress .dAddressNo i.icon-zhankai-copy{ position: absolute; right: 1rem; top: 1.6rem;}
 
 .sundry{ height: 4rem; line-height: 4rem; padding: 0 1.5rem; font-size: 1.1rem; color: #5F5F5F; border-bottom: 1px solid #EFEFEF; background: #fff; overflow: hidden;}
 .sundry span{ float: right;}

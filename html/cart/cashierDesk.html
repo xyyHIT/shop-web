@@ -32,19 +32,19 @@
 	<body>
 		<div class="container">
 			<ul>
-				<li>
+				<!--<li>
 					<i class="iconfont icon-balance"></i>
 					<p>余额支付</p>
 					<span>¥20000元</span>
 					<i class="iconfont icon-queren1"></i>
-				</li>
+				</li>-->
 				<li>
 					<i class="iconfont icon-weixin"></i>
 					<p>微信零钱</p>
 					<span>单笔最高5000-500000元</span>
-					<i class="iconfont icon-querenoff1"></i>
+					<i class="iconfont icon-queren1"></i>
 				</li>
-				<li>
+				<!--<li>
 					<i class="iconfont icon-creditcard"></i>
 					<p>银行卡</p>
 					<span>支持借借记卡和贷记卡</span>
@@ -55,10 +55,10 @@
 					<p>汇款登记</p>
 					<span>支持借借记卡和贷记卡</span>
 					<i class="iconfont icon-querenoff1"></i>
-				</li>
+				</li>-->
 			</ul>
 			<div class="operate">
-				合计：<span>¥600.00</span><a>确认支付</a>
+				合计：<span></span><a>确认支付</a>
 			</div>
 		</div>
 	</body>
@@ -68,8 +68,10 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var pordersn = allFun.getRequest("pordersn"),
+			totalamount = allFun.getRequest("totalamount") || 0;
 		$(function () {
-						
+			$(".operate span").html("¥"+totalamount+"");
 		});
 	</script>
 </html>

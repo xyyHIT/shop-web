@@ -162,7 +162,7 @@
 								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"
 									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
-									obj += "<li><a href=orderDetail.html?orderId="+v.order_goods[i].order_id+"&type=0>"
+									obj += "<li><a href=orderDetail.html?orderId="+v.order_goods[i].order_id+"&type="+type+">"
 										+ "<img src='../../imgs/test/0.jpg' /></a><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
 										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
 								}

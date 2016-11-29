@@ -68,6 +68,11 @@ pre {
 .loading{ position: fixed; left: 50%; top: 50%; min-width: 10rem; padding: 1.5rem; text-align: center; color: #fff; background: rgba(0,0,0,.6); border-radius: 3px; -webkit-transform: translate(-50%,-50%); transform: translate(-50%,-50%); z-index: 9999;}
 .loading span{ display: block; margin-top:.5rem;}
 
+/*加载中(提交的时候用，避免重复提交)*/
+.loading_post{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9999;}
+.loading_post > div{ position: fixed; left: 50%; top: 50%; min-width: 10rem; padding: 1.5rem; text-align: center; color: #fff; background: rgba(0,0,0,.6); border-radius: 3px; -webkit-transform: translate(-50%,-50%); transform: translate(-50%,-50%);}
+.loading_post span{ display: block; margin-top:.5rem;}
+
 /**加载中**/
 .com-loading{display: inline-block; width: 1.6rem;height: 1.6rem;margin-right:6px; vertical-align: middle; margin-top: -.4rem;}
 .com-loading > div {width: 1.6rem;height: 1.6rem;box-sizing:border-box;border-radius: 100%;-webkit-animation-fill-mode: both;animation-fill-mode: both;border: 1px solid #878787;border-bottom-color: transparent;background: transparent !important;-webkit-animation: rotate 0.75s 0s linear infinite;animation: rotate 0.75s 0s linear infinite;-webkit-font-smoothing: antialiased;-webkit-text-stroke-width: 0.2px;}

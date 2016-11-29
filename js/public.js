@@ -95,9 +95,20 @@ var allFun = {
 			$("body").append("<div class='loading'><div class='com-loading'><div style=' border: 1px solid #fff;border-bottom-color: transparent;'></div></div><br /><span>" + msg + "</span></div>");
 		}
 	},
+	//加载中(提交的时候用，避免重复提交)
+	loadingPost: function (msg) {
+		if (!msg) {
+			msg = "拼命加载中...";
+		}
+		if ($(".loading").length > 0) {
+			$(".loading span").html(msg);
+		} else {
+			$("body").append("<div class='loading_post'><div><div class='com-loading'><div style=' border: 1px solid #fff;border-bottom-color: transparent;'></div></div><br /><span>" + msg + "</span></div></div>");
+		}
+	},
 	//移除加载中
 	removeLoading: function () {
-		$(".loading").remove();
+		$(".loading,.loading_post").remove();
 	},
 	//弹出提示层
 	alertDiv: function (msg) {

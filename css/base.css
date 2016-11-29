@@ -122,7 +122,7 @@ pre {
 .publishTanchu i{ bottom: -.8rem; left: -1.4rem; width:0;height:0;border-left:1.4rem solid transparent;border-right:1.4rem solid transparent;border-top:1.4rem solid #fff;}
 
 /*列表查看更多、没有数据*/
-.seemore,.nextpage{ padding: 1.5rem 0; font-size: 1.2rem; text-align: center; color: #5F5F5F;}
+.seemore{ width: 100%; padding: 1.5rem 0; font-size: 1.2rem; text-align: center; color: #5F5F5F; overflow: auto;}
 .nonePageImg{ pointer-events: none; position: absolute; left: 50%; top: 50%; width: 100%; font-size: 1.5rem; color: #b5b5b5; text-align: center; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
 .nonePageImg i.iconfont{ display: block; margin-bottom: .5rem; font-size: 14rem; color: #d7d7d7;}
 

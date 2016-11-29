@@ -469,11 +469,16 @@
 			   	},
 				success: function(rs) {
 					allFun.removeLoading();
-					if (rs.resCode == 0) {
+					var d = rs.data;
+					if (rs.code == 0) {
 						if(obj.is_draft == 0){//发布
-							
+							if(id && id != "undefined"){//从草稿进来编辑信息
+								location.href = "/shop/html/index/goodsDetails.html?goodsId="+id;
+							}else{
+								location.href = "/shop/html/index/goodsDetails.html?goodsId="+d.goods_id;
+							}
 						}else{
-							
+							location.href = "goodsManage.html?linkType=2";//草稿列表
 						}
 					} else {
 						allFun.alertDiv(rs.msg);

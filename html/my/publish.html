@@ -427,6 +427,14 @@
 		
 		//发布or保存草稿
 		function publishAndDraft(obj){
+			var uurl = "";
+			if(id && id != "undefined"){//从草稿进来编辑信息
+				obj.id = id;//商品id
+				uurl = "/index.php?app=my_goods&act=ejEdit";
+			}else{
+				uurl = "/index.php?app=my_goods&act=ejStore";
+			}
+			
 			obj.goods_name = $("#gTitle").val();//商品标题
 			obj.cate_id = $("#gCategory").attr("data_categoryid");//分类ID
 			obj.cate_name = $("#gCategory").val();//分类名
@@ -452,12 +460,12 @@
 			obj.description = JSON.stringify(des);
 			
 			$.ajax({
-				url: host+'/index.php?app=my_goods&act=ejStore',
+				url: host+uurl,
 				type: "post",
 				data: obj,
 				dataType: "json",
 				beforeSend:function(){
-			   		allFun.loading();
+			   		allFun.loadingPost();
 			   	},
 				success: function(rs) {
 					allFun.removeLoading();

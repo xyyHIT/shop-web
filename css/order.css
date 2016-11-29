@@ -74,6 +74,6 @@ nav.nav5 a{ width: 20%;}
 .dfixed a.chakanwuliu{ color: #fff; background: #5F5F5F;}
 .dfixed a.querenshouhuo,.dfixed a.qufukuan,.dfixed a.tixingfahuo,.dfixed a.qufahuo{ color: #fff; background: #EC4747;}
 
-a.goHome{ position: absolute; left: 1.5rem; bottom: 6rem; width: 4.5rem; height: 4.5rem;}
+a.goHome{ position: fixed; left: 1.5rem; bottom: 6rem; width: 4.5rem; height: 4.5rem;}
 a.goHome svg.icon{ width: 4.5rem; height: 4.5rem;}
 

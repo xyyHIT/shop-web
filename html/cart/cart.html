@@ -177,8 +177,9 @@
 			$("body").on("click",".editDIv .editInput_confirm",function(){
 				var _t= $(this),
 					spec_id = _t.parents("li").attr("data_spec_id"),
-					num = _t.parents(".editDIv").find("input").val();
-				if(num != ""){
+					num = _t.parents(".editDIv").find("input").val();//输入的数量
+					num_ago = _t.parents("li").find(".liInput input").val();//原来的数量
+				if(num != "" && num != num_ago){
 					updateGoodsNum(spec_id,num,function(){
 						_t.parents("li").find(".addSubtract input").val(num);
 						_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
@@ -191,6 +192,8 @@
 						$(".editDIv").remove();
 						funMoneyAndNum();
 					});
+				}else{
+					$(".editDIv").remove();
 				}
 			})
 			//关闭数量输入框

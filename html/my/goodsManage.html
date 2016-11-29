@@ -10,15 +10,11 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <style>
 
-        .trade{width: 100%; line-height:4rem; background: #fff;}
+        .trade{ position: fixed; top: 0; left: 0; width: 100%; line-height:4rem; background: #fff; z-index: 222;}
         .trade span{width:33.33%; position: relative; text-align: center; font-size: 1.3rem; display: inline-block; color:#3C3C3C;}
         .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
 
-        .trade_contents{ overflow: hidden;}
-        .trade_contents ol{ display: none; background: #faf9fb;}
-        .trade_contents ol.current{ display: block;}
-
-        .header{padding: 1rem 1.5rem;background-color:#fff; margin:0.5rem 0;position: relative;z-index: 200;}
+        .header{padding: 1rem 1.5rem;background-color:#fff; margin:4.5rem 0 0.5rem 0;position: relative;z-index: 200;}
         .header input{font-size:1.1rem;color:#9e9e9e;float:left;height:2.5rem;width:21.9rem;padding-left:3rem;background:#e7e7e7;border:none;border-radius:5px;background-size: 1.6rem;background-position-y: 0.3rem;background-position-x: 0.5rem;}
         #search-button{float:right;border-radius:4px; border:1px solid #5f5f5f;width:6rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#5f5f5f;}
         .searchBg{position: absolute; top:1.5rem; left:2rem; font-size: .16rem; color:#6e6e6e;}
@@ -38,17 +34,18 @@
         .handle ul{ background: #fff; overflow: hidden; padding:1rem 0;}
         .handle ul li{ float: left; width:33.33%; text-align: center;}
         .handles ul li{ width:50%;}
-        .handle ul li .del{color:#b5bac0; font-size: 1.9rem}
-        .handle ul li .redact{color:#ffc77e; font-size: 1.9rem}
-        .handle ul li .Unshelve{color:#6aabd3; font-size: 1.9rem}
-        .handle ul li .shelve{color:#ec4747; font-size: 1.9rem}
+        .handle ul li .iconfont{ font-size: 1.9rem;}
+        .handle ul li .icon-shanchu71{color:#b5bac0;}
+        .handle ul li .icon-bianji{color:#ffc77e;}
+        .handle ul li .icon-xiajia{color:#6aabd3;}
+        .handle ul li .icon-shangjia{color:#ec4747;}
         .sketch{color:#878787; font-size: 1.1rem;margin-top:.3rem;}
     </style>
 </head>
 <body>
 <div class="container">
     <div class="trade">
-        <span class="current" value="0">出售中</span><span value="1">已下架</span><span value="2">草稿</span>
+        <span class="current" data_t="0">出售中</span><span data_t="1">已下架</span><span data_t="2">草稿</span>
     </div>
     <div class="header fix">
         <div class="searchBg iconfont icon-sousuo"></div>
@@ -58,68 +55,36 @@
         <span id="search-button">搜索</span>
     </div>
     <div class="trade_contents">
-        <ol class="current" >
-            <div class="goodsList">
-                <div class="goodsContent">
-                    <a href="javascript:;">
-                        <dl>
-                                <dt class="left"><img src="" alt=""></dt>
-                                <dd class="">
-                                    <p class="over over1 title">输入搜索的商品名称</p>
-                                    <p class="price title">$2000</p>
-                                    <p class="num"><span class="repertory">库存1000</span><span class="warn">库存预警</span></p>
-                                </dd>
-                        </dl>
-                    </a>
-                </div>
-                <div class="handle">
-                    <ul>
-                        <li>
-                          <div class="iconfont icon-shanchu71 del"></div>
-                            <div class="sketch">删除</div>
-                        </li>
-                        <li>
-                            <div class="iconfont icon-bianji redact"></div>
-                            <div class="sketch">编辑</div>
-                        </li>
-                        <li>
-                            <div class="iconfont icon-xiajia Unshelve"></div>
-                            <div class="sketch">下架</div>
-                        </li>
-                    </ul>
-                </div>
+        <!--<div class='goodsList'>
+            <div class='goodsContent'>
+                <a href=''>
+                    <dl>
+                        <dt class='left'><img src='' /></dt>
+                        <dd>
+                            <p class='over over1 title'>输入搜索的商品名称</p>
+                            <p class='price title'>$2000</p>
+                            <p class='num'><span class='repertory'>库存1000</span><span class='warn'>库存预警</span></p>
+                        </dd>
+                    </dl>
+                </a>
             </div>
-            <div class="goodsList">
-                <div class="goodsContent">
-                    <a href="javascript:;">
-                        <dl>
-                            <dt class="left"><img src="" alt=""></dt>
-                            <dd class="">
-                                <p class="over over1 title">输入搜索的商品名称</p>
-                                <p class="price title">$2000</p>
-                                <p class="num"><span class="repertory">库存1000</span><span class="warn">库存预警</span></p>
-                            </dd>
-                        </dl>
-                    </a>
-                </div>
-                <div class="handle">
-                    <ul>
-                        <li>
-                            <div class="iconfont icon-shanchu71 del"></div>
-                            <div class="sketch">删除</div>
-                        </li>
-                        <li>
-                            <div class="iconfont icon-bianji redact"></div>
-                            <div class="sketch">编辑</div>
-                        </li>
-                        <li>
-                            <div class="iconfont icon-xiajia Unshelve"></div>
-                            <div class="sketch">下架</div>
-                        </li>
-                    </ul>
-                </div>
+            <div class='handle'>
+                <ul>
+                    <li class="del">
+                      <div class="iconfont icon-shanchu71"></div>
+                        <div class="sketch">删除</div>
+                    </li>
+                    <li class="redact">
+                        <div class="iconfont icon-bianji"></div>
+                        <div class="sketch">编辑</div>
+                    </li>
+                    <li class="Unshelve">
+                        <div class="iconfont icon-xiajia"></div>
+                        <div class="sketch">下架</div>
+                    </li>
+                </ul>
             </div>
-        </ol>
+        </div>
         <ol>
             <div class="goodsList">
                 <div class="goodsContent">
@@ -144,8 +109,8 @@
                             <div class="iconfont icon-bianji redact"></div>
                             <div class="sketch">编辑</div>
                         </li>
-                        <li>
-                            <div class="iconfont icon-shangjia shelve"></div>
+                        <li class="shelve">
+                            <div class="iconfont icon-shangjia"></div>
                             <div class="sketch">上架</div>
                         </li>
                     </ul>
@@ -180,7 +145,7 @@
                     </ul>
                 </div>
             </div>
-        </ol>
+        </ol>-->
     </div>
 </div>
 </body>
@@ -190,15 +155,202 @@
 <script src="/shop/js/public.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
+	var index = 0,
+		curr_page = 1,
+		finished = true;
     $(function () {
-        $(".trade span").each(function(index) { //带参数遍历各个选项卡
-            $(this).click(function() { //注册每个选卡的单击事件
-                $(".trade span.current").removeClass("current"); //移除已选中的样式
-                $(this).addClass("current"); //增加当前选中项的样式
-                //显示选项卡对应的内容并隐藏未被选中的内容
-                $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
-            });
+    	getGoodsList(index,"");
+    	//tab切换
+		$(".trade span").click(function () {
+			index = $(this).attr("data_t");
+	        $(this).addClass("current").siblings().removeClass("current");
+	        $(".trade_contents").empty();
+	        curr_page = 1;
+	        getGoodsList(index,"");
+	    })
+		//点击查看更多
+		$(window).on('scroll', function () {
+			var dHeight = document.documentElement.offsetHeight;
+            var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+            var wHeight = document.documentElement.clientHeight;
+            if (finished && dHeight - (sHeight + wHeight) < 200) {
+            	finished = false;
+            	if($(".seemore").attr("data_d") != "no"){
+            		curr_page++;
+            		getGoodsList(index,"");
+            	}
+            }
+		})
+		
+		//点击搜索按钮
+        $("body").on('click',"#search-button",function(){
+            var keyword=$("#searchInput").val();
+            if(keyword==""){
+                allFun.alertDiv("请输入搜索内容");
+                return false;
+            }
+            $(".trade_contents").empty();
+            curr_page = 1;
+            getGoodsList(index,keyword);
         });
+        //点击虚拟按键搜索
+        $(document).keydown(function (event){
+            if(event.keyCode === 13) {
+                var keyword=$("#searchInput").val();
+	            if(keyword==""){
+	                allFun.alertDiv("请输入搜索内容");
+	                return false;
+	            }
+	            $(".trade_contents").empty();
+	            curr_page = 1;
+	            getGoodsList(index,keyword);
+            }
+        });
+		
+        //删除
+        $("body").on("click",".handle li.del",function(){
+        	if(confirm("确定删除吗？")){
+        		var _t = $(this),
+	        		id = _t.parents(".handle").attr("data_id");
+	        	$.ajax({
+					url: host+'app=my_goods&act=ejDrop',
+					type: "post",
+					data:{"id":id},
+					dataType: "json",
+					beforeSend:function(){
+						allFun.loading("正在删除中");
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if (rs.resCode == 0) {
+							allFun.alertDiv("已成功删除！");
+							_t.parents(".goodsList").remove();
+						}else{
+							allFun.alertDiv(rs.msg);
+						}
+					}
+				})
+        	}
+		})
+        //编辑
+        $("body").on("click",".handle li.redact",function(){
+        	var id = $(this).parents(".handle").attr("data_id");
+        	location.href = "publish.html?id="+id;
+		})
+        //下架
+        $("body").on("click",".handle li.Unshelve",function(){
+        	var _t = $(this),
+        		id = _t.parents(".handle").attr("data_id");
+        	$.ajax({
+				url: host+'/index.php?app=my_goods&act=ajax_col&column=if_show',
+				type: "post",
+				data:{"id":id,"value":0},//0 -> 下架 1 -> 上架  2 -> 草稿
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading("正在下架中");
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 0) {
+						
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				}
+			})
+		})
+        //上架
+        $("body").on("click",".handle li.shelve",function(){
+        	var _t = $(this),
+        		id = _t.parents(".handle").attr("data_id");
+        	$.ajax({
+				url: host+'/index.php?app=my_goods&act=ajax_col&column=if_show',
+				type: "post",
+				data:{"id":id,"value":1},//0 -> 下架 1 -> 上架  2 -> 草稿
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading("正在上架中");
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if (rs.resCode == 0) {
+						
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				}
+			})
+		})
     });
+    
+    //获取数据
+    function getGoodsList(if_show,keyword){
+    	$.ajax({//if_show 0 -> 下架 1 -> 上架  2 -> 草稿      keyword关键词
+			url: host + "/index.php?app=my_goods&act=ejIndex&if_show="+if_show+"&keyword="+keyword+"&page="+curr_page+"",
+			type: "get",
+			dataType: "json",
+			beforeSend:function(){
+				if(curr_page == 1){//第一次
+					allFun.loading();
+				}
+			},
+			success: function(rs) {
+				allFun.removeLoading();
+				if(rs.code == 0) {
+					$(".seemore").remove();
+					curr_page = rs.data.page.curr_page;
+					finished = true;
+					var obj = "",
+						d = rs.data.goods,
+						item_count = rs.data.page.item_count,//总条数
+						pageper = rs.data.page.pageper;//每页条数
+					
+					if(item_count == 0){//无数据(第一次进来)
+						obj += allFun.noDataImg();
+					}else{
+						for(var i = 0; i < d.length; i++){
+							obj += "<div class='goodsList'><div class='goodsContent'>"
+								+ "<a href=/shop/html/index/goodsDetails.html?goodsId="+d[i].goods_id+">"
+								+ "<dl><dt class='left'><img src="+d[i].default_image+" /></dt><dd>"
+								+ "<p class='over title'>"+d[i].goods_name+"</p>"
+								+ "<p class='price title'>¥"+d[i].price+"</p><p class='num'>"
+								+ "<span class='repertory'>库存"+d[i].stock+"</span></p></dd></dl></a></div>";
+							if(if_show == 0){//出售中
+								obj+= "<div class='handle' data_id="+d[i].goods_id+"><ul>"
+									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
+									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li>"
+									+ "<li class='Unshelve'><div class='iconfont icon-xiajia'></div><div class='sketch'>下架</div></li></ul></div>"
+							}
+							if(if_show == 1){//已下架
+								obj+= "<div class='handle' data_id="+d[i].goods_id+"><ul>"
+									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
+									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li>"
+									+ "<li class='shelve'><div class='iconfont icon-xiajia'></div><div class='sketch'>上架</div></li></ul></div>"
+							}
+							if(if_show == 2){//草稿
+								obj+= "<div class='handle handles' data_id="+d[i].goods_id+"><ul>"
+									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
+									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li></ul></div>"
+							}
+							obj += "</div>";
+						}
+						
+						if(curr_page < Math.ceil(item_count/pageper)){//有数据
+							obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";
+						}else{//没有更多数据
+							obj += "<div class='seemore' data_d='no'>没有更多</div>";
+						}
+					}
+					$(".trade_contents").append(obj);
+				} else {
+					allFun.alertDiv(rs.msg);
+				}
+			},
+			error: function() {
+				allFun.removeLoading();
+				allFun.alertDiv("error!")
+			}
+		})
+    }
 </script>
 </html>

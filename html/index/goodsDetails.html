@@ -25,7 +25,7 @@
 
         .faxian { position: relative; margin:.5rem 0;height: 7rem; padding: 1.4rem 1rem; font-size: 1.3rem; color: #5F5F5F;  background: #fff;}
         .faxian dt img{  width: 4rem; height: 4rem; border-radius: 100%; margin-right:1.5rem;}
-        .faxian h3{font-size: 1.3rem; color: #3c3c3c;}
+        .faxian h3{font-size: 1.3rem; color: #3c3c3c;    width: 12rem;}
         .faxian h3 span img{display: inline-block; margin-top:.2rem; float: left; margin-right:.5rem; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
         .faxian dd p{margin-top:.2rem;  }
         .faxian dd p span{font-size: 1.1rem; margin-right:1rem;color: #878787;}
@@ -168,6 +168,7 @@
                     }
                     var goodsData=rs.data.goods,storeData=rs.data.store;
                     $(".pro-info .name").html(goodsData.goods_name);
+                    $(".pro-info .name").attr("spec_id",goodsData.spec_id);
                     $(".pro-info .price span").html(goodsData.ship_price);
                     $(".pro-info .kinds .person").html(goodsData.sales);
                     status=goodsData.collectsign;
@@ -274,17 +275,15 @@
         //加入购物车
         $(".cart").click(function() {
             var quantity=parseInt($(".r-red").html());
+            var spec_id=$('.pro-info .name').attr("spec_id");
             $(".r-red").html(quantity+1);
-            cart(lotId,quantity);
+            console.log(spec_id,quantity);
+            cart(spec_id,quantity);
         });
-        function cart(lotId,quantity) {
+        function cart(spec_id,quantity) {
             $.ajax({
-                url: host + '/index.php?app=cart&act=ejAdd',
-                type: "post",
-                data:{
-                    "spec_id":lotId,
-                    "quantity":quantity
-                },
+                url: host + '/index.php?app=cart&act=ejAdd&spec_id='+spec_id+'&quantity='+quantity+'',
+                type: "get",
                 beforeSend: function () {
                 },
                 success: function (rs) {

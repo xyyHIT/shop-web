@@ -160,7 +160,12 @@
                 finished = false;
                 if($(".seemore").attr("data_d") != "no"){
                     curr_page++;
-                    getOrderList($("#showType").val());
+                    var text=$(".s-input-tab-txt span").text();
+                    if(text=="商品"){
+                        goodsList(cateId,keyword);
+                    }else {
+                        storeList(keyword);
+                    }
                 }
             }
         });
@@ -209,7 +214,7 @@
                             mend += "<div class='seemore' data_d='no'>没有更多数据</div>";
                         }
                     }
-                    $(".pre-list").html(mend)
+                    $(".pre-list").html(mend);
                 }
             });
         }
@@ -230,7 +235,7 @@
                         return false;
                     }
                     $(".seemore").remove();
-                    // console.log(rs.data.page);
+                     console.log(rs.data);
                     curr_page = rs.data.page.curr_page;
                     finished = true;
                     item_count = rs.data.page.item_count;//总条数

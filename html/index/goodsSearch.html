@@ -52,11 +52,13 @@
         .faxian dd p span{font-size: 1.1rem; color: #878787;}
         .faxian em{position: absolute; right:1rem; top:2.4rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;  border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}
         .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
-        .select{background: #fff; line-height: 4rem; height:4rem; margin:.5rem 0;}
+        .select{background: #fff; line-height: 4rem; height:4rem; margin:.5rem 0; display: none;}
         .select span{font-size:1.3rem;color: #3C3C3C; width:33.33%; text-align: center; display: inline-block; float: left; position: relative;}
-        .select span em{transform:rotate(90deg);  -ms-transform:rotate(-90deg); 	/* IE 9 */  -moz-transform:rotate(-90deg); 	/* Firefox */  -webkit-transform:rotate(-90deg); /* Safari 和 Chrome */  -o-transform:rotate(-90deg); 	/* Opera */  position: absolute; right:1.6rem; top:0rem; font-size: 1.4rem}
-        .select span.on{color:#ec4747;}
+        .select span em{transform:rotate(-90deg);  -ms-transform:rotate(-90deg); 	/* IE 9 */  -moz-transform:rotate(-90deg); 	/* Firefox */  -webkit-transform:rotate(-90deg); /* Safari 和 Chrome */  -o-transform:rotate(-90deg); 	/* Opera */  position: absolute; right:1.6rem; top:0rem; font-size: 1.4rem}
+        .select span.on,.select span.down{color:#ec4747;}
         .select span.on em{transform:rotate(90deg);  -ms-transform:rotate(90deg); 	/* IE 9 */  -moz-transform:rotate(90deg); 	/* Firefox */  -webkit-transform:rotate(90deg); /* Safari 和 Chrome */  -o-transform:rotate(90deg); 	/* Opera */}
+        .select span.down em{transform:rotate(-90deg);  -ms-transform:rotate(-90deg); 	/* IE 9 */  -moz-transform:rotate(-90deg); 	/* Firefox */  -webkit-transform:rotate(-90deg); /* Safari 和 Chrome */  -o-transform:rotate(-90deg); 	/* Opera */  position: absolute; right:1.6rem; top:0rem; font-size: 1.4rem}
+
         .trade_contents ol{display: none;}
         .trade_contents ol.on{display: block;}
         .seemore, .nextpage {clear:both;}
@@ -83,7 +85,7 @@
     <!--商品-->
     <div class="warp">
         <div class="select">
-            <span class="on"><em class="iconfont icon-zhankai-copy"></em>默认</span> <span><em class="iconfont icon-zhankai-copy"></em>销量</span> <span><em class="iconfont icon-zhankai-copy"></em>价格</span>
+            <span class="on" data-type="0"><em class="iconfont icon-zhankai-copy"></em>默认</span> <span data-type="sales"><em class="iconfont icon-zhankai-copy"></em>销量</span> <span data-type="price"><em class="iconfont icon-zhankai-copy"></em>价格</span>
         </div>
         <div class="trade_contents" id="sceneListBox">
             <ol class="on">
@@ -124,6 +126,7 @@
                 $(".pre-list").empty();
                 $('.select').show();
                 goodsList(cateId,keyword);
+                $(".select").show();
             }else if(textSpan==="店铺") {
                 $(".pre-list").empty();
                 $('.select').hide();
@@ -144,11 +147,29 @@
                 if(textSpan==="商品"){
                     $(".pre-list").empty();
                     goodsList(cateId,keyword);
+                    $(".select").show();
                 }else if(textSpan==="店铺") {
                     $(".pre-list").empty();
                     storeList(keyword);
                 }
             }
+        });
+        //切换
+        $("body").on("click",".select span",function () {
+            var index = $(".select span").index(this);
+            console.log(index)
+            $(".seemore").remove();
+            $(".pre-list").empty();
+            if($(this).hasClass("on")){
+                $(".select span").removeClass("on");
+                $(this).addClass("down");
+
+            }else{
+                $(".select span").removeClass("on").removeClass("down");
+                $(this).addClass("on");
+
+            }
+
         });
 
         //点击查看更多
@@ -166,6 +187,7 @@
                     }else {
                         storeList(keyword);
                     }
+
                 }
             }
         });
@@ -200,7 +222,7 @@
                     }else {
                         $.each(goodsList, function (j, v) {
                             mend += '<li><div class="pre-item">'
-                                + '<a href="/shop/html/index/goodsDetails.html?data_lotid=' + goodsList[j].goods_id + '" data_lotid="' + goodsList[j].goods_id + '"><img class="pre-img" src="' + goodsList[j].default_image + '" alt=""> </a>'
+                                + '<a href="/shop/html/index/goodsDetails.html?goodsId=' + goodsList[j].goods_id + '" goodsId="' + goodsList[j].goods_id + '"><img class="pre-img" src="' + goodsList[j].default_image + '" alt=""> </a>'
                                 + '<div class="pre-info">'
                                 + '<p class="pre-subtitle over over1" >' + goodsList[j].goods_name + '</p>'
                                 + '<p class="pre-price"><span class="left">¥<em>' + goodsList[j].price + '</em></span><span class="right payment">' + goodsList[j].sales + '人付款</span></p>'
@@ -214,7 +236,7 @@
                             mend += "<div class='seemore' data_d='no'>没有更多数据</div>";
                         }
                     }
-                    $(".pre-list").html(mend);
+                    $(".pre-list").html(mend)
                 }
             });
         }
@@ -285,14 +307,21 @@
             $("#J_TabNav").hide();
         });
 
+
+
+/*
         $(".select span").each(function(index) { //带参数遍历各个选项卡
             $(this).click(function() { //注册每个选卡的单击事件
                 $(".select span.on").removeClass("on"); //移除已选中的样式
                 $(this).addClass("on"); //增加当前选中项的样式
+                if($(this).hasClass("on")){
+                    $(".select span").removeClass("on");
+                    $(this).addClass("down");
+                }
                 //显示选项卡对应的内容并隐藏未被选中的内容
                 $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
             });
-        });
+        });*/
 
     });
 </script>

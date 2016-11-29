@@ -150,7 +150,7 @@
 <script>
 
     $(function () {
-        var lotId = allFun.getRequest("data_lotid");//商品id
+        var lotId = allFun.getRequest("goodsId");//商品id
         goodsList(lotId);
         function goodsList(lotId){
             $.ajax({
@@ -167,6 +167,7 @@
                         return false;
                     }
                     var goodsData=rs.data.goods,storeData=rs.data.store;
+                    console.log(goodsData);
                     $(".pro-info .name").html(goodsData.goods_name);
                     $(".pro-info .name").attr("spec_id",goodsData.spec_id);
                     $(".pro-info .price span").html(goodsData.ship_price);
@@ -192,7 +193,6 @@
                     });
 
                     //店铺关注
-                    console.log(storeData);
                     $(".faxian dt img").attr("src",storeData.logo);
                     $(".faxian dd .name").html(storeData.name);
                     $(".faxian dd .p_num").html(storeData.goods_count);
@@ -220,10 +220,9 @@
                     });
                     //热门推荐
                     var mend='', commend=goodsData.commend_goods;
-                    console.log(commend);
                     $.each(commend,function (j,v) {
                              mend+='<li><div class="pre-item">'
-                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+commend[j].goods_id+'" data_lotid="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'" alt=""> </a>'
+                                +'<a href="/shop/html/index/goodsDetails.html?goodsId='+commend[j].goods_id+'" goodsId="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'" alt=""> </a>'
                                 +'<div class="pre-info">'
                                 +'<p class="pre-subtitle over over1" >'+commend[j].goods_name+'</p>'
                                 +'<p class="pre-price"><span class="left">¥<em>'+commend[j].price+'</em></span><span class="right payment"><em>'+commend[j].sales+'</em>人付款</span></p>'
@@ -277,7 +276,6 @@
             var quantity=parseInt($(".r-red").html());
             var spec_id=$('.pro-info .name').attr("spec_id");
             $(".r-red").html(quantity+1);
-            console.log(spec_id,quantity);
             cart(spec_id,quantity);
         });
         function cart(spec_id,quantity) {

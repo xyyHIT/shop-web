@@ -69,7 +69,7 @@
 			</div>
 
 			<div class="vertical-view">
-				<a href="#">
+				<a href="#" id="yijiapaimai">
 					<dl>
 						<dt class="icon iconfont icon-paimai"></dt>
 						<dd>拍卖</dd>
@@ -81,7 +81,7 @@
 						<dd>众筹</dd>
 					</dl>
 				</a>
-				<a href="#">
+				<a href="#" id="zixun">
 					<dl>
 						<dt class="icon iconfont icon-zixun"></dt>
 						<dd>资讯</dd>
@@ -110,6 +110,14 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
+            //点击跳到艺加拍卖
+            $("body").on("click","#yijiapaimai",function(){
+                location.href = hostPm+"/yjpai/platform/scene/scene.html";
+            });
+            //点击跳到资讯
+            $("body").on("click","#zixun",function(){
+                location.href = hostPm+"/yjpai/news/list.html";
+            });
             navList();
 			gooodsList();
 			//导航
@@ -166,60 +174,6 @@
                 });
 
             }
-            /*function navList(){
-                $.ajax({
-                    url: host+'/index.php?app=default&act=ejIndex',
-                    type: "post",
-                    beforeSend:function(){
-                        allFun.loading()
-                    },
-                    success: function(rs) {
-                        allFun.removeLoading();
-                        if(rs.code!=0){
-                            allFun.alertDiv(rs.msg);
-                            return false;
-                        }
-                        //nav
-                        var navData = rs.data.categories;
-                        str='',str2='', nId=0;
-
-
-
-
-                        str+='<a href="javascript:;" nav_id='+nId+' class="rent">精选</a>';
-                        for(var i=0; i<navData.length; i++){
-                            str+='<a href="javascript:;" nav_id='+navData[i].id+'>'+navData[i].cateName+'</a>'
-                        }
-                        str+='<span href="javascript:;" class="up_list"><em class="up iconfont icon-zhankai-copy"></em></span>';
-                        $(".top_nav").html(str);
-                        //一级导航
-                        $(".top_nav a").click(function () {
-                            //获取导航的id
-                            var nav_id=$(this).attr("nav_id");
-                            $(this).addClass("rent").siblings().removeClass("rent");
-                            if(nav_id==0){
-                                $(".vertical-view").show();
-                                $("#banner").show();
-                                $("#recommend").show();
-                                gooodsList(0);
-                            }else {
-								$(".vertical-view").hide();
-								$("#banner").hide();
-								$("#recommend").hide();
-								cate(nav_id);
-                            }
-                        });
-
-
-
-                    },
-                    error: function() {
-                        allFun.removeLoading();
-                        allFun.alertDiv("error!")
-                    }
-                });
-
-            }*/
             //精选
 			function gooodsList(){
 				$.ajax({
@@ -251,7 +205,6 @@
 						//推荐产品和产品列表
 						var goodsData = rs.data.recommend;
 						var goodsList = '';recommend='';
-                        console.log(goodsData);
 						for(i = 0;i<goodsData.length;i++){
 							var res='', res2='',listData=goodsData[i].items,recom_name=goodsData[i].recom_name;
 
@@ -259,7 +212,7 @@
 								for( j = 0;j<listData.length;j++){
 								recommend+='<div class="swiper-slide">'
 										+ '<div class="inner">'
-										+ '<a href="/shop/html/index/goodsDetails.html?data_lotid='+listData[j].goods_id+'" data_lotid="'+listData[j].goods_id+'">'
+										+ '<a href="/shop/html/index/goodsDetails.html?goodsId='+listData[j].goods_id+'" goodsId="'+listData[j].goods_id+'">'
 										+ '<img src="'+listData[j].default_image+'" alt="">'
 										+ '<h4>'+listData[j].goods_name+'</h4>'
 										+ '<p>¥<span>'+listData[j].price+'</span></p>'
@@ -268,11 +221,11 @@
 										+ '</div>'
 								}
 							}else {
-                                res2 += '<div class="topic"><a href="/shop/html/index/goodsDetails.html?data_lotid='+listData[0].goods_id+'"  data_lotid="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
+                                res2 += '<div class="topic"><a href="/shop/html/index/goodsDetails.html?goodsId='+listData[0].goods_id+'"  goodsId="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
 								for( j = 1;j<listData.length;j++) {
                                     res +='<div class="swiper-slide">'
 													+ '<div class="inner">'
-														+ '<a href="/shop/html/index/goodsDetails.html?data_lotid='+listData[j].goods_id+'" data_lotid="'+listData[j].goods_id+'">'
+														+ '<a href="/shop/html/index/goodsDetails.html?goodsId='+listData[j].goods_id+'" goodsId="'+listData[j].goods_id+'">'
 														+ '<img src="'+listData[j].default_image+'" alt="">'
 														+ '<h4>'+listData[j].goods_name+'</h4>'
 														+ '<p>¥<span>'+listData[j].price+'</span></p>'
@@ -330,11 +283,11 @@
                         for(var z=0; z<cate.length;z++){
                             var obj='',obj2='',catinfo=cate[z].goodslist;
                             console.log(catinfo);
-                            obj+='<div class="topic"><a href="/shop/html/index/goodsDetails.html?data_lotid='+catinfo[0].goods_id+'" data_lotid="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
+                            obj+='<div class="topic"><a href="/shop/html/index/goodsDetails.html?goodsId='+catinfo[0].goods_id+'" goodsId="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
                             for(var w=1; w<catinfo.length;w++){
                                 obj2+='<div class="swiper-slide">'
                                 +'<div class="inner">'
-                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+catinfo[w].goods_id+'" data_lotid="'+catinfo[w].goods_id+'">'
+                                +'<a href="/shop/html/index/goodsDetails.html?goodsId='+catinfo[w].goods_id+'" goodsId="'+catinfo[w].goods_id+'">'
                                 +'<img src="'+catinfo[w].default_image+'"  alt="">'
                                 +'<h4 class="over over2">'+catinfo[w].goods_name+'</h4>'
                                 +'<p>¥<span>'+catinfo[w].price+'</span></p>'+'</a>'

@@ -11,6 +11,7 @@
     <style>
         body{background: #f9f9f9;
             height:100%;}
+        .seemore, .nextpage{clear: both;}
         .trade{width: 100%; line-height:4rem; background: #fff;}
         .trade span{width:30%; margin:0 10%; position: relative; text-align: center; font-size: 1.3rem; display: inline-block; color:#3f3f3f;}
         .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
@@ -97,7 +98,6 @@
         var curr_page=1;
         finished = true;
         linkType = allFun.getRequest("linkType");//tab类型
-        console.log(linkType);
         $("#showType").val(linkType);
         $(".trade span").each(function(){
             if($(this).attr("data_type") == $("#showType").val()){
@@ -165,7 +165,6 @@
                     pageper = rs.data.page.pageper;//每页条数
 
                     var goodsList=rs.data.goods;
-                    console.log(goodsList);
                     var mend='';
                     if(item_count == 0){//无数据(第一次进来)
                         mend += allFun.noDataImg();
@@ -206,7 +205,6 @@
                         return false;
                     }
                     $(".seemore").remove();
-                    console.log(rs.data);
                     curr_page = rs.data.page.curr_page;
                     finished = true;
                     item_count = rs.data.page.item_count;//总条数
@@ -222,9 +220,9 @@
                                 + '<dt class="left"><a href="javascript:;" store_id="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>'
                                 + ' <dd  class="left">'
                                 + '<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>'
-                                + '<p class=""><span>50个粉丝</span></p>'
+                                + '<p class=""><span>' + shopData[j].collectnum + '个粉丝</span></p>'
                                 + '</dd>'
-                                + '<em>+关注</em>'
+                                + '<em>已关注</em>'
                                 + '</dl>'
                                 + '</div>'
                         });

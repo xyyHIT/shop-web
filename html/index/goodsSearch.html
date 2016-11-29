@@ -85,7 +85,7 @@
     <!--商品-->
     <div class="warp">
         <div class="select">
-            <span class="on" data-type="0"><em class="iconfont icon-zhankai-copy"></em>默认</span> <span data-type="sales"><em class="iconfont icon-zhankai-copy"></em>销量</span> <span data-type="price"><em class="iconfont icon-zhankai-copy"></em>价格</span>
+            <span class="on" data-type="0">默认</span> <span data-type="sales">销量</span> <span data-type="price"><em class="iconfont icon-zhankai-copy"></em>价格</span>
         </div>
         <div class="trade_contents" id="sceneListBox">
             <ol class="on">
@@ -93,10 +93,6 @@
 
                 </ul>
             </ol>
-            <ol>
-                11
-            </ol>
-            <ol>ddd</ol>
         </div>
     </div>
 </div>
@@ -109,6 +105,7 @@
 <script>
 
     $(function () {
+        var order=0;
         var cateId = allFun.getRequest("cateId");//商品id
         var curr_page=1,keyword="",item_count='';//curr_page 当前页码 pageper 分页条数  item_count 总条数 keyword搜索关键词
 
@@ -125,7 +122,7 @@
             if(textSpan==="商品"){
                 $(".pre-list").empty();
                 $('.select').show();
-                goodsList(cateId,keyword);
+                goodsList(order,cateId,keyword);
                 $(".select").show();
             }else if(textSpan==="店铺") {
                 $(".pre-list").empty();
@@ -146,7 +143,7 @@
                 console.log(textSpan);
                 if(textSpan==="商品"){
                     $(".pre-list").empty();
-                    goodsList(cateId,keyword);
+                    goodsList(order,cateId,keyword);
                     $(".select").show();
                 }else if(textSpan==="店铺") {
                     $(".pre-list").empty();
@@ -157,18 +154,28 @@
         //切换
         $("body").on("click",".select span",function () {
             var index = $(".select span").index(this);
-            console.log(index)
-            $(".seemore").remove();
-            $(".pre-list").empty();
+            var order = $(this).attr("data-type");
+            console.log(index,order);
             if($(this).hasClass("on")){
-                $(".select span").removeClass("on");
-                $(this).addClass("down");
-
+                if(index==2){
+                    $(".select span").removeClass("on");
+                    $(this).addClass("down");
+                    console.log(order);
+                    order="asc";
+                }
             }else{
+                $(".seemore").remove();
+                $(".pre-list").empty();
                 $(".select span").removeClass("on").removeClass("down");
                 $(this).addClass("on");
-
+                if(index==1){// console.log(order);
+                    order="desc";
+                }
+                if(index==2){// console.log(order);
+                    order="desc";
+                }
             }
+            goodsList(order,cateId,keyword);
 
         });
 
@@ -183,7 +190,7 @@
                     curr_page++;
                     var text=$(".s-input-tab-txt span").text();
                     if(text=="商品"){
-                        goodsList(cateId,keyword);
+                        goodsList(order,cateId,keyword);
                     }else {
                         storeList(keyword);
                     }
@@ -193,9 +200,9 @@
         });
 
        // 搜索商品列表
-        function  goodsList(cateId,keyword){
+        function  goodsList(order,cateId,keyword){
             $.ajax({
-                url: host + '/index.php?app=search&act=ejGoods&cate_id='+cateId+'&keyword='+keyword+'&page='+curr_page+'',
+                url: host + '/index.php?app=search&act=ejGoods&order='+order+'&cate_id='+cateId+'&keyword='+keyword+'&page='+curr_page+'',
                 type: "get",
                 beforeSend: function () {
                     if(curr_page == 1){//第一次
@@ -216,6 +223,7 @@
                     pageper = rs.data.page.pageper;//每页条数
 
                     var goodsList=rs.data.goods;
+                    console.log(rs.data);
                     var mend='';
                     if(item_count == 0){//无数据(第一次进来)
                         mend += allFun.noDataImg();
@@ -268,15 +276,19 @@
                         mend += allFun.noDataImg();
                     }else {
                         $.each(shopData, function (j, v) {
-                            mend += '<div class="attention"><dl class="faxian">'
-                                + '<dt class="left"><a href="javascript:;" store_id="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>'
-                                + ' <dd  class="left">'
-                                + '<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>'
-                                + '<p class=""><span>50个粉丝</span></p>'
-                                + '</dd>'
-                                + '<em>+关注</em>'
-                                + '</dl>'
-                                + '</div>'
+
+                            mend += '<div class="attention"><dl class="faxian">';
+                            mend += '<dt class="left"><a href="javascript:;" store_id="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>';
+                            mend += ' <dd  class="left">';
+                            mend +='<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>';
+                            mend += '<p class=""><span>' + shopData[j].followers + '个粉丝</span></p>';
+                            mend += '</dd>';
+                                if( shopData[j].is_follow == 0){//未关注
+                                    mend += "<em data_id="+shopData[j].store_id+">+关注</em>";
+                                }else{
+                                    mend += "<em class='on' data_id="+shopData[j].store_id+">已关注</em>";
+                                }
+                                mend += '</dl></div>';
                         });
                         if (curr_page < Math.ceil(item_count / pageper)) {//有数据
                             mend += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";
@@ -284,7 +296,7 @@
                             mend += "<div class='seemore' data_d='no'>没有更多数据</div>";
                         }
                     }
-                    $(".pre-list").html(mend)
+                    $(".pre-list").html(mend);
                 }
             });
         }
@@ -306,23 +318,6 @@
             $(".s-input-tab-txt span").html(text);
             $("#J_TabNav").hide();
         });
-
-
-
-/*
-        $(".select span").each(function(index) { //带参数遍历各个选项卡
-            $(this).click(function() { //注册每个选卡的单击事件
-                $(".select span.on").removeClass("on"); //移除已选中的样式
-                $(this).addClass("on"); //增加当前选中项的样式
-                if($(this).hasClass("on")){
-                    $(".select span").removeClass("on");
-                    $(this).addClass("down");
-                }
-                //显示选项卡对应的内容并隐藏未被选中的内容
-                $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
-            });
-        });*/
-
     });
 </script>
 </html>

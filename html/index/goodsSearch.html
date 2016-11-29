@@ -300,18 +300,16 @@
                 }
             });
         }
-
+        //选择店铺和商品下拉框
         $(".s-input-tab-txt").click(function() {
             $("#J_TabNav").toggle();
-        });
-        $(".all").click(function() {
-            $('.select').show();
             $(".pre-list").empty();
         });
         $(".shop").click(function() {
-            $('.select').hide();
-            $(".pre-list").empty();
+            $(".select").hide();
+
         });
+
         $("#J_TabNav li").click(function() {
             var text=$(this).text();
             console.log(text);

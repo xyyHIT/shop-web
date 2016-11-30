@@ -96,7 +96,7 @@
     </div>
     <div class="attention">
         <dl class='faxian'>
-                <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
+                <dt class="left"><a href="javascript:;"><img src='' /></a></dt>
                 <dd  class="left">
                     <h3><span class="level"></span><p class="over over1 name"></p></h3>
                     <p class=""><span>商品<i class="p_num"></i></span><span>关注<i class="g_num"></i></span></p>
@@ -194,6 +194,7 @@
 
                     //店铺关注
                     $(".faxian dt img").attr("src",storeData.logo);
+                    $(".faxian dt a").attr("href",'/shop/html/my/sellerStore.html?storeId='+goodsData.store_id+'');
                     $(".faxian dd .name").html(storeData.name);
                     $(".faxian dd .p_num").html(storeData.goods_count);
                     $(".faxian dd .g_num").html(storeData.collect_count);

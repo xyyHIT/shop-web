@@ -278,15 +278,15 @@
                         $.each(shopData, function (j, v) {
 
                             mend += '<div class="attention"><dl class="faxian">';
-                            mend += '<dt class="left"><a href="javascript:;" store_id="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>';
+                            mend += '<dt class="left"><a href="/shop/html/my/sellerStore.html?storeId=' + shopData[j].store_id + '" storeId="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>';
                             mend += ' <dd  class="left">';
                             mend +='<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>';
                             mend += '<p class=""><span>' + shopData[j].followers + '个粉丝</span></p>';
                             mend += '</dd>';
                                 if( shopData[j].is_follow == 0){//未关注
-                                    mend += "<em data_id="+shopData[j].store_id+">+关注</em>";
+                                    mend += "<em item_id="+shopData[j].store_id+">+关注</em>";
                                 }else{
-                                    mend += "<em class='on' data_id="+shopData[j].store_id+">已关注</em>";
+                                    mend += "<em item_id="+shopData[j].store_id+">已关注</em>";
                                 }
                                 mend += '</dl></div>';
                         });
@@ -297,9 +297,56 @@
                         }
                     }
                     $(".pre-list").html(mend);
+
+                    //添加关注
+                    $(".faxian em").click(function () {
+                        var t=$(this);
+                        item_id=t.attr("item_id");
+                        console.log(item_id);
+                        if(t.hasClass("on")){
+                            attention("store","drop",t);
+                        }else{
+                            attention("store","add",t);
+                        }
+                    });
                 }
             });
         }
+        //关注
+        function attention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 drop-取消关注
+            $.ajax({
+                url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
+                type: "get",
+                beforeSend: function () {
+                },
+                success: function (rs) {
+                    if (rs.code != 0) {
+                        allFun.alertDiv(rs.msg);
+                        return false;
+                    }
+                    if(type=="store"){
+                        if(status == 1){//取消关注
+                            t.removeClass("on").html("+关注");
+                        }else{
+                            t.addClass("on").html("已关注");
+                        }
+                    }else if(type=="goods"){
+                        if(status == 1) {
+                            t.removeClass("grey");
+                        }
+                        else{
+                            t.addClass("grey");
+                        }
+                    }
+
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
+                }
+            });
+        }
+
         //选择店铺和商品下拉框
         $(".s-input-tab-txt").click(function() {
             $("#J_TabNav").toggle();

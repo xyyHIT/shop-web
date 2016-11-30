@@ -164,7 +164,7 @@ var allFun = {
 		if(!msg){
 			msg = "暂时没有数据！";
 		}
-		return "<div class='nonePageImg'><i class='iconfont icon-zanwujilu'></i>" + msg + "</div>";
+		return "<div class='nonePageImg'><i class='iconfont icon-kongyemian'></i>" + msg + "</div>";
 	},
 	showAllNonBaseMenuItem: function () {
 		wx.ready(function () {

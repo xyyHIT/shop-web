@@ -105,20 +105,20 @@
 					<div class="marDiv"></div>
 					<li class="borderB">
 						<label for="gPrice">商品价格</label>
-						<input type="text" id="gPrice" placeholder="请输入商品价格" />
+						<input type="tel" id="gPrice" placeholder="请输入商品价格" />
 					</li>
 					<li class="borderB">
 						<label for="gRepertory">商品库存</label>
-						<input type="text" id="gRepertory" placeholder="请输入商品库存" />
+						<input type="tel" id="gRepertory" placeholder="请输入商品库存" />
 					</li>
 					<li class="borderB">
 						<label for="gTransportation">运费</label>
 						<input type="tel" id="gTransportation" placeholder="请输入运费" value="0" />
 					</li>
-					<li>
+					<!--<li>
 						<label for="gWarning">库存预警</label>
 						<input type="tel" id="gWarning" placeholder="请输入库存预警" value="0" />
-					</li>
+					</li>-->
 					<div class="marDiv"></div>
 					<li class="goPublishDetail">
 						<label>宝贝描述</label>
@@ -294,8 +294,8 @@
 					});
 				})
 			})
-			//输入框输入限制（价格，运费）
-			$("body").on("keyup","#gPrice,#gTransportation",function(){
+			//输入框输入限制（价格）
+			$("body").on("keyup","#gPrice",function(){
 				var regStrs = [
 			        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
 			        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点/index.php?app=category&act=ejindex
@@ -307,8 +307,8 @@
 			        this.value = this.value.replace(reg, regStrs[i][1]);
 			    }
 			})
-			//输入框输入限制（库存）
-			$("body").on("keyup","#gRepertory,#gWarning",function(){
+			//输入框输入限制（库存，运费，预警）
+			$("body").on("keyup","#gRepertory,#gTransportation,#gWarning",function(){
 				if(this.value.length==1){
 					this.value=this.value.replace(/[^1-9]/g,'');
 				}else{
@@ -465,7 +465,11 @@
 				data: obj,
 				dataType: "json",
 				beforeSend:function(){
-			   		allFun.loadingPost();
+					if(obj.is_draft == 0){//发布
+						allFun.loadingPost("正在发布中");
+					}else{
+						allFun.loadingPost("正在保存草稿");
+					}
 			   	},
 				success: function(rs) {
 					allFun.removeLoading();
@@ -545,10 +549,11 @@
 						$("#gCategory").val(d.goods_name);//商品分类名称
 						$("#gPrice").val(d.price);//商品价格
 						//$("#gRepertory").val(d.goods_name);//商品库存
-						$("#gTransportation").val(d.ship_price);//运费
+						$("#gTransportation").val(parseInt(d.ship_price));//运费
 						//$("#gWarning").val(d.goods_name);//库存预警
 						
-						var desc = {"records":[{"k":1,"v":"../../imgs/test/1.jpg"},{"k":0,"v":"撒风格\nasdf"},{"k":1,"v":"../../imgs/test/1.jpg"}]};
+						//var desc = {"records":[{"k":1,"v":"../../imgs/test/1.jpg"},{"k":0,"v":"撒风格\nasdf"},{"k":1,"v":"../../imgs/test/1.jpg"}]};
+						var desc = JSON.parse(d.detail_desc);
 						if(desc){
 							$(".noData").remove();
 							for(var i = 0; i < desc.records.length; i++){

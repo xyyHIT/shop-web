@@ -123,6 +123,10 @@
 					}
 				})
 			})
+			//点击地址跳到地址列表
+			$("body").on("click",".dAddress",function(){
+				location.href = hostPm + "/yjpai/platform/my/manageAddress.html?addressPageId=3&recid="+recid+"";
+			})
 			
 		});
 		//获取信息
@@ -141,10 +145,10 @@
 						var d = rs.data.list,
 							obj = "";
 						$.each(d, function(i,v) {
-							obj += "<div class='box'><h2><a href=/shop/html/my/sellerStore.html>"+v.store_name+"</a>"
+							obj += "<div class='box'><h2><a href=/shop/html/my/sellerStore.html?storeId="+v.store_id+">"+v.store_name+"</a>"
 								+ "<i class='iconfont icon-zhankai-copy'></i></h2><ul>";
 							for(var i = 0; i < v.goods.length; i++){
-								obj += "<li><a href='/shop/html/index/goodsDetails.html'>"
+								obj += "<li><a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+">"
 									+ "<img src='../../imgs/test/0.jpg' /></a>"
 									+ "<strong class='over over2'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
 									+ "<span>¥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p></li>";
@@ -169,7 +173,7 @@
 		//获取地址
 		function getAddress(){
 			$.ajax({
-				url: hostPm+'/yjpai/platform/address/getlist',
+				url: hostPm+'/yjpai/platform/address/getDefaultAddress',
 				type: "get",
 				dataType: "json",
 				beforeSend:function(){
@@ -179,17 +183,13 @@
 					allFun.removeLoading();
 					if (rs.resCode == 1) {
 						var d = rs.data,obj = "";
-						if(d.length > 0){//有地址
-							for (var i = 0; i < d.length; i++) {
-								if(d[i].isDefault == 1){//默认地址
-									consignee = d[i].userName;
-									phone_mob = d[i].telNumber;
-									address = d[i].detailInfo;
-									obj += "<a class='dAddressHave'><div class='dAddressL'><i class='iconfont icon-dizhi'></i></div><div class='dAddressC'>"
-										+ "<em>收件人：</em><span>"+consignee+"  "+phone_mob+"</span><br />"
-										+ "<em>收件地址：</em><span>"+address+"</span></div><div class='dAddressR'><i class='iconfont icon-zhankai-copy'></i></div></a>";
-								}
-							}
+						if(d != null){
+							consignee = d.userName;
+							phone_mob = d.telNumber;
+							address = d.detailInfo;
+							obj += "<a class='dAddressHave'><div class='dAddressL'><i class='iconfont icon-dizhi'></i></div><div class='dAddressC'>"
+								+ "<em>收件人：</em><span>"+consignee+"  "+phone_mob+"</span><br />"
+								+ "<em>收件地址：</em><span>"+address+"</span></div><div class='dAddressR'><i class='iconfont icon-zhankai-copy'></i></div></a>";
 						}else{
 							obj += "<a class='dAddressNo'><i class='iconfont icon-dizhi'></i>请填写收货地址<i class='iconfont icon-zhankai-copy'></i></a>";
 						}

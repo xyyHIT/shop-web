@@ -98,7 +98,6 @@
                         allFun.alertDiv(rs.msg);
                         return false;
                     }
-
                     var d = rs.data,obj = '';
                     console.log(d);
                     obj += '<dl class="faxian">'
@@ -112,7 +111,6 @@
                         }else{
                             obj += "<em item_id="+store_id+">已关注</em>";
                         }
-
                         +'</dl>' ;
                     $(".seller").html(obj);
                     //添加关注
@@ -126,7 +124,6 @@
                             attention("store","add",t);
                         }
                     });
-
                 },
                 error: function() {
                     allFun.removeLoading();

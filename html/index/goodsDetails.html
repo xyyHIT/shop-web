@@ -136,7 +136,7 @@
     </div>
 
     <div class="detailFooter footerInits">
-        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a href="/shop/html/category/category.html"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋<em class="r-red">0</em></a><a
+        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋<em class="r-red">0</em></a><a
             href="javascript:;" class="end cart">放入购物袋</a>
     </div>
 </div>
@@ -151,6 +151,7 @@
 
     $(function () {
         var lotId = allFun.getRequest("goodsId");//商品id
+
         goodsList(lotId);
         function goodsList(lotId){
             $.ajax({
@@ -191,7 +192,8 @@
                             attention("goods","add",t);
                         }
                     });
-
+                    //导航进入小店
+                    $(".detailFooter .store").attr("href",'/shop/html/my/sellerStore.html?storeId='+goodsData.store_id+'');
                     //店铺关注
                     $(".faxian dt img").attr("src",storeData.logo);
                     $(".faxian dt a").attr("href",'/shop/html/my/sellerStore.html?storeId='+goodsData.store_id+'');

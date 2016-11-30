@@ -123,8 +123,8 @@ pre {
 
 /*列表查看更多、没有数据*/
 .seemore{ width: 100%; padding: 1.5rem 0; font-size: 1.2rem; text-align: center; color: #5F5F5F; overflow: auto;}
-.nonePageImg{ pointer-events: none; position: absolute; left: 50%; top: 50%; width: 100%; font-size: 1.5rem; color: #b5b5b5; text-align: center; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
-.nonePageImg i.iconfont{ display: block; margin-bottom: .5rem; font-size: 14rem; color: #d7d7d7;}
+.nonePageImg{ pointer-events: none; position: absolute; left: 50%; top: 50%; width: 100%; font-size: 1.5rem; color: #5F5F5F; text-align: center; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
+.nonePageImg i.iconfont{ display: block; margin-bottom: .5rem; font-size: 11rem; color: #d7d7d7;}
 
 /*弹层关注二维码*/
 .gzewm{ position: fixed; left: 15%; top: 9rem; width: 70%; text-align: center; z-index: 9991; background: #fff; border-radius: 6px; overflow: hidden;}

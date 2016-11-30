@@ -156,7 +156,7 @@
 							pageper = rs.data.page.pageper;//每页条数
 						
 						if(item_count == 0){//无数据(第一次进来)
-							obj += allFun.noDataImg();
+							obj += allFun.noDataImg("您还没有相关的订单");
 						}else{
 							$.each(d, function(i,v) {
 								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"

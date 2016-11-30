@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1479457030764'); /* IE9*/
-  src: url('iconfont.eot?t=1479457030764#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1479457030764') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1479457030764') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1479457030764#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1480472363407'); /* IE9*/
+  src: url('iconfont.eot?t=1480472363407#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1480472363407') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1480472363407') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1480472363407#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -125,4 +125,8 @@
 .icon-tianjia1:before { content: "\e660"; }
 
 .icon-bodadianhua:before { content: "\e661"; }
+
+.icon-icon-test:before { content: "\e667"; }
+
+.icon-kongyemian:before { content: "\e66a"; }
 

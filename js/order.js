@@ -46,7 +46,7 @@
 				dataType: "json",
 				data:{"order_id":order_id},
 				beforeSend:function(){
-					allFun.loading();
+					allFun.loading("正在提醒发货！");
 				},
 				success: function(rs) {
 					allFun.removeLoading();
@@ -83,13 +83,13 @@
 				dataType: "json",
 				data:{"order_id":order_id,"invoice_no":invoice_no},
 				beforeSend:function(){
-					allFun.loading();
+					allFun.loading("正在发货！");
 				},
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
-						/*_t.parents(".box").find("h2 em").html("交易取消");
-						_t.parents(".dOperate").remove();*/
+						allFun.alertDiv("发货成功！");
+						$(".dScanCode").remove();
 					} else {
 						allFun.alertDiv(rs.msg);
 					}
@@ -102,7 +102,7 @@
 		})
 		//扫描二维码
 		$("body").on("click",".dScanCode p i",function(){
-			$(".dScanCode").remove();
+			
 		})
 		//关闭二维码框
 		$("body").on("click",".dScanCode .bb,.dScanCode h2 i",function(){

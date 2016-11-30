@@ -317,12 +317,16 @@
 						pageper = rs.data.page.pageper;//每页条数
 					
 					if(item_count == 0){//无数据(第一次进来)
-						obj += allFun.noDataImg();
+						obj += allFun.noDataImg("没有宝贝，还赶紧不去发布？");
 					}else{
 						for(var i = 0; i < d.length; i++){
-							obj += "<div class='goodsList'><div class='goodsContent'>"
-								+ "<a href=/shop/html/index/goodsDetails.html?goodsId="+d[i].goods_id+">"
-								+ "<dl><dt class='left'><img src="+d[i].default_image+" /></dt><dd>"
+							obj += "<div class='goodsList'><div class='goodsContent'>";
+							if(if_show == 2){//草稿
+								obj += "<a href=/shop/html/my/publish.html?id="+d[i].goods_id+">";
+							}else{
+								obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+d[i].goods_id+">";
+							}
+							obj += "<dl><dt class='left'><img src="+d[i].default_image+" /></dt><dd>"
 								+ "<p class='over title'>"+d[i].goods_name+"</p>"
 								+ "<p class='price title'>¥"+d[i].price+"</p><p class='num'>"
 								+ "<span class='repertory'>库存"+d[i].stock+"</span></p></dd></dl></a></div>";

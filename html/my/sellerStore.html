@@ -44,7 +44,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="tel"><a href="javascript:;" class="iconfont icon-bodadianhua"></a></div>
+    <div class="tel"><a href="tel:13456787787" class="iconfont icon-bodadianhua"></a></div>
         <div class="seller">
             <!--<dl class='faxian'>
                 <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
@@ -86,6 +86,31 @@
         var order=0;
         var curr_page=1,item_count='';
         var store_id = allFun.getRequest("storeId");//店铺id
+
+        //用户信息
+        $.ajax({
+            url: hostPm+"/yjpai/platform/user/getUser",
+            type: "get",
+            dataType: "json",
+            beforeSend: function(){
+                allFun.loading();
+            },
+            success: function(rs) {
+                allFun.removeLoading();
+                if(rs.resCode==1){
+                    var userData = rs.data;
+                    //console.log(userData,userData.mobile);
+                    if(userData.mobile==null){
+                        $(".tel").hide();
+                    }else {
+                        $(".tel").html('<a href="tel:'+userData.mobile+'" class="iconfont icon-bodadianhua"></a>');
+                    }
+
+                }
+            }
+        });
+
+
         storeList(store_id);
         function storeList(store_id) {
             $.ajax({

@@ -150,8 +150,25 @@
 <script>
 
     $(function () {
-        var lotId = allFun.getRequest("goodsId");//商品id
+        //用户信息
+            $.ajax({
+                url: hostPm+"/yjpai/platform/user/getUser",
+                type: "get",
+                dataType: "json",
+                beforeSend: function(){
+                    allFun.loading();
+                },
+                success: function(rs) {
+                    allFun.removeLoading();
+                    if(rs.resCode==1){
+                        var userData = rs.data;
+                        //console.log(userData,userData.mobile);
+                        $(".cart").attr("data_m",userData.mobile);
+                    }
+                }
+            });
 
+        var lotId = allFun.getRequest("goodsId");//商品id
         goodsList(lotId);
         function goodsList(lotId){
             $.ajax({
@@ -276,6 +293,11 @@
         }
         //加入购物车
         $(".cart").click(function() {
+            var tel=$('.cart').attr("data_m");
+            if(tel==null){
+
+            }
+
             var quantity=parseInt($(".r-red").html());
             var spec_id=$('.pro-info .name').attr("spec_id");
             $(".r-red").html(quantity+1);
@@ -289,7 +311,7 @@
                 },
                 success: function (rs) {
                     if (rs.code != 0) {
-                        //allFun.alertDiv(rs.msg);
+                        allFun.alertDiv(rs.msg);
                         return false;
                     }
 

@@ -39,12 +39,12 @@
 				<i class="iconfont icon-zhankai-copy"></i>-->
 			</div>
 			<div class="dMoney">
-				累计收入<span>¥1000.00</span>
+				累计收入<span><!--¥1000.00--></span>
 			</div>
 			<div class="box fix">
-				<a href="publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
+				<a id="publishGoods" data_v="0"><i class="iconfont icon-open-release"></i>发布商品</a>
 				<a href="goodsManage.html"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
-				<a><i class="iconfont icon-jiaoyiguanli"></i>交易管理</a>
+				<a href="/shop/html/order/orderList.html?linkType=all&type=1"><i class="iconfont icon-jiaoyiguanli"></i>交易管理</a>
 				<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
 				<!--<a></a>
 				<a></a>
@@ -60,10 +60,27 @@
 	<script>
 		$(function () {
 			getMyInfo();
+			$.ajax({
+				url: hostPm+"/yjpai/platform/user/getUser",
+				type: "get",
+				dataType: "json",
+				beforeSend: function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode==1){
+						var d = rs.data;
+						if(d.vip == 1){//加V用户
+							$("#publishGoods").attr("data_v","1");
+						}
+					}
+				}
+			})
 			//点击头像跳到店铺
 			$("body").on("click",".head",function(event){
 				event.stopPropagation();
-				location.href = "sellerStore.html?userId="+$(this).attr("data_id");
+				location.href = "sellerStore.html";
 			})
 			//点击顶部跳到设置
 			$("body").on("click",".top",function(){
@@ -73,9 +90,17 @@
 			$("body").on("click","#wodeqianbao",function(){
 				location.href = hostPm+"/yjpai/platform/my/myWallet.html";
 			})
+			//点击发布商品
+			$("body").on("click","#publishGoods",function(){
+				if($(this).attr("data_v") == "1"){
+					location.href = "publish.html";
+				}else{
+					allFun.alertDiv("非加V用户不能发布商品！");
+				}
+			})
 			
 		});
-		//获取个人信息
+		//获取信息
 		function getMyInfo(){
 			$.ajax({
 				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
@@ -88,6 +113,7 @@
 					allFun.removeLoading();
 					if(rs.resCode==1){
 						var d = rs.data,obj = "";
+						$(".dMoney span").html("¥"+d.userAccount.balance);
 						obj += "<img class='head' src="+d.wxUser.avatar+" data_id="+d.userAccount.userId+" /><h1 class='over'>"
 							+ "<img src=/shop/imgs/level/saler"+d.salerLevel.level+".png />"+d.wxUser.nickname+"</h1>"
 							+ "<p>粉丝"+d.wxUser.fansCount+"</p><i class='iconfont icon-zhankai-copy'></i>"
@@ -96,5 +122,7 @@
 				}
 			})
 		}
+		//判断是否加V用户
+		
 	</script>
 </html>

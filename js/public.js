@@ -1,11 +1,9 @@
-var host = "http://"+location.host;
-var hostPm = "http://tst.yijiapai.com:8080";
-var host = "http://192.168.1.88/shopphp";
-//var host = "http://192.168.1.23:84";
+var host = hostPm = "http://"+location.host;
+
 (function() {
 	$(function() {
-		/*$.ajax({
-			url: host+'/shop/jssdk/wx/getJsConfig',
+		$.ajax({
+			url: hostPm+'/yjpai/jssdk/wx/getJsConfig',
 			type: "get",
 			data: {
 				'url': encodeURIComponent(window.location.href.split('#')[0])
@@ -37,24 +35,12 @@ var host = "http://192.168.1.88/shopphp";
 					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 				});
 			}
-		});*/
+		});
 		wx.ready(function(){
 			wx.hideAllNonBaseMenuItem();
 		});
 		//添加底部导航
-		$("body").append("<div class='footer footerInit footerDay'><a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a><a href='/shop/html/category/category.html'><i></i>发现</a><a href='/shop/html/cart/cart.html'><i></i>购物袋</a><a href='/shop/html/my/myBuyer.html'><i></i>我的</a></div>");
 		allFun.publicIcon();
-		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-nianhuojie");
-		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-faxian");
-		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-gouwudai");
-		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-wode1");
-		$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
-		$(".footerInit a:nth-child(1).on i").attr("class","iconfont icon-nianhuojie");
-		$(".footerInit a:nth-child(2).on i").attr("class","iconfont icon-faxian");
-		$(".footerInit a:nth-child(3).on i").attr("class","iconfont icon-gouwudai");
-		$(".footerInit a:nth-child(4).on i").attr("class","iconfont icon-wode1");
-		$(".footerInit a:nth-child(5).on i").attr("class","iconfont icon-dibudaohangwodeon");
-		
 	});
 })();
 
@@ -248,6 +234,18 @@ var allFun = {
 	},
 	//icon给当前图片加on
 	publicIcon: function () {
+		$("body").append("<div class='footer footerInit footerDay'>"
+		+ "<a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a>"
+		+ "<a href='/shop/html/category/category.html'><i></i>发现</a>"
+		+ "<a href='/shop/html/cart/cart.html'><i></i>购物袋<em>2</em></a>"
+		+ "<a href='/shop/html/my/myBuyer.html'><i></i>我的</a>"
+		+ "</div>");
+		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-nianhuojie");
+		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-faxian");
+		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-gouwudai");
+		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-wode1");
+		$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
+		
 		var publicNavUrl = window.location.href.split('#')[0];
 		// 用数组存关键词
 		var publicNavKeywords = ["/index/", "/category/", "/cart/", "/my/", "/order/"];

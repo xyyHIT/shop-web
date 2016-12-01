@@ -41,7 +41,7 @@
 			var _t = $(this),
 				order_id = _t.parents(".box").attr("data_order_id");
 			$.ajax({
-				url: host + '',
+				url: host + '/index.php?app=buyer_order&act=remindship',
 				type: "post",
 				dataType: "json",
 				data:{"order_id":order_id},

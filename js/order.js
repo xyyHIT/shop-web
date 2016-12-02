@@ -17,8 +17,13 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						allFun.alertDiv("取消订单成功！");
-						/*_t.parents(".box").find("h2 em").html("交易取消");
-						_t.parents(".dOperate").remove();*/
+						var str = location.href.split('#')[0];
+						if(str.indexOf("orderList.html") > 0){//列表页
+							_t.parents(".box").find("h2 em").html("交易取消");
+							_t.parents(".dOperate").remove();
+						}else{//详情页
+							location.reload();
+						}
 					} else {
 						allFun.alertDiv(rs.msg);
 					}
@@ -31,8 +36,9 @@
 		})
 		//买家去付款
 		$("body").on("click",".qufukuan",function(){
-			var order_id = $(this).parents(".box").attr("data_order_id");
-			location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id;
+			var order_id = $(this).parents(".box").attr("data_order_id"),
+				totalamount = $(this).parents(".box").attr("data_totalamount");
+			location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id+"&type=0&totalamount="+totalamount+"";
 		})
 		
 		/**************** 待发货 *****************/

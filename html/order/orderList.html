@@ -159,7 +159,7 @@
 							obj += allFun.noDataImg("您还没有相关的订单");
 						}else{
 							$.each(d, function(i,v) {
-								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?seller_id="+v.seller_id+">"+v.seller_name+"</a>"
+								obj += "<div class='box' data_order_id="+v.order_id+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a>"
 									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
 									obj += "<li><a href=orderDetail.html?orderId="+v.order_goods[i].order_id+"&type="+type+">"

@@ -67,8 +67,9 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
-		var pordersn = allFun.getRequest("pordersn"),
-			totalamount = allFun.getRequest("totalamount") || 0;
+		var type = allFun.getRequest("type"),//0：单个订单 1：合单
+			orderId = allFun.getRequest("orderId"),//订单id
+			totalamount = allFun.getRequest("totalamount") || 0;//金额
 		$(function () {
 			$(".operate span").html("¥"+totalamount+"");
 			
@@ -77,27 +78,26 @@
 				$(this).addClass("on").html("正在支付中");
 				//微信支付
 				var data = {};
-				data.orderId = orderId;
-				data.payType = 1;//交易方式 0余额支付 1微信支付 2快捷支付
-				data.tradeType = 1;//交易类型 0充值1订单支付2保证金支付3提现
-				data.payAmount = money;//payAmount  支付金额
+				data.order_id = orderId;
+				data.payment_id  = 2;//交易方式 2微信支付
+				data.type = type;//0：单个订单 1：合单
 				$.ajax({
-					url: host+"/yjpai/platform/cashier/toPay",
+					url: host+"/index.php?app=cashier&act=ejgoto_pay",
 					cache: false,
 					dataType: "json",
 					type: "POST",
 					data: data,
 					success: function(rs) {
-						if (rs.resCode == 1) {
+						if (rs.code == 0) {
 							var d = rs.data;
 							WeixinJSBridge.invoke(
 								'getBrandWCPayRequest', {
 									'appId': d.appId,
 									'timeStamp': d.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
 									'nonceStr': d.nonceStr, // 支付签名随机串，不长于 32 位
-									'package': d.packageInfo, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+									'package': d.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
 									'signType': d.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-									'paySign': d.appsign // 支付签名
+									'paySign': d.paySign // 支付签名
 								},function(res) {
 									if(res.err_msg == "get_brand_wcpay_request:ok"){//支付成功
 										location.href = "paySuccess.html?price="+money+"&orderId="+orderId+"";

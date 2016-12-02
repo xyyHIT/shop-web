@@ -151,18 +151,19 @@
 							+ "<em>收件人：</em><span>"+d.consignee.consignee+"  "+d.consignee.phone_mob+"</span><br />"
 							+ "<em>收件地址：</em><span>"+d.consignee.address+"</span></div></a></div>";
 						
-						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+"><h2><a href=/shop/html/my/sellerStore.html?sellerId="+d.seller_id+">"+d.seller_name+"</a>"
+						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a>"
 								+ "<i class='iconfont icon-zhankai-copy'></i><em>"+d.statusname+"</em></h2><ul>";
 						$.each(d.goods_list, function(i,v) {
 							obj += "<li><a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods_id+">"
 								+ "<img src='../../imgs/test/0.jpg' /></a><strong class='over over2'>"+v.goods_name+"</strong>"
 								+ "<p class='fix'><span>¥"+v.price+"</span><em>x"+v.quantity+"</em></p></li>"
 						})
-						obj += "</ul><div class='sundry fix'>快递费用<span>"+d.consignee.shipping_fee+"元</span></div><div class='dTotal'>合计：<span>¥"+d.order_amount+"</span></div></div></div>";
+						obj += "</ul><div class='sundry fix'>快递费用<span>"+d.consignee.shipping_fee+"元</span></div><div class='dTotal'>合计：<span>¥"+d.order_amount+"</span></div>"
+						
+						obj += d.button + "</div></div>";
 						
 						obj += "<div class='dElse'><p>订单编号："+d.order_sn+"</p><p>下单时间："+d.order_add_time+"</p></div>";
 						
-						obj += d.button;
 						$(".container").html(obj);
 						if($(".dfixed").length == 0){
 							$(".goHome").css("bottom","1.5rem");

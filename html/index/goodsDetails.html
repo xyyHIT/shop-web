@@ -62,7 +62,7 @@
         .footerInits a.on{ color: #EC4747;}
         .footerInits a.on i{ color: #EC4747;}
 
-        .r-red{background:#ec4747; width:1.5rem; height: 1.5rem; text-align: center; line-height: 1.5rem; color:#fff;position: absolute; top:0rem; font-size:1rem; right:1rem; display:inline-block;border-radius: 2.5rem;}
+        .r-red{background:#ec4747; width:1.5rem; height: 1.5rem; text-align: center; line-height: 1.5rem; color:#fff;position: absolute; top:0rem; font-size:1rem; right:-0.3rem; display:inline-block;border-radius: 2.5rem;}
         .bags{position:relative;}
     </style>
 </head>
@@ -136,7 +136,7 @@
     </div>
 
     <div class="detailFooter footerInits">
-        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋<em class="r-red">0</em></a><a
+        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋</a><a
             href="javascript:;" class="end cart">放入购物袋</a>
     </div>
 </div>
@@ -294,6 +294,7 @@
         //加入购物车
         $(".cart").click(function() {
             var tel=$('.cart').attr("data_m");
+            console.log(tel)
             if(tel==null){
 
             }
@@ -323,8 +324,30 @@
                 }
             });
         }
+        //获取购物车中商品数量
+        cartNum();
+        function cartNum() {
+            $.ajax({
+                url: host + '/index.php?app=cart&act=ejCount',
+                type: "get",
+                beforeSend: function () {
+                },
+                success: function (rs) {
+                    if (rs.code != 0) {
+                        allFun.alertDiv(rs.msg);
+                        return false;
+                    }
+                    countData=rs.data;
+                    console.log(countData);
+                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+countData.count+'</em>')
 
-
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
+                }
+            });
+        }
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',

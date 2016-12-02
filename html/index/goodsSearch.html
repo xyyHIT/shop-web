@@ -157,22 +157,27 @@
             var order = $(this).attr("data-type");
             console.log(index,order);
             if($(this).hasClass("on")){
-                if(index==2){
+                if(index===2){
                     $(".select span").removeClass("on");
                     $(this).addClass("down");
                     console.log(order);
-                    order="asc";
+                    order="price asc";
+                }
+                if(index===1){
+                    order="sales desc";
                 }
             }else{
                 $(".seemore").remove();
                 $(".pre-list").empty();
                 $(".select span").removeClass("on").removeClass("down");
                 $(this).addClass("on");
-                if(index==1){// console.log(order);
-                    order="desc";
+                if(index===1){
+                    console.log(order);
+                    order="sales desc";
                 }
-                if(index==2){// console.log(order);
-                    order="desc";
+                if(index===2){
+                    console.log(order);
+                    order="price desc";
                 }
             }
             goodsList(order,cateId,keyword);

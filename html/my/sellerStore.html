@@ -44,7 +44,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="tel"><a href="tel:13456787787" class="iconfont icon-bodadianhua"></a></div>
+    <div class="tel"></div>
         <div class="seller">
             <!--<dl class='faxian'>
                 <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
@@ -83,34 +83,8 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
-        var order=0;
-        var curr_page=1,item_count='';
+        var order=0,curr_page=1,item_count='';
         var store_id = allFun.getRequest("storeId");//店铺id
-
-        //用户信息
-        $.ajax({
-            url: hostPm+"/yjpai/platform/user/getUser",
-            type: "get",
-            dataType: "json",
-            beforeSend: function(){
-                allFun.loading();
-            },
-            success: function(rs) {
-                allFun.removeLoading();
-                if(rs.resCode==1){
-                    var userData = rs.data;
-                    //console.log(userData,userData.mobile);
-                    if(userData.mobile==null){
-                        $(".tel").hide();
-                    }else {
-                        $(".tel").html('<a href="tel:'+userData.mobile+'" class="iconfont icon-bodadianhua"></a>');
-                    }
-
-                }
-            }
-        });
-
-
         storeList(store_id);
         function storeList(store_id) {
             $.ajax({
@@ -125,7 +99,7 @@
                     }
                     var d = rs.data,obj = '';
                     console.log(d);
-                    obj += '<dl class="faxian">'
+                    obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
                         +'<dt class="left"><img src="'+d.portrait+'" /></dt>'
                         +'<dd  class="left">'
                         +'<h3><p class="over over1">'+d.user_name+'</p></h3>'
@@ -138,6 +112,29 @@
                         }
                         +'</dl>' ;
                     $(".seller").html(obj);
+                    //获取拍卖用户ID 获取当前店铺的telphone
+                    var auction_id=$(".faxian").attr("auction_id");
+                    $.ajax({
+                        url: hostPm+'/yjpai/platform/user/salerInfo?userId='+auction_id+'',
+                        type: "get",
+                        dataType: "json",
+                        beforeSend: function(){
+                            allFun.loading();
+                        },
+                        success: function(rs) {
+                            allFun.removeLoading();
+                            if(rs.resCode==1){
+                                var userData = rs.data;
+                                if(userData.mobile==null){
+                                    $(".tel").hide();
+                                }else {
+                                    $(".tel").html('<a href="tel:'+userData.mobile+'" class="iconfont icon-bodadianhua"></a>');
+                                }
+
+                            }
+                        }
+                    });
+
                     //添加关注
                     $(".faxian em").click(function () {
                         var t=$(this);
@@ -156,30 +153,31 @@
                 }
             });
         }
-        //切换
+        //切换 默认  销量和价格
         $("body").on("click",".trade span",function () {
             var index = $(".trade span").index(this);
             var order = $(this).attr("data-type");
             console.log(index,order);
             if($(this).hasClass("on")){
-                if(index==2){
+                if(index===2){
                     $(".trade span").removeClass("on");
                     $(this).addClass("down");
                     console.log(order);
-                    order="asc";
+                    order="price asc";
+                }
+                if(index===1){
+                    order="sales desc";
                 }
             }else{
                 $(".seemore").remove();
                 $(".pre-list").empty();
                 $(".trade span").removeClass("on").removeClass("down");
                 $(this).addClass("on");
-                if(index==1){
-                    console.log(order);
-                    order="desc";
+                if(index===1){
+                    order="sales desc";
                 }
-                if(index==2){
-                    console.log(order);
-                    order="desc";
+                if(index===2){
+                    order="price desc";
                 }
             }
             goodsList(order,store_id);

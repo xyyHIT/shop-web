@@ -108,7 +108,11 @@
         var order=0;
         var cateId = allFun.getRequest("cateId");//商品id
         var curr_page=1,keyword="",item_count='';//curr_page 当前页码 pageper 分页条数  item_count 总条数 keyword搜索关键词
-
+        //点击发现渲染出该id下的产品
+        if(cateId!=undefined){
+            $(".select").show();
+            goodsList(order,cateId,keyword);
+        }
         //点击搜索按钮
         $("body").on('click',"#search-button",function(){
             keyword=$("#searchInput").val();
@@ -204,6 +208,45 @@
             }
         });
 
+        //缓存
+        if(sessionStorage.getItem("searchStorage") && allFun.getRequest("history") == -1){
+            var Storage = JSON.parse(sessionStorage.getItem("searchStorage"));
+            keyword = Storage.keyword;
+            order = Storage.order;
+            page = Storage.curr_page;
+            $(".container").html(Storage.cont);
+            $("body").scrollTop(Storage.scrollTop);
+            $("#searchInput").val(keyword);
+            sessionStorage.removeItem("searchStorage");
+        }else{
+            sessionStorage.removeItem("searchStorage");
+        }
+
+        //点击列表跳转
+        $("body").on("click",".pre-item a",function(){
+            var _t = $(this);
+            location.href="/shop/html/index/goodsDetails.html?goodsId=";
+        });
+        $("body").on("click",".faxian dt a",function(){
+            var _t = $(this);
+            location.href="/shop/html/my/sellerStore.html?storeId=";
+        });
+        function delFn(t,url){
+            var obj = {};
+            obj.keyword = keyword;
+            obj.cont = $(".container").html();
+            obj.page = curr_page;
+            obj.order=order;
+            obj.goodsId = _t.attr("goodsId");
+            obj.storeId = _t.attr("storeId");
+            obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            sessionStorage.setItem("searchScenStorage", JSON.stringify(obj));
+            history.replaceState(null,null,"?history=-1");
+            location.href = url+t.attr("goodsId");
+            location.href = url+t.attr("storeId");
+            //location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId");
+        }
+
        // 搜索商品列表
         function  goodsList(order,cateId,keyword){
             $.ajax({
@@ -231,7 +274,7 @@
                     console.log(rs.data);
                     var mend='';
                     if(item_count == 0){//无数据(第一次进来)
-                        mend += allFun.noDataImg();
+                        mend += allFun.noDataImg("没有找到相关的商品信息！");
                     }else {
                         $.each(goodsList, function (j, v) {
                             mend += '<li><div class="pre-item">'
@@ -278,12 +321,12 @@
                     var shopData=rs.data.stores;
                     var mend='';
                     if(item_count == 0){//无数据(第一次进来)
-                        mend += allFun.noDataImg();
+                        mend += allFun.noDataImg("没有找到相关的店铺信息！");
                     }else {
                         $.each(shopData, function (j, v) {
 
                             mend += '<div class="attention"><dl class="faxian">';
-                            mend += '<dt class="left"><a href="/shop/html/my/sellerStore.html?storeId=' + shopData[j].store_id + '" storeId="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>';
+                            mend += '<dt class="left"><a href="javascript:;" storeId="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '"/></a></dt>';
                             mend += ' <dd  class="left">';
                             mend +='<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>';
                             mend += '<p class=""><span>' + shopData[j].followers + '个粉丝</span></p>';

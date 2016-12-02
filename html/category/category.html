@@ -17,7 +17,7 @@
 			.life-item .classify-pic img {width:6rem; height:6rem;  }
 			.life-item .classty-txt {width: 70%;position: absolute;top: 0;height: 100%;left: 0;  }
 			.life-item .classty-txt span {font-size: 1.3rem;height: 100%;width: 100%;display: block;  }
-			.life-item .classty-txt span i {display: block;position: absolute;left: 10px;top: 50%;min-width: 80px;margin-top: -12px;margin-left: 2rem;color: #3C3C3C;  }
+			.life-item .classty-txt span i {display: block;position: absolute;left: 10px;top: 50%;min-width: 80px;margin-top: -10px;margin-left: 2rem;color: #3C3C3C;  }
 			.life-item .item-list {padding: 1rem 1rem 2rem;overflow: hidden;  }
 			.life-item .item-list li {width: 16%;margin: 0 2%  1rem;float: left;border-bottom: 1px solid #efefef; text-align:center;line-height: 2.5rem;height: 2.5rem;box-sizing: border-box; overflow: hidden;  }
 			.life-item .item-list li a {color: #878787;font-size: 1.3rem;display: block;}
@@ -40,43 +40,67 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
         $(function () {
-            $.ajax({
-                url: host + '/index.php?app=category&act=ejindex',
-                type: "post",
-                beforeSend: function () {
-                    allFun.loading()
-                },
-                success: function (rs) {
-                    allFun.removeLoading();
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                    var categoryData = rs.data;
-                    var cate = '', cate2 = '';
-                    for (var i = 0; i < categoryData.length; i++) {
-                        category = categoryData[i].children;
-                        for (j = 0; j < category.length; j++) {
-                            cate2 +='<li><a href="/shop/html/index/goodsSearch.html?cateId='+ category[j].id+'" cateId="'+ category[j].id+'"><span>' + category[j].value + '</span></a></li>'
-                        }
-                        cate += '<div class="life-item">'
-                            + '<div class="item-type">'
-                            + '<a href="javascript:;" cateId="'+ categoryData[i].id+'">'
-                            + '<div class="classty-txt left"><span><i>' + categoryData[i].value + '</i></span></div>'
-                            + '<div class="classify-pic right"><img src="' + categoryData[i].imageurl + '" alt="" width="100%"></div>'
-                            + '</a>'
-                            + '</div>'
-                            + '<ul class="item-list">'
-                            + cate2
-                            + '</ul>'
-                            + '</div>'
-                    }
-                    $("#category").html(cate);
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
+            //返回到当前位置
+            if(sessionStorage.getItem("categoryStorage") && allFun.getRequest("history") == -1){
+                var Storage = JSON.parse(sessionStorage.getItem("categoryStorage"));
+                $("#category").html(Storage.cont);
+                $("body").scrollTop(Storage.scrollTop);
+                sessionStorage.removeItem("categoryStorage");
+            }else{
+                sessionStorage.removeItem("categoryStorage");
+                category();
+            }
+           function category() {
+               $.ajax({
+                   url: host + '/index.php?app=category&act=ejindex',
+                   type: "post",
+                   beforeSend: function () {
+                       allFun.loading()
+                   },
+                   success: function (rs) {
+                       allFun.removeLoading();
+                       if (rs.code != 0) {
+                           allFun.alertDiv(rs.msg);
+                           return false;
+                       }
+                       var categoryData = rs.data;
+                       var cate = '', cate2 = '';
+                       for (var i = 0; i < categoryData.length; i++) {
+                           category = categoryData[i].children;
+                           for (j = 0; j < category.length; j++) {
+                               cate2 +='<li><a href="javascript:;" cateId="'+ category[j].id+'"><span>' + category[j].value + '</span></a></li>'
+                           }
+                           cate += '<div class="life-item">'
+                               + '<div class="item-type">'
+                               + '<a href="javascript:;" cateId="'+ categoryData[i].id+'">'
+                               + '<div class="classty-txt left"><span><i>' + categoryData[i].value + '</i></span></div>'
+                               + '<div class="classify-pic right"><img src="' + categoryData[i].imageurl + '" alt="" width="100%"></div>'
+                               + '</a>'
+                               + '</div>'
+                               + '<ul class="item-list">'
+                               + cate2
+                               + '</ul>'
+                               + '</div>'
+                       }
+                       $("#category").html(cate);
+                   },
+                   error: function() {
+                       allFun.removeLoading();
+                       allFun.alertDiv("error!")
+                   }
+               });
+
+           }
+            //点击跳转列表
+            $("body").on("click", ".item-list li a", function () {
+                var _t = $(this);
+                var obj = {};
+                obj.cont = $("#category").html();
+                obj.cateId = _t.attr("cateId");
+                obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                sessionStorage.setItem("officialStorage", JSON.stringify(obj));
+                history.replaceState(null, null, "?history=-1");
+                location.href="/shop/html/index/goodsSearch.html?cateId="+_t.attr("cateId");
             });
 
         });

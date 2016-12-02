@@ -93,6 +93,7 @@
                 beforeSend: function () {
                 },
                 success: function (rs) {
+                    allFun.removeLoading();
                     if (rs.code != 0) {
                         allFun.alertDiv(rs.msg);
                         return false;

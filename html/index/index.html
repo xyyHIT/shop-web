@@ -118,6 +118,17 @@
             $("body").on("click","#zixun",function(){
                 location.href = hostPm+"/yjpai/news/list.html";
             });
+            //返回到当前位置
+            if (sessionStorage.getItem("indexStorage") && allFun.getRequest("history") == -1) {
+                var Storage = JSON.parse(sessionStorage.getItem("indexStorage"));
+                $(".warp").html(Storage.cont);
+                $("body").scrollTop(Storage.scrollTop);
+                sessionStorage.removeItem("indexStorage");
+            } else {
+                sessionStorage.removeItem("indexStorage");
+                gooodsList();
+            }
+
             navList();
 			gooodsList();
 			//导航
@@ -212,7 +223,7 @@
 								for( j = 0;j<listData.length;j++){
 								recommend+='<div class="swiper-slide">'
 										+ '<div class="inner">'
-										+ '<a href="/shop/html/index/goodsDetails.html?goodsId='+listData[j].goods_id+'" goodsId="'+listData[j].goods_id+'">'
+										+ '<a href="javascript:;" goodsId="'+listData[j].goods_id+'">'
 										+ '<img src="'+listData[j].default_image+'" alt="">'
 										+ '<h4>'+listData[j].goods_name+'</h4>'
 										+ '<p>¥<span>'+listData[j].price+'</span></p>'
@@ -221,11 +232,11 @@
 										+ '</div>'
 								}
 							}else {
-                                res2 += '<div class="topic"><a href="/shop/html/index/goodsDetails.html?goodsId='+listData[0].goods_id+'"  goodsId="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
+                                res2 += '<div class="topic"><a href="javascript:;"  goodsId="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'" alt=""></a> </div>'
 								for( j = 1;j<listData.length;j++) {
                                     res +='<div class="swiper-slide">'
 													+ '<div class="inner">'
-														+ '<a href="/shop/html/index/goodsDetails.html?goodsId='+listData[j].goods_id+'" goodsId="'+listData[j].goods_id+'">'
+														+ '<a href="javascript:;" goodsId="'+listData[j].goods_id+'">'
 														+ '<img src="'+listData[j].default_image+'" alt="">'
 														+ '<h4>'+listData[j].goods_name+'</h4>'
 														+ '<p>¥<span>'+listData[j].price+'</span></p>'
@@ -264,7 +275,7 @@
                     }
 				});
 			}
-//点击导航其他选项的列表
+            //点击导航其他选项的列表
 			function cate(nav_id) {
                 $.ajax({
                     url: host + '/index.php?app=catinfo&cate_id='+nav_id+'',
@@ -283,11 +294,11 @@
                         for(var z=0; z<cate.length;z++){
                             var obj='',obj2='',catinfo=cate[z].goodslist;
                             console.log(catinfo);
-                            obj+='<div class="topic"><a href="/shop/html/index/goodsDetails.html?goodsId='+catinfo[0].goods_id+'" goodsId="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
+                            obj+='<div class="topic"><a href="javascript:;" goodsId="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
                             for(var w=1; w<catinfo.length;w++){
                                 obj2+='<div class="swiper-slide">'
                                 +'<div class="inner">'
-                                +'<a href="/shop/html/index/goodsDetails.html?goodsId='+catinfo[w].goods_id+'" goodsId="'+catinfo[w].goods_id+'">'
+                                +'<a href="javascript:;" goodsId="'+catinfo[w].goods_id+'">'
                                 +'<img src="'+catinfo[w].default_image+'"  alt="">'
                                 +'<h4 class="over over2">'+catinfo[w].goods_name+'</h4>'
                                 +'<p>¥<span>'+catinfo[w].price+'</span></p>'+'</a>'
@@ -321,6 +332,27 @@
                     }
                 });
             }
+
+            //点击列表跳转
+            $("body").on("click", ".topic a", function () {
+                var _t = $(this);
+                delFn(_t,"/shop/html/index/goodsDetails.html?goodsId=");
+            });
+
+            $("body").on("click", ".inner a", function () {
+                var _t = $(this);
+                delFn(_t,"/shop/html/index/goodsDetails.html?goodsId=")
+            });
+            function delFn(t,url){
+                var obj = {};
+                obj.cont = $(".warp").html();
+                obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                sessionStorage.setItem("indexStorage", JSON.stringify(obj));
+                history.replaceState(null, null, "?history=-1");
+                location.href = url+t.attr("goodsId");
+                //location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId");
+            }
+
         });
 	</script>
 </html>

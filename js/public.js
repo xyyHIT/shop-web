@@ -3,7 +3,7 @@ var host = hostPm = "http://"+location.host;
 (function() {
 	$(function() {
 		$.ajax({
-			url: hostPm+'/yjpai/jssdk/wx/getJsConfig',
+			url: 'http://tst.yijiapai.com/yjpai/jssdk/wx/getJsConfig',
 			type: "get",
 			data: {
 				'url': encodeURIComponent(window.location.href.split('#')[0])
@@ -61,7 +61,7 @@ var allFun = {
 	//上传图片提示(正在加载)
 	uploadImgPrompt: function (n1, n2) {
 		if ($(".load_upload").length <= 0) {
-			$("body").append("<div class='load_upload'><div class='com-loading' style='padding-top:0.4rem;margin-right:9px;'><div style='border: 1px solid #fff;border-bottom-color: transparent;'></div></div>正在上传...<br /><span>" + n1 + " / " + n2 + "</span></div>");
+			$("body").append("<div class='load_upload'><div class='com-loading' style='margin-right:9px;'><div style='border: 1px solid #fff;border-bottom-color: transparent;'></div></div>正在上传...<br /><span>" + n1 + " / " + n2 + "</span></div>");
 		} else {
 			$(".load_upload span").html(n1 + " / " + n2);
 		}
@@ -237,7 +237,7 @@ var allFun = {
 		$("body").append("<div class='footer footerInit footerDay'>"
 		+ "<a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a>"
 		+ "<a href='/shop/html/category/category.html'><i></i>发现</a>"
-		+ "<a href='/shop/html/cart/cart.html'><i></i>购物袋<em>2</em></a>"
+		+ "<a href='/shop/html/cart/cart.html' class='cartNum'><i></i>购物袋</a>"
 		+ "<a href='/shop/html/my/myBuyer.html'><i></i>我的</a>"
 		+ "</div>");
 		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-nianhuojie");
@@ -273,6 +273,15 @@ var allFun = {
 					break;
 			}
 		}
+		$.ajax({
+            url: host + '/index.php?app=cart&act=ejCount',
+            type: "get",
+            success: function (rs) {
+                if (rs.code == 0) {
+                	$(".footer a.cartNum i").append("<em>"+rs.data.count+"</em>");
+                }
+            }
+        });
 	},
 	//格式化金额
 	fmoney: function(s, n) {

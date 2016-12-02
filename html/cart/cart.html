@@ -386,7 +386,7 @@
 						}else{
 							$.each(d, function(i,v) {
 								obj += "<div class='box'><h2><i class='iconfont icon-querenoff1 icon-radio'></i>"
-									+ "<a href=/shop/html/my/sellerStore.html>"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
+									+ "<a href=/shop/html/my/sellerStore.html?storeId="+v.store_id+">"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
 								for(var i = 0; i < v.goods.length; i++){
 									obj += "<li data_spec_id="+v.goods[i].spec_id+"><i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>"
 										+ "<a href=/shop/html/index/goodsDetails.html><img src='../../imgs/test/0.jpg' /></a>"

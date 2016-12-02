@@ -260,18 +260,22 @@
 										i++;
 										allFun.uploadImgPrompt(i,len);
 										images.serverId.push(res.serverId);
+										
 										if (i < len) {
 											upload();
 										} else {
+											$("#gTitle").val(JSON.stringify(images.serverId[0]))
 											$.ajax({
 												url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&instance=goods_image&belong=2',
 												type: "post",
 												data: {
-													'mediaIds': images.serverId.join(","),
+													'mediaID': images.serverId[0],
 												},
 												dataType: "json",
 												success: function(rs) {
-													if (rs.resCode == 0) {
+													alert(JSON.stringify(rs))
+													if (rs.code == 0) {
+														
 														var imagesServerId = rs.data;
 														appendData(imagesServerId);
 														allFun.removeUploadImgPrompt();
@@ -298,7 +302,7 @@
 			$("body").on("keyup","#gPrice",function(){
 				var regStrs = [
 			        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
-			        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点/index.php?app=category&act=ejindex
+			        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
 			        ['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点
 			        ['^(\\d+\\.\\d{2}).+', '$1'] //禁止录入小数点后两位以上
 			    ];
@@ -307,10 +311,18 @@
 			        this.value = this.value.replace(reg, regStrs[i][1]);
 			    }
 			})
-			//输入框输入限制（库存，运费，预警）
-			$("body").on("keyup","#gRepertory,#gTransportation,#gWarning",function(){
+			//输入框输入限制（库存，预警）
+			$("body").on("keyup","#gRepertory,#gWarning",function(){
 				if(this.value.length==1){
 					this.value=this.value.replace(/[^1-9]/g,'');
+				}else{
+					this.value=this.value.replace(/\D/g,'');
+				}
+			})
+			//输入框输入限制（运费）
+			$("body").on("keyup","#gTransportation",function(){
+				if(this.value.length==1){
+					this.value=this.value.replace(/[^0-9]/g,'');
 				}else{
 					this.value=this.value.replace(/\D/g,'');
 				}
@@ -419,7 +431,7 @@
 					$(".tanchu").remove();
 				}else{//添加图片
 					$(".noData").remove();
-					$(".haveData").append("<div class='dData'><div class='dDataB'><img src='../../imgs/test/1.jpg' /></div><a class='aEdit'>编辑</a></div>");
+					$(".haveData").append("<div class='dData'><div class='dDataB'><img src='../../imgs/test/1.jpg' /><img src='../../imgs/test/1.jpg' /></div><a class='aEdit'>编辑</a></div>");
 				}
 			})
 			
@@ -441,20 +453,21 @@
 			obj.price = $("#gPrice").val();//商品价格
 			obj.stock = $("#gRepertory").val();//商品库存
 			obj.shiprice = $("#gTransportation").val();//运费
-			obj.shiprice = $("#gWarning").val();//库存预警
+			//obj.shiprice = $("#gWarning").val();//库存预警
 			
 			//图文详情内容
 			var des = {records: []};
-			$(".divTwoInfo .haveData .dData").each(function(){
+			$(".divTwoInfo .haveData .dDataB").each(function(){
 				var _t = $(this),
 					row = {};
-				if(_t.find("img").length <= 0){//文字
+				/*if(_t.find("img").length <= 0){//文字
 					row.k = 0;
 					row.v = _t.find("pre").html();
 				}else{//图片
 					row.k = 1;
 					row.v = _t.find("img").attr("src");
-				}
+				}*/
+				row.v = _t.html();
 				des.records.push(row);
 			})
 			obj.description = JSON.stringify(des);
@@ -542,28 +555,24 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						var d = rs.data.goods,
-							//desc = JSON.parseJSON(d.detail_desc),//商品详情
+							desc = JSON.parse(d.detail_desc),//商品详情
 							obj = "";
 						$("#gTitle").val(d.goods_name);//商品标题
 						$("#gCategory").attr("data_categoryid",d.cate_id);//商品分类id
 						$("#gCategory").val(d.goods_name);//商品分类名称
 						$("#gPrice").val(d.price);//商品价格
 						//$("#gRepertory").val(d.goods_name);//商品库存
-						$("#gTransportation").val(parseInt(d.ship_price));//运费
+						if(d.ship_price == 0.00){
+							d.ship_price = 0;
+						}
+						$("#gTransportation").val(d.ship_price);//运费
 						//$("#gWarning").val(d.goods_name);//库存预警
 						
-						//var desc = {"records":[{"k":1,"v":"../../imgs/test/1.jpg"},{"k":0,"v":"撒风格\nasdf"},{"k":1,"v":"../../imgs/test/1.jpg"}]};
-						var desc = JSON.parse(d.detail_desc);
-						if(desc){
+						if(desc.records.length > 0){
 							$(".noData").remove();
 							for(var i = 0; i < desc.records.length; i++){
-								obj += "<div class='dData'><div class='dDataB'>";
-								if(desc.records[i].k == 0){//文字
-									obj += "<pre>"+desc.records[i].v+"</pre>";
-								}else{
-									obj += "<img src="+desc.records[i].v+" />";
-								}
-								obj += "</div><a class='aEdit'>编辑</a></div>";
+								obj += "<div class='dData'><div class='dDataB'>"+desc.records[i].v+""
+									+ "</div><a class='aEdit'>编辑</a></div>";
 							}
 							$(".haveData").html(obj);
 							$(".alreadyEdit b").text("已编辑");

@@ -103,7 +103,7 @@
 		//获取信息
 		function getMyInfo(){
 			$.ajax({
-				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
+				url: host+"/index.php?app=my_store&act=ejIndex",
 				type: "get",
 				dataType: "json",
 				beforeSend: function(){
@@ -111,12 +111,12 @@
 				},
 				success: function(rs) {
 					allFun.removeLoading();
-					if(rs.resCode==1){
+					if(rs.code==0){
 						var d = rs.data,obj = "";
-						$(".dMoney span").html("¥"+d.userAccount.balance);
-						obj += "<img class='head' src="+d.wxUser.avatar+" data_id="+d.userAccount.userId+" /><h1 class='over'>"
-							+ "<img src=/shop/imgs/level/saler"+d.salerLevel.level+".png />"+d.wxUser.nickname+"</h1>"
-							+ "<p>粉丝"+d.wxUser.fansCount+"</p><i class='iconfont icon-zhankai-copy'></i>"
+						$(".dMoney span").html("¥"+d.grossIncome);
+						obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
+							+ "<img src=/shop/imgs/level/saler"+d.sgrade+".png />"+d.user_name+"</h1>"
+							+ "<p>粉丝"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
 						$(".top").html(obj);
 					}
 				}

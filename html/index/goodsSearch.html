@@ -116,11 +116,11 @@
         //点击搜索按钮
         $("body").on('click',"#search-button",function(){
             keyword=$("#searchInput").val();
-            $(".pre-list").empty();
             if(keyword==""){
                 allFun.alertDiv("请输入搜索内容");
                 return false;
             }
+            $(".pre-list").empty();
             var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
             console.log(textSpan);
             if(textSpan==="商品"){
@@ -138,11 +138,11 @@
         $(document).keydown(function (event){
             if(event.keyCode === 13) {
                 keyword=$("#searchInput").val();
-                $(".pre-list").empty();
                 if(keyword==""){
                     allFun.alertDiv("请输入搜索内容");
                     return false;
                 }
+                $(".pre-list").empty();
                 var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
                 console.log(textSpan);
                 if(textSpan==="商品"){
@@ -398,7 +398,7 @@
         //选择店铺和商品下拉框
         $(".s-input-tab-txt").click(function() {
             $("#J_TabNav").toggle();
-            $(".pre-list").empty();
+            //$(".pre-list").empty();
         });
         $(".shop").click(function() {
             $(".select").hide();

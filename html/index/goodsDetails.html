@@ -146,6 +146,7 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/shop/js/swiper.min.js"></script>
 <script src="/shop/js/public.js"></script>
+<script src="/shop/js/verifyPhone.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
 
@@ -188,7 +189,7 @@
                     console.log(goodsData);
                     $(".pro-info .name").html(goodsData.goods_name);
                     $(".pro-info .name").attr("spec_id",goodsData.spec_id);
-                    $(".pro-info .price span").html(goodsData.ship_price);
+                    $(".pro-info .price span").html(goodsData.price);
                     $(".pro-info .kinds .person").html(goodsData.sales);
                     status=goodsData.collectsign;
                     $(".liks").html('<p class="heart iconfont icon-xihuan" item_id="'+goodsData.goods_id+'" status="'+status+'"></p>');
@@ -294,28 +295,28 @@
         //加入购物车
         $(".cart").click(function() {
             var tel=$('.cart').attr("data_m");
-            console.log(tel);
             if(tel==null){
-
+            	phoneVerify.start();
+            }else{
+            	var quantity=parseInt($(".r-red").html());
+	            var spec_id=$('.pro-info .name').attr("spec_id");
+	            cart(spec_id,quantity);
             }
-
-            var quantity=parseInt($(".r-red").html());
-            var spec_id=$('.pro-info .name').attr("spec_id");
-            $(".r-red").html(quantity+1);
-            cart(spec_id,quantity);
         });
         function cart(spec_id,quantity) {
             $.ajax({
                 url: host + '/index.php?app=cart&act=ejAdd&spec_id='+spec_id+'&quantity='+quantity+'',
                 type: "get",
                 beforeSend: function () {
+                	allFun.loading();
                 },
                 success: function (rs) {
+                	allFun.removeLoading();
                     if (rs.code != 0) {
                         allFun.alertDiv(rs.msg);
                         return false;
                     }
-
+                    $(".r-red").html(quantity+1);
 
                 },
                 error: function() {
@@ -325,7 +326,7 @@
             });
         }
         //获取购物车中商品数量
-        cartNum();
+        /*cartNum();
         function cartNum() {
             $.ajax({
                 url: host + '/index.php?app=cart&act=ejCount',
@@ -339,7 +340,7 @@
                     }
                     countData=rs.data;
                     console.log(countData);
-                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+countData.count+'</em>')
+                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+countData.count+'</em>');
 
                 },
                 error: function() {
@@ -347,7 +348,7 @@
                     allFun.alertDiv("error!")
                 }
             });
-        }
+        }*/
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',

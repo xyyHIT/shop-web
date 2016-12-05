@@ -278,7 +278,10 @@ var allFun = {
             type: "get",
             success: function (rs) {
                 if (rs.code == 0) {
-                	$(".footer a.cartNum i").append("<em>"+rs.data.count+"</em>");
+                	if(rs.data.count > 0){
+                		$(".footer a.cartNum i").append("<em>"+rs.data.count+"</em>");
+                		$(".detailFooter .icon-gouwudai").html('<em class="r-red">'+rs.data.count+'</em>');
+                	}
                 }
             }
         });

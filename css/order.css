@@ -1,6 +1,6 @@
 /*订单列表*/
-nav{ position: fixed; width: 100%; left: 0; top: 0; height: 4rem; line-height: 4rem; border-bottom: 1px solid #EFEFEF; background: #fff; z-index: 2;}
-nav a{ display: inline-block; font-size: 1.3rem; color: #3C3C3C; text-align: center; letter-spacing: 1px;}
+nav{ position: fixed; width: 100%; left: 0; top: 0; background: #fff; z-index: 2;}
+nav a{ display: inline-block; height: 4rem; line-height: 4rem; font-size: 1.3rem; color: #3C3C3C; text-align: center; border-bottom: 1px solid #EFEFEF; letter-spacing: 1px;}
 nav a.on{ color: #EC4747; border-bottom: 2px solid #EC4747;}
 nav.nav2 a{ width: 50%;}
 nav.nav3 a{ width: 33.33%;}

@@ -105,6 +105,7 @@
 										$(".recharge_a").removeClass("on").html("确认支付");
 									}else if(res.err_msg == "get_brand_wcpay_request:fail"){//支付失败
 										allFun.alertDiv("支付失败，请重新支付");
+										$(".recharge_a").removeClass("on").html("确认支付");
 									}
 								}
 							);

@@ -12,11 +12,10 @@
 			.footer{ display: none;}
 			.top{ height: 9rem; line-height: 9rem; padding: 0 1.5rem; font-size: 1.5rem; color: #fff; background: #EC4747;}
 			.top i{ margin-right: 1.5rem; font-size: 3.5rem; color: #fff; vertical-align: middle;}
-			ul{ background: #fff;}
-			ul li{ height: 5rem; line-height: 5rem; padding: 0 1rem 0 1.5rem; font-size: 1.2rem; color: #878787; border-bottom: 1px solid #EFEFEF;}
-			ul li:last-child{ border-bottom: none;}
-			ul li span{ display: inline-block; width: 6rem; color: #5F5F5F;}
-			ul li i.iconfont{ float: right; font-size: 1.6rem; color: #979797;}
+			.info{ height: 5rem; line-height: 5rem; padding: 0 1rem 0 1.5rem; font-size: 1.2rem; color: #878787; background: #fff;}
+			.info span{ display: inline-block; width: 6rem; color: #5F5F5F;}
+			.divA{ margin-top: 2rem; text-align: center;}
+			.divA a{ display: inline-block; width: 9rem; height: 2.7rem; line-height: 2.8rem; margin: 0 1rem; font-size: 1.2rem; color: #EC4747; border: 1px solid #EC4747; border-radius: 3px;}
 			
 		</style>
 	</head>
@@ -25,16 +24,12 @@
 			<div class="top">
 				<i class="iconfont icon-queren1"></i>恭喜您！艺支付成功！
 			</div>
-			<ul>
-				<li>
-					<span>付款金额</span>2000.00元
-				</li>
-				<a href="">
-					<li>
-						<span>订单</span>021521568464200037910<i class="iconfont icon-zhankai-copy"></i>
-					</li>
-				</a>
-			</ul>
+			<div class="info">
+				<span>付款金额</span><b id="moneyNum"></b>元
+			</div>
+			<div class="divA">
+				<a href="/shop/html/index/index.html?from=wechat">去首页</a><a href="/shop/html/order/orderList.html?linkType=all&type=0">查看订单</a>
+			</div>
 		</div>
 	</body>
 	
@@ -43,8 +38,31 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var type = allFun.getRequest("type"),//0：单个订单 1：合单
+			orderId = allFun.getRequest("orderId");//订单id
 		$(function () {
-						
+			$.ajax({
+				url: host + '/index.php?app=order&act=getpayorder',
+				type: "get",
+				dataType: "json",
+				data:{"order_id":orderId,"type":type},
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data;
+						$("#moneyNum").html(d.amount);
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
 		});
 	</script>
 </html>

@@ -68,10 +68,30 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		var type = allFun.getRequest("type"),//0：单个订单 1：合单
-			orderId = allFun.getRequest("orderId"),//订单id
-			totalamount = allFun.getRequest("totalamount") || 0;//金额
+			orderId = allFun.getRequest("orderId");//订单id
 		$(function () {
-			$(".operate span").html("¥"+totalamount+"");
+			$.ajax({
+				url: host + '/index.php?app=order&act=getpayorder',
+				type: "get",
+				dataType: "json",
+				data:{"order_id":orderId,"type":type},
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						var d = rs.data;
+						$(".operate span").html("¥"+d.amount+"");
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
 			
 			//支付
 			$("body").on("click",".recharge_a",function(){
@@ -100,7 +120,7 @@
 									'paySign': d.paySign // 支付签名
 								},function(res) {
 									if(res.err_msg == "get_brand_wcpay_request:ok"){//支付成功
-										location.href = "paySuccess.html?price="+money+"&orderId="+orderId+"";
+										location.href = "paySuccess.html?orderId="+orderId+"&type="+type+"";
 									}else if(res.err_msg == "get_brand_wcpay_request:cancel"){//取消支付
 										$(".recharge_a").removeClass("on").html("确认支付");
 									}else if(res.err_msg == "get_brand_wcpay_request:fail"){//支付失败

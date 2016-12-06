@@ -47,7 +47,7 @@
 				order_id = _t.parents(".box").attr("data_order_id");
 			$.ajax({
 				url: host + '/index.php?app=buyer_order&act=remindship',
-				type: "post",
+				type: "get",
 				dataType: "json",
 				data:{"order_id":order_id},
 				beforeSend:function(){
@@ -84,7 +84,7 @@
 			}
 			$.ajax({
 				url: host + '/index.php?app=seller_order&act=shipped',
-				type: "post",
+				type: "get",
 				dataType: "json",
 				data:{"order_id":order_id,"invoice_no":invoice_no},
 				beforeSend:function(){
@@ -95,6 +95,13 @@
 					if(rs.code == 0) {
 						allFun.alertDiv("发货成功！");
 						$(".dScanCode").remove();
+						var str = location.href.split('#')[0];
+						if(str.indexOf("orderList.html") > 0){//列表页
+							_t.parents(".box").find("h2 em").html("卖家已发货");
+							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
+						}else{//详情页
+							location.reload();
+						}
 					} else {
 						allFun.alertDiv(rs.msg);
 					}
@@ -107,7 +114,18 @@
 		})
 		//扫描二维码
 		$("body").on("click",".dScanCode p i",function(){
-			
+			wx.ready(function(){
+				wx.scanQRCode({
+				    desc: 'scanQRCode desc',
+				    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+				    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+				    success: function (res) {
+				    	var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+				    	result=result.split(",");
+				    	$(".dScanCode input").val(result[1]);
+					}
+				});
+			})
 		})
 		//关闭二维码框
 		$("body").on("click",".dScanCode .bb,.dScanCode h2 i",function(){
@@ -121,7 +139,7 @@
 				order_id = _t.parents(".box").attr("data_order_id");
 			$.ajax({
 				url: host + '/index.php?app=buyer_order&act=confirm_order',
-				type: "post",
+				type: "get",
 				dataType: "json",
 				data:{"order_id":order_id},
 				beforeSend:function(){
@@ -131,8 +149,13 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						allFun.alertDiv("确认收货成功！")
-						/*_t.parents(".box").find("h2 em").html("交易取消");
-						_t.parents(".dOperate").remove();*/
+						var str = location.href.split('#')[0];
+						if(str.indexOf("orderList.html") > 0){//列表页
+							_t.parents(".box").find("h2 em").html("交易完成");
+							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
+						}else{//详情页
+							location.reload();
+						}
 					} else {
 						allFun.alertDiv(rs.msg);
 					}
@@ -149,7 +172,7 @@
 				order_id = _t.parents(".box").attr("data_order_id");
 			$.ajax({
 				url: host + '/index.php?app=buyer_order&act=delayship',
-				type: "post",
+				type: "get",
 				dataType: "json",
 				data:{"order_id":order_id},
 				beforeSend:function(){

@@ -99,7 +99,6 @@
                         return false;
                     }
                     var d = rs.data,obj = '';
-                    console.log(d);
                     obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
                         +'<dt class="left"><img src="'+d.portrait+'" /></dt>'
                         +'<dd  class="left">'
@@ -140,7 +139,6 @@
                     $(".faxian em").click(function () {
                         var t=$(this);
                         item_id=t.attr("item_id");
-                        console.log(item_id);
                         if(t.hasClass("on")){
                             attention("store","drop",t);
                         }else{
@@ -158,7 +156,6 @@
         $("body").on("click",".trade span",function () {
             var index = $(".trade span").index(this);
             var order = $(this).attr("data-type");
-            console.log(index,order);
             if($(this).hasClass("on")){
                 if(index===2){
                     $(".trade span").removeClass("on");
@@ -215,14 +212,12 @@
                         return false;
                     }
                     $(".seemore").remove();
-                    // console.log(rs.data.page);
                     curr_page = rs.data.page.curr_page;
                     finished = true;
                     item_count = rs.data.page.item_count;//总条数
                     pageper = rs.data.page.pageper;//每页条数
 
                     var goodsList=rs.data.goods;
-                    console.log(rs.data);
                     var mend='';
                     if(item_count == 0){//无数据(第一次进来)
                         mend += allFun.noDataImg();

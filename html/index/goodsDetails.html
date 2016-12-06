@@ -34,8 +34,7 @@
         .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
 
         .trade{width: 100%; line-height:4rem; background: #fff;}
-        .trade span{width:50%; position: relative; text-align: center; font-size: 1.5rem; display: inline-block; color:#a8a8a8;}
-        .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
+        .trade span{color:#5f5f5f ;padding-left: 1rem;font-size: 1.3rem;}
 
         .trade_contents{ overflow: hidden;}
         .trade_contents ol{ display: none; background: #faf9fb; padding:1rem;}
@@ -327,30 +326,7 @@
                 }
             });
         }
-        //获取购物车中商品数量
-        /*cartNum();
-        function cartNum() {
-            $.ajax({
-                url: host + '/index.php?app=cart&act=ejCount',
-                type: "get",
-                beforeSend: function () {
-                },
-                success: function (rs) {
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                    countData=rs.data;
-                    console.log(countData);
-                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+countData.count+'</em>');
 
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
-            });
-        }*/
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',

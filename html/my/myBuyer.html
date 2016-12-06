@@ -19,6 +19,7 @@
 			
 			.dBox{ margin-bottom: .5rem; background: #fff;}
 			.dBox > a{ position: relative; display: block; height: 4rem; padding: 0 1.5rem; line-height: 4rem; font-size: 1.3rem; color: #878787; border-bottom: 1px solid #EFEFEF;}
+			#woshishangjia{ border: none;}
 			.dBox > a i{ position: absolute; right: 1rem; font-size: 1.5rem; color: #878787;}
 			.dBox > div a{ float: left; display: block; width: 25%; padding: 1.8rem 0 1.5rem 0; font-size: 1.2rem; color: #878787; text-align: center;}
 			.dBox > div a i{ display: block; margin-bottom: .2rem; font-size: 2.2rem;}
@@ -28,6 +29,7 @@
 			.icon-xihuan-solid{ color: #ffe483;}
 			.icon-dianpu{ color: #79b3e8;}
 			.icon-jifen{ color: #edd8a0;}
+			
 			
 		</style>
 	</head>
@@ -49,7 +51,7 @@
 				</div>
 			</div>
 			<div class="dBox">
-				<a href="mySaler.html" style="border: none;">我是商家<i class="iconfont icon-zhankai-copy"></i></a>
+				<a id="woshishangjia">我是商家<i class="iconfont icon-zhankai-copy"></i></a>
 			</div>
 			<div class="dBox">
 				<a>常用入口</a>
@@ -81,12 +83,29 @@
 	<script>
 		$(function () {
 			getMyInfo();
+			$.ajax({
+				url: hostPm+"/yjpai/platform/user/getUser",
+				type: "get",
+				dataType: "json",
+				beforeSend: function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode==1){
+						var d = rs.data;
+						if(d.vip == 1){//加V用户
+							$("#woshishangjia").attr("data_v","1");
+						}
+					}
+				}
+			})
 			
 			//点击头像跳到店铺
-			$("body").on("click",".head",function(event){
+			/*$("body").on("click",".head",function(event){
 				event.stopPropagation();
 				location.href = "sellerStore.html";
-			})
+			})*/
 			//点击顶部跳到设置
 			$("body").on("click",".top",function(){
 				location.href = hostPm+"/yjpai/platform/my/mySet.html";
@@ -102,6 +121,14 @@
 			//点击跳到艺加拍卖
 			$("body").on("click","#yijiapaimai",function(){
 				location.href = hostPm+"/yjpai/platform/scene/scene.html";
+			})
+			//判断加V用户
+			$("body").on("click","#woshishangjia",function(){
+				if($(this).attr("data_v") == "1"){//加v用户
+					location.href = "mySaler.html";
+				}else{
+					location.href = "http://w.yijiapai.com/yjpai/adBox/info.html?id=246";
+				}
 			})
 		});
 		

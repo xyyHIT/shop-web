@@ -42,7 +42,7 @@
 				累计收入<span><!--¥1000.00--></span>
 			</div>
 			<div class="box fix">
-				<a id="publishGoods" data_v="0"><i class="iconfont icon-open-release"></i>发布商品</a>
+				<a href="publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
 				<a href="goodsManage.html"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
 				<a href="/shop/html/order/orderList.html?linkType=all&type=1"><i class="iconfont icon-jiaoyiguanli"></i>交易管理</a>
 				<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
@@ -60,28 +60,11 @@
 	<script>
 		$(function () {
 			getMyInfo();
-			$.ajax({
-				url: hostPm+"/yjpai/platform/user/getUser",
-				type: "get",
-				dataType: "json",
-				beforeSend: function(){
-					allFun.loading();
-				},
-				success: function(rs) {
-					allFun.removeLoading();
-					if(rs.resCode==1){
-						var d = rs.data;
-						if(d.vip == 1){//加V用户
-							$("#publishGoods").attr("data_v","1");
-						}
-					}
-				}
-			})
 			//点击头像跳到店铺
-			$("body").on("click",".head",function(event){
+			/*$("body").on("click",".head",function(event){
 				event.stopPropagation();
 				location.href = "sellerStore.html";
-			})
+			})*/
 			//点击顶部跳到设置
 			$("body").on("click",".top",function(){
 				location.href = hostPm+"/yjpai/platform/my/mySet.html";
@@ -89,14 +72,6 @@
 			//点击跳到我的钱包
 			$("body").on("click","#wodeqianbao",function(){
 				location.href = hostPm+"/yjpai/platform/my/myWallet.html";
-			})
-			//点击发布商品
-			$("body").on("click","#publishGoods",function(){
-				if($(this).attr("data_v") == "1"){
-					location.href = "publish.html";
-				}else{
-					allFun.alertDiv("非加V用户不能发布商品！");
-				}
 			})
 			
 		});
@@ -122,7 +97,6 @@
 				}
 			})
 		}
-		//判断是否加V用户
 		
 	</script>
 </html>

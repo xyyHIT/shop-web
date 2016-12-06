@@ -298,7 +298,7 @@
             if(tel==null){
             	phoneVerify.start();
             }else{
-            	var quantity=parseInt($(".r-red").html());
+            	var quantity=1;
 	            var spec_id=$('.pro-info .name').attr("spec_id");
 	            cart(spec_id,quantity);
             }
@@ -316,8 +316,12 @@
                         allFun.alertDiv(rs.msg);
                         return false;
                     }
-                    $(".r-red").html(quantity+1);
-
+                    
+                    if($(".r-red").length > 0){
+                    	$(".r-red").html(quantity+1);
+                    }else{
+                    	$(".detailFooter .icon-gouwudai").html('<em class="r-red">'+quantity+'</em>');
+                    }
                 },
                 error: function() {
                     allFun.removeLoading();

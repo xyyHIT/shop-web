@@ -110,6 +110,7 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
+			$(".footer a").eq(0).addClass("on");
             //点击跳到艺加拍卖
             $("body").on("click","#yijiapaimai",function(){
                 location.href = hostPm+"/yjpai/platform/scene/scene.html";
@@ -334,14 +335,9 @@
             }
 
             //点击列表跳转
-            $("body").on("click", ".topic a", function () {
+            $("body").on("click", ".topic a,.inner a", function () {
                 var _t = $(this);
                 delFn(_t,"/shop/html/index/goodsDetails.html?goodsId=");
-            });
-
-            $("body").on("click", ".inner a", function () {
-                var _t = $(this);
-                delFn(_t,"/shop/html/index/goodsDetails.html?goodsId=")
             });
             function delFn(t,url){
                 var obj = {};

@@ -112,7 +112,7 @@
 						if(rs.code == 0) {
 							var d = rs.data;
 							//pordersn总订单号 totalamount支付金额
-							location.href = "cashierDesk.html?orderId="+d.porderid+"&totalamount="+d.totalamount+"&type=1";//订单id 金额 合单标示
+							location.href = "cashierDesk.html?orderId="+d.porderid+"&type=1";//订单id 合单标示
 						} else {
 							allFun.alertDiv(rs.msg);
 						}

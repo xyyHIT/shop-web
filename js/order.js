@@ -36,9 +36,8 @@
 		})
 		//买家去付款
 		$("body").on("click",".qufukuan",function(){
-			var order_id = $(this).parents(".box").attr("data_order_id"),
-				totalamount = $(this).parents(".box").attr("data_totalamount");
-			location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id+"&type=0&totalamount="+totalamount+"";
+			var order_id = $(this).parents(".box").attr("data_order_id");
+			location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id+"&type=0";
 		})
 		
 		/**************** 待发货 *****************/

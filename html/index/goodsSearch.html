@@ -122,6 +122,7 @@
             }
             $(".pre-list").empty();
             var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
+            console.log(textSpan);
             if(textSpan==="商品"){
                 $(".pre-list").empty();
                 $('.select').show();
@@ -143,6 +144,7 @@
                 }
                 $(".pre-list").empty();
                 var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
+                console.log(textSpan);
                 if(textSpan==="商品"){
                     $(".pre-list").empty();
                     goodsList(order,cateId,keyword);
@@ -157,7 +159,7 @@
         $("body").on("click",".select span",function () {
             var index = $(".select span").index(this);
             var order = $(this).attr("data-type");
-            //console.log(index,order);
+            console.log(index,order);
             if($(this).hasClass("on")){
                 if(index===2){
                     $(".select span").removeClass("on");
@@ -311,6 +313,7 @@
                         return false;
                     }
                     $(".seemore").remove();
+                     console.log(rs.data);
                     curr_page = rs.data.page.curr_page;
                     finished = true;
                     item_count = rs.data.page.item_count;//总条数
@@ -347,6 +350,7 @@
                     $(".faxian em").click(function () {
                         var t=$(this);
                         item_id=t.attr("item_id");
+                        console.log(item_id);
                         if(t.hasClass("on")){
                             attention("store","drop",t);
                         }else{
@@ -382,6 +386,7 @@
                             t.addClass("grey");
                         }
                     }
+
                 },
                 error: function() {
                     allFun.removeLoading();
@@ -393,13 +398,12 @@
         //选择店铺和商品下拉框
         $(".s-input-tab-txt").click(function() {
             $("#J_TabNav").toggle();
-        });
-        $(".shop").click(function() {
-            $(".select").hide();
+            //$(".pre-list").empty();
         });
 
         $("#J_TabNav li").click(function() {
             var text=$(this).text();
+            console.log(text);
             $(".s-input-tab-txt span").html(text);
             $("#J_TabNav").hide();
         });

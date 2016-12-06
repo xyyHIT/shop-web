@@ -294,7 +294,6 @@
                         var cate=rs.data,cateList='';
                         for(var z=0; z<cate.length;z++){
                             var obj='',obj2='',catinfo=cate[z].goodslist;
-                            console.log(catinfo);
                             obj+='<div class="topic"><a href="javascript:;" goodsId="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'" alt=""></a> </div>';
                             for(var w=1; w<catinfo.length;w++){
                                 obj2+='<div class="swiper-slide">'

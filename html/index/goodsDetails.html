@@ -186,7 +186,6 @@
                         return false;
                     }
                     var goodsData=rs.data.goods,storeData=rs.data.store;
-                    console.log(goodsData);
                     $(".pro-info .name").html(goodsData.goods_name);
                     $(".pro-info .name").attr("spec_id",goodsData.spec_id);
                     $(".pro-info .price span").html(goodsData.price);
@@ -232,7 +231,6 @@
                     $(".gz i").click(function () {
                         var t=$(this);
                         item_id=t.attr("item_id");
-                        console.log(item_id);
                         if(t.hasClass("on")){
                             attention("store","drop",t);
                         }else{
@@ -329,30 +327,6 @@
                 }
             });
         }
-        //获取购物车中商品数量
-        /*cartNum();
-        function cartNum() {
-            $.ajax({
-                url: host + '/index.php?app=cart&act=ejCount',
-                type: "get",
-                beforeSend: function () {
-                },
-                success: function (rs) {
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                    countData=rs.data;
-                    console.log(countData);
-                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+countData.count+'</em>');
-
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
-            });
-        }*/
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',

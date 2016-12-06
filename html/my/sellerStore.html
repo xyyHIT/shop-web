@@ -99,7 +99,6 @@
                         return false;
                     }
                     var d = rs.data,obj = '';
-                    console.log(d);
                     obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
                         +'<dt class="left"><img src="'+d.portrait+'" /></dt>'
                         +'<dd  class="left">'
@@ -222,7 +221,6 @@
                     pageper = rs.data.page.pageper;//每页条数
 
                     var goodsList=rs.data.goods;
-                    console.log(rs.data);
                     var mend='';
                     if(item_count == 0){//无数据(第一次进来)
                         mend += allFun.noDataImg();

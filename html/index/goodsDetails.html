@@ -63,6 +63,8 @@
 
         .r-red{background:#ec4747; width:1.5rem; height: 1.5rem; text-align: center; line-height: 1.5rem; color:#fff;position: absolute; top:0rem; font-size:1rem; right:-0.3rem; display:inline-block;border-radius: 2.5rem;}
         .bags{position:relative;}
+        #rradeMain .main{margin: 0 auto; width: 100%;  font-size: 1.1rem; color: #535353;}
+        #rradeMain img{ text-align: center; vertical-align: middle; margin: .5rem 0; width: 100%;}
     </style>
 </head>
 <body>
@@ -112,18 +114,7 @@
         <ol class="current" id="rradeMain">
         </ol>
         <ol id="coment">
-           <!-- <div class="attention">
-                <dl class='faxian'>
-                    <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
-                    <dd  class="left attMian">
-                        <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
-                        <p class=""><span  class="over over1">淡淡的的地方淡淡的的地方</span></p>
-                    </dd>
-                    <em class="noLine">2016.12.12</em>
 
-                </dl>
-            </div>
-           -->
         </ol>
     </div>
 
@@ -222,9 +213,14 @@
                     }else {
                         $(".faxian .gz").html('<i item_id="'+goodsData.store_id+'" status="'+status+'" >已关注</i>');
                     }
-
+                    //图文详情
                     $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
-                    $("#rradeMain").html('<p>'+goodsData.vediourl+'</p><p>'+goodsData.detail_image+'</p><p>'+goodsData.detail_desc+'</p>');
+                    var desc=JSON.parse(goodsData.detail_desc).records;
+                    str='';
+                     for(var i=0; i<desc.length; i++){
+                         str+='<div class="main">'+desc[i].v+'</div>'
+                     }
+                    $("#rradeMain").html(str);
 
                     //添加关注
                     $(".gz i").click(function () {

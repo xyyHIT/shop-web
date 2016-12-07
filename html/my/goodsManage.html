@@ -10,7 +10,7 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <style>
 
-        .trade{ position: fixed; top: 0; left: 0; width: 100%; line-height:4rem; background: #fff; z-index: 222;}
+        .trade{ position: fixed; top: 0; left: 0; width: 100%; line-height:4rem; border-bottom: 1px solid #EFEFEF; background: #fff; z-index: 222;}
         .trade span{width:33.33%; position: relative; text-align: center; font-size: 1.3rem; display: inline-block; color:#3C3C3C;}
         .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
 
@@ -317,7 +317,7 @@
 						pageper = rs.data.page.pageper;//每页条数
 					
 					if(item_count == 0){//无数据(第一次进来)
-						obj += allFun.noDataImg("没有宝贝，还赶紧不去发布？");
+						obj += allFun.noDataImg("没有宝贝，还不赶紧去发布？");
 					}else{
 						for(var i = 0; i < d.length; i++){
 							obj += "<div class='goodsList'><div class='goodsContent'>";
@@ -340,7 +340,7 @@
 								obj+= "<div class='handle' data_id="+d[i].goods_id+"><ul>"
 									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
 									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li>"
-									+ "<li class='shelve'><div class='iconfont icon-xiajia'></div><div class='sketch'>上架</div></li></ul></div>"
+									+ "<li class='shelve'><div class='iconfont icon-shangjia'></div><div class='sketch'>上架</div></li></ul></div>"
 							}
 							if(if_show == 2){//草稿
 								obj+= "<div class='handle handles' data_id="+d[i].goods_id+"><ul>"

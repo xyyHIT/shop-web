@@ -199,8 +199,8 @@
 		//买家、卖家 查看物流(待收货、已完成)
 		$("body").on("click",".chakanwuliu",function(){
 			var _t = $(this),
-				order_id = _t.parents(".box").attr("data_order_id");
-			
+				invoice_no = _t.parents(".box").attr("data_invoice_no");
+			location.href = "http://m.kuaidi.com/queryresults.html?nu="+invoice_no;
 		})
 	})
 })();

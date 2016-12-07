@@ -151,7 +151,7 @@
 							+ "<em>收件人：</em><span>"+d.consignee.consignee+"  "+d.consignee.phone_mob+"</span><br />"
 							+ "<em>收件地址：</em><span>"+d.consignee.address+"</span></div></a></div>";
 						
-						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a>"
+						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+" data_invoice_no="+d.invoice_no+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a>"
 								+ "<i class='iconfont icon-zhankai-copy'></i><em>"+d.statusname+"</em></h2><ul>";
 						$.each(d.goods_list, function(i,v) {
 							obj += "<li><a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods_id+">"

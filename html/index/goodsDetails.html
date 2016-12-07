@@ -37,7 +37,7 @@
         .trade span{color:#5f5f5f ;padding-left: 1rem;font-size: 1.3rem;}
 
         .trade_contents{ overflow: hidden;}
-        .trade_contents ol{ display: none; background: #faf9fb; padding:1rem;}
+        .trade_contents ol{ display: none; background: #fff; padding:1rem;margin-bottom: .5rem}
         .trade_contents ol.current{ display: block;}
         .goodsHot .goodsTitle{background:#fff;width: 100%; padding-left:1rem; margin-bottom:.5rem; line-height:4rem;height: 4rem; font-size: 1.3rem; color: #5f5f5f;}
         .pre-info{margin:.5rem;    overflow: hidden;}
@@ -63,8 +63,10 @@
 
         .r-red{background:#ec4747; width:1.5rem; height: 1.5rem; text-align: center; line-height: 1.5rem; color:#fff;position: absolute; top:0rem; font-size:1rem; right:-0.3rem; display:inline-block;border-radius: 2.5rem;}
         .bags{position:relative;}
-        #rradeMain .main{margin: 0 auto; width: 100%;  font-size: 1.1rem; color: #535353;}
+        #rradeMain .main{margin: 0 auto; width: 100%;  font-size: 1.1rem; color: #535353;line-height: 1.6rem;}
         #rradeMain img{ text-align: center; vertical-align: middle; margin: .5rem 0; width: 100%;}
+        #f-footer2,f-footer{display: none;}
+        #f-footer2 a{width:25%;}
     </style>
 </head>
 <body>
@@ -102,7 +104,7 @@
                     <h3><span class="level"></span><p class="over over1 name"></p></h3>
                     <p class=""><span>商品<i class="p_num"></i></span><span>关注<i class="g_num"></i></span></p>
                 </dd>
-                <em class="gz"></em>
+                <div class="more"></div>
 
         </dl>
     </div>
@@ -113,9 +115,6 @@
     <div class="trade_contents">
         <ol class="current" id="rradeMain">
         </ol>
-        <ol id="coment">
-
-        </ol>
     </div>
 
     <div class="goodsHot">
@@ -125,9 +124,10 @@
         </ul>
     </div>
 
-    <div class="detailFooter footerInits">
-        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋</a><a
-            href="javascript:;" class="end cart">放入购物袋</a>
+    <div class="detailFooter footerInits" id="f-footer">
+    </div>
+
+    <div class="detailFooter footerInits" id="f-footer2">
     </div>
 </div>
 </body>
@@ -135,7 +135,7 @@
 <script src="/shop/js/jquery-2.1.4.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/shop/js/swiper.min.js"></script>
-<script src="/shop/js/public.js"></script>
+
 <script src="/shop/js/verifyPhone.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
@@ -208,20 +208,14 @@
                     $(".faxian dd .p_num").html(storeData.goods_count);
                     $(".faxian dd .g_num").html(storeData.collect_count);
                     var status=storeData.collectsign;
-                    if(status==0){
-                        $(".faxian .gz").html('<i item_id="'+goodsData.store_id+'" status="'+status+'">+关注</i>');
-                    }else {
-                        $(".faxian .gz").html('<i item_id="'+goodsData.store_id+'" status="'+status+'" >已关注</i>');
+                    if (status == 0) {
+                        $(".faxian .more").html('<em class="gz"><i item_id="' + goodsData.store_id + '" status="' + status + '">+关注</i></em>');
                     }
-                    //图文详情
-                    $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
-                    var desc=JSON.parse(goodsData.detail_desc).records;
-                    str='';
-                     for(var i=0; i<desc.length; i++){
-                         str+='<div class="main">'+desc[i].v+'</div>'
-                     }
-                    $("#rradeMain").html(str);
-
+                    else if (status == 1) {
+                        $(".faxian .more").html('<em class="gz"><i item_id="' + goodsData.store_id + '" status="' + status + '" >已关注</i></em>');
+                    } else {
+                        $('.faxian em').remove();//是当前的用户没有关注按钮 status=2当前用户
+                    }
                     //添加关注
                     $(".gz i").click(function () {
                         var t=$(this);
@@ -232,6 +226,40 @@
                             attention("store","add",t);
                         }
                     });
+                    //是当前用户就没有导航就没有加入购物袋
+                    if (status == 2) {
+                        $("#f-footer").remove();
+                        $("#f-footer2").show();
+                        $("#f-footer2").html(' <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋</a>')
+                    } else {
+                        $("#f-footer").show();
+                        $("#f-footer2").remove();
+                        $("#f-footer").html('<a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋</a><a href="javascript:;" class="end cart">放入购物袋</a>')
+
+                    }
+                    //获取购物车的数量
+                    $.ajax({
+                        url: host + '/index.php?app=cart&act=ejCount',
+                        type: "get",
+                        success: function (rs) {
+                            if (rs.code == 0) {
+                                if(rs.data.count > 0){
+                                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+rs.data.count+'</em>');
+                                }
+                            }
+                        }
+                    });
+
+                    //图文详情
+                    $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
+                    var desc=JSON.parse(goodsData.detail_desc).records;
+                    str='';
+                     for(var i=0; i<desc.length; i++){
+                         str+='<div class="main">'+desc[i].v+'</div>'
+                     }
+                    $("#rradeMain").html(str);
+
+
                     //热门推荐
                     var mend='', commend=goodsData.commend_goods;
                     $.each(commend,function (j,v) {
@@ -252,6 +280,7 @@
             });
         }
         //关注和喜欢
+        //关注
         function attention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 drop-取消关注
             $.ajax({
                 url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
@@ -322,7 +351,6 @@
                 }
             });
         }
-
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',
@@ -342,4 +370,5 @@
     })
 
 </script>
+<script src="/shop/js/public.js"></script>
 </html>

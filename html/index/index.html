@@ -22,11 +22,11 @@
 		    .vertical-view dl dd{padding:1rem 0;}
 
 
-			.swp_list .inner{padding: 0 5px;}
+			.swp_list .inner{padding: 10px 5px;}
 			.swp_list .inner img{width: 100%;margin-bottom: 4px;max-width: 8rem; max-height: 8rem;}
 			.swp_list .inner h4{width: 100%;height: 40px;  line-height: 20px;  color: #333;  font-size: 12px;  margin-bottom: 2px;}
 			.swp_list .inner p{color: #ec4747;  font-family: Helvetica;  font-size: 1rem;}
-			.swp_list{padding: 10px 0px 10px 5px;background: #fff;margin: 10px 0;}
+			.swp_list{padding: 0px 0px 0px 5px;background: #fff;margin: 10px 0;}
 
             .header{padding: 1rem 1.5rem;background-color:#fff; margin:4.5rem 0 0.5rem 0;position: relative;z-index: 200;}
             .header #searchInput{font-size:1.1rem;color:#9e9e9e;float:left;height:2.5rem;line-height:2.5rem;width:100%;padding-left:3rem;background:#e7e7e7;border:none;border-radius:5px; }
@@ -305,8 +305,7 @@
                                 +' </div>'
                                 +' </div>'
 							}
-                            cateList+='<div class="sale_all">'
-                                +'<div class="gather_node">'
+                            cateList+='<div class="gather_node">'
                                 +'<div class="gather_tit">'
                                 +'<a href="javascript:;"> <h3>'+cate[z].cate_name+'<b class="iconfont icon-zhankai-copy"></b></h3></a>'
                                 +'</div>'
@@ -317,6 +316,7 @@
                                 +' </div>'
                                 +' </div>'
                                 +' </div>'
+
 						}
 						$(".sale_all").html(cateList);
                         //多图轮播

@@ -107,8 +107,10 @@
                         +'</dd>';
                         if( d.is_follow == 0){//未关注
                             obj += "<em item_id="+store_id+">+关注</em>";
-                        }else{
+                        }else if( d.is_follow == 1){
                             obj += "<em item_id="+store_id+">已关注</em>";
+                        }else{
+                            obj += "";
                         }
                         +'</dl>' ;
                     $(".seller").html(obj);

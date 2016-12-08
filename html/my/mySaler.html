@@ -59,7 +59,41 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
-			getMyInfo();
+			$.ajax({
+				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
+				type: "get",
+				dataType: "json",
+				beforeSend: function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode==1){
+						var d1 = rs.data;
+						$(".top h1 img").attr("src","/shop/imgs/level/buyer"+d1.buyerLevel.level+".png");
+						$.ajax({
+							url: host+"/index.php?app=my_store&act=ejIndex",
+							type: "get",
+							dataType: "json",
+							beforeSend: function(){
+								allFun.loading();
+							},
+							success: function(rs) {
+								allFun.removeLoading();
+								if(rs.code==0){
+									var d = rs.data,obj = "";
+									$(".dMoney span").html("¥"+d.grossIncome);
+									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
+										+ "<img src=/shop/imgs/level/saler"+d1.salerLevel.level+".png />"+d.user_name+"</h1>"
+										+ "<p>粉丝"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
+									$(".top").html(obj);
+								}
+							}
+						})
+					}
+				}
+			})
+			
 			//点击头像跳到店铺
 			/*$("body").on("click",".head",function(event){
 				event.stopPropagation();
@@ -75,28 +109,6 @@
 			})
 			
 		});
-		//获取信息
-		function getMyInfo(){
-			$.ajax({
-				url: host+"/index.php?app=my_store&act=ejIndex",
-				type: "get",
-				dataType: "json",
-				beforeSend: function(){
-					allFun.loading();
-				},
-				success: function(rs) {
-					allFun.removeLoading();
-					if(rs.code==0){
-						var d = rs.data,obj = "";
-						$(".dMoney span").html("¥"+d.grossIncome);
-						obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
-							+ "<img src=/shop/imgs/level/saler"+d.sgrade+".png />"+d.user_name+"</h1>"
-							+ "<p>粉丝"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
-						$(".top").html(obj);
-					}
-				}
-			})
-		}
 		
 	</script>
 </html>

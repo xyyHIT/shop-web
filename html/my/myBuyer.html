@@ -12,7 +12,7 @@
 		<style>
 			.top{ position: relative; min-height: 8rem; padding: 1.5rem 3rem 0 8rem; background: #FAF9FB;}
 			.top h1{ font-size: 1.4rem; color: #545454; letter-spacing: 1px;}
-			.top h1 img{ width: 3.6rem; height: 1.8rem; margin-right: .3rem;}
+			.top h1 img{ width: 3.6rem; height: 1.8rem; margin-right: .3rem; border: none;}
 			.top p{ margin-top: 1rem; font-size: 1.2rem; color: #3C3C3C; letter-spacing: 1px;}
 			.top .head{ position: absolute; left: 1.5rem; top: 1.5rem; width: 5rem; height: 5rem; border-radius: 100%;}
 			.top i{ position: absolute; right: 1rem; top: 3rem; font-size: 1.6rem; color: #979797;}
@@ -37,8 +37,8 @@
 		<div class="container">
 			<div class="top">
 				<!--<img class='head' />
-				<h1 class='over'><img src='../../imgs/test/0.jpg' />时间</h1>
-				<p>关注'<b id="sellerCount"></b>'</p>
+				<h1 class='over'><img alt="" /><strong></strong></h1>
+				<p>关注<b id='sellerCount'></b></p>
 				<i class='iconfont icon-zhankai-copy'></i>-->
 			</div>
 			<div class="dBox">
@@ -82,7 +82,6 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
-			getMyInfo();
 			$.ajax({
 				url: hostPm+"/yjpai/platform/user/getUser",
 				type: "get",
@@ -97,6 +96,43 @@
 						if(d.vip == 1){//加V用户
 							$("#woshishangjia").attr("data_v","1");
 						}
+					}
+				}
+			})
+			$.ajax({
+				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
+				type: "get",
+				dataType: "json",
+				beforeSend: function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode==1){
+						var d1 = rs.data;
+						$(".top h1 img").attr("src","/shop/imgs/level/buyer"+d1.buyerLevel.level+".png");
+						$.ajax({
+							url: host+"/index.php?app=member&act=ejIndex",
+							type: "get",
+							dataType: "json",
+							beforeSend: function(){
+								allFun.loading();
+							},
+							success: function(rs) {
+								allFun.removeLoading();
+								if(rs.code==0){
+									var d = rs.data,obj = "";
+									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
+										+ "<img src=/shop/imgs/level/buyer"+d1.buyerLevel.level+".png />"+d.user_name+"</h1>"
+										+ "<p>关注"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
+									$(".top").html(obj);
+									
+									/*$(".head").attr("src",d.portrait);
+									$(".top h1 strong").html(d.user_name);
+									$("#sellerCount").html(d.followers);*/
+								}
+							}
+						})
 					}
 				}
 			})

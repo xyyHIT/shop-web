@@ -174,9 +174,23 @@
                     //详情页banner
                     banner='';
                     for(var j=0; j<bannerData.length; j++){
-                        banner+='<div class="swiper-slide"><a href="javascript:;"><img src="'+bannerData[j].image_url+'/banner" alt=""></a></div>';
+                        banner+='<div class="swiper-slide"><a href="javascript:;"><img  data_id="'+bannerData[j].file_id+'" data_initSrc="'+bannerData[j].image_url+'" src="'+bannerData[j].thumbnail+'/banner" alt=""></a></div>';
                     }
                     $("#bannerList").html(banner);
+                    //查看大图
+                    $("body").on("click",".swiper-slide img",function(){
+                        var imgList=[], targetSrc=$(this).attr("data_initSrc");
+                        $(this).parents(".swiper-slide").find("img").each(function(){
+                            imgList.push($(this).attr("data_initSrc"))
+                        });
+                        wx.ready(function(){
+                            wx.previewImage({
+                                current: targetSrc, // 当前显示图片的http链接
+                                urls: imgList // 需要预览的图片http链接列表
+                            });
+                        })
+                    });
+
                     //banner轮播
                     var swiper = new Swiper('#goodsBanner', {
                         pagination: '.swiper-pagination',

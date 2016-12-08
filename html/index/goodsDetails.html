@@ -67,6 +67,7 @@
         #rradeMain img{ text-align: center; vertical-align: middle; margin: .5rem 0; width: 100%;}
         #f-footer2,f-footer{display: none;}
         #f-footer2 a{width:25%;}
+        .swiper-slide{text-align: center}
     </style>
 </head>
 <body>
@@ -75,12 +76,6 @@
     <div class="swiper-container banner" id="goodsBanner">
         <div class="swiper-wrapper" id="bannerList">
 
-            <div class="swiper-slide">
-                <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-            </div>
-            <div class="swiper-slide">
-                <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-            </div>
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -175,7 +170,21 @@
                         allFun.alertDiv(rs.msg);
                         return false;
                     }
-                    var goodsData=rs.data.goods,storeData=rs.data.store;
+                    var goodsData=rs.data.goods,storeData=rs.data.store,bannerData=goodsData.images;
+                    //详情页banner
+                    banner='';
+                    for(var j=0; j<bannerData.length; j++){
+                        banner+='<div class="swiper-slide"><a href="javascript:;"><img src="'+bannerData[j].image_url+'/banner" alt=""></a></div>';
+                    }
+                    $("#bannerList").html(banner);
+                    //banner轮播
+                    var swiper = new Swiper('#goodsBanner', {
+                        pagination: '.swiper-pagination',
+                        autoplay: 3500,
+                        autoplayDisableOnInteraction : false,
+                        loop: true
+                    });
+
                     $(".pro-info .name").html(goodsData.goods_name);
                     $(".pro-info .name").attr("spec_id",goodsData.spec_id);
                     $(".pro-info .price span").html(goodsData.price);
@@ -264,7 +273,7 @@
                     var mend='', commend=goodsData.commend_goods;
                     $.each(commend,function (j,v) {
                              mend+='<li><div class="pre-item">'
-                                +'<a href="/shop/html/index/goodsDetails.html?goodsId='+commend[j].goods_id+'" goodsId="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'" alt=""> </a>'
+                                +'<a href="/shop/html/index/goodsDetails.html?goodsId='+commend[j].goods_id+'" goodsId="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'/lot" alt=""> </a>'
                                 +'<div class="pre-info">'
                                 +'<p class="pre-subtitle over over1" >'+commend[j].goods_name+'</p>'
                                 +'<p class="pre-price"><span class="left">¥<em>'+commend[j].price+'</em></span><span class="right payment"><em>'+commend[j].sales+'</em>人付款</span></p>'
@@ -351,22 +360,6 @@
                 }
             });
         }
-        //banner轮播
-        var swiper = new Swiper('#goodsBanner', {
-            pagination: '.swiper-pagination',
-            autoplay: 3500,
-            autoplayDisableOnInteraction : false,
-            loop: true
-        });
-
-        $(".trade span").each(function(index) { //带参数遍历各个选项卡
-            $(this).click(function() { //注册每个选卡的单击事件
-                $(".trade span.current").removeClass("current"); //移除已选中的样式
-                $(this).addClass("current"); //增加当前选中项的样式
-                //显示选项卡对应的内容并隐藏未被选中的内容
-                $(".trade_contents ol:eq(" + index + ")").show().siblings().hide();
-            });
-        });
     })
 
 </script>

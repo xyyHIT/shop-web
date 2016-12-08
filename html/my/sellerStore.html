@@ -93,7 +93,6 @@
                 beforeSend: function () {
                 },
                 success: function (rs) {
-                    allFun.removeLoading();
                     if (rs.code != 0) {
                         allFun.alertDiv(rs.msg);
                         return false;
@@ -121,10 +120,9 @@
                         type: "get",
                         dataType: "json",
                         beforeSend: function(){
-                            allFun.loading();
+
                         },
                         success: function(rs) {
-                            allFun.removeLoading();
                             if(rs.resCode==1){
                                 var userData = rs.data;
                                 if(userData.mobile==null){

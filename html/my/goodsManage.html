@@ -45,7 +45,7 @@
 <body>
 <div class="container">
     <div class="trade">
-        <span data_t="0">出售中</span><span data_t="1">已下架</span><span data_t="2">草稿</span>
+        <span data_t="1">出售中</span><span data_t="0">已下架</span><span data_t="2">草稿</span>
     </div>
     <div class="header fix">
         <div class="searchBg iconfont icon-sousuo"></div>
@@ -160,7 +160,7 @@
 		finished = true;
     $(function () {
     	if(!linkType){
-    		linkType = 0;
+    		linkType = 1;
     	}
     	getGoodsList(linkType,"");
     	
@@ -330,13 +330,13 @@
 								+ "<p class='over title'>"+d[i].goods_name+"</p>"
 								+ "<p class='price title'>¥"+d[i].price+"</p><p class='num'>"
 								+ "<span class='repertory'>库存"+d[i].stock+"</span></p></dd></dl></a></div>";
-							if(if_show == 0){//出售中
+							if(if_show == 1){//出售中
 								obj+= "<div class='handle' data_id="+d[i].goods_id+"><ul>"
 									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
 									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li>"
 									+ "<li class='Unshelve'><div class='iconfont icon-xiajia'></div><div class='sketch'>下架</div></li></ul></div>"
 							}
-							if(if_show == 1){//已下架
+							if(if_show == 0){//已下架
 								obj+= "<div class='handle' data_id="+d[i].goods_id+"><ul>"
 									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
 									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li>"

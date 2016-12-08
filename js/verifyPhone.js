@@ -1,8 +1,13 @@
 var phoneVerify = {
 	start:function(){
-		$("body").append(maskDiv+yanzhengBox)//验证码方法
-		$("#yanzhengMask").fadeIn('fast');
-		$("#yanzhengBox").fadeIn('fast').css("-webkit-transform", "translate(0,0)");
+		if($("#yanzhengBox").length > 0){
+			$("#yanzhengMask").fadeIn('fast');
+			$("#yanzhengBox").fadeIn('fast').css("-webkit-transform", "translate(0,0)");
+		}else{
+			$("body").append(maskDiv+yanzhengBox)//验证码方法
+			$("#yanzhengMask").fadeIn('fast');
+			$("#yanzhengBox").fadeIn('fast').css("-webkit-transform", "translate(0,0)");
+		}
 	},
 	close:function(){
 		$("#yanzhengBox").css("-webkit-transform", "translate(0,100%)").fadeOut();

@@ -9,22 +9,93 @@
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
-			
+			html{background-color: #FFFFFF;color:#878787;}
+			body{font-size: 1.2rem;}
+			.send-del{border-bottom: 1px solid #efefef;padding: 0.8rem 0;}
+			.send-del li{padding: 0.5rem 1rem;}
+			.del dd{padding: 1rem;    }
+			.del dd strong{display:table-cell;vertical-align: middle;font-size: 3rem;color:#c1c1c1;}
+			.del li div{display: table-cell;}
+			.del li{margin-bottom: 1rem;}
+			.del li:nth-child(1) strong{color: #5f5f5f;}
+			.del li:last-child{margin-bottom: 0;}
+			dl{margin-bottom: 1px solid #efefef;}
+			.noneDel{text-align: center;padding-top: 5rem;display: none;}
+			.noneDel img{width: 8rem;}
+			.noneDel p{margin-top: 1rem;}
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			
+		<ul class="send-del">
+			<li><label>物流公司：</label><span id="exCom"></span></li>
+			<li>
+				<label>快递单号：</label><span id='num'></span>
+			</li>
+		</ul>
+		<dl class="del">
+			<dt></dt>
+			<dd>
+				<ul id="li">
+					<li>
+						<strong><span></span></strong>
+						<div>
+							<p></p>
+							<time></time>
+						</div>
+					</li>
+				</ul>
+			</dd>
+		</dl>
+		<div class="noneDel">
+			<img src="/shop/imgs/test/meiyouwuliu_bc.png" />
+			<p id="p">对不起，暂无物流流转信息</p>
 		</div>
 	</body>
-	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
-	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
-	<script>
-		$(function () {
-			
+	<script type="text/javascript">
+		var invoice_no = allFun.getRequest("invoice_no");//物流单号
+		$.ajax({
+			url: hostPm+"/yjpai/orderTrace/queryDelivery?nu="+invoice_no,
+			type: "get",
+			beforeSend:function(){
+				allFun.loading();
+			},
+			success:function(data){
+				allFun.removeLoading();
+				if(data.resCode!=1){
+					alert(data.msg)
+				}else{
+					if(data.data.data==null){
+						$(".noneDel").show()
+						return false;
+					}
+					$("#exCom").text(data.data.shippername)
+					var data = JSON.parse(data.data.data);
+						$("#num").text(data.nu);
+						if(data.data.length==0){
+							$(".noneDel").show()
+							if(data.Reason!=""){
+								$("#p").text(data.Reason)
+							}
+						}
+					var len = data.data.reverse();
+					var conlist="";
+					var reg = /\d+/g;
+					//var regTel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+					for(var i=0;i<len.length;i++){
+						var AcceptStation=len[i].context;
+						arr = AcceptStation.match(reg);
+						if(arr!=null){
+							AcceptStation = AcceptStation.replace(arr[0],"<a href='tel:"+arr[0]+"'>"+ arr[0]+"</a>")
+						}
+						conlist+="<li><strong class='iconfont icon-dian'></strong><div><p>"+AcceptStation+"</p><time>"+len[i].time+"</time></div></li>"
+					}
+					$("#li").html(conlist)
+				}
+			}
 		});
 	</script>
 </html>

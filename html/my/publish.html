@@ -93,7 +93,7 @@
 				<ul class="item">
 					<li class="borderB">
 						<label for="gTitle">商品标题</label>
-						<input type="text" id="gTitle" placeholder="请输入商品标题" />
+						<input type="text" id="gTitle" placeholder="请输入商品标题" maxlength="50" />
 					</li>
 					<li>
 						<label for="gCategory">商品分类</label>
@@ -105,15 +105,15 @@
 					<div class="marDiv"></div>
 					<li class="borderB">
 						<label for="gPrice">商品价格</label>
-						<input type="tel" id="gPrice" placeholder="请输入商品价格" />
+						<input type="tel" id="gPrice" placeholder="请输入商品价格" maxlength="20" />
 					</li>
 					<li class="borderB">
 						<label for="gRepertory">商品库存</label>
-						<input type="tel" id="gRepertory" placeholder="请输入商品库存" />
+						<input type="tel" id="gRepertory" placeholder="请输入商品库存" maxlength="20" />
 					</li>
 					<li class="borderB">
 						<label for="gTransportation">运费</label>
-						<input type="tel" id="gTransportation" placeholder="请输入运费" value="0" />
+						<input type="tel" id="gTransportation" placeholder="请输入运费" value="0" maxlength="20" />
 					</li>
 					<!--<li>
 						<label for="gWarning">库存预警</label>
@@ -216,6 +216,10 @@
 					allFun.alertDiv("请输入商品库存");
 					return false;
 				}
+				if($("#gRepertory").val() <= 0){
+					allFun.alertDiv("商品库存须大于0");
+					return false;
+				}
 				publishAndDraft(obj);
 				
 			})
@@ -298,8 +302,8 @@
 					});
 				})
 			})
-			//输入框输入限制（价格）
-			$("body").on("keyup","#gPrice",function(){
+			//输入框输入限制（价格,运费）
+			$("body").on("keyup","#gPrice,#gTransportation",function(){
 				var regStrs = [
 			        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
 			        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
@@ -309,20 +313,15 @@
 			    for(i=0; i<regStrs.length; i++){
 			        var reg = new RegExp(regStrs[i][0]);
 			        this.value = this.value.replace(reg, regStrs[i][1]);
+			        if(this.value.length==1){
+						this.value=this.value.replace(/[^0-9]/g,'');
+					}
 			    }
 			})
 			//输入框输入限制（库存，预警）
 			$("body").on("keyup","#gRepertory,#gWarning",function(){
 				if(this.value.length==1){
 					this.value=this.value.replace(/[^1-9]/g,'');
-				}else{
-					this.value=this.value.replace(/\D/g,'');
-				}
-			})
-			//输入框输入限制（运费）
-			$("body").on("keyup","#gTransportation",function(){
-				if(this.value.length==1){
-					this.value=this.value.replace(/[^0-9]/g,'');
 				}else{
 					this.value=this.value.replace(/\D/g,'');
 				}
@@ -560,12 +559,9 @@
 						$("#gTitle").val(d.goods_name);//商品标题
 						$("#gCategory").attr("data_categoryid",d.cate_id);//商品分类id
 						$("#gCategory").val(d.goods_name);//商品分类名称
-						$("#gPrice").val(d.price);//商品价格
-						//$("#gRepertory").val(d.goods_name);//商品库存
-						if(d.ship_price == 0.00){
-							d.ship_price = 0;
-						}
-						$("#gTransportation").val(d.ship_price);//运费
+						$("#gPrice").val(d.price.replace(".00",""));//商品价格
+						$("#gRepertory").val(d.ship_price);//商品库存
+						$("#gTransportation").val(d.ship_price.replace(".00",""));//运费
 						//$("#gWarning").val(d.goods_name);//库存预警
 						
 						if(desc.records.length > 0){

@@ -315,7 +315,7 @@
             });
         }
         //加入购物车
-        $(".cart").click(function() {
+        $("body").on("click",".cart", function() {
             var tel=$('.cart').attr("data_m");
             if(tel==null){
             	phoneVerify.start();

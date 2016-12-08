@@ -283,7 +283,7 @@
 															obj += "<li><img src="+data[i].file_path+"/lot data_id="+data[i].file_id+" /><i class='iconCha'></i></li>";
 														}*/
 														$.each(data, function(i,v) {
-															obj += "<li><img src="+v.file_path+" data_id="+v.file_id+" /><i class='iconCha'></i></li>";
+															obj += "<li><img src="+v.file_path+"/lot data_id="+v.file_id+" data_initSrc="+v.file_path+" /><i class='iconCha'></i></li>";
 														});
 														$("#uploadImg").before(obj);
 														allFun.removeUploadImgPrompt();
@@ -370,6 +370,23 @@
 				$(".divOneInfo").hide();
 				$(".divTwoInfo").show();
 			})
+			//查看大图
+			$("body").on("click",".imgList img",function(){
+				var imgList=[], targetSrc=$(this).attr("data_initSrc");
+				$(this).parents(".imgList").find("img").each(function(){
+					imgList.push($(this).attr("data_initSrc"))
+				});
+				wx.ready(function(){
+					wx.previewImage({
+					    current: targetSrc, // 当前显示图片的http链接
+					    urls: imgList // 需要预览的图片http链接列表
+					});
+				})
+			})
+			//移除图片
+			$("body").on("click",".imgList i",function(){
+				$(this).parent("li").remove();
+			});
 			
 			/********************商品的图文详情*********************/
 			
@@ -575,7 +592,7 @@
 								location.href = "/shop/html/index/goodsDetails.html?goodsId="+d.goods_id;
 							}
 						}else{
-							location.href = "goodsManage.html?linkType=2";//草稿列表
+							location.href = "/shop/html/my/goodsManage.html?linkType=2";//草稿列表
 						}
 					} else {
 						allFun.alertDiv(rs.msg);
@@ -641,7 +658,7 @@
 						if(d.images.length > 0){
 							var obj1 = "";
 							for(var i = 0; i < d.images.length; i++){
-								obj1 += "<li><img src="+d.images[i].image_url+" data_id="+d.images[i].file_id+" /><i class='iconCha'></i></li>";
+								obj1 += "<li><img src="+d.images[i].image_url+"/lot data_id="+d.images[i].file_id+" /><i class='iconCha'></i></li>";
 							}
 							$("#uploadImg").before(obj1);
 						}

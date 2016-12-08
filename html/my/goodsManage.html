@@ -244,7 +244,7 @@
         //编辑
         $("body").on("click",".handle li.redact",function(){
         	var id = $(this).parents(".handle").attr("data_id");
-        	location.href = "publish.html?id="+id;
+        	location.href = "/shop/html/my/publish.html?id="+id;
 		})
         //下架
         $("body").on("click",".handle li.Unshelve",function(){
@@ -326,7 +326,7 @@
 							}else{
 								obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+d[i].goods_id+">";
 							}
-							obj += "<dl><dt class='left'><img src="+d[i].default_image+" /></dt><dd>"
+							obj += "<dl><dt class='left'><img src="+d[i].default_image+"/lot /></dt><dd>"
 								+ "<p class='over title'>"+d[i].goods_name+"</p>"
 								+ "<p class='price title'>¥"+d[i].price+"</p><p class='num'>"
 								+ "<span class='repertory'>库存"+d[i].stock+"</span></p></dd></dl></a></div>";

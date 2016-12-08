@@ -311,7 +311,7 @@
 						recid.push($(this).attr("data_rec_id"));
 					}
 				})
-				location.href = "confirmOrder.html?recid="+recid;
+				location.href = "/shop/html/cart/confirmOrder.html?recid="+recid;
 			})
 		});
 		
@@ -394,7 +394,7 @@
 									+ "<a href=/shop/html/my/sellerStore.html?storeId="+v.store_id+">"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
 								for(var i = 0; i < v.goods.length; i++){
 									obj += "<li data_spec_id="+v.goods[i].spec_id+" data_stock="+v.goods[i].stock+"><i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>"
-										+ "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+"><img src='../../imgs/test/0.jpg' /></a>"
+										+ "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+"><img src="+v.goods[i].goods_image+"/lot /></a>"
 										+ "<strong class='over'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
 										+ "<span>¥"+v.goods[i].price+"</span></p><div class='liInput addSubtract'>";
 									if(v.goods[i].quantity == 1){

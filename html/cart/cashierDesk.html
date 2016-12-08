@@ -120,7 +120,7 @@
 									'paySign': d.paySign // 支付签名
 								},function(res) {
 									if(res.err_msg == "get_brand_wcpay_request:ok"){//支付成功
-										location.href = "paySuccess.html?orderId="+orderId+"&type="+type+"";
+										location.href = "/shop/html/cart/paySuccess.html?orderId="+orderId+"&type="+type+"";
 									}else if(res.err_msg == "get_brand_wcpay_request:cancel"){//取消支付
 										$(".recharge_a").removeClass("on").html("确认支付");
 									}else if(res.err_msg == "get_brand_wcpay_request:fail"){//支付失败

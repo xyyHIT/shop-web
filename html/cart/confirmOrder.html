@@ -112,7 +112,7 @@
 						if(rs.code == 0) {
 							var d = rs.data;
 							//pordersn总订单号 totalamount支付金额
-							location.href = "cashierDesk.html?orderId="+d.porderid+"&type=1";//订单id 合单标示
+							location.href = "/shop/html/cart/cashierDesk.html?orderId="+d.porderid+"&type=1";//订单id 合单标示
 						} else {
 							allFun.alertDiv(rs.msg);
 						}
@@ -149,7 +149,7 @@
 								+ "<i class='iconfont icon-zhankai-copy'></i></h2><ul>";
 							for(var i = 0; i < v.goods.length; i++){
 								obj += "<li><a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+">"
-									+ "<img src='../../imgs/test/0.jpg' /></a>"
+									+ "<img src="+v.goods[i].goods_image+"/lot /></a>"
 									+ "<strong class='over over2'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
 									+ "<span>¥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p></li>";
 							}

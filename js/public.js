@@ -3,7 +3,7 @@ var host = hostPm = "http://"+location.host;
 (function() {
 	$(function() {
 		$.ajax({
-			url: 'http://tst.yijiapai.com/yjpai/jssdk/wx/getJsConfig',
+			url: host + '/yjpai/jssdk/wx/getJsConfig',
 			type: "get",
 			data: {
 				'url': encodeURIComponent(window.location.href.split('#')[0])
@@ -280,7 +280,6 @@ var allFun = {
                 if (rs.code == 0) {
                 	if(rs.data.count > 0){
                 		$(".footer a.cartNum i").append("<em>"+rs.data.count+"</em>");
-                		$(".detailFooter .icon-gouwudai").html('<em class="r-red">'+rs.data.count+'</em>');
                 	}
                 }
             }

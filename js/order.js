@@ -200,7 +200,7 @@
 		$("body").on("click",".chakanwuliu",function(){
 			var _t = $(this),
 				invoice_no = _t.parents(".box").attr("data_invoice_no");
-			location.href = "http://m.kuaidi.com/queryresults.html?nu="+invoice_no;
+			location.href = "/shop/html/my/logistics.html?invoice_no="+invoice_no;
 		})
 	})
 })();

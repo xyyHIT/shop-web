@@ -196,10 +196,10 @@
 				var obj = {};
 					obj.is_draft = 0;//0 发布
 				
-				/*if($(".imgList img").length <= 0){
+				if($(".imgList img").length <= 0){
 					allFun.alertDiv("请至少选择一张图片");
 					return false;
-				}*/
+				}
 				if($("#gTitle").val() == ""){
 					allFun.alertDiv("请输入商品标题");
 					return false;
@@ -236,7 +236,7 @@
 				
 			})
 			
-			//上传图片
+			//上传商品图片
 			$("body").on("click","#uploadImg",function(){
 				wx.ready(function() {
 					var count = 5 - $(".imgList img").length,
@@ -268,20 +268,24 @@
 										if (i < len) {
 											upload();
 										} else {
-											$("#gTitle").val(JSON.stringify(images.serverId[0]))
 											$.ajax({
 												url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&instance=goods_image&belong=2',
 												type: "post",
 												data: {
-													'mediaID': images.serverId[0],
+													'mediaID': images.serverId.join(","),
 												},
 												dataType: "json",
 												success: function(rs) {
-													alert(JSON.stringify(rs))
 													if (rs.code == 0) {
-														
-														var imagesServerId = rs.data;
-														appendData(imagesServerId);
+														var data = rs.data,obj = "";
+														//$("#gTitle").html(JSON.stringify(data))
+														/*for (var i = 0; i < data.length; i++) {
+															obj += "<li><img src="+data[i].file_path+"/lot data_id="+data[i].file_id+" /><i class='iconCha'></i></li>";
+														}*/
+														$.each(data, function(i,v) {
+															obj += "<li><img src="+v.file_path+" data_id="+v.file_id+" /><i class='iconCha'></i></li>";
+														});
+														$("#uploadImg").before(obj);
 														allFun.removeUploadImgPrompt();
 													} else {
 														allFun.alertDiv(rs.msg);
@@ -425,13 +429,76 @@
 			
 			//添加图片
 			$("body").on("click",".tanchu_update,.icon-tianjiatupian1",function(){
-				if($(this).attr("class") == "tanchu_update"){//替换图片
-					$(this).parents(".dData").find("div.dDataB").html("<img src='../../imgs/test/1.jpg' />");
-					$(".tanchu").remove();
-				}else{//添加图片
-					$(".noData").remove();
-					$(".haveData").append("<div class='dData'><div class='dDataB'><img src='../../imgs/test/1.jpg' /><img src='../../imgs/test/1.jpg' /></div><a class='aEdit'>编辑</a></div>");
-				}
+				var _t = $(this);
+				wx.ready(function() {
+					var count = 9,
+						images = {
+							localId: [],
+							serverId: []
+						};
+					wx.chooseImage({
+						count: count, // 默认9
+						sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+						sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+						success: function(res) {
+							images.localId = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+							var	i = 0,
+								len = images.localId.length;
+							if (len == 0) {
+								return;
+							}
+							allFun.uploadImgPrompt(1,len);
+							function upload(){
+								wx.uploadImage({
+									localId: images.localId[i],
+									isShowProgressTips: 0, // 默认为1，显示进度提示
+									success: function(res) {
+										i++;
+										allFun.uploadImgPrompt(i,len);
+										images.serverId.push(res.serverId);
+										
+										if (i < len) {
+											upload();
+										} else {
+											$.ajax({
+												url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&instance=goods_image&belong=2',
+												type: "post",
+												data: {
+													'mediaID': images.serverId.join(","),
+												},
+												dataType: "json",
+												success: function(rs) {
+													if (rs.code == 0) {
+														var data = rs.data,obj = "";
+														$.each(data, function(i,v) {
+															obj += "<img src="+v.file_path+" data_id="+v.file_id+" />";
+														});
+														if(_t.attr("class") == "tanchu_update"){//替换图片
+															_t.parents(".dData").find("div.dDataB").html(obj);
+															$(".tanchu").remove();
+														}else{//添加图片
+															$(".noData").remove();
+															$(".haveData").append("<div class='dData'><div class='dDataB'>"+obj+"</div><a class='aEdit'>编辑</a></div>");
+														}
+														allFun.removeUploadImgPrompt();
+													} else {
+														allFun.alertDiv(rs.msg);
+													}
+												}
+											});
+										}
+									},
+									fail: function(res) {
+										allFun.removeUploadImgPrompt();
+										allFun.alertDiv("上传超时，请重试！");
+										//alert(JSON.stringify(res));
+									}
+								});
+							}
+							upload();
+						}
+					});
+				})
 			})
 			
 		});
@@ -445,6 +512,20 @@
 			}else{
 				uurl = "/index.php?app=my_goods&act=ejStore";
 			}
+			
+			//商品图片id
+			var arrImg_goods = [];
+			$(".imgList img").each(function(){
+				arrImg_goods.push($(this).attr("data_id"));
+			})
+			obj.goods_file_id = arrImg_goods.join(",");
+			
+			//详情图片id
+			var arrImg_detail = [];
+			$(".haveData img").each(function(){
+				arrImg_detail.push($(this).attr("data_id"));
+			})
+			obj.desc_file_id = arrImg_detail.join(",");
 			
 			obj.goods_name = $("#gTitle").val();//商品标题
 			obj.cate_id = $("#gCategory").attr("data_categoryid");//分类ID
@@ -556,11 +637,20 @@
 						var d = rs.data.goods,
 							desc = JSON.parse(d.detail_desc),//商品详情
 							obj = "";
+						
+						if(d.images.length > 0){
+							var obj1 = "";
+							for(var i = 0; i < d.images.length; i++){
+								obj1 += "<li><img src="+d.images[i].image_url+" data_id="+d.images[i].file_id+" /><i class='iconCha'></i></li>";
+							}
+							$("#uploadImg").before(obj1);
+						}
+						
 						$("#gTitle").val(d.goods_name);//商品标题
 						$("#gCategory").attr("data_categoryid",d.cate_id);//商品分类id
-						$("#gCategory").val(d.goods_name);//商品分类名称
+						$("#gCategory").val(d.cate_name);//商品分类名称
 						$("#gPrice").val(d.price.replace(".00",""));//商品价格
-						$("#gRepertory").val(d.ship_price);//商品库存
+						$("#gRepertory").val(d.stock);//商品库存
 						$("#gTransportation").val(d.ship_price.replace(".00",""));//运费
 						//$("#gWarning").val(d.goods_name);//库存预警
 						
@@ -582,16 +672,6 @@
 					allFun.alertDiv("获取商品信息错误！")
 				}
 			})
-		}
-		
-		//生成图片列表
-		function appendData(data){
-			var obj = "";
-			for (var i = 0; i < data.length; i++) {
-				//obj += "<div class='picture-box'><div><img src="+data[i].downloadUrl+"/lot data_id="+data[i].fileId+" data-src="+data[i].downloadUrl+"/bigbanner><em></em></div></div>";
-				obj += "<li><img src='../../imgs/test/0.jpg' /><i class='iconCha'></i></li>";
-			}
-			$("#uploadImg").before(obj);
 		}
 	</script>
 </html>

@@ -162,22 +162,27 @@
 			})
 			//输入框输入限制
 			$("body").on("keyup",".editDIv .editInput input",function(){
+				var _t = $(this),
+					data_stock = parseInt(_t.parents("li").attr("data_stock"));//库存
 				if(this.value.length==1){
 					this.value=this.value.replace(/[^1-9]/g,'');
 				}else{
 					this.value=this.value.replace(/\D/g,'');
 				}
-				if(this.value > 1){
+				/*if(this.value > 1){
 					$(this).prev(".jianshao").removeClass("on");
 				}else{
 					$(this).prev(".jianshao").addClass("on");
+				}*/
+				if(_t.val() > data_stock){
+					_t.val(data_stock);
 				}
 			})
 			//确定数量
 			$("body").on("click",".editDIv .editInput_confirm",function(){
 				var _t= $(this),
 					spec_id = _t.parents("li").attr("data_spec_id"),
-					num = _t.parents(".editDIv").find("input").val();//输入的数量
+					num = _t.parents(".editDIv").find("input").val(),//输入的数量
 					num_ago = _t.parents("li").find(".liInput input").val();//原来的数量
 				if(num != "" && num != num_ago){
 					updateGoodsNum(spec_id,num,function(){
@@ -388,7 +393,7 @@
 								obj += "<div class='box'><h2><i class='iconfont icon-querenoff1 icon-radio'></i>"
 									+ "<a href=/shop/html/my/sellerStore.html?storeId="+v.store_id+">"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
 								for(var i = 0; i < v.goods.length; i++){
-									obj += "<li data_spec_id="+v.goods[i].spec_id+"><i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>"
+									obj += "<li data_spec_id="+v.goods[i].spec_id+" data_stock="+v.goods[i].stock+"><i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>"
 										+ "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+"><img src='../../imgs/test/0.jpg' /></a>"
 										+ "<strong class='over'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
 										+ "<span>¥"+v.goods[i].price+"</span></p><div class='liInput addSubtract'>";

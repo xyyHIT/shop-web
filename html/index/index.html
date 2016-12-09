@@ -12,6 +12,7 @@
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
 			.ons{color:#ec4747;}
+			.container{width:100%; height:100%;}
 			.swiper-container {  width: 100%;  }
 			.swiper-slide {font-size: 1.3rem; background: #fff; display: -webkit-box;  display: -ms-flexbox;  display: -webkit-flex;  display: flex;  -webkit-box-pack: center;  -ms-flex-pack: center;  -webkit-justify-content: center;  justify-content: center;  -webkit-box-align: center;  -ms-flex-align: center;  -webkit-align-items: center;  align-items: center;  }
 
@@ -120,19 +121,33 @@
                 location.href = hostPm+"/yjpai/news/list.html";
             });
             //返回到当前位置
-            if (sessionStorage.getItem("indexStorage") && allFun.getRequest("history") == -1) {
-                var Storage = JSON.parse(sessionStorage.getItem("indexStorage"));
-                $(".warp").html(Storage.cont);
+            if (sessionStorage.getItem("indexShopStorage") && allFun.getRequest("history") == -1) {
+                var Storage = JSON.parse(sessionStorage.getItem("indexShopStorage"));
+                $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
-                sessionStorage.removeItem("indexStorage");
+                sessionStorage.removeItem("indexShopStorage");
             } else {
-                sessionStorage.removeItem("indexStorage");
+                sessionStorage.removeItem("indexShopStorage");
+                navList();
                 gooodsList();
             }
-
-            navList();
-			gooodsList();
-			//导航
+			//一级导航
+            $("body").on("click",".tNav #navList>div",function(){
+                //获取导航的id
+                var nav_id=$(this).attr("nav_id");
+                $(this).addClass("rent").siblings().removeClass("rent");
+                if(nav_id==0){
+                    $(".vertical-view").show();
+                    $("#banner").show();
+                    $("#recommend").show();
+                    gooodsList(0);
+                }else {
+                    $(".vertical-view").hide();
+                    $("#banner").hide();
+                    $("#recommend").hide();
+                    cate(nav_id);
+                }
+            });
             function navList(){
                 $.ajax({
                     url: host+'/index.php?app=default&act=ejIndex',
@@ -159,24 +174,6 @@
                             paginationClickable: true,
                             spaceBetween: 0,
                             freeMode: true
-                        });
-
-                        //一级导航
-                        $(".tNav #navList>div").click(function () {
-                            //获取导航的id
-                            var nav_id=$(this).attr("nav_id");
-                            $(this).addClass("rent").siblings().removeClass("rent");
-                            if(nav_id==0){
-                                $(".vertical-view").show();
-                                $("#banner").show();
-                                $("#recommend").show();
-                                gooodsList(0);
-                            }else {
-                                $(".vertical-view").hide();
-                                $("#banner").hide();
-                                $("#recommend").hide();
-                                cate(nav_id);
-                            }
                         });
                     },
                     error: function() {
@@ -340,9 +337,9 @@
             });
             function delFn(t,url){
                 var obj = {};
-                obj.cont = $(".warp").html();
+                obj.cont = $(".container").html();
                 obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                sessionStorage.setItem("indexStorage", JSON.stringify(obj));
+                sessionStorage.setItem("indexShopStorage", JSON.stringify(obj));
                 history.replaceState(null, null, "?history=-1");
                 location.href = url+t.attr("goodsId");
                 //location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId");

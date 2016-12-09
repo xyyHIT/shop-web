@@ -25,7 +25,7 @@ yanzhengBox='<div id="yanzhengBox" style="display:none;position: fixed;left: 0;b
 					+'</div>'
 					+'<div style="position: relative; height: 4.5rem; padding: 0 1.5rem; line-height: 4.5rem; border-bottom: 1px solid #EFEFEF;">'
 						+'<span>验证码：</span>'
-						+'<input type="tel" id="phoneNumber" placeholder="请输入验证吗" maxlength="11" style="width: 68%; height: 3rem; font-size: 1.3rem; color: #878787; line-height: 3rem; border: none;">'
+						+'<input type="tel" id="yanzhengma" placeholder="请输入验证吗" maxlength="11" style="width: 68%; height: 3rem; font-size: 1.3rem; color: #878787; line-height: 3rem; border: none;">'
 					+'</div>'
 					+'<a id="yanzhengma_confirm" style=" display: block; width: 90%; height: 4rem; margin: 0 auto; margin-top: 9rem; line-height: 4rem; font-size: 1.8rem; color: #fff; text-align: center; background: #ec4747;">确认</a>'
 				+'</div>'	;

@@ -250,7 +250,7 @@
                     }else {
                         $.each(goodsList, function (j, v) {
                             mend += '<li><div class="pre-item">'
-                                + '<a href="javascript:;" data-id="' + goodsList[j].goods_id + '"><img class="pre-img" src="' + goodsList[j].default_image + '/lot" alt=""> </a>'
+                                + '<a href="javascript:;" data-id="' + goodsList[j].goods_id + '"><img class="pre-img" src="' + goodsList[j].default_image + '/square" alt=""> </a>'
                                 + '<div class="pre-info">'
                                 + '<p class="pre-subtitle over over1" >' + goodsList[j].goods_name + '</p>'
                                 + '<p class="pre-price"><span class="left">¥<em>' + goodsList[j].price + '</em></span><span class="right payment">' + goodsList[j].sales + '人付款</span></p>'
@@ -297,7 +297,7 @@
                         $.each(shopData, function (j, v) {
 
                             mend += '<div class="attention"><dl class="faxian">';
-                            mend += '<dt class="left"><a href="javascript:;" data-id="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '/lot"/></a></dt>';
+                            mend += '<dt class="left"><a href="javascript:;" data-id="' + shopData[j].store_id + '"><img src="' + shopData[j].store_logo + '/square"/></a></dt>';
                             mend += ' <dd  class="left">';
                             mend +='<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>';
                             mend += '<p class=""><span>' + shopData[j].followers + '个粉丝</span></p>';

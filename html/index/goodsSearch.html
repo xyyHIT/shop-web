@@ -177,6 +177,7 @@
             var index = $(".select span").index(this);
             var order = $(this).attr("data-type");
             if($(this).hasClass("on")){
+                $(".pre-list").empty();
                 if(index===2){
                     $(".select span").removeClass("on");
                     $(this).addClass("down");

@@ -220,6 +220,10 @@
 					allFun.alertDiv("商品库存须大于0");
 					return false;
 				}
+				if($(".haveData").text() != ""){
+					allFun.alertDiv("请填写宝贝描述");
+					return false;
+				}
 				publishAndDraft(obj);
 				
 			})

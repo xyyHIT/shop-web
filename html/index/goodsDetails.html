@@ -132,12 +132,16 @@
 <script src="/shop/js/jquery-2.1.4.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/shop/js/swiper.min.js"></script>
-
+<script src="/shop/js/public.js"></script>
 <script src="/shop/js/verifyPhone.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
 
     $(function () {
+    	//分享
+		wx.ready(function(){
+			wx.showAllNonBaseMenuItem();
+		})
         var lotId = allFun.getRequest("goodsId");//商品id
         goodsList(lotId);
         function goodsList(lotId){
@@ -344,5 +348,5 @@
     })
 
 </script>
-<script src="/shop/js/public.js"></script>
+
 </html>

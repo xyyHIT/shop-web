@@ -106,6 +106,10 @@
 <script>
 
     $(function () {
+    	//分享
+		wx.ready(function(){
+			wx.showAllNonBaseMenuItem();
+		})
         var order=0;
         var cateId = allFun.getRequest("cateId");//商品id
         var curr_page=1,keyword="",item_count='';//curr_page 当前页码 pageper 分页条数  item_count 总条数 keyword搜索关键词

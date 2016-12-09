@@ -141,11 +141,12 @@
                 //获取导航的id
                 var nav_id=$(this).attr("nav_id");
                 $(this).addClass("rent").siblings().removeClass("rent");
+                $(".sale_all").empty();
                 if(nav_id==0){
                     $(".vertical-view").show();
                     $("#banner").show();
                     $("#recommend").show();
-                    gooodsList(0);
+                    gooodsList();
                 }else {
                     $(".vertical-view").hide();
                     $("#banner").hide();
@@ -220,33 +221,43 @@
 						var goodsData = rs.data.recommend;
 						var goodsList = '';recommend='';
 						for(i = 0;i<goodsData.length;i++){
+						    console.log(goodsData);
 							var res='', res2='',listData=goodsData[i].items,recom_name=goodsData[i].recom_name;
 
 							if(recom_name=="精品推荐"){
-								for( j = 0;j<listData.length;j++){
-								recommend+='<div class="swiper-slide">'
-										+ '<div class="inner">'
-										+ '<a href="javascript:;" goodsId="'+listData[j].goods_id+'">'
-										+ '<img src="'+listData[j].default_image+'/square" alt="">'
-										+ '<h4>'+listData[j].goods_name+'</h4>'
-										+ '<p>¥<span>'+listData[j].price+'</span></p>'
-										+ '</a>'
-										+ '</div>'
-										+ '</div>'
+                                if(listData){
+                                    if(listData.length>0 ) {
+                                        for (j = 0; j < listData.length; j++) {
+                                            recommend += '<div class="swiper-slide">'
+                                                + '<div class="inner">'
+                                                + '<a href="javascript:;" goodsId="' + listData[j].goods_id + '">'
+                                                + '<img src="' + listData[j].default_image + '/square" alt="">'
+                                                + '<h4>' + listData[j].goods_name + '</h4>'
+                                                + '<p>¥<span>' + listData[j].price + '</span></p>'
+                                                + '</a>'
+                                                + '</div>'
+                                                + '</div>'
+                                        }
+                                    }
 								}
 							}else {
-                                res2 += '<div class="topic"><a href="javascript:;"  goodsId="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'/platform" alt=""></a> </div>'
-								for( j = 1;j<listData.length;j++) {
-                                    res +='<div class="swiper-slide">'
-													+ '<div class="inner">'
-														+ '<a href="javascript:;" goodsId="'+listData[j].goods_id+'">'
-														+ '<img src="'+listData[j].default_image+'/square" alt="">'
-														+ '<h4>'+listData[j].goods_name+'</h4>'
-														+ '<p>¥<span>'+listData[j].price+'</span></p>'
-														+ '</a>'
-													+ '</div>'
-										        + '</div>'
-
+							    if(listData){
+                                     if(listData.length>0 ){ res2 += '<div class="topic"><a href="javascript:;"  goodsId="'+listData[0].goods_id+'"><img src="'+listData[0].default_image+'/platform" alt=""></a> </div>'}
+                                   }
+                                if(listData){
+                                    if(listData.length>0 ) {
+                                        for (j = 1; j < listData.length; j++) {
+                                            res += '<div class="swiper-slide">'
+                                                + '<div class="inner">'
+                                                + '<a href="javascript:;" goodsId="' + listData[j].goods_id + '">'
+                                                + '<img src="' + listData[j].default_image + '/square" alt="">'
+                                                + '<h4>' + listData[j].goods_name + '</h4>'
+                                                + '<p>¥<span>' + listData[j].price + '</span></p>'
+                                                + '</a>'
+                                                + '</div>'
+                                                + '</div>'
+                                        }
+                                    }
 								}
 								goodsList+='<div class="gather_node">'
 										+'<div class="gather_tit">'

@@ -264,7 +264,7 @@
                             mend += "<div class='seemore' data_d='no'>没有更多数据</div>";
                         }
                     }
-                    $(".pre-list").html(mend)
+                    $(".pre-list").append(mend);
                 }
             });
         }
@@ -315,7 +315,7 @@
                             mend += "<div class='seemore' data_d='no'>没有更多数据</div>";
                         }
                     }
-                    $(".pre-list").html(mend);
+                    $(".pre-list").append(mend);
 
                     //添加关注
                     $(".faxian em").click(function () {

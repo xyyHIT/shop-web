@@ -112,7 +112,7 @@
                             obj += "";
                         }
                         +'</dl>' ;
-                    $(".seller").html(obj);
+                    $(".seller").append(obj);
                     //获取拍卖用户ID 获取当前店铺的telphone
                     var auction_id=$(".faxian").attr("auction_id");
                     $.ajax({
@@ -238,7 +238,7 @@
                             mend += "<div class='seemore' data_d='no'>没有更多数据</div>";
                         }
                     }
-                    $(".pre-list").html(mend)
+                    $(".pre-list").append(mend)
                 }
             });
         }

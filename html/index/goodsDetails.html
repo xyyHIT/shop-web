@@ -11,7 +11,8 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <style>
         body{background: #f9f9f9; height:100%;}
-        .swiper-container {  width: 100%;  max-height: 640px;  }
+        .swiper-slide{text-align: center;}
+        .swiper-slide a img{max-height:32rem;}
         .pro-info {padding:1rem 1.5rem; border-top: 1px solid #ddd; overflow: hidden;position: relative;background: #fff;}
         .pro-info .name { font-size: 1.3rem; color: #3c3c3c;  line-height: 2rem; }
         .pro-info .price { font-size: 1.5rem; color: #ec4747; margin:0.3rem 0;  }
@@ -68,7 +69,7 @@
         #rradeMain img{ text-align: center; vertical-align: middle; margin: .5rem 0; width: 100%;}
         #f-footer2,f-footer{display: none;}
         #f-footer2 a{width:25%;}
-        .swiper-slide{text-align: center}
+
     </style>
 </head>
 <body>
@@ -137,23 +138,6 @@
 <script>
 
     $(function () {
-        //用户信息
-            $.ajax({
-                url: hostPm+"/yjpai/platform/user/getUser",
-                type: "get",
-                dataType: "json",
-                beforeSend: function(){
-                    allFun.loading();
-                },
-                success: function(rs) {
-                    allFun.removeLoading();
-                    if(rs.resCode==1){
-                        var userData = rs.data;
-                        //console.log(userData,userData.mobile);
-                        $(".cart").attr("data_m",userData.mobile);
-                    }
-                }
-            });
 
         var lotId = allFun.getRequest("goodsId");//商品id
         goodsList(lotId);
@@ -304,7 +288,6 @@
             });
         }
         //关注和喜欢
-        //关注
         function attention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 drop-取消关注
             $.ajax({
                 url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
@@ -338,6 +321,23 @@
                 }
             });
         }
+        //用户信息
+        $.ajax({
+            url: hostPm+"/yjpai/platform/user/getUser",
+            type: "get",
+            dataType: "json",
+            beforeSend: function(){
+                allFun.loading();
+            },
+            success: function(rs) {
+                allFun.removeLoading();
+                if(rs.resCode==1){
+                    var userData = rs.data;
+                    //console.log(userData,userData.mobile);
+                    $(".cart").attr("data_m",userData.mobile);
+                }
+            }
+        });
         //加入购物车
         $("body").on("click",".cart", function() {
             var tel=$('.cart').attr("data_m");

@@ -135,8 +135,8 @@
                 allFun.alertDiv("请输入搜索内容");
                 return false;
             }
-            $(".pre-list").empty();
-            var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
+            curr_page = 1;
+            var textSpan=$('.s-input-tab-txt span').text();
             if(textSpan==="商品"){
                 $(".pre-list").empty();
                 $('.select').show();
@@ -151,13 +151,13 @@
         //点击虚拟按键搜索
         $(document).keydown(function (event){
             if(event.keyCode === 13) {
-                keyword=$("#searchInput").val();
+                var keyword=$("#searchInput").val();
                 if(keyword==""){
                     allFun.alertDiv("请输入搜索内容");
                     return false;
                 }
-                $(".pre-list").empty();
-                var textSpan=$(this).siblings(".s-input-tab").children(".s-input-tab-txt").children("span").text();
+                curr_page = 1;
+                var textSpan=$('.s-input-tab-txt span').text();
                 if(textSpan==="商品"){
                     $(".pre-list").empty();
                     goodsList(order,cateId,keyword);

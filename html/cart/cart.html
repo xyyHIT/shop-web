@@ -318,7 +318,8 @@
 		//合计钱数，件数
 		function funMoneyAndNum(){
 			var moneyAll = 0,//合计钱数
-				numAll = 0;//件数
+				numAll = 0,//结算件数
+				cartNum = 0;//购物车数量
 			$(".list li .icon-radio").each(function(){
 				var _t = $(this);
 				
@@ -341,9 +342,11 @@
 					numAll += parseInt(_t.parents("li").find("input").val());
 					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseInt(_t.parents("li").find("input").val());
 				}
+				cartNum += parseInt(_t.parents("li").find("input").val());
 			})
 			$("#summation").text(moneyAll);//合计
-			$("#settleAccounts").text(numAll);//件数
+			$("#settleAccounts").text(numAll);//结算件数
+			$(".footer .cartNum em").text(cartNum);//购物车数量
 			//return numAll;
 		}
 		

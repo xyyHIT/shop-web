@@ -40,6 +40,10 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
         $(function () {
+        	//分享
+			wx.ready(function(){
+				wx.showAllNonBaseMenuItem();
+			})
             //返回到当前位置
             if(sessionStorage.getItem("categoryStorage") && allFun.getRequest("history") == -1){
                 var Storage = JSON.parse(sessionStorage.getItem("categoryStorage"));

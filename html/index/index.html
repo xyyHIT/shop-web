@@ -112,6 +112,10 @@
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		$(function () {
+			//分享
+			wx.ready(function(){
+				wx.showAllNonBaseMenuItem();
+			})
 			$(".footer a").eq(0).addClass("on");
             //点击跳到艺加拍卖
             $("body").on("click","#yijiapaimai",function(){

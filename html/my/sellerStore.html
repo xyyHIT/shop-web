@@ -105,9 +105,9 @@
                         +'<p class="more"><span>'+d.followers+'个粉丝</span></p>'
                         +'</dd>';
                         if( d.is_follow == 0){//未关注
-                            obj += "<em item_id="+store_id+">+关注</em>";
+                            obj += "<em item_id="+store_id+" dataStatus='add'>+关注</em>";
                         }else if( d.is_follow == 1){
-                            obj += "<em item_id="+store_id+">已关注</em>";
+                            obj += "<em item_id="+store_id+" dataStatus='drop'>已关注</em>";
                         }else{
                             obj += "";
                         }
@@ -134,17 +134,6 @@
                             }
                         }
                     });
-
-                    //添加关注
-                    $(".faxian em").click(function () {
-                        var t=$(this);
-                        item_id=t.attr("item_id");
-                        if(t.hasClass("on")){
-                            attention("store","drop",t);
-                        }else{
-                            attention("store","add",t);
-                        }
-                    });
                 },
                 error: function() {
                     allFun.removeLoading();
@@ -157,6 +146,7 @@
             var index = $(".trade span").index(this);
             var order = $(this).attr("data-type");
             if($(this).hasClass("on")){
+                $(".pre-list").empty();
                 if(index===2){
                     $(".trade span").removeClass("on");
                     $(this).addClass("down");
@@ -242,41 +232,16 @@
                 }
             });
         }
-
-        //关注
-        function attention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 drop-取消关注
-            $.ajax({
-                url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
-                type: "get",
-                beforeSend: function () {
-                },
-                success: function (rs) {
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                    if(type=="store"){
-                        if(status == 1){//取消关注
-                            t.removeClass("on").html("+关注");
-                        }else{
-                            t.addClass("on").html("已关注");
-                        }
-                    }else if(type=="goods"){
-                        if(status == 1) {
-                            t.removeClass("grey");
-                        }
-                        else{
-                            t.addClass("grey");
-                        }
-                    }
-
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
-            });
-        }
+        //添加关注
+        $("body").on("click",".faxian em",function(){
+            var t=$(this);
+            item_id=t.attr("item_id");
+            if(t.attr("dataStatus")=="drop"){
+                allFun.attention("store","drop",t);
+            }else{
+                allFun.attention("store","add",t);
+            }
+        });
 
 
     });

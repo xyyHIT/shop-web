@@ -84,7 +84,7 @@
     <div class="pro-info">
         <p class="name over over2"></p>
         <p class="price">￥<span></span></p>
-        <p class="kinds"><span><em class="person"></em>人付款</span><span><em class="assess"></em>好评</span></p>
+        <p class="kinds"><span><em class="person"></em>人付款</span><!--<span><em class="assess"></em>好评</span>--></p>
         <div class="like">
             <div class="liks"></div>
             <p><em class="num likeCount" id="likeCount"></em>人喜欢</p>
@@ -174,7 +174,12 @@
                     $(".pro-info .price span").html(goodsData.price);
                     $(".pro-info .kinds .person").html(goodsData.sales);
                     status=goodsData.collectsign;
-                    $(".liks").html('<p class="heart iconfont icon-xihuan" item_id="'+goodsData.goods_id+'" status="'+status+'"></p>');
+                    if (status == 0) {
+                        $(".liks").html('<p class="heart iconfont icon-xihuan" item_id="'+goodsData.goods_id+'" dataStatus="add"></p>');
+                    }else {
+                        $(".liks").html('<p class="heart iconfont icon-xihuan grey" item_id="'+goodsData.goods_id+'" dataStatus="drop"></p>');
+                    }
+
 
                     $(".pro-info .kinds .assess").html(goodsData.good_comment);
                     $(".ways .freight em").html(goodsData.ship_price);
@@ -189,10 +194,10 @@
                     $(".faxian dd .g_num").html(storeData.collect_count);
                     var status=storeData.collectsign;
                     if (status == 0) {
-                        $(".faxian .more").html('<em class="gz"><i item_id="' + goodsData.store_id + '" status="' + status + '">+关注</i></em>');
+                        $(".faxian .more").html('<em class="gz"><i item_id="' + goodsData.store_id + '" dataStatus="add">+关注</i></em>');
                     }
                     else if (status == 1) {
-                        $(".faxian .more").html('<em class="gz"><i item_id="' + goodsData.store_id + '" status="' + status + '" >已关注</i></em>');
+                        $(".faxian .more").html('<em class="gz"><i item_id="' + goodsData.store_id + '" dataStatus="drop" >已关注</i></em>');
                     } else {
                         $('.faxian em').remove();//是当前的用户没有关注按钮 status=2当前用户
                     }
@@ -266,59 +271,25 @@
         //点击喜欢和不喜欢
         $("body").on("click",".liks p",function(){
             var t=$(this);
-            var num=parseInt($("#likeCount").html());
             item_id=t.attr("item_id");
-            if(t.hasClass("grey")){
-                $("#likeCount").html(num-1);
-                attention("goods","drop",t);
+            if(t.attr("dataStatus")=="drop"){
+                allFun.attention("goods","drop",t);
             }else{
-                $("#likeCount").html(num+1);
-                attention("goods","add",t);
+
+                allFun.attention("goods","add",t);
             }
         });
         //添加关注
         $("body").on("click",".gz i",function(){
             var t=$(this);
             item_id=t.attr("item_id");
-            if(t.hasClass("on")){
-                attention("store","drop",t);
+            if(t.attr("dataStatus")=="drop"){
+                allFun.attention("store","drop",t);
             }else{
-                attention("store","add",t);
+                allFun.attention("store","add",t);
             }
         });
-        //关注和喜欢
-        function attention(type,status,t) {// type=store 商品 type=goods  //status: add-关注 drop-取消关注
-            $.ajax({
-                url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
-                type: "get",
-                beforeSend: function () {
-                },
-                success: function (rs) {
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                    if(type=="store"){
-                        if(status == 1){//取消关注
-                            t.removeClass("on").html("+关注");
-                        }else{
-                            t.addClass("on").html("已关注");
-                        }
-                    }else if(type=="goods"){
-                        if(status == 1) {
-                            t.removeClass("grey");
-                        }
-                        else{
-                            t.addClass("grey");
-                        }
-                    }
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
-            });
-        }
+
         //查看大图
         $("body").on("click",".swiper-slide img",function(){
             var imgList=[], targetSrc=$(this).attr("data_initSrc");

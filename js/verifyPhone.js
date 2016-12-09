@@ -117,7 +117,7 @@ function sendYanzhengma(mobile,code){
 							allFun.alertDiv("手机号验证成功");
 							phoneVerify.close();
 							
-							var quantity=parseInt($(".r-red").html());
+							var quantity=1;
 				            var spec_id=$('.pro-info .name').attr("spec_id");
 				            cart(spec_id,quantity);
 						}else{

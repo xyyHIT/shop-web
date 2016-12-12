@@ -142,7 +142,7 @@
     	//分享
 		wx.ready(function(){
 			wx.showAllNonBaseMenuItem();
-		})
+		});
         var lotId = allFun.getRequest("goodsId");//商品id
         goodsList(lotId);
         function goodsList(lotId){
@@ -334,9 +334,10 @@
                     
                     if($(".r-red").length > 0){
                         var quantity=parseInt($(".r-red").html());
+                        console.log(quantity);
                     	$(".r-red").html(quantity+1);
                     }else{
-                    	$(".detailFooter .icon-gouwudai").html('<em class="r-red">'+quantity+'</em>');
+                    	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
                     }
                 },
                 error: function() {

@@ -115,7 +115,7 @@
 			//分享
 			wx.ready(function(){
 				wx.showAllNonBaseMenuItem();
-			})
+			});
 			$(".footer a").eq(0).addClass("on");
             //点击跳到艺加拍卖
             $("body").on("click","#yijiapaimai",function(){
@@ -133,7 +133,6 @@
                 sessionStorage.removeItem("indexShopStorage");
             } else {
                 sessionStorage.removeItem("indexShopStorage");
-                navList();
                 gooodsList();
             }
 			//一级导航
@@ -154,7 +153,7 @@
                     cate(nav_id);
                 }
             });
-            function navList(){
+          /*  function navList(){
                 $.ajax({
                     url: host+'/index.php?app=default&act=ejIndex',
                     type: "post",
@@ -188,7 +187,7 @@
                     }
                 });
 
-            }
+            }*/
             //精选
 			function gooodsList(){
 				$.ajax({
@@ -203,7 +202,20 @@
 							allFun.alertDiv(rs.msg);
 							return false;
 						}
-
+						//nav
+                        var navData = rs.data.categories;
+                        var str='',str2='', nId=0;
+                        str+='<div class="swiper-slide rent" nav_id='+nId+'>精选</div>';
+                        for(var i=0; i<navData.length; i++){
+                            str+='<div class="swiper-slide " nav_id='+navData[i].id+'>'+navData[i].cateName+'</div>'
+                        }
+                        $("#navList").html(str);
+                        var swiper = new Swiper('#nav', {
+                            slidesPerView: 5,
+                            paginationClickable: true,
+                            spaceBetween: 0,
+                            freeMode: true
+                        });
 						//banner轮播
 						var bannerData = rs.data.cycleImages;
 						var bannerList = "";
@@ -221,7 +233,6 @@
 						var goodsData = rs.data.recommend;
 						var goodsList = '';recommend='';
 						for(i = 0;i<goodsData.length;i++){
-						    console.log(goodsData);
 							var res='', res2='',listData=goodsData[i].items,recom_name=goodsData[i].recom_name;
 
 							if(recom_name=="精品推荐"){

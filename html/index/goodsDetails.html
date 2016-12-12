@@ -327,17 +327,35 @@
                 beforeSend: function () {
                 },
                 success: function (rs) {
-                    if (rs.code != 0) {
-                        allFun.alertDiv(rs.msg);
-                        return false;
+                    if (rs.code == 0) {
+                    	if($(".r-red").length > 0){
+	                        var quantity=parseInt($(".r-red").html());
+	                    	$(".r-red").html(quantity+1);
+	                    }else{
+	                    	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
+	                    }
                     }
-                    
-                    if($(".r-red").length > 0){
-                        var quantity=parseInt($(".r-red").html());
-                        console.log(quantity);
-                    	$(".r-red").html(quantity+1);
+                    if (rs.code == 3005) {//未登录
+                        var uurl = encodeURI(location.href);
+                        $.ajax({
+			                url: host + '/index.php?app=wechat&act=redirectCart&url='+uurl,
+			                type: "get",
+			                success: function (rs) {
+			                    if (rs.code != 0) {
+			                        allFun.alertDiv(rs.msg);
+			                        return false;
+			                    }
+			                    
+			                },
+			                error: function() {
+			                    allFun.removeLoading();
+			                    allFun.alertDiv("error!")
+			                }
+			            })
+                        return false;
                     }else{
-                    	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
+                    	allFun.alertDiv(rs.msg);
+                        return false;
                     }
                 },
                 error: function() {

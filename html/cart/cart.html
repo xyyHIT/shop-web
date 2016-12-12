@@ -311,7 +311,27 @@
 						recid.push($(this).attr("data_rec_id"));
 					}
 				})
-				location.href = "/shop/html/cart/confirmOrder.html?recid="+recid;
+				$.ajax({
+					url: host + '/index.php?app=order&act=checkout',
+					type: "get",
+					dataType: "json",
+					data:{"recid":'['+recid+']'},//购物车id集合 默认可不传此参数（如果不传此参数，默认为获取本人购物车中全部商品 ==全选）
+					beforeSend:function(){
+						allFun.loading();
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code == 0) {
+							location.href = "/shop/html/cart/confirmOrder.html?recid="+recid;
+						} else {
+							allFun.alertDiv(rs.msg);
+						}
+					},
+					error: function() {
+						allFun.removeLoading();
+						allFun.alertDiv("error!")
+					}
+				})
 			})
 		});
 		

@@ -220,7 +220,7 @@
 					allFun.alertDiv("商品库存须大于0");
 					return false;
 				}
-				if($(".haveData").text() != ""){
+				if($(".haveData").html() == ""){
 					allFun.alertDiv("请填写宝贝描述");
 					return false;
 				}
@@ -398,7 +398,7 @@
 			$("body").on("click",".confirm",function(){
 				$(".divTwoInfo").hide();
 				$(".divOneInfo").show();
-				if($(".haveData").text() != ""){
+				if($(".haveData").html() != ""){
 					$(".alreadyEdit b").text("已编辑");
 				}
 			})

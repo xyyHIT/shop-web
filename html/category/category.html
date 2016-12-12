@@ -45,13 +45,13 @@
 				wx.showAllNonBaseMenuItem();
 			})
             //返回到当前位置
-            if(sessionStorage.getItem("categoryStorage") && allFun.getRequest("history") == -1){
-                var Storage = JSON.parse(sessionStorage.getItem("categoryStorage"));
+            if(sessionStorage.getItem("categoryShopStorage") && allFun.getRequest("history") == -1){
+                var Storage = JSON.parse(sessionStorage.getItem("categoryShopStorage"));
                 $("#category").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
-                sessionStorage.removeItem("categoryStorage");
+                sessionStorage.removeItem("categoryShopStorage");
             }else{
-                sessionStorage.removeItem("categoryStorage");
+                sessionStorage.removeItem("categoryShopStorage");
                 category();
             }
            function category() {
@@ -102,7 +102,7 @@
                 obj.cont = $("#category").html();
                 obj.cateId = _t.attr("cateId");
                 obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                sessionStorage.setItem("officialStorage", JSON.stringify(obj));
+                sessionStorage.setItem("categoryShopStorage", JSON.stringify(obj));
                 history.replaceState(null, null, "?history=-1");
                 location.href="/shop/html/index/goodsSearch.html?cateId="+_t.attr("cateId");
             });

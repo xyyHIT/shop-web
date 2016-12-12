@@ -110,27 +110,28 @@
 		wx.ready(function(){
 			wx.showAllNonBaseMenuItem();
 		})
-        var order=0;
+        var order=0,finished = true;
         var cateId = allFun.getRequest("cateId");//商品id
-        var curr_page=1,keyword="",item_count='';//curr_page 当前页码 pageper 分页条数  item_count 总条数 keyword搜索关键词
-        //点击发现渲染出该id下的产品
-        if(cateId!=undefined){
-            $(".select").show();
-            goodsList(order,cateId,keyword);
-        }
+        var curr_page=1;//curr_page 当前页码 
+        var keyword = "";
 
         //缓存
-        if(sessionStorage.getItem("searchStorage") && allFun.getRequest("history") == -1){
-            var searchStorage = JSON.parse(sessionStorage.getItem("searchStorage"));
-            keyword = searchStorage.keyword;
-            sort = searchStorage.sort;
-            pageNo = searchStorage.pageNo;
-            $(".container").html(searchStorage.cont);
-            $("body").scrollTop(searchStorage.scrollTop);
+        if(sessionStorage.getItem("searchShopStorage") && allFun.getRequest("history") == -1){
+            var searchShopStorage = JSON.parse(sessionStorage.getItem("searchShopStorage"));
+            order = searchShopStorage.order;
+            curr_page = searchShopStorage.curr_page;
+            keyword = searchShopStorage.keyword;
+            $(".container").html(searchShopStorage.cont);
             $("#searchInput").val(keyword);
-            sessionStorage.removeItem("searchStorage");
+            $("body").scrollTop(searchShopStorage.scrollTop);
+            sessionStorage.removeItem("searchShopStorage");
         }else{
-            sessionStorage.removeItem("searchStorage");
+            sessionStorage.removeItem("searchShopStorage");
+            //点击发现渲染出该id下的产品
+	        if(cateId!=undefined){
+	            $(".select").show();
+	            goodsList(order,cateId,keyword);
+	        }
         }
         //点击搜索按钮
         $("body").on('click',"#search-button",function(){
@@ -155,7 +156,7 @@
         //点击虚拟按键搜索
         $(document).keydown(function (event){
             if(event.keyCode === 13) {
-                var keyword=$("#searchInput").val();
+                keyword=$("#searchInput").val();
                 if(keyword==""){
                     allFun.alertDiv("请输入搜索内容");
                     return false;
@@ -175,7 +176,8 @@
         //切换
         $("body").on("click",".select span",function () {
             var index = $(".select span").index(this);
-            var order = $(this).attr("data-type");
+            order = $(this).attr("data-type");
+            curr_page = 1;
             if($(this).hasClass("on")){
                 $(".pre-list").empty();
                 if(index===2){
@@ -201,7 +203,7 @@
                     order="price desc";
                 }
             }
-            goodsList(order,cateId,keyword);
+            goodsList(order,cateId,$("#searchInput").val());
 
         });
 
@@ -245,11 +247,10 @@
                     $(".seemore").remove();
                     curr_page = rs.data.page.curr_page;
                     finished = true;
-                    item_count = rs.data.page.item_count;//总条数
-                    pageper = rs.data.page.pageper;//每页条数
-
-                    var goodsList=rs.data.goods;
-                    var mend='';
+                    var item_count = rs.data.page.item_count,//总条数
+                    	pageper = rs.data.page.pageper,//每页条数
+                    	goodsList=rs.data.goods,
+                    	mend='';
                     if(item_count == 0){//无数据(第一次进来)
                         mend += allFun.noDataImg("没有找到相关的商品信息！");
                     }else {
@@ -345,13 +346,17 @@
         });
         function delFn(t,url){
             var obj = {};
-            obj.keyword = keyword;
             obj.cont = $(".container").html();
-            obj.page = curr_page;
+            obj.curr_page = curr_page;
             obj.order=order;
+            obj.keyword=$("#searchInput").val();
             obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            sessionStorage.setItem("searchScenStorage", JSON.stringify(obj));
-            history.replaceState(null,null,"?history=-1");
+            sessionStorage.setItem("searchShopStorage", JSON.stringify(obj));
+            if(cateId!=undefined){
+	            history.replaceState(null,null,"?cateId="+cateId+"&history=-1");
+	        }else{
+	        	history.replaceState(null,null,"?history=-1");
+	        }
             location.href = url+t.attr("data-id");
             //location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId");
         }

@@ -219,7 +219,7 @@
                                 + '<h3><span><img src="/shop/imgs/level/saler' + shopData[j].sgrade + '.png" alt=""></span><p class="over over1">' + shopData[j].store_name + '</p></h3>'
                                 + '<p class=""><span>' + shopData[j].collectnum + '个粉丝</span></p>'
                                 + '</dd>'
-                                + '<em>已关注</em>'
+                                + '<em item_id="' + shopData[j].store_id + '" dataStatus="drop">已关注</em>'
                                 + '</dl>'
                                 + '</div>'
                         });
@@ -234,15 +234,15 @@
             });
         }
         //添加关注
-       /* $("body").on("click",".faxian em",function(){
+        $("body").on("click",".faxian em",function(){
             var t=$(this);
             item_id=t.attr("item_id");
             if(t.attr("dataStatus")=="drop"){
-                attention("store","drop",t);
+                allFun.attention("store","drop",t);
             }else{
-                attention("store","add",t);
+                allFun.attention("store","add",t);
             }
-        });*/
+        });
     });
 </script>
 </html>

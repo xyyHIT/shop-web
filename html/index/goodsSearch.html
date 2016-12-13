@@ -183,7 +183,6 @@
                 if(index===2){
                     $(".select span").removeClass("on");
                     $(this).addClass("down");
-                    console.log(order);
                     order="price asc";
                 }
                 if(index===1){
@@ -195,11 +194,9 @@
                 $(".select span").removeClass("on").removeClass("down");
                 $(this).addClass("on");
                 if(index===1){
-                    console.log(order);
                     order="sales desc";
                 }
                 if(index===2){
-                    console.log(order);
                     order="price desc";
                 }
             }
@@ -368,7 +365,6 @@
 
         $("#J_TabNav li").click(function() {
             var text=$(this).text();
-            console.log(text);
             $(".s-input-tab-txt span").html(text);
             $("#J_TabNav").hide();
         });

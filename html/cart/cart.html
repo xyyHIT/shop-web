@@ -185,7 +185,7 @@
 					num = _t.parents(".editDIv").find("input").val(),//输入的数量
 					num_ago = _t.parents("li").find(".liInput input").val();//原来的数量
 				if(num != "" && num != num_ago){
-					updateGoodsNum(spec_id,num,function(){
+					updateGoodsNum(spec_id,num,_t,function(){
 						_t.parents("li").find(".addSubtract input").val(num);
 						_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 						if(num == 1){
@@ -210,7 +210,7 @@
 				var _t = $(this),
 					spec_id = _t.parents("li").attr("data_spec_id"),
 					num = parseInt(_t.parents(".addSubtract").find("input").val())+1;
-				updateGoodsNum(spec_id,num,function(){
+				updateGoodsNum(spec_id,num,_t,function(){
 					_t.parents("li").find(".addSubtract input").val(num);
 					_t.parents("li").find(".addSubtract i.jianshao").removeClass("on");
 					_t.parents("li").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
@@ -223,7 +223,7 @@
 					spec_id = _t.parents("li").attr("data_spec_id");
 					num = parseInt(_t.parents(".addSubtract").find("input").val())-1;
 				if(num > 0){
-					updateGoodsNum(spec_id,num,function(){
+					updateGoodsNum(spec_id,num,_t,function(){
 						if(num == 1){
 							_t.parents("li").find(".addSubtract i.jianshao").addClass("on");
 						}
@@ -376,7 +376,7 @@
 		}
 		
 		//购物车商品数量变更
-		function updateGoodsNum(spec_id,quantity,fn){//spec_id 规格ID   quantity 商品数量   fn
+		function updateGoodsNum(spec_id,quantity,t,fn){//spec_id 规格ID   quantity 商品数量   fn
 			$.ajax({
 				url: host + '/index.php?app=cart&act=ejUpdate',
 				type: "post",
@@ -389,6 +389,10 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						fn();
+					}else if(rs.code == 1011){//库存比现在购物车中少
+						allFun.alertDiv(rs.msg);
+						var nn = rs.data.operation.quantity;//现在库存数
+						t.parents("li").find(".addSubtract input").val(nn);
 					} else {
 						allFun.alertDiv(rs.msg);
 					}

@@ -17,7 +17,7 @@
         .pro-info {padding:1rem 1.5rem; border-top: 1px solid #ddd; overflow: hidden;position: relative;background: #fff;}
         .pro-info .name { font-size: 1.3rem; color: #3c3c3c;  line-height: 2rem; }
         .pro-info .price { font-size: 1.5rem; color: #ec4747; margin:0.3rem 0;  }
-        .pro-info .kinds span{color:#aaa; font-size:1.2rem; margin-right:1rem; }
+        .pro-info .kinds span{color:#aaa; margin-right:1rem; }
         .pro-info .like{position: absolute; right:1rem; bottom:1rem;color:#878787; font-size:1rem; }
         .pro-info .like .heart{  margin-bottom:.3rem;  text-align: center; font-size: 2.4rem;color: #ec4747;}
         .pro-info .like .grey{color: #9e9e9e;}
@@ -85,16 +85,16 @@
     <div class="pro-info">
         <p class="name over over2"></p>
         <p class="price">￥<span></span></p>
-        <p class="kinds"><span><em class="person"></em>人付款</span><!--<span><em class="assess"></em>好评</span>--></p>
+        <p class="kinds"><span><em class="person"></em>人付款</span><span>运费<em class="freight"></em></span></p>
         <div class="like">
             <div class="liks"></div>
             <p><em class="num likeCount" id="likeCount"></em>人喜欢</p>
         </div>
     </div>
 
-    <div class="ways">
+    <!--<div class="ways">
         <div class="left sales"><span class="left iconfont icon-7tianwuliyoutuihuo"></span>七天无理由退货</div><div class="right freight">运费：<em></em>元</div>
-    </div>
+    </div>-->
     <div class="attention">
         <dl class='faxian'>
                 <dt class="left"><a href="javascript:;"><img src='' /></a></dt>
@@ -138,7 +138,7 @@
 <script src="/shop/js/verifyPhone.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
-
+	var bannerList = [];
     $(function () {
     	//分享
 		wx.ready(function(){
@@ -164,14 +164,14 @@
                     //详情页banner
                     banner='';
                     for(var j=0; j<bannerData.length; j++){
-                        banner+='<div class="swiper-slide"><a href="javascript:;"><img  data_id="'+bannerData[j].file_id+'" data_initSrc="'+bannerData[j].image_url+'" src="'+bannerData[j].thumbnail+'/banner" alt=""></a></div>';
+                        banner+='<div class="swiper-slide"><a href="javascript:;"><img data_id="'+bannerData[j].file_id+'" data_initSrc="'+bannerData[j].image_url+'" src="'+bannerData[j].image_url+'/banner" alt=""></a></div>';
+                        bannerList.push(bannerData[j].image_url);
                     }
                     $("#bannerList").html(banner);
                     //banner轮播
                     var swiper = new Swiper('#goodsBanner', {
                         pagination: '.swiper-pagination',
-                        autoplay: 3500,
-                        autoplayDisableOnInteraction : false,
+                        autoplay: 3000,
                         loop: true
                     });
 
@@ -187,8 +187,8 @@
                     }
 
 
-                    $(".pro-info .kinds .assess").html(goodsData.good_comment);
-                    $(".ways .freight em").html(goodsData.ship_price);
+                    $(".pro-info .kinds .freight").html(goodsData.ship_price);
+                    //$(".ways .freight em").html(goodsData.ship_price);
                     $(".like p .num").html(goodsData.collects);
                     //导航进入小店
                     $(".detailFooter .store").attr("href",'/shop/html/my/sellerStore.html?storeId='+goodsData.store_id+'');
@@ -276,7 +276,6 @@
             if(t.attr("dataStatus")=="drop"){
                 allFun.attention("goods","drop",t);
             }else{
-
                 allFun.attention("goods","add",t);
             }
         });
@@ -292,15 +291,11 @@
         });
 
         //查看大图
-        $("body").on("click",".swiper-slide img",function(){
-            var imgList=[], targetSrc=$(this).attr("data_initSrc");
-            $(this).parents(".swiper-slide").find("img").each(function(){
-                imgList.push($(this).attr("data_initSrc"))
-            });
-            wx.ready(function(){
+        wx.ready(function(){
+            $("body").on("click","#bannerList .swiper-slide",function(){
                 wx.previewImage({
-                    current: targetSrc, // 当前显示图片的http链接
-                    urls: imgList // 需要预览的图片http链接列表
+                    current: $(this).find("img").attr("data_initSrc"), // 当前显示图片的http链接
+                    urls: bannerList // 需要预览的图片http链接列表
                 });
             })
         });
@@ -330,18 +325,13 @@
 	                    }else{
 	                    	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
 	                    }
-                    }
-                    if (rs.code == 3005) {//未登录
-                        var uurl = encodeURI(location.href);
+                    }else if (rs.code == 3005) {//未登录
+                        var uurl = encodeURIComponent(host+"/shop/html/index/goodsDetails.html?goodsId="+lotId+"&addCart=addCart");
                         $.ajax({
-			                url: host + '/index.php?app=wechat&act=redirectCart&url='+uurl,
+			                url: host + '/index.php?app=wechat&act=redirectBusiness&url='+uurl,
 			                type: "get",
 			                success: function (rs) {
-			                    if (rs.code != 0) {
-			                        allFun.alertDiv(rs.msg);
-			                        return false;
-			                    }
-			                    
+			                    cart($('.pro-info .name').attr('spec_id'),1);
 			                }
 			            })
                     }else{

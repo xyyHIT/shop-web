@@ -323,6 +323,11 @@
 						allFun.removeLoading();
 						if(rs.code == 0) {
 							location.href = "/shop/html/cart/confirmOrder.html?recid="+recid;
+						}else if(rs.code == 1005){
+							allFun.alertDiv(rs.msg);
+							setTimeout(function(){
+								location.reload();
+							},1500)
 						} else {
 							allFun.alertDiv(rs.msg);
 						}

@@ -8,6 +8,7 @@
     <script src="/shop/js/rem.js"></script>
     <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="/shop/css/font/iconfont.js"></script>
     <style>
         .faxian { position: relative; height: 8rem; padding: 1.4rem 1rem; font-size: 1.3rem; color: #5F5F5F;  background: #faf9fb;}
         .faxian dt img{  width: 5rem; height: 5rem; border-radius: 100%; margin-right:1.5rem;}
@@ -39,7 +40,7 @@
         .pre-subtitle {margin-bottom: 5px;font-size:1.1rem;color: #535353;overflow: hidden;  }
         .payment{font-size: 1.1rem; color: #aaa;}
         .tel{position: fixed; left:1.5rem; bottom:5rem;  width:5rem; height:5rem; z-index: 9999}
-        .tel a{font-size: 4.5rem; color: #ec4747; }
+        svg.icon{ width: 4.5rem; height: 4.5rem;}
     </style>
 </head>
 <body>
@@ -83,8 +84,10 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
-        var order=0,curr_page=1,item_count='';
-        var store_id = allFun.getRequest("storeId");//店铺id
+        var store_id = allFun.getRequest("storeId"),//店铺id
+        	finished = true,
+        	order=0,
+        	curr_page=1;
         storeList(store_id);
         function storeList(store_id) {
             $.ajax({
@@ -128,7 +131,7 @@
                                 if(userData.mobile==null){
                                     $(".tel").hide();
                                 }else {
-                                    $(".tel").html('<a href="tel:'+userData.mobile+'" class="iconfont icon-bodadianhua"></a>');
+                                    $(".tel").html('<a href="tel:'+userData.mobile+'"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bodadianhua"></use></svg></a>');
                                 }
 
                             }
@@ -144,21 +147,19 @@
         //切换 默认  销量和价格
         $("body").on("click",".trade span",function () {
             var index = $(".trade span").index(this);
-            var order = $(this).attr("data-type");
+            order = $(this).attr("data-type");
+            curr_page = 1;
+            $(".pre-list").empty();
             if($(this).hasClass("on")){
-                $(".pre-list").empty();
                 if(index===2){
                     $(".trade span").removeClass("on");
                     $(this).addClass("down");
-                    console.log(order);
                     order="price asc";
                 }
                 if(index===1){
                     order="sales desc";
                 }
             }else{
-                $(".seemore").remove();
-                $(".pre-list").empty();
                 $(".trade span").removeClass("on").removeClass("down");
                 $(this).addClass("on");
                 if(index===1){
@@ -204,8 +205,8 @@
                     $(".seemore").remove();
                     curr_page = rs.data.page.curr_page;
                     finished = true;
-                    item_count = rs.data.page.item_count;//总条数
-                    pageper = rs.data.page.pageper;//每页条数
+                    var item_count = rs.data.page.item_count,//总条数
+                    	pageper = rs.data.page.pageper;//每页条数
 
                     var goodsList=rs.data.goods;
                     var mend='';

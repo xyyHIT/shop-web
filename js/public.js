@@ -280,6 +280,7 @@ var allFun = {
                 if (rs.code == 0) {
                 	if(rs.data.count > 0){
                 		$(".footer a.cartNum i").append("<em>"+rs.data.count+"</em>");
+                		$(".detailFooter .icon-gouwudai").html('<em class="r-red">'+rs.data.count+'</em>');
                 	}
                 }
             }

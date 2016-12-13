@@ -84,6 +84,10 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
+    	//分享
+		wx.ready(function(){
+			wx.showAllNonBaseMenuItem();
+		});
         var store_id = allFun.getRequest("storeId"),//店铺id
         	finished = true,
         	order=0,
@@ -104,7 +108,7 @@
                     obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
                         +'<dt class="left"><img src="'+d.portrait+'" /></dt>'
                         +'<dd  class="left">'
-                        +'<h3><p class="over over1">'+d.user_name+'</p></h3>'
+                        +'<h3><p class="over">'+d.user_name+'</p></h3>'
                         +'<p class="more"><span>'+d.followers+'个粉丝</span></p>'
                         +'</dd>';
                         if( d.is_follow == 0){//未关注
@@ -217,7 +221,7 @@
                             mend += '<li><div class="pre-item">'
                                 + '<a href="/shop/html/index/goodsDetails.html?goodsId=' + goodsList[j].goods_id + '" goodsId="' + goodsList[j].goods_id + '"><img class="pre-img" src="' + goodsList[j].default_image + '/square" alt=""> </a>'
                                 + '<div class="pre-info">'
-                                + '<p class="pre-subtitle over over1" >' + goodsList[j].goods_name + '</p>'
+                                + '<p class="pre-subtitle over">' + goodsList[j].goods_name + '</p>'
                                 + '<p class="pre-price"><span class="left">¥<em>' + goodsList[j].price + '</em></span><span class="right payment">' + goodsList[j].sales + '人付款</span></p>'
                                 + ' </div>'
                                 + '</div></li>'

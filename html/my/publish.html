@@ -389,7 +389,26 @@
 			})
 			//移除图片
 			$("body").on("click",".imgList i.iconCha",function(){
-				$(this).parent("li").remove();
+				var _t = $(this);
+				$.ajax({
+					url: host+'/index.php?app=my_goods&act=ejDropImage',
+					type: "post",
+					data: {
+						'file_id': _t.parents("li").find("img").attr("data_id")
+					},
+					dataType: "json",
+					beforeSend:function(){
+						allFun.loading("正在删除中！");
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code == 0){
+							_t.parent("li").remove();
+						}else{
+							allFun.alertDiv(rs.msg);
+						}
+					}
+				})
 			});
 			
 			/********************商品的图文详情*********************/

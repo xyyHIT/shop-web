@@ -123,7 +123,7 @@
     </div>
 
     <div class="detailFooter footerInits" id="f-footer">
-        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a href="tel:13456787787"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋</a><a href="javascript:;" class="end cart">放入购物袋</a>
+        <a href="/shop/html/index/index.html?from=wechat"><i class="iconfont icon-nianhuojie"></i>年货节</a><a class="aKefu"><i class="iconfont icon-kefu1"></i>客服</a><a class="store" href="javascript:;"><i class="iconfont icon-quxiaodian"></i>进入小店</a><a class="bags" href="/shop/html/cart/cart.html"><i class="iconfont icon-gouwudai "></i>购物袋</a><a href="javascript:;" class="end cart">放入购物袋</a>
     </div>
 
     <!--<div class="detailFooter footerInits" id="f-footer2">
@@ -207,38 +207,34 @@
                     } else {
                         $('.faxian em').remove();//是当前的用户没有关注按钮 status=2当前用户
                     }
-
+                    
                     //是当前用户加入购物袋 变灰色
-                 if (status == 2) {
-                     var t=$(".detailFooter a:last");
-                     t.addClass("grey");
-                 }
-                    //获取购物车的数量
-                    /*$.ajax({
-                        url: host + '/index.php?app=cart&act=ejCount',
-                        type: "get",
-                        success: function (rs) {
-                            if (rs.code == 0) {
-                                if(rs.data.count > 0){
-                                    $(".detailFooter .icon-gouwudai").html('<em class="r-red">'+rs.data.count+'</em>');
-                                }
-                            }
-                        }
-                    });*/
-                    //用户信息
+	                if (status == 2) {
+	                    var t=$(".detailFooter a:last");
+	                    t.addClass("grey");
+	                }
+                    //用户信息(当前用户)
                     $.ajax({
                         url: hostPm+"/yjpai/platform/user/getUser",
                         type: "get",
                         dataType: "json",
-                        beforeSend: function(){
-                            allFun.loading();
-                        },
                         success: function(rs) {
-                            allFun.removeLoading();
                             if(rs.resCode==1){
                                 var userData = rs.data;
-                                //console.log(userData,userData.mobile);
                                 $(".cart").attr("data_m",userData.mobile);
+                            }
+                        }
+                    });
+                    //用户信息(店铺)
+                    $.ajax({
+                        url: hostPm+'/yjpai/platform/user/salerInfo?userId='+rs.data.store.auction_id+'',
+                        type: "get",
+                        dataType: "json",
+                        success: function(rs) {
+                            if(rs.resCode==1){
+                                var userData = rs.data;
+                                //客服电话（卖家电话）
+                                $(".aKefu").attr("href","tel:"+userData.mobile+"");
                             }
                         }
                     });

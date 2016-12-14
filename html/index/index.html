@@ -81,7 +81,7 @@
 						<dd>拍卖</dd>
 					</dl>
 				</a>
-				<a href="#">
+				<a href="#" id="cFindex">
 					<dl>
 						<dt class="icon iconfont icon-zhongchou"></dt>
 						<dd>众筹</dd>
@@ -125,6 +125,11 @@
             $("body").on("click","#yijiapaimai",function(){
                 location.href = hostPm+"/yjpai/platform/scene/scene.html";
             });
+            //点击跳到 众筹
+            $("body").on("click","#cFindex",function(){
+                location.href = hostPm+"/yjpai/platform/crowdFunding/cFindex.html";
+            });
+
             //点击跳到资讯
             $("body").on("click","#zixun",function(){
                 location.href = hostPm+"/yjpai/news/list.html";
@@ -157,41 +162,6 @@
                     cate(nav_id);
                 }
             });
-          /*  function navList(){
-                $.ajax({
-                    url: host+'/index.php?app=default&act=ejIndex',
-                    type: "post",
-                    beforeSend:function(){
-                        allFun.loading()
-                    },
-                    success: function(rs) {
-                        allFun.removeLoading();
-                        if(rs.code!=0){
-                            allFun.alertDiv(rs.msg);
-                            return false;
-                        }
-                        //nav
-                        var navData = rs.data.categories;
-                        var str='',str2='', nId=0;
-                        str+='<div class="swiper-slide rent" nav_id='+nId+'>精选</div>';
-                        for(var i=0; i<navData.length; i++){
-                            str+='<div class="swiper-slide " nav_id='+navData[i].id+'>'+navData[i].cateName+'</div>'
-                        }
-                        $("#navList").html(str);
-                        var swiper = new Swiper('#nav', {
-                            slidesPerView: 5,
-                            paginationClickable: true,
-                            spaceBetween: 0,
-                            freeMode: true
-                        });
-                    },
-                    error: function() {
-                        allFun.removeLoading();
-                        allFun.alertDiv("error!")
-                    }
-                });
-
-            }*/
             //精选
 			function gooodsList(){
 				$.ajax({

@@ -10,8 +10,7 @@ var host = hostPm = "http://"+location.host;
 			},
 			dataType: "json",
 			error: function() {
-				UT.uiView.tcbox("网络异常，加载微信配置失败！");
-				BottomColumnPosition();
+				allFun.alertDiv("网络异常，加载微信配置失败！");
 			},
 			success: function(rs) {
 				wx.config({

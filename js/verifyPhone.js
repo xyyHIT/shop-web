@@ -120,6 +120,7 @@ function sendYanzhengma(mobile,code){
 							var quantity=1;
 				            var spec_id=$('.pro-info .name').attr("spec_id");
 				            cart(spec_id,quantity);
+				            $(".cart").attr("data_m",mobile);
 						}else{
 							allFun.alertDiv(rs.msg);
 						}

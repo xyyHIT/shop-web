@@ -138,13 +138,13 @@
 <script src="/shop/js/verifyPhone.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
-	var bannerList = [];
+	var bannerList = [],
+		lotId = allFun.getRequest("goodsId");//商品id
     $(function () {
     	//分享
 		wx.ready(function(){
 			wx.showAllNonBaseMenuItem();
 		});
-        var lotId = allFun.getRequest("goodsId");//商品id
         goodsList(lotId);
         function goodsList(lotId){
             $.ajax({
@@ -307,42 +307,43 @@
 	            cart(spec_id,quantity);
             }
         });
-        function cart(spec_id,quantity) {
-            $.ajax({
-                url: host + '/index.php?app=cart&act=ejAdd&spec_id='+spec_id+'&quantity='+quantity+'',
-                type: "get",
-                beforeSend: function () {
-                },
-                success: function (rs) {
-                    if (rs.code == 0) {
-                    	if($(".r-red").length > 0){
-	                        var quantity=parseInt($(".r-red").html());
-	                    	$(".r-red").html(quantity+1);
-	                    }else{
-	                    	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
-	                    }
-                    }else if (rs.code == 3005) {//未登录
-                        var uurl = encodeURIComponent(host+"/shop/html/index/goodsDetails.html?goodsId="+lotId+"&addCart=addCart");
-                        $.ajax({
-			                url: host + '/index.php?app=wechat&act=redirectBusiness&url='+uurl,
-			                type: "get",
-			                success: function (rs) {
-			                    cart($('.pro-info .name').attr('spec_id'),1);
-			                }
-			            })
-                    }else{
-                    	allFun.alertDiv(rs.msg);
-                        return false;
-                    }
-                },
-                error: function() {
-                    allFun.removeLoading();
-                    allFun.alertDiv("error!")
-                }
-            });
-        }
+        
     })
-
+    
+    function cart(spec_id,quantity) {
+        $.ajax({
+            url: host + '/index.php?app=cart&act=ejAdd&spec_id='+spec_id+'&quantity='+quantity+'',
+            type: "get",
+            beforeSend: function () {
+            },
+            success: function (rs) {
+                if (rs.code == 0) {
+                	if($(".r-red").length > 0){
+                        var quantity=parseInt($(".r-red").html());
+                    	$(".r-red").html(quantity+1);
+                    }else{
+                    	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
+                    }
+                }else if (rs.code == 3005) {//未登录
+                    var uurl = encodeURIComponent(host+"/shop/html/index/goodsDetails.html?goodsId="+lotId+"&addCart=addCart");
+                    $.ajax({
+		                url: host + '/index.php?app=wechat&act=redirectBusiness&url='+uurl,
+		                type: "get",
+		                success: function (rs) {
+		                    cart($('.pro-info .name').attr('spec_id'),1);
+		                }
+		            })
+                }else{
+                	allFun.alertDiv(rs.msg);
+                    return false;
+                }
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
+            }
+        });
+    }
 </script>
 
 </html>

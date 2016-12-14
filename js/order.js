@@ -98,6 +98,7 @@
 						if(str.indexOf("orderList.html") > 0){//列表页
 							_t.parents(".box").find("h2 em").html("卖家已发货");
 							_t.parents(".box").find(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
+							_t.parents(".box").attr("data_invoice_no",invoice_no);
 							$(".dScanCode").remove();
 						}else{//详情页
 							location.reload();

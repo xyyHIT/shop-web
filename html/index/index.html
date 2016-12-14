@@ -140,6 +140,7 @@
                 $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
                 sessionStorage.removeItem("indexShopStorage");
+                swiper();
             } else {
                 sessionStorage.removeItem("indexShopStorage");
                 gooodsList();
@@ -184,12 +185,7 @@
                             str+='<div class="swiper-slide " nav_id='+navData[i].id+'>'+navData[i].cateName+'</div>'
                         }
                         $("#navList").html(str);
-                        var swiper = new Swiper('#nav', {
-                            slidesPerView: 5,
-                            paginationClickable: true,
-                            spaceBetween: 0,
-                            freeMode: true
-                        });
+
 						//banner轮播
 						var bannerData = rs.data.cycleImages;
 						var bannerList = "";
@@ -197,12 +193,7 @@
 							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].ad_link_url+'"><img src="'+bannerData[z].ad_image_url+'/platform"/></a></div>'
 						}
 						$("#banner").html(bannerList);
-						var swiper = new Swiper('#indexBanner', {
-							pagination: '.swiper-pagination',
-							autoplay: 3500,
-							autoplayDisableOnInteraction: false,
-							loop: true
-						});
+
 						//推荐产品和产品列表
 						var goodsData = rs.data.recommend;
 						var goodsList = '';recommend='';
@@ -261,12 +252,7 @@
 						}
 						$(".sale_all").html(goodsList);
 						$("#recommend").html(recommend);
-						//多图轮播
-						var swiper = new Swiper('.swp_views', {
-							slidesPerView: 3.5,
-							paginationClickable: true,
-							spaceBetween: 0
-						});
+                        swiper();
 					},
                     error: function() {
                         allFun.removeLoading();
@@ -274,6 +260,7 @@
                     }
 				});
 			}
+
             //点击导航其他选项的列表
 			function cate(nav_id) {
                 $.ajax({
@@ -347,5 +334,27 @@
             }
 
         });
+        function swiper() {
+            //导航
+            var swiper = new Swiper('#nav', {
+                slidesPerView: 5,
+                paginationClickable: true,
+                spaceBetween: 0,
+                freeMode: true
+            });
+            //banner
+            var swiper = new Swiper('#indexBanner', {
+                pagination: '.swiper-pagination',
+                autoplay: 3500,
+                autoplayDisableOnInteraction: false,
+                loop: true
+            });
+            //多图轮播
+            var swiper = new Swiper('.swp_views', {
+                slidesPerView: 3.5,
+                paginationClickable: true,
+                spaceBetween: 0
+            });
+        }
 	</script>
 </html>

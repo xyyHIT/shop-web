@@ -105,7 +105,7 @@
 					<div class="marDiv"></div>
 					<li class="borderB">
 						<label for="gPrice">商品价格</label>
-						<input type="tel" id="gPrice" placeholder="请输入商品价格" maxlength="20" />
+						<input type="text" id="gPrice" placeholder="请输入商品价格" maxlength="20" />
 					</li>
 					<li class="borderB">
 						<label for="gRepertory">商品库存</label>
@@ -113,7 +113,7 @@
 					</li>
 					<li class="borderB">
 						<label for="gTransportation">运费</label>
-						<input type="tel" id="gTransportation" placeholder="请输入运费" value="0" maxlength="20" />
+						<input type="text" id="gTransportation" placeholder="请输入运费" value="0" maxlength="20" />
 					</li>
 					<!--<li>
 						<label for="gWarning">库存预警</label>
@@ -210,6 +210,10 @@
 				}
 				if($("#gPrice").val() == ""){
 					allFun.alertDiv("请输入商品价格");
+					return false;
+				}
+				if($("#gPrice").val() == 0){
+					allFun.alertDiv("价格不能为0");
 					return false;
 				}
 				if($("#gRepertory").val() == ""){

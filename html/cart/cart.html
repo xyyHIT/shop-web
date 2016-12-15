@@ -235,39 +235,40 @@
 			})
 			//删除
 			$("body").on("click",".icon-shanchu71",function(){
-				var _t = $(this),
-					rec_id = _t.attr("data_rec_id");
-				
-				$.ajax({
-					url: host + '/index.php?app=cart&act=ejDrop',
-					type: "post",
-					dataType: "json",
-					data:{"rec_id":rec_id},
-					beforeSend:function(){
-						allFun.loading("正在删除中！");
-					},
-					success: function(rs) {
-						allFun.removeLoading();
-						if(rs.code == 0) {
-							if(_t.parents("ul").find("li").length <= 1){
-								_t.parents(".box").remove();
-							}else{
-								_t.parents("li").remove();
+				if(confirm("真的不要了吗？")){
+					var _t = $(this),
+						rec_id = _t.attr("data_rec_id");
+					$.ajax({
+						url: host + '/index.php?app=cart&act=ejDrop',
+						type: "post",
+						dataType: "json",
+						data:{"rec_id":rec_id},
+						beforeSend:function(){
+							allFun.loading("正在删除中！");
+						},
+						success: function(rs) {
+							allFun.removeLoading();
+							if(rs.code == 0) {
+								if(_t.parents("ul").find("li").length <= 1){
+									_t.parents(".box").remove();
+								}else{
+									_t.parents("li").remove();
+								}
+								//去掉全选按钮选中状态
+								if($(".list .box ul li .icon-radio").length == 0){
+									$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+								}
+								funMoneyAndNum();
+							} else {
+								allFun.alertDiv(rs.msg);
 							}
-							//去掉全选按钮选中状态
-							if($(".list .box ul li .icon-radio").length == 0){
-								$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
-							}
-							funMoneyAndNum();
-						} else {
-							allFun.alertDiv(rs.msg);
+						},
+						error: function() {
+							allFun.removeLoading();
+							allFun.alertDiv("error!")
 						}
-					},
-					error: function() {
-						allFun.removeLoading();
-						allFun.alertDiv("error!")
-					}
-				})
+					})
+				}
 			})
 			//点击单个商品的单选按钮
 			$("body").on("click",".list li .icon-radio",function(){
@@ -407,7 +408,7 @@
 		//购物车商品列表
 		function getGoodsList(){
 			$.ajax({
-				url: host + '/index.php?app=cart&act=ejIndex',
+				url: host + '/index.php?app=cart&act=ejIndex&t='+Date.now(),
 				type: "get",
 				dataType: "json",
 				beforeSend:function(){

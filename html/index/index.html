@@ -190,7 +190,7 @@
 						var bannerData = rs.data.cycleImages;
 						var bannerList = "";
 						for(var z = 0;z<bannerData.length;z++){
-							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].ad_link_url+'"><img src="'+bannerData[z].ad_image_url+'/platform"/></a></div>'
+							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].image_link+'"><img src="'+bannerData[z].image_url+'/platform"/></a></div>'
 						}
 						$("#banner").html(bannerList);
 

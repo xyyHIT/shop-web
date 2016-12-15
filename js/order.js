@@ -19,7 +19,7 @@
 						allFun.alertDiv("取消订单成功！");
 						var str = location.href.split('#')[0];
 						if(str.indexOf("orderList.html") > 0){//列表页
-							_t.parents(".box").find("h2 em").html("交易取消");
+							_t.parents(".box").find("h2 em").html("交易关闭");
 							_t.parents(".dOperate").remove();
 						}else{//详情页
 							location.reload();
@@ -57,8 +57,6 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						allFun.alertDiv("提醒发货成功！");
-						/*_t.parents(".box").find("h2 em").html("交易取消");
-						_t.parents(".dOperate").remove();*/
 					} else {
 						allFun.alertDiv(rs.msg);
 					}

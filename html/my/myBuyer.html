@@ -22,7 +22,8 @@
 			#woshishangjia{ border: none;}
 			.dBox > a i{ position: absolute; right: 1rem; font-size: 1.5rem; color: #878787;}
 			.dBox > div a{ float: left; display: block; width: 25%; padding: 1.8rem 0 1.5rem 0; font-size: 1.2rem; color: #878787; text-align: center;}
-			.dBox > div a i{ display: block; margin-bottom: .2rem; font-size: 2.2rem;}
+			.dBox > div a i{ position: relative; display: block; width: 2.5rem; height: 2.5rem; margin: 0 auto; margin-bottom: .2rem; font-size: 2.2rem;}
+			.dBox > div a i b{ position: absolute; top: -.2rem; right: -.2rem; width: 1.4rem; height: 1.4rem; line-height: 1.4rem; font-size: .9rem; color: #EC4747; text-align: center; background: #fff; border: 1px solid #EC4747; border-radius: 100%;}
 			.dBox svg.icon { width: 2.4rem; height: 2.4rem; margin-bottom: .2rem;}
 			.icon-daifukuan,.icon-daifahuo,.icon-chongzhi,.icon-xiaoxi{ color: #3C3C3C;}
 			.icon-wodeqianbao{ color: #ff8383;}
@@ -44,7 +45,7 @@
 			<div class="dBox">
 				<a href="/shop/html/order/orderList.html?linkType=all&type=0">我的订单<i class="iconfont icon-zhankai-copy"></i></a>
 				<div class="fix">
-					<a href="/shop/html/order/orderList.html?linkType=pending&type=0"><i class="iconfont icon-daifukuan"></i>待付款</a>
+					<a href="/shop/html/order/orderList.html?linkType=pending&type=0"><i class="iconfont icon-daifukuan"><!--<b>1</b>--></i>待付款</a>
 					<a href="/shop/html/order/orderList.html?linkType=accepted&type=0"><i class="iconfont icon-daifahuo"></i>待发货</a>
 					<a href="/shop/html/order/orderList.html?linkType=shipped&type=0"><i class="iconfont icon-chongzhi"></i>待收货</a>
 					<a href="/shop/html/order/orderList.html?linkType=finished&type=0"><i class="iconfont icon-xiaoxi"></i>已完成</a>
@@ -87,10 +88,10 @@
 				type: "get",
 				dataType: "json",
 				beforeSend: function(){
-					allFun.loading();
+					//allFun.loading();
 				},
 				success: function(rs) {
-					allFun.removeLoading();
+					//allFun.removeLoading();
 					if(rs.resCode==1){
 						var d = rs.data;
 						if(d.vip == 1){//加V用户
@@ -107,7 +108,7 @@
 					allFun.loading();
 				},
 				success: function(rs) {
-					allFun.removeLoading();
+					//allFun.removeLoading();
 					if(rs.resCode==1){
 						var d1 = rs.data;
 						$(".top h1 img").attr("src","/shop/imgs/level/buyer"+d1.buyerLevel.level+".png");
@@ -116,7 +117,7 @@
 							type: "get",
 							dataType: "json",
 							beforeSend: function(){
-								allFun.loading();
+								//allFun.loading();
 							},
 							success: function(rs) {
 								allFun.removeLoading();
@@ -175,10 +176,10 @@
 				type: "get",
 				dataType: "json",
 				beforeSend: function(){
-					allFun.loading();
+					//allFun.loading();
 				},
 				success: function(rs) {
-					allFun.removeLoading();
+					//allFun.removeLoading();
 					if(rs.code==0){
 						var d = rs.data,obj = "";
 						obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"

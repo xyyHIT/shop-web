@@ -228,7 +228,7 @@
 					allFun.alertDiv("请填写宝贝描述");
 					return false;
 				}
-				publishAndDraft(obj);
+				publishAndDraft(obj,0);
 				
 			})
 			//保存草稿
@@ -240,7 +240,7 @@
 					allFun.alertDiv("请输入商品标题");
 					return false;
 				}
-				publishAndDraft(obj);
+				publishAndDraft(obj,0);
 				
 			})
 			
@@ -295,6 +295,10 @@
 														});
 														$("#uploadImg").before(obj);
 														allFun.removeUploadImgPrompt();
+														//自动保存草稿
+														var obj = {};
+															obj.is_draft = 1;//1 保存草稿
+														publishAndDraft(obj,1);
 													} else {
 														allFun.alertDiv(rs.msg);
 													}
@@ -525,6 +529,10 @@
 															$(".haveData").append("<div class='dData'><div class='dDataB'>"+obj+"</div><a class='aEdit'>编辑</a></div>");
 														}
 														allFun.removeUploadImgPrompt();
+														//自动保存草稿
+														var obj = {};
+															obj.is_draft = 1;//1 保存草稿
+														publishAndDraft(obj,1);
 													} else {
 														allFun.alertDiv(rs.msg);
 													}
@@ -548,7 +556,7 @@
 		});
 		
 		//发布or保存草稿
-		function publishAndDraft(obj){
+		function publishAndDraft(obj,tt){//tt 0:手动保存   1:自动保存
 			var uurl = "";
 			if(id && id != "undefined"){//从草稿进来编辑信息
 				obj.id = id;//商品id
@@ -579,6 +587,12 @@
 			obj.shiprice = $("#gTransportation").val();//运费
 			//obj.shiprice = $("#gWarning").val();//库存预警
 			
+			if(tt == 1){//自动保存
+				if(obj.goods_name == ""){
+					obj.goods_name = "草稿";//商品标题
+				}
+			}
+			
 			//图文详情内容
 			var des = {records: []};
 			$(".divTwoInfo .haveData .dDataB").each(function(){
@@ -602,24 +616,30 @@
 				data: obj,
 				dataType: "json",
 				beforeSend:function(){
-					if(obj.is_draft == 0){//发布
-						allFun.loadingPost("正在发布中");
-					}else{
-						allFun.loadingPost("正在保存草稿");
+					if(tt == 0){//手动保存
+						if(obj.is_draft == 0){//发布
+							allFun.loadingPost("正在发布中");
+						}else{
+							allFun.loadingPost("正在保存草稿");
+						}
 					}
 			   	},
 				success: function(rs) {
 					allFun.removeLoading();
 					var d = rs.data;
 					if (rs.code == 0) {
-						if(obj.is_draft == 0){//发布
-							if(id && id != "undefined"){//从草稿进来编辑信息
-								location.href = "/shop/html/index/goodsDetails.html?goodsId="+id;
+						if(tt == 0){//手动保存
+							if(obj.is_draft == 0){//发布
+								if(id && id != "undefined"){//从草稿进来编辑信息
+									location.href = "/shop/html/index/goodsDetails.html?goodsId="+id;
+								}else{
+									location.href = "/shop/html/index/goodsDetails.html?goodsId="+d.goods_id;
+								}
 							}else{
-								location.href = "/shop/html/index/goodsDetails.html?goodsId="+d.goods_id;
+								location.href = "/shop/html/my/goodsManage.html?linkType=2";//草稿列表
 							}
 						}else{
-							location.href = "/shop/html/my/goodsManage.html?linkType=2";//草稿列表
+							id = d.goods_id;
 						}
 					} else {
 						allFun.alertDiv(rs.msg);

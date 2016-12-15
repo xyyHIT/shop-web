@@ -29,7 +29,8 @@
 
             .gather_node .swiper-container{padding-left: 10px; background: #fff;margin:0 0 10px;}
 			.swp_list .inner{padding: 10px 0px;}
-			.swp_list .inner img{width: 100%;margin-bottom: 4px;width:100%; height:100%;}
+			.swp_list .inner a{display: table-cell;width: 8rem;height: 8rem;text-align: center;vertical-align: middle;overflow: hidden;}
+			.swp_list .inner img{width: 100%;margin-bottom: 4px;max-width: 8rem; max-height: 8rem;}
 			.swp_list .inner h4{width: 100%;height: 40px;  line-height: 18px;  color: #333;  font-size: 12px;  margin-bottom: 2px;}
 			.swp_list .inner p{color: #ec4747;  font-family: Helvetica;  font-size: 1rem;}
 			.swp_list{background: #fff;}
@@ -98,6 +99,7 @@
 			<!--产品展示-->
 			<div class="swiper-container swp_views">
 				<div class="swiper-wrapper swp_list" id="recommend">
+
 				</div>
 			</div>
 
@@ -238,7 +240,7 @@
 								goodsList+='<div class="gather_node">'
 										+'<div class="gather_tit">'
 										+'<a href="javascript:;">'
-										+'<h3>'+goodsData[i].recom_name+'<b class="iconfont icon-zhankai-copy"></b></h3>'
+										+'<h3>'+goodsData[i].recom_name+'</h3>'
 										+'</a>'
 										+'</div>'
                                         +res2
@@ -292,7 +294,7 @@
 							}
                             cateList+='<div class="gather_node">'
                                 +'<div class="gather_tit">'
-                                +'<a href="javascript:;"> <h3>'+cate[z].cate_name+'<b class="iconfont icon-zhankai-copy"></b></h3></a>'
+                                +'<a href="javascript:;"> <h3>'+cate[z].cate_name+'</h3></a>'
                                 +'</div>'
 								+obj
 								+'<div class="swiper-container swp_views">'

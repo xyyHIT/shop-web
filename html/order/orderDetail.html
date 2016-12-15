@@ -155,7 +155,7 @@
 								+ "<i class='iconfont icon-zhankai-copy'></i><em>"+d.statusname+"</em></h2><ul>";
 						$.each(d.goods_list, function(i,v) {
 							obj += "<li><a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods_id+">"
-								+ "<img src="+v.goods_image+" /></a><strong class='over over2'>"+v.goods_name+"</strong>"
+								+ "<img src="+v.goods_image+"/square /></a><strong class='over over2'>"+v.goods_name+"</strong>"
 								+ "<p class='fix'><span>¥"+v.price+"</span><em>x"+v.quantity+"</em></p></li>"
 						})
 						obj += "</ul><div class='sundry fix'>快递费用<span>"+d.consignee.shipping_fee+"元</span></div><div class='dTotal'>合计：<span>¥"+d.order_amount+"</span></div>"

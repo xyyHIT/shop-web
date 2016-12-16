@@ -3,36 +3,38 @@
 		/**************** 待付款 *****************/
 		//买家取消订单
 		$("body").on("click",".quxiaodingdan",function(){
-			var _t = $(this),
-				order_id = _t.parents(".box").attr("data_order_id");
-			$.ajax({
-				url: host + '/index.php?app=buyer_order&act=cancel_order',
-				type: "post",
-				dataType: "json",
-				data:{"order_id":order_id},
-				beforeSend:function(){
-					allFun.loading("正在取消订单！");
-				},
-				success: function(rs) {
-					allFun.removeLoading();
-					if(rs.code == 0) {
-						allFun.alertDiv("取消订单成功！");
-						var str = location.href.split('#')[0];
-						if(str.indexOf("orderList.html") > 0){//列表页
-							_t.parents(".box").find("h2 em").html("交易关闭");
-							_t.parents(".dOperate").remove();
-						}else{//详情页
-							location.reload();
+			if(confirm("确定取消订单吗?")){
+				var _t = $(this),
+					order_id = _t.parents(".box").attr("data_order_id");
+				$.ajax({
+					url: host + '/index.php?app=buyer_order&act=cancel_order',
+					type: "post",
+					dataType: "json",
+					data:{"order_id":order_id},
+					beforeSend:function(){
+						allFun.loading("正在取消订单！");
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if(rs.code == 0) {
+							allFun.alertDiv("取消订单成功！");
+							var str = location.href.split('#')[0];
+							if(str.indexOf("orderList.html") > 0){//列表页
+								_t.parents(".box").find("h2 em").html("交易关闭");
+								_t.parents(".dOperate").remove();
+							}else{//详情页
+								location.reload();
+							}
+						} else {
+							allFun.alertDiv(rs.msg);
 						}
-					} else {
-						allFun.alertDiv(rs.msg);
+					},
+					error: function() {
+						allFun.removeLoading();
+						allFun.alertDiv("error!")
 					}
-				},
-				error: function() {
-					allFun.removeLoading();
-					allFun.alertDiv("error!")
-				}
-			})
+				})
+			}
 		})
 		//买家去付款
 		$("body").on("click",".qufukuan",function(){

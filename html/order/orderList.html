@@ -162,9 +162,9 @@
 								obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a>"
 									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
-									obj += "<li><a href=orderDetail.html?orderId="+v.order_goods[i].order_id+"&type="+type+">"
-										+ "<img src="+v.order_goods[i].goods_image+"/square /></a><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
-										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
+									obj += "<a href=/shop/html/order/orderDetail.html?orderId="+v.order_goods[i].order_id+"&type="+type+"><li>"
+										+ "<img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
+										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li></a>"
 								}
 								obj += "</ul><div class='dTotal'>合计：<span>¥"+v.order_amount+"</span></div>"+v.button+"</div>";
 							});

@@ -43,7 +43,7 @@
         	//分享
 			wx.ready(function(){
 				wx.showAllNonBaseMenuItem();
-			})
+			});
             //返回到当前位置
             if(sessionStorage.getItem("categoryShopStorage") && allFun.getRequest("history") == -1){
                 var Storage = JSON.parse(sessionStorage.getItem("categoryShopStorage"));
@@ -68,8 +68,7 @@
                            return false;
                        }
                        var categoryData = rs.data;
-                       console.log(categoryData);
-                       var cate = '';
+                       cate = '';
                        for (var i = 0; i < categoryData.length; i++) {
                            cate2 = '';
                            category = categoryData[i].children;

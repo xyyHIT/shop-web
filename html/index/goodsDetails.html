@@ -29,7 +29,7 @@
         .faxian { position: relative; margin:.5rem 0;height: 7rem; padding: 1.4rem 1rem; font-size: 1.3rem; color: #5F5F5F;  background: #fff;}
         .faxian dt img{  width: 4rem; height: 4rem; border-radius: 100%; margin-right:1.5rem;}
         .faxian h3{font-size: 1.3rem; color: #3c3c3c;    width: 12rem;}
-        .faxian h3 span img{display: inline-block; margin-top:.2rem; float: left; margin-right:.5rem; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
+        .faxian h3 span img{display: inline-block; margin-top:.1rem; float: left; margin-right:.5rem; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
         .faxian dd p{margin-top:.2rem;  }
         .faxian dd p span{font-size: 1.1rem; margin-right:1rem;color: #878787;}
         .faxian em{position: absolute; right:1rem; top:2.4rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;  border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}
@@ -142,10 +142,6 @@
 	var bannerList = [],
 		lotId = allFun.getRequest("goodsId");//商品id
     $(function () {
-    	//分享
-		wx.ready(function(){
-			wx.showAllNonBaseMenuItem();
-		});
         goodsList(lotId);
         function goodsList(lotId){
             $.ajax({
@@ -161,7 +157,9 @@
                         allFun.alertDiv(rs.msg);
                         return false;
                     }
-                    var goodsData=rs.data.goods,storeData=rs.data.store,bannerData=goodsData.images;
+                     var goodsData=rs.data.goods,storeData=rs.data.store,bannerData=goodsData.images;
+                    //分享
+                    allFun.share(goodsData.goods_name,'价格：'+goodsData.price,host+'/shop/html/index/goodsDetails.html?goodsId='+lotId+'',bannerData[0].image_url+'/lot');
                     //详情页banner
                     banner='';
                     for(var j=0; j<bannerData.length; j++){
@@ -216,7 +214,7 @@
 	                }
 	                //产品已下架禁止都买
                     goodsLose=goodsData.if_lose;
-                    if(goodsLose==0){
+                    if(goodsLose==1){
                         var t=$(".detailFooter a:last");
                         t.addClass("grey");
                         t.html("已下架");
@@ -239,19 +237,9 @@
                             }
                         }
                     });
-                    //用户信息(店铺)
-                    $.ajax({
-                        url: hostPm+'/yjpai/platform/user/salerInfo?userId='+rs.data.store.auction_id+'',
-                        type: "get",
-                        dataType: "json",
-                        success: function(rs) {
-                            if(rs.resCode==1){
-                                var userData = rs.data;
-                                //客服电话（卖家电话）
-                                $(".aKefu").attr("href","tel:"+userData.mobile+"");
-                            }
-                        }
-                    });
+                    //客服电话（卖家电话）
+                    $(".aKefu").attr("href","tel:"+storeData.tel+"");
+
                     //图文详情
                     $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
                     var desc=JSON.parse(goodsData.detail_desc).records;

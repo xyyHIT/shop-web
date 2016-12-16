@@ -279,18 +279,25 @@
                         }
                         var cate=rs.data,cateList='';
                         for(var z=0; z<cate.length;z++){
-                            var obj='',obj2='',catinfo=cate[z].goodslist;
-                            obj+='<div class="topic"><a href="javascript:;" goodsId="'+catinfo[0].goods_id+'"><img src="'+catinfo[0].default_image+'/platform" alt=""></a> </div>';
-                            for(var w=1; w<catinfo.length;w++){
-                                obj2+='<div class="swiper-slide">'
-                                +'<div class="inner">'
-                                +'<a href="javascript:;" goodsId="'+catinfo[w].goods_id+'">'
-                                +'<img src="'+catinfo[w].default_image+'/square"  alt="">'
-                                +'<h4 class="over over2">'+catinfo[w].goods_name+'</h4>'
-                                +'<p>¥<span>'+catinfo[w].price+'</span></p>'+'</a>'
-                                +' </div>'
-                                +' </div>'
-							}
+                            var obj = '', obj2 = '', catinfo = cate[z].goodslist;
+                            if(cate){
+                                if(cate.length>0 ) {
+                                    obj += '<div class="topic"><a href="javascript:;" goodsId="' + catinfo[0].goods_id + '"><img src="' + catinfo[0].default_image + '/platform" alt=""></a> </div>';
+                                }
+                                if(cate){
+                                    if(catinfo.length>0 ) {
+                                        for (var w = 1; w < catinfo.length; w++) {
+                                            obj2 += '<div class="swiper-slide">'
+                                                + '<div class="inner">'
+                                                + '<a href="javascript:;" goodsId="' + catinfo[w].goods_id + '">'
+                                                + '<img src="' + catinfo[w].default_image + '/square"  alt="">'
+                                                + '<h4 class="over over2">' + catinfo[w].goods_name + '</h4>'
+                                                + '<p>¥<span>' + catinfo[w].price + '</span></p>' + '</a>'
+                                                + ' </div>'
+                                                + ' </div>'
+                                        }
+                                    }
+                                }
                             cateList+='<div class="gather_node">'
                                 +'<div class="gather_tit">'
                                 +'<a href="javascript:;"> <h3>'+cate[z].cate_name+'</h3></a>'
@@ -302,7 +309,7 @@
                                 +' </div>'
                                 +' </div>'
                                 +' </div>'
-
+                            }
 						}
 						$(".sale_all").html(cateList);
                         //多图轮播

@@ -68,8 +68,10 @@
                            return false;
                        }
                        var categoryData = rs.data;
-                       var cate = '', cate2 = '';
+                       console.log(categoryData);
+                       var cate = '';
                        for (var i = 0; i < categoryData.length; i++) {
+                           cate2 = '';
                            category = categoryData[i].children;
                            for (j = 0; j < category.length; j++) {
                                cate2 +='<li><a href="javascript:;" cateId="'+ category[j].id+'"><span>' + category[j].value + '</span></a></li>'

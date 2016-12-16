@@ -79,7 +79,6 @@
 			</div>
 		</div>
 	</body>
-	<input type="hidden" id="showType" value="" />
 	
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -91,27 +90,39 @@
 			type = allFun.getRequest("type"),//0买家 1卖家
 			curr_page = 1,//当前页
 			finished = true;
-		$("#showType").val(linkType);
 		$(function () {
-			if(!$("#showType").val()){
-				$("#showType").val("all");
+			//缓存
+			if(sessionStorage.getItem("orderListShopStorage") && allFun.getRequest("history") == -1){
+				var orderListShopStorage = JSON.parse(sessionStorage.getItem("orderListShopStorage"));
+				linkType = orderListShopStorage.linkType;
+				curr_page = orderListShopStorage.curr_page;
+				getOrderList(linkType);
+				sessionStorage.removeItem("orderListShopStorage");
+			}else{
+				sessionStorage.removeItem("orderListShopStorage");
+				getOrderList(linkType);
+			}
+			
+			
+			if(!linkType){
+				linkType = "all";
 			}
 			if(!type){
 				type = 0;
 			}
 			$("nav a").each(function(){
-				if($(this).attr("data_type") == $("#showType").val()){
+				if($(this).attr("data_type") == linkType){
 					$(this).addClass("on").siblings().removeClass("on");
 				}
 			})
-			getOrderList($("#showType").val());
+			
 			//tab切换
 			$("nav a").click(function () {
 		        $(this).addClass("on").siblings().removeClass("on");
-		        $("#showType").val($(this).attr("data_type"));
+		        linkType = $(this).attr("data_type");
 		        $(".list").empty();
 		        curr_page = 1;
-		        getOrderList($("#showType").val());
+		        getOrderList(linkType);
 		    })
 			//点击查看更多
 			$(window).on('scroll', function () {
@@ -122,18 +133,29 @@
                 	finished = false;
                 	if($(".seemore").attr("data_d") != "no"){
                 		curr_page++;
-                		getOrderList($("#showType").val());
+                		getOrderList(linkType);
                 	}
                 }
             })
+			
+			//点击跳转到详情
+		    $("body").on("click",".box li",function(){
+		    	var _t = $(this),obj = {};
+				obj.linkType = linkType;
+				obj.curr_page = curr_page;
+				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+				
+		        location.href = "/shop/html/order/orderDetail.html?orderId="+_t.parents(".box").attr("data_order_id")+"&type="+type+"";
+			})
 			
 		})
 		function getOrderList(tp){//tp类别   （全部：all 待付款：pending 待发货：accepted 待收货：shipped 待评价：finished）
 			var uu = "";
 			if(type == 1) {//卖家
-				uu = "/index.php?app=seller_order&act=index";
+				uu = "/index.php?app=seller_order&act=index&t="+Date.now();
 			}else{//买家
-				uu = "/index.php?app=buyer_order&act=index";
+				uu = "/index.php?app=buyer_order&act=index&t="+Date.now();
 			}
 			$.ajax({
 				url: host + uu + "&type=" + tp + "&page=" + curr_page,
@@ -162,9 +184,8 @@
 								obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a>"
 									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
-									obj += "<a href=/shop/html/order/orderDetail.html?orderId="+v.order_goods[i].order_id+"&type="+type+"><li>"
-										+ "<img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
-										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li></a>"
+									obj += "<li><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
+										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
 								}
 								obj += "</ul><div class='dTotal'>合计：<span>¥"+v.order_amount+"</span></div>"+v.button+"</div>";
 							});

@@ -113,6 +113,16 @@
 							var d = rs.data;
 							//pordersn总订单号 totalamount支付金额
 							location.href = "/shop/html/cart/cashierDesk.html?orderId="+d.porderid+"&type=1";//订单id 合单标示
+						}else if(rs.code == 1005){//库存不足
+							allFun.alertDiv(rs.msg);
+							setTimeout(function(){
+								location.reload();
+							},1500);
+						}else if(rs.code == 1009){//您购物袋中有无效商品，请及时处理!
+							allFun.alertDiv(rs.msg);
+							setTimeout(function(){
+								location.reload();
+							},1500);
 						} else {
 							allFun.alertDiv(rs.msg);
 						}

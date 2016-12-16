@@ -38,7 +38,15 @@
 		})
 		//买家去付款
 		$("body").on("click",".qufukuan",function(){
-			var order_id = $(this).parents(".box").attr("data_order_id");
+			var _t = $(this),obj = {},order_id = _t.parents(".box").attr("data_order_id");
+			
+			var str = location.href.split('#')[0];
+			if(str.indexOf("orderList.html") > 0){//列表页
+				obj.linkType = linkType;
+				obj.curr_page = curr_page;
+				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+			}
 			location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id+"&type=0";
 		})
 		
@@ -204,8 +212,15 @@
 		/****************  *****************/
 		//买家、卖家 查看物流(待收货、已完成)
 		$("body").on("click",".chakanwuliu",function(){
-			var _t = $(this),
-				invoice_no = _t.parents(".box").attr("data_invoice_no");
+			var _t = $(this),obj = {},invoice_no = _t.parents(".box").attr("data_invoice_no");
+			
+			var str = location.href.split('#')[0];
+			if(str.indexOf("orderList.html") > 0){//列表页
+				obj.linkType = linkType;
+				obj.curr_page = curr_page;
+				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+			}
 			location.href = "/shop/html/my/logistics.html?invoice_no="+invoice_no;
 		})
 	})

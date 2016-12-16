@@ -194,7 +194,7 @@
 			//发布
 			$("body").on("click",".publish",function(){
 				var obj = {};
-					obj.is_draft = 0;//0 发布
+				obj.is_draft = 0;//0 发布
 				
 				if($(".imgList img").length <= 0){
 					allFun.alertDiv("请至少选择一张图片");
@@ -234,12 +234,12 @@
 			//保存草稿
 			$("body").on("click",".draft",function(){
 				var obj = {};
-					obj.is_draft = 1;//1 保存草稿
+				obj.is_draft = 1;//1 保存草稿
 				
-				if($("#gTitle").val() == ""){
+				/*if($("#gTitle").val() == ""){
 					allFun.alertDiv("请输入商品标题");
 					return false;
-				}
+				}*/
 				publishAndDraft(obj,0);
 				
 			})
@@ -297,7 +297,7 @@
 														allFun.removeUploadImgPrompt();
 														//自动保存草稿
 														var obj = {};
-															obj.is_draft = 1;//1 保存草稿
+														obj.is_draft = 1;//1 保存草稿
 														publishAndDraft(obj,1);
 													} else {
 														allFun.alertDiv(rs.msg);
@@ -531,7 +531,7 @@
 														allFun.removeUploadImgPrompt();
 														//自动保存草稿
 														var obj = {};
-															obj.is_draft = 1;//1 保存草稿
+														obj.is_draft = 1;//1 保存草稿
 														publishAndDraft(obj,1);
 													} else {
 														allFun.alertDiv(rs.msg);
@@ -558,7 +558,7 @@
 		//发布or保存草稿
 		function publishAndDraft(obj,tt){//tt 0:手动保存   1:自动保存
 			var uurl = "";
-			if(id && id != "undefined"){//从草稿进来编辑信息
+			if(id && id != "undefined"){//编辑商品
 				obj.id = id;//商品id
 				uurl = "/index.php?app=my_goods&act=ejEdit";
 			}else{
@@ -587,11 +587,11 @@
 			obj.shiprice = $("#gTransportation").val();//运费
 			//obj.shiprice = $("#gWarning").val();//库存预警
 			
-			if(tt == 1){//自动保存
+			//if(tt == 1){//自动保存
 				if(obj.goods_name == ""){
 					obj.goods_name = "草稿";//商品标题
 				}
-			}
+			//}
 			
 			//图文详情内容
 			var des = {records: []};
@@ -630,7 +630,7 @@
 					if (rs.code == 0) {
 						if(tt == 0){//手动保存
 							if(obj.is_draft == 0){//发布
-								if(id && id != "undefined"){//从草稿进来编辑信息
+								if(id && id != "undefined"){//编辑商品
 									location.href = "/shop/html/index/goodsDetails.html?goodsId="+id;
 								}else{
 									location.href = "/shop/html/index/goodsDetails.html?goodsId="+d.goods_id;
@@ -639,7 +639,7 @@
 								location.href = "/shop/html/my/goodsManage.html?linkType=2";//草稿列表
 							}
 						}else{
-							id = d.goods_id;
+							id = d.goods_id || id;
 						}
 					} else {
 						allFun.alertDiv(rs.msg);

@@ -19,6 +19,7 @@
 			.box{ margin-bottom: .5rem;}
 			i.icon-queren1{ font-size: 1.8rem; color: #EC4747;}
 			i.icon-querenoff1{ font-size: 1.7rem; color: #aaa;}
+			i.disabled{ color: #EFEFEF;}
 			.box h2{ height: 4rem; line-height: 4rem; background: #FAF9FB;}
 			.box h2 i{ display: inline-block; vertical-align: top;}
 			.box h2 i.icon-queren1,.box h2 i.icon-querenoff1{ margin-left: .3rem; width: 3.2rem; text-align: center;}
@@ -39,6 +40,7 @@
 			.box ul li .liInput i.jianshao{ left: -2rem;}
 			.box ul li .liInput i.zengjia{ right: -2rem;}
 			.box ul li .liInput i.on{ color: #aaa; background: #EFEFEF;}
+			.loseEfficacy{ position: absolute; bottom: 2rem; width: 2.6rem; height: 1.6rem; line-height: 1.6rem; color: #fff; background: #d8d8d8; text-align: center; border-radius: 3px;}
 			.box ul li i.icon-shanchu71{ position: absolute; right: 1rem; bottom: 1.8rem; width: 2.5rem; height: 2.5rem; line-height: 2.5rem; font-size: 1.5rem; color: #5F5F5F; text-align: center;}
 			
 			.operate{ position: fixed; left: 0; bottom: 4.8rem; width: 100%; height: 4.8rem; padding: 0 11rem 0 4rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; line-height: 4.8rem; background: #fff;}
@@ -58,6 +60,7 @@
 			.editDIv a{ display: inline-block; width: 50%; height: 4rem; line-height: 4rem; font-size: 1.3rem; color: #fff; letter-spacing: 2px; text-align: center; background: #EC4747;}
 			.editDIv a.editInput_cancel{ color: #878787; border-top: 1px solid #EFEFEF; background: #fff;}
 			.editDIv a.editInput_confirm{ border-top: 1px solid #EC4747;}
+			
 		</style>
 	</head>
 	<body>
@@ -276,7 +279,11 @@
 				if(_t.hasClass("icon-queren1")){
 					_t.removeClass("icon-queren1").addClass("icon-querenoff1");
 				}else{
-					_t.removeClass("icon-querenoff1").addClass("icon-queren1");
+					if(_t.hasClass("disabled")){
+						return false;
+					}else{
+						_t.removeClass("icon-querenoff1").addClass("icon-queren1");
+					}
 				}
 				funMoneyAndNum();
 			})
@@ -286,7 +293,15 @@
 				if(_t.hasClass("icon-queren1")){
 					_t.parents(".box").find(".icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}else{
-					_t.parents(".box").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					//_t.parents(".box").find(".icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					_t.parents(".box").find("ul").find(".icon-radio").each(function(){
+						if($(this).hasClass("disabled")){
+							//return false;
+						}else{
+							$(this).removeClass("icon-querenoff1").addClass("icon-queren1");
+						}
+					})
 				}
 				funMoneyAndNum();
 			})
@@ -296,7 +311,15 @@
 				if(_t.hasClass("icon-queren1")){
 					$(".list .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}else{
-					$(".list .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					//$(".list .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					$(".list .operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
+					$(".list .box .icon-radio").each(function(){
+						if($(this).hasClass("disabled")){
+							//return false;
+						}else{
+							$(this).removeClass("icon-querenoff1").addClass("icon-queren1");
+						}
+					})
 				}
 				funMoneyAndNum();
 			})
@@ -324,11 +347,16 @@
 						allFun.removeLoading();
 						if(rs.code == 0) {
 							location.href = "/shop/html/cart/confirmOrder.html?recid="+recid;
-						}else if(rs.code == 1005){
+						}else if(rs.code == 1005){//库存不足
 							allFun.alertDiv(rs.msg);
 							setTimeout(function(){
 								location.reload();
-							},1500)
+							},1500);
+						}else if(rs.code == 1009){//您购物袋中有无效商品，请及时处理!
+							allFun.alertDiv(rs.msg);
+							setTimeout(function(){
+								location.reload();
+							},1500);
 						} else {
 							allFun.alertDiv(rs.msg);
 						}
@@ -349,26 +377,26 @@
 			$(".list li .icon-radio").each(function(){
 				var _t = $(this);
 				
-				var len1 = _t.parents("ul").find(".icon-radio").length,
+				var len1 = _t.parents("ul").find(".icon-radio").length - _t.parents("ul").find(".disabled").length,
 					len2 = _t.parents("ul").find(".icon-queren1").length;
-				if(len1 == len2){
+				if(len1 == len2 && len1 != 0){
 					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 				}else{
 					_t.parents(".box").find("h2 .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}
 				
-				var len3 = _t.parents(".list").find(".box .icon-radio").length,
-					len4 = _t.parents(".list").find(".box .icon-queren1").length;
-				if(len3 == len4){
+				var len3 = _t.parents(".list").find("ul .icon-radio").length - _t.parents(".list").find("ul .disabled").length,
+					len4 = _t.parents(".list").find("ul .icon-queren1").length;
+				if(len3 == len4 && len3 != 0){
 					$(".operate .icon-radio").removeClass("icon-querenoff1").addClass("icon-queren1");
 				}else{
 					$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
 				}
 				if(_t.hasClass("icon-queren1")){
-					numAll += parseInt(_t.parents("li").find("input").val());
-					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseInt(_t.parents("li").find("input").val());
+					numAll += parseInt(_t.parents("li").find("input").val() || 0);
+					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseInt(_t.parents("li").find("input").val() || 0);
 				}
-				cartNum += parseInt(_t.parents("li").find("input").val());
+				cartNum += parseInt(_t.parents("li").find("input").val() || 0);
 			})
 			$("#summation").text(moneyAll);//合计
 			$("#settleAccounts").text(numAll);//结算件数
@@ -426,17 +454,27 @@
 								obj += "<div class='box'><h2><i class='iconfont icon-querenoff1 icon-radio'></i>"
 									+ "<a href=/shop/html/my/sellerStore.html?storeId="+v.store_id+">"+v.store_name+"</a><i class='iconfont icon-zhankai-copy'></i></h2><ul>";
 								for(var i = 0; i < v.goods.length; i++){
-									obj += "<li data_spec_id="+v.goods[i].spec_id+" data_stock="+v.goods[i].stock+"><i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>"
-										+ "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+"><img src="+v.goods[i].goods_image+"/square /></a>"
-										+ "<strong class='over'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
-										+ "<span>¥"+v.goods[i].price+"</span></p><div class='liInput addSubtract'>";
-									if(v.goods[i].quantity == 1){
-										obj += "<i class='jianshao on'>－</i>";
+									obj += "<li data_spec_id="+v.goods[i].spec_id+" data_stock="+v.goods[i].stock+">";
+									if(v.goods[i].closed == 0){//0 -> 商品正常  1 -> 商品被删除或禁售
+										obj += "<i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>";
 									}else{
-										obj += "<i class='jianshao'>－</i>";
+										obj += "<i class='iconfont icon-querenoff1 icon-radio disabled' data_rec_id="+v.goods[i].rec_id+"></i>";
 									}
-									obj += "<input type='tel' value="+v.goods[i].quantity+" maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i>"
-										+ "</div><i class='iconfont icon-shanchu71' data_rec_id="+v.goods[i].rec_id+"></i></li>";
+									obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+"><img src="+v.goods[i].goods_image+"/square /></a>"
+										+ "<strong class='over'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
+										+ "<span>¥"+v.goods[i].price+"</span></p>";
+									if(v.goods[i].closed == 0){
+										obj += "<div class='liInput addSubtract'>";
+										if(v.goods[i].quantity == 1){
+											obj += "<i class='jianshao on'>－</i>";
+										}else{
+											obj += "<i class='jianshao'>－</i>";
+										}
+										obj += "<input type='tel' value="+v.goods[i].quantity+" maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i></div>";
+									}else{
+										obj += "<div class='loseEfficacy'>失效</div>";
+									}
+									obj += "<i class='iconfont icon-shanchu71' data_rec_id="+v.goods[i].rec_id+"></i></li>";
 								}
 								obj += "</ul></div>";
 							});

@@ -13,7 +13,7 @@
 		<style>
 			.tNav{ height: auto;}
 			.banner a{ display: table-cell; width: 32rem; height: 15rem; vertical-align: middle; text-align: center; overflow: hidden;}
-			.banner img{ width: auto; max-width: 100%; max-height: 15rem;}
+			.banner img{ width: auto; max-width: 100%; height: 100%;}
 			.ons{color:#ec4747;}
 			.topic a{ display: table-cell; width: 32rem; height: 15rem; vertical-align: middle; text-align: center;}
 			.topic img{max-width: 100%; max-height: 15rem;}
@@ -27,7 +27,7 @@
 		    .vertical-view dl dd{padding:1rem 0;}
 
             .gather_node .swiper-container{padding-left: 10px;   width: 100%;background: #fff;margin:0 0 10px;}
-			.swp_views{padding-left:10px; background: #fff; margin:.5rem 0;}
+			.swp_views{padding-left:10px; background: #fff; margin:1rem 0;}
 			.swp_list .inner{padding: 10px 0px;}
 			.swp_list .inner a{display: table-cell;width: 8rem;height: 8rem;vertical-align: middle;overflow: hidden;}
 			.swp_list .inner img{width: 100%;margin-bottom: 4px;max-width: 8rem; max-height: 8rem;}
@@ -69,7 +69,7 @@
 
 		<div class="warp">
 			<!--轮播banner-->
-			<div class="swiper-container banner" id="indexBanner">
+			<div class="swiper-container banner indexBanner">
 				<div class="swiper-wrapper" id="banner">
 				</div>
 				<div class="swiper-pagination"></div>
@@ -313,12 +313,7 @@
                             }
 						}
 						$(".sale_all").html(cateList);
-                        //多图轮播
-                        var swiper = new Swiper('.swp_views', {
-                            slidesPerView: 3.5,
-                            paginationClickable: true,
-                            spaceBetween: 0
-                        });
+                        swiper();
                     },
                     error: function() {
                         allFun.removeLoading();
@@ -352,7 +347,7 @@
                 freeMode: true
             });
             //banner
-            var swiper = new Swiper('#indexBanner', {
+            var swiper = new Swiper('.indexBanner', {
                 pagination: '.swiper-pagination',
                 autoplay: 3500,
                 autoplayDisableOnInteraction: false,

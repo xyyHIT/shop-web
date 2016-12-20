@@ -260,6 +260,7 @@
 								//去掉全选按钮选中状态
 								if($(".list .box ul li .icon-radio").length == 0){
 									$(".operate .icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+									$(".footer .cartNum").find("em").remove();
 									$(".list").html("<div class='noData'><i class='iconfont icon-gouwudai_kong'></i><br /><span>购物袋是空的</span><br /><em>去首页逛逛吧</em><br /><a href='/shop/html/index/index.html'>去首页</a></div>");
 								}
 								funMoneyAndNum();

@@ -45,9 +45,9 @@
 			<div class="dBox">
 				<a href="/shop/html/order/orderList.html?linkType=all&type=0">我的订单<i class="iconfont icon-zhankai-copy"></i></a>
 				<div class="fix">
-					<a href="/shop/html/order/orderList.html?linkType=pending&type=0"><i class="iconfont icon-daifukuan"><b>24</b></i>待付款</a>
-					<a href="/shop/html/order/orderList.html?linkType=accepted&type=0"><i class="iconfont icon-daifahuo"><b>24</b></i>待发货</a>
-					<a href="/shop/html/order/orderList.html?linkType=shipped&type=0"><i class="iconfont icon-chongzhi"><b>24</b></i>待收货</a>
+					<a href="/shop/html/order/orderList.html?linkType=pending&type=0"><i class="iconfont icon-daifukuan"></i>待付款</a>
+					<a href="/shop/html/order/orderList.html?linkType=accepted&type=0"><i class="iconfont icon-daifahuo"></i>待发货</a>
+					<a href="/shop/html/order/orderList.html?linkType=shipped&type=0"><i class="iconfont icon-chongzhi"></i>待收货</a>
 					<a href="/shop/html/order/orderList.html?linkType=finished&type=0"><i class="iconfont icon-xiaoxi"></i>已完成</a>
 				</div>
 			</div>
@@ -128,9 +128,16 @@
 										+ "<p>关注"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
 									$(".top").html(obj);
 									
-									/*$(".head").attr("src",d.portrait);
-									$(".top h1 strong").html(d.user_name);
-									$("#sellerCount").html(d.followers);*/
+									if(d.order_sta.order_pending > 0){
+										$(".icon-daifukuan").append("<b>"+d.order_sta.order_pending+"</b>");
+									}
+									if(d.order_sta.order_accepted > 0){
+										$(".icon-daifahuo").append("<b>"+d.order_sta.order_accepted+"</b>");
+									}
+									if(d.order_sta.order_shipped > 0){
+										$(".icon-chongzhi").append("<b>"+d.order_sta.order_shipped+"</b>");
+									}
+									
 								}
 							}
 						})

@@ -111,7 +111,6 @@
 					//allFun.removeLoading();
 					if(rs.resCode==1){
 						var d1 = rs.data;
-						$(".top h1 img").attr("src","/shop/imgs/level/buyer"+d1.buyerLevel.level+".png");
 						$.ajax({
 							url: host+"/index.php?app=member&act=ejIndex",
 							type: "get",

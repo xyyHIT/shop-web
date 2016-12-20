@@ -510,11 +510,10 @@
 											upload();
 										} else {
 											$.ajax({
-												url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&instance=goods_image&belong=2',
+												url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&belong=2',
 												type: "post",
 												data: {
-													'mediaID': images.serverId.join(","),
-													"id":id || ""
+													'mediaID': images.serverId.join(",")
 												},
 												dataType: "json",
 												success: function(rs) {

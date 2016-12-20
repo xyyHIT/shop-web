@@ -95,7 +95,6 @@
 			if(sessionStorage.getItem("orderListShopStorage") && allFun.getRequest("history") == -1){
 				var orderListShopStorage = JSON.parse(sessionStorage.getItem("orderListShopStorage"));
 				linkType = orderListShopStorage.linkType;
-				curr_page = orderListShopStorage.curr_page;
 				getOrderList(linkType);
 				sessionStorage.removeItem("orderListShopStorage");
 			}else{
@@ -142,7 +141,6 @@
 		    $("body").on("click",".box li",function(){
 		    	var _t = $(this),obj = {};
 				obj.linkType = linkType;
-				obj.curr_page = curr_page;
 				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 				

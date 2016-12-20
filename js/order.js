@@ -19,11 +19,11 @@
 						if(rs.code == 0) {
 							allFun.alertDiv("取消订单成功！");
 							var str = location.href.split('#')[0];
-							if(str.indexOf("orderList.html") > 0){//列表页
+							if(str.indexOf("orderList") > 0){//列表页
 								_t.parents(".box").find("h2 em").html("交易关闭");
 								_t.parents(".dOperate").remove();
 							}else{//详情页
-								location.reload();
+								location.replace(location.href+"&t="+Date.now());
 							}
 						} else {
 							allFun.alertDiv(rs.msg);
@@ -41,9 +41,8 @@
 			var _t = $(this),obj = {},order_id = _t.parents(".box").attr("data_order_id");
 			
 			var str = location.href.split('#')[0];
-			if(str.indexOf("orderList.html") > 0){//列表页
+			if(str.indexOf("orderList") > 0){//列表页
 				obj.linkType = linkType;
-				obj.curr_page = curr_page;
 				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
@@ -103,13 +102,13 @@
 					if(rs.code == 0) {
 						allFun.alertDiv("发货成功！");
 						var str = location.href.split('#')[0];
-						if(str.indexOf("orderList.html") > 0){//列表页
+						if(str.indexOf("orderList") > 0){//列表页
 							_t.parents(".box").find("h2 em").html("卖家已发货");
 							_t.parents(".box").find(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
 							_t.parents(".box").attr("data_invoice_no",invoice_no);
 							$(".dScanCode").remove();
 						}else{//详情页
-							location.reload();
+							location.replace(location.href+"&t="+Date.now())
 						}
 					} else {
 						allFun.alertDiv(rs.msg);
@@ -157,13 +156,13 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
-						allFun.alertDiv("确认收货成功！")
+						allFun.alertDiv("确认收货成功！");
 						var str = location.href.split('#')[0];
-						if(str.indexOf("orderList.html") > 0){//列表页
+						if(str.indexOf("orderList") > 0){//列表页
 							_t.parents(".box").find("h2 em").html("交易完成");
 							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
 						}else{//详情页
-							location.reload();
+							location.replace(location.href+"&t="+Date.now());
 						}
 					} else {
 						allFun.alertDiv(rs.msg);
@@ -192,11 +191,11 @@
 					if(rs.code == 0) {
 						allFun.alertDiv("延长收货成功！")
 						var str = location.href.split('#')[0];
-						if(str.indexOf("orderList.html") > 0){//列表页
+						if(str.indexOf("orderList") > 0){//列表页
 							/*_t.parents(".box").find("h2 em").html("交易完成");
 							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");*/
 						}else{//详情页
-							location.reload();
+							location.replace(location.href+"&t="+Date.now());;
 						}
 					} else {
 						allFun.alertDiv(rs.msg);
@@ -215,9 +214,8 @@
 			var _t = $(this),obj = {},invoice_no = _t.parents(".box").attr("data_invoice_no");
 			
 			var str = location.href.split('#')[0];
-			if(str.indexOf("orderList.html") > 0){//列表页
+			if(str.indexOf("orderList") > 0){//列表页
 				obj.linkType = linkType;
-				obj.curr_page = curr_page;
 				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}

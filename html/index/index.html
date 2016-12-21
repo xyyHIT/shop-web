@@ -104,7 +104,7 @@
 			</div>
 
 			<div class="sale_all">
-				<!--<div class="gather_tit"><a href="javascript:;"><h3>每日好货</h3></a></div>-->
+
 			</div>
 
 		</div>
@@ -238,11 +238,6 @@
                                     }
 								}
 								goodsList+='<div class="gather_node">'
-										+'<div class="gather_tit">'
-										+'<a href="javascript:;">'
-										+'<h3>'+goodsData[i].recom_name+'</h3>'
-										+'</a>'
-										+'</div>'
                                         +res2
 										+'<div class="swiper-container swp_views">'
 										+'<div class="swiper-wrapper swp_list">'
@@ -252,7 +247,7 @@
 										+'</div>';
 							}
 						}
-						$(".sale_all").append(goodsList);
+						$(".sale_all").html('<div class="gather_tit"><a href="javascript:;"><h3>每日好货</h3></a></div>'+goodsList);
 						$("#recommend").html(recommend);
                         swiper();
 					},
@@ -301,7 +296,7 @@
                                 }
                             cateList+='<div class="gather_node">'
                                 +'<div class="gather_tit">'
-                                +'<a href="javascript:;"> <h3>'+cate[z].cate_name+'</h3></a>'
+                                +'<a href="javascript:;"> <h3><b class="iconfont icon-zhankai-copy"></b>'+cate[z].cate_name+'</h3></a>'
                                 +'</div>'
 								+obj
 								+'<div class="swiper-container swp_views">'

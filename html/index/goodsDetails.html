@@ -159,7 +159,7 @@
                     }
                      var goodsData=rs.data.goods,storeData=rs.data.store,bannerData=goodsData.images;
                     //分享
-                    allFun.share(goodsData.goods_name,'价格：'+goodsData.price,host+'/shop/html/index/goodsDetails.html?goodsId='+lotId+'',bannerData[0].image_url+'/lot');
+                    allFun.share(goodsData.goods_name,'售价：￥'+goodsData.price+"\n您的朋友推荐给您的必然是好货，快去看看吧！",host+'/shop/html/index/goodsDetails.html?goodsId='+lotId+'',bannerData[0].image_url+'/lot');
                     //详情页banner
                     banner='';
                     for(var j=0; j<bannerData.length; j++){

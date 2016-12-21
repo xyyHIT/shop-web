@@ -119,9 +119,7 @@
 	<script>
 		$(function () {
 			//分享
-			wx.ready(function(){
-				wx.showAllNonBaseMenuItem();
-			});
+			allFun.share("艺加商城-Add art to life","艺加商城，完美结合了艺术、人文、生活，让您感受到独特的生活美学，让您更懂生活。",host+"/shop/html/index/index.html",host+"/shop/imgs/icon/yj_logo.png");
 			$(".footer a").eq(0).addClass("on");
             //点击跳到艺加拍卖
             $("body").on("click","#yijiapaimai",function(){

@@ -248,26 +248,28 @@
 		})
         //下架
         $("body").on("click",".handle li.Unshelve",function(){
-        	var _t = $(this),
-        		id = _t.parents(".handle").attr("data_id");
-        	$.ajax({
-				url: host+'/index.php?app=my_goods&act=ajax_col&column=if_show',
-				type: "post",
-				data:{"id":id,"value":0},//0 -> 下架 1 -> 上架  2 -> 草稿
-				dataType: "json",
-				beforeSend:function(){
-					allFun.loading("正在下架中");
-				},
-				success: function(rs) {
-					allFun.removeLoading();
-					if (rs.code == 0) {
-						allFun.alertDiv("已成功下架！");
-						_t.parents(".goodsList").remove();
-					}else{
-						allFun.alertDiv(rs.msg);
+        	if(confirm("确定下架吗？")){
+        		var _t = $(this),
+	        		id = _t.parents(".handle").attr("data_id");
+	        	$.ajax({
+					url: host+'/index.php?app=my_goods&act=ajax_col&column=if_show',
+					type: "post",
+					data:{"id":id,"value":0},//0 -> 下架 1 -> 上架  2 -> 草稿
+					dataType: "json",
+					beforeSend:function(){
+						allFun.loading("正在下架中");
+					},
+					success: function(rs) {
+						allFun.removeLoading();
+						if (rs.code == 0) {
+							allFun.alertDiv("已成功下架！");
+							_t.parents(".goodsList").remove();
+						}else{
+							allFun.alertDiv(rs.msg);
+						}
 					}
-				}
-			})
+				})
+        	}
 		})
         //上架
         $("body").on("click",".handle li.shelve",function(){

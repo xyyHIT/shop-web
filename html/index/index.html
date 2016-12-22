@@ -118,7 +118,7 @@
 			</div>
 
 			<!--产品展示-->
-
+			<div class="gather_tit"><a href="javascript:;"><h3>每日好货</h3></a></div>
 			<div class="sale_all">
 
 			</div>
@@ -155,10 +155,10 @@
             //返回到当前位置
             if (sessionStorage.getItem("indexShopStorage") && allFun.getRequest("history") == -1) {
                 var Storage = JSON.parse(sessionStorage.getItem("indexShopStorage"));
+                curr_page = Storage.curr_page;
                 $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
                 sessionStorage.removeItem("indexShopStorage");
-                swiper();
             } else {
                 sessionStorage.removeItem("indexShopStorage");
                 gooodsList();
@@ -175,6 +175,7 @@
                     $(".vertical-view").show();
                     $(".indexBanner").show();
                     $(".indexBanner2").hide();
+					$(".gather_tit").show();
                     gooodsList();
                     curr_page = 1;
                     gooods();
@@ -182,6 +183,7 @@
                     $(".vertical-view").hide();
                     $(".indexBanner").hide();
                     $(".indexBanner2").show();
+                    $(".gather_tit").hide();
                     cate(nav_id);
                 }
             });
@@ -310,7 +312,7 @@
 							} else {//没有更多数据
                                 goodsList += "<div class='seemore' data_d='no'>没有更多数据</div>";
 							}
-                        $(".sale_all").html('<div class="gather_tit"><a href="javascript:;"><h3>每日好货</h3></a></div>' + goodsList);
+                        $(".sale_all").append( goodsList);
                         var swiper = new Swiper('.swp_views', {
                             slidesPerView: 3.5,
                             paginationClickable: true,
@@ -418,6 +420,7 @@
             });
             function delFn(t,url){
                 var obj = {};
+                obj.curr_page = curr_page;
                 obj.cont = $(".container").html();
                 obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
                 sessionStorage.setItem("indexShopStorage", JSON.stringify(obj));
@@ -427,28 +430,6 @@
             }
 
         });
-       /* function swiper() {
-            //导航
-            var swiper = new Swiper('#nav', {
-                slidesPerView: 5.5,
-                paginationClickable: true,
-                spaceBetween: 0,
-                freeMode: true
-            });
-            //banner
-            var swiper = new Swiper('.indexBanner', {
-                pagination: '.swiper-pagination',
-                autoplay: 3500,
-                autoplayDisableOnInteraction : false,
-                loop: true
-            });
 
-            //多图轮播
-            var swiper = new Swiper('.swp_views', {
-                slidesPerView: 3.5,
-                paginationClickable: true,
-                spaceBetween: 0
-            });
-        }*/
 	</script>
 </html>

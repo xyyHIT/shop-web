@@ -333,9 +333,8 @@
 								+ "<p class='price title'>¥"+d[i].price+"</p><p class='num'>"
 								+ "<span class='repertory'>库存"+d[i].stock+"</span></p></dd></dl></a></div>";
 							if(if_show == 1){//出售中
-								obj+= "<div class='handle' data_id="+d[i].goods_id+"><ul>"
+								obj+= "<div class='handle handles' data_id="+d[i].goods_id+"><ul>"
 									+ "<li class='del'><div class='iconfont icon-shanchu71'></div><div class='sketch'>删除</div></li>"
-									+ "<li class='redact'><div class='iconfont icon-bianji'></div><div class='sketch'>编辑</div></li>"
 									+ "<li class='Unshelve'><div class='iconfont icon-xiajia'></div><div class='sketch'>下架</div></li></ul></div>"
 							}
 							if(if_show == 0){//已下架

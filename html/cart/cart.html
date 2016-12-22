@@ -223,7 +223,7 @@
 			//减
 			$("body").on("click",".addSubtract .jianshao",function(){
 				var _t = $(this),
-					spec_id = _t.parents("li").attr("data_spec_id");
+					spec_id = _t.parents("li").attr("data_spec_id"),
 					num = parseInt(_t.parents(".addSubtract").find("input").val())-1;
 				if(num > 0){
 					updateGoodsNum(spec_id,num,_t,function(){
@@ -400,7 +400,7 @@
 				}
 				cartNum += parseInt(_t.parents("li").find("input").val() || 0);
 			})
-			$("#summation").text(moneyAll);//合计
+			$("#summation").text(parseFloat(moneyAll.toFixed(10)));//合计
 			$("#settleAccounts").text(numAll);//结算件数
 			$(".footer .cartNum em").text(cartNum);//购物车数量
 			//return numAll;

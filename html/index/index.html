@@ -48,8 +48,8 @@
 			.categorys .swiper-slide .inner img{  width: 100%;  margin-bottom: 4px;  max-width: 9.2rem;  max-height: 9.2rem;  }
 
 			.pre-info{ padding:0.5rem ; background: #fff;   overflow: hidden;}
-			.pre-list {list-style: none;  padding: 0 .5rem;  margin-bottom: -10px;overflow: hidden; clear: both;  }
-			.pre-list-2 li {width: 50%;padding: 0 .5rem; float: left; overflow: hidden; margin-bottom: 1rem;  }
+			.pre-list {list-style: none;  padding: 0 .5rem; overflow: hidden; clear: both;  }
+			.pre-list-2 li {width: 50%;padding: 0 .5rem; float: left; overflow: hidden; margin: .5rem 0;  }
 			.pre-item { overflow:hidden; position: relative; background: #fff; }
 			.pre-item a {display: table-cell;width: 14.8rem;  height: 14.8rem;text-align: center;vertical-align: middle;overflow: hidden;  }
 			.pre-img {width: 100%;background: #fff;}
@@ -84,11 +84,7 @@
 		<div class="warp">
 			<!--轮播banner-->
 			<div class="publicBanner">
-				<div class="swiper-container banner indexBanner">
-					<div class="swiper-wrapper c_banner">
-					</div>
-					<div class="swiper-pagination tion"></div>
-				</div>
+
 			</div>
 
 			<div class="vertical-view">
@@ -153,7 +149,6 @@
                 $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
                 sessionStorage.removeItem("indexShopStorage");
-                swiper();
             } else {
                 sessionStorage.removeItem("indexShopStorage");
                 gooodsList();
@@ -427,34 +422,5 @@
             }
 
        });
-        function swiper() {
-            //导航
-            var swiper = new Swiper('#nav', {
-                slidesPerView: 5.5,
-                paginationClickable: true,
-                spaceBetween: 0,
-                freeMode: true
-            });
-            //banner
-            var swiper = new Swiper('.indexBanner', {
-                pagination: '.tion',
-                autoplay: 3500,
-                autoplayDisableOnInteraction : false,
-                loop: true
-            });
-            var swiper = new Swiper('.indexBanner2', {
-                pagination: '.tion2',
-                autoplay: 3500,
-                autoplayDisableOnInteraction : false,
-                loop: true
-            });
-
-            //多图轮播
-            var swiper = new Swiper('.swp_views', {
-                slidesPerView: 3.5,
-                paginationClickable: true,
-                spaceBetween: 0
-            });
-        }
 	</script>
 </html>

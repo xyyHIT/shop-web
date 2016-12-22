@@ -85,10 +85,6 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
-    	//分享
-		wx.ready(function(){
-			wx.showAllNonBaseMenuItem();
-		});
         var store_id = allFun.getRequest("storeId"),//店铺id
         	finished = true,
         	order=0,
@@ -106,6 +102,8 @@
                         return false;
                     }
                     var d = rs.data,obj = '';
+                    //分享
+					allFun.share("这家【"+d.user_name+"】你知道吗？","好东西我可以介绍给你，但你真的敢买吗？\n正品好货，尽在艺加商城。",host+"/shop/html/my/sellerStore.html?storeId="+d.user_id+"",d.portrait);
                     obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
                         +'<dt class="left"><img src="'+d.portrait+'" /></dt>'
                         +'<dd  class="left">'

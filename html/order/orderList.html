@@ -179,8 +179,14 @@
 							obj += allFun.noDataImg("您还没有相关的订单");
 						}else{
 							$.each(d, function(i,v) {
-								obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a>"
-									+ "<i class='iconfont icon-zhankai-copy'></i><em>"+v.statusname+"</em></h2><ul>";
+								obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2>";
+								if(type == 0){//买家
+									obj += "<a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
+								}
+								else{//卖家
+									obj += "<a>"+v.buyer_name+"</a>";
+								}
+								obj += "<em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
 									obj += "<li><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
 										+ "<p class='fix'><span>¥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"

@@ -83,18 +83,13 @@
 
 		<div class="warp">
 			<!--轮播banner-->
+			<div class="publicBanner">
 				<div class="swiper-container banner indexBanner">
-					<!--<div class="swiper-wrapper c_banner">
+					<div class="swiper-wrapper c_banner">
 					</div>
-					<div class="swiper-pagination tion"></div>-->
+					<div class="swiper-pagination tion"></div>
 				</div>
-
-			<div class="swiper-container banner indexBanner2">
-				<div class="swiper-wrapper c_banner2">
-				</div>
-				<div class="swiper-pagination tion2"></div>
 			</div>
-
 
 			<div class="vertical-view">
 				<a href="#" id="yijiapaimai">
@@ -118,11 +113,9 @@
 			</div>
 
 			<!--产品展示-->
-
 			<div class="sale_all">
 
 			</div>
-
 		</div>
 	</div>
 	</body>
@@ -216,15 +209,14 @@
 
 						//banner轮播
 						var bannerData = rs.data.cycleImages;
-						var bannerList = "",red='';
+						var bannerList = "",red = "";
 						for(var z = 0;z<bannerData.length;z++){
 							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].image_link+'"><img src="'+bannerData[z].image_url+'/platform"/></a></div>'
 						}
-                        red+='<div class="swiper-wrapper c_banner">'
-								+bannerList
-                            +'</div>'
-                            +'<div class="swiper-pagination tion"></div>';
-						$(".indexBanner").html(red);
+						red += '<div class="swiper-container banner indexBanner"><div class="swiper-wrapper">'
+							+ bannerList
+							+'</div><div class="swiper-pagination tion"></div></div>'
+						$(".publicBanner").html(red);
                         var swiper = new Swiper('.indexBanner', {
                             pagination: '.tion',
                             autoplay: 3500,
@@ -338,12 +330,15 @@
                             allFun.alertDiv(rs.msg);
                             return false;
                         }
-                        var cate=rs.data,cateList='',bannerList = "",bannerData = cate.cycle_image,category=cate.sub_data;
+                        var cate=rs.data,cateList='',bannerList = "",bannerData = cate.cycle_image,category=cate.sub_data,red="";
                         //banner轮播
                         for(var j = 0;j<bannerData.length;j++){
                             bannerList+='<div class="swiper-slide"><a href="'+bannerData[j].image_link+'"><img src="'+bannerData[j].image_url+'/platform"/></a></div>'
                         }
-                        $(".c_banner2").html(bannerList);
+                        red += '<div class="swiper-container banner indexBanner2"><div class="swiper-wrapper">'
+							+ bannerList
+							+'</div><div class="swiper-pagination tion2"></div></div>'
+						$(".publicBanner").html(red);
                         var swiper = new Swiper('.indexBanner2', {
                             pagination: '.tion2',
                             autoplay: 3500,
@@ -427,7 +422,7 @@
             }
 
         });
-       /* function swiper() {
+        function swiper() {
             //导航
             var swiper = new Swiper('#nav', {
                 slidesPerView: 5.5,
@@ -437,7 +432,13 @@
             });
             //banner
             var swiper = new Swiper('.indexBanner', {
-                pagination: '.swiper-pagination',
+                pagination: '.tion',
+                autoplay: 3500,
+                autoplayDisableOnInteraction : false,
+                loop: true
+            });
+            var swiper = new Swiper('.indexBanner2', {
+                pagination: '.tion2',
                 autoplay: 3500,
                 autoplayDisableOnInteraction : false,
                 loop: true
@@ -449,6 +450,6 @@
                 paginationClickable: true,
                 spaceBetween: 0
             });
-        }*/
+        }
 	</script>
 </html>

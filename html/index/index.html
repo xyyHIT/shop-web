@@ -149,6 +149,7 @@
                 $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
                 sessionStorage.removeItem("indexShopStorage");
+                swiper();
             } else {
                 sessionStorage.removeItem("indexShopStorage");
                 gooodsList();
@@ -156,18 +157,19 @@
             }
 
 			//一级导航
+            var nav_id=0;
             $("body").on("click",".tNav #navList>div",function(){
                 //获取导航的id
-                var nav_id=$(this).attr("nav_id");
+                nav_id=$(this).attr("nav_id");
                 $(this).addClass("rent").siblings().removeClass("rent");
                 $(".sale_all").empty();
+                curr_page = 1;
                 if(nav_id==0){
                     $(".vertical-view").show();
                     $(".indexBanner").show();
                     $(".indexBanner2").hide();
 					$(".gather_tit").show();
                     gooodsList();
-                    curr_page = 1;
                     gooods();
                 }else {
                     $(".vertical-view").hide();
@@ -237,8 +239,11 @@
                 if (finished && dHeight - (sHeight + wHeight) < 200) {
                     finished = false;
                     if($(".seemore").attr("data_d") != "no"){
-                        curr_page++;
-                        gooods();
+                        if(nav_id==0){
+                            curr_page++;
+                            gooods();
+						}
+
                     }
                 }
             });
@@ -381,7 +386,7 @@
                                 }
                                 cateList += '<div class="gather_node">'
                                     + '<div class="gather_tit">'
-                                    + '<a href="javascript:;"> <h3><b class="iconfont icon-zhankai-copy"></b>' + category[z].cate_name + '</h3></a>'
+                                    + '<a class="more" href="javascript:;" cateId="'+ category[z].cate_id+'"> <h3><b class="iconfont icon-zhankai-copy"></b>' + category[z].cate_name + '</h3></a>'
                                     + '</div>'
                                     + '<div class="swp_views">'
                                     + '<div class="swp_list categorys">'
@@ -406,10 +411,16 @@
             }
 
             //点击列表跳转
-            $("body").on("click", ".topic a,.inner a", function () {
+            $("body").on("click", ".topic a,.inner a,pre-item a", function () {
                 var _t = $(this);
-                delFn(_t,"/shop/html/index/goodsDetails.html?goodsId=");
+                delFn(_t,"/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId"));
             });
+            $("body").on("click", ".gather_tit .more", function () {
+                var _t = $(this);
+                delFn(_t," /shop/html/index/goodsSearch.html?cateId="+_t.attr("cateId"));
+            });
+
+
             function delFn(t,url){
                 var obj = {};
                 obj.curr_page = curr_page;
@@ -417,8 +428,38 @@
                 obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
                 sessionStorage.setItem("indexShopStorage", JSON.stringify(obj));
                 history.replaceState(null, null, "?history=-1");
-                location.href = url+t.attr("goodsId");
+                location.href = url;
                 //location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId");
+            }
+            function swiper() {
+                //导航
+                var swiper = new Swiper('#nav', {
+                    slidesPerView: 5.5,
+                    paginationClickable: true,
+                    spaceBetween: 0,
+                    freeMode: true
+                });
+
+                //banner
+                var swiper = new Swiper('.indexBanner', {
+                    pagination: '.tion',
+                    autoplay: 3500,
+                    autoplayDisableOnInteraction : false,
+                    loop: true
+                });
+                var swiper = new Swiper('.indexBanner2', {
+                    pagination: '.tion2',
+                    autoplay: 3500,
+                    autoplayDisableOnInteraction : false,
+                    loop: true
+                });
+                //多图轮播
+                var swiper = new Swiper('.swp_views', {
+                    slidesPerView: 3.5,
+                    paginationClickable: true,
+                    spaceBetween: 0
+                });
+
             }
 
        });

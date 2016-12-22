@@ -9,10 +9,10 @@
 .keybord_list span:nth-child(3),.keybord_list span:nth-child(6),.keybord_list span:nth-child(9){ border-right: none;}
 .keybord_list em.keybord_back{ border-right: none; background: url(/yjpai/imgs/icon/icon_keybord_back.png) no-repeat center; background-size: 40%;}
 .keybord_list em.keybord_back i{ visibility: hidden;}*/
-.keybordpw{ position: fixed; bottom: 0; left: 0; background: #fff; z-index: 9997;}
+.keybordpw{ position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; z-index: 9997;}
 .keybordpw h6{ position: relative; height: 4.5rem; line-height: 4.5rem; font-size: 1.3rem; color: #5F5F5F; text-align: center; background: #FAF9FB; border-bottom: 1px solid #EFEFEF;}
 .keybordpw h6 i{ position: absolute; right: 0; top: 0; width: 4.5rem; height: 4.5rem; font-size: 1.6rem; color: #999;}
-.keybord_t{ margin: 1.5rem 0; padding: 0 1.6rem; text-align: center;}
+.keybord_t{ margin: 1.5rem 0; padding: 0 0 0 1.6rem; text-align: center;}
 .keybord_t ul li{ float: left; width: 4.8rem; height: 4.8rem; text-align: center; border-top: 1px solid #EFEFEF; border-left: 1px solid #EFEFEF; border-bottom: 1px solid #EFEFEF; background: #fff;}
 .keybord_t ul li:last-child{ border-right: 1px solid #EFEFEF;}
 .keybord_t ul li i.icon-dian{ font-size: 4rem; color: #000;}

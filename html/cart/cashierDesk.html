@@ -7,20 +7,21 @@
 		<meta name="format-detection" content="telephone=no">
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/keybordpw.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<style>
-			ul li{ position: relative; height: 6rem; margin-bottom: .5rem; padding: 0 6rem; background: #fff;}
-			ul li p{ padding: 1.7rem 0 .5rem 0; font-size: 1.3rem; line-height: 1.3rem; color: #3C3C3C;}
-			ul li span{ font-size: 1.1rem; line-height: 1.1rem; color: #aaa;}
-			ul li i.iconfont{ position: absolute; top: 1.7rem;}
-			ul li i.iconfont:first-child{ left: 1.5rem; top: 1.5rem; font-size: 3rem;}
-			ul li i.iconfont:last-child{ right: 1.5rem; font-size: 2.6rem;}
-			ul li i.icon-querenoff1{ color: #aaa;}
-			ul li i.icon-queren1{ color: #EC4747;}
-			ul li i.icon-balance{ color: #fac940;}
-			ul li i.icon-weixin{ color: #90c77c;}
-			ul li i.icon-creditcard{ color: #58b1cf;}
-			ul li i.icon-yunongtongzhuanzhanghuikuan{ color: #f98082;}
+			ul.ullist li{ position: relative; height: 6rem; margin-bottom: .5rem; padding: 0 6rem; background: #fff;}
+			ul.ullist li p{ padding: 1.7rem 0 .5rem 0; font-size: 1.3rem; line-height: 1.3rem; color: #3C3C3C;}
+			ul.ullist li span{ font-size: 1.1rem; line-height: 1.1rem; color: #aaa;}
+			ul.ullist li i.iconfont{ position: absolute; top: 1.7rem;}
+			ul.ullist li i.iconfont:first-child{ left: 1.5rem; top: 1.5rem; font-size: 3rem;}
+			ul.ullist li i.iconfont:last-child{ right: 1.5rem; font-size: 2.6rem;}
+			ul.ullist li i.icon-querenoff1{ color: #aaa;}
+			ul.ullist li i.icon-queren1{ color: #EC4747;}
+			ul.ullist li i.icon-balance{ color: #fac940;}
+			ul.ullist li i.icon-weixin{ color: #90c77c;}
+			ul.ullist li i.icon-creditcard{ color: #58b1cf;}
+			ul.ullist li i.icon-yunongtongzhuanzhanghuikuan{ color: #f98082;}
 			
 			.operate{ position: fixed; left: 0; bottom: 4.8rem; width: 100%; height: 4.8rem; padding: 0 11rem 0 1rem; font-size: 1.1rem; color: #3C3C3C; text-align: right; line-height: 4.8rem; background: #fff;}
 			.operate span{ font-size: 1.5rem; color: #EC4747;}
@@ -31,18 +32,18 @@
 	</head>
 	<body>
 		<div class="container">
-			<ul>
-				<!--<li>
+			<ul class="ullist">
+				<li data_changeType="6">
 					<i class="iconfont icon-balance"></i>
 					<p>余额支付</p>
-					<span>¥20000元</span>
-					<i class="iconfont icon-queren1"></i>
-				</li>-->
-				<li>
+					<span id="balance"><!--¥20000元--></span>
+					<i class="iconfont icon-radio icon-queren1"></i>
+				</li>
+				<li data_changeType="2">
 					<i class="iconfont icon-weixin"></i>
 					<p>微信零钱</p>
 					<span>单笔最高5000-500000元</span>
-					<i class="iconfont icon-queren1"></i>
+					<i class="iconfont icon-radio icon-querenoff1"></i>
 				</li>
 				<!--<li>
 					<i class="iconfont icon-creditcard"></i>
@@ -66,11 +67,158 @@
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/md5.min.js"></script>
+	<script src="/shop/js/keybordPassword.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		var type = allFun.getRequest("type"),//0：单个订单 1：合单
-			orderId = allFun.getRequest("orderId");//订单id
+			orderId = allFun.getRequest("orderId"),//订单id
+			changeType = 6,//6：余额   2：微信
+			pwdType = "",//0:没支付密码
+			money = "",//付款金额
+			balance = "";//余额
 		$(function () {
+			getPersonal();
+			
+			$("body").on("click","ul.ullist li",function(){
+				_t = $(this);
+				changeType = _t.attr("data_changeType");
+				_t.parents("ul").find(".icon-radio").removeClass("icon-queren1").addClass("icon-querenoff1");
+				_t.find(".icon-radio").addClass("icon-queren1");
+			})
+			
+			//支付
+			$("body").on("click",".recharge_a",function(){
+				if($(this).hasClass("on")){
+					return false;
+				}
+				
+				var data = {};
+				data.order_id = orderId;
+				data.type = type;//0：单个订单 1：合单
+				if(changeType == 6){//余额
+					//验证是否设置过密码
+					if(pwdType == 0){//未设置支付密码
+						if(confirm("请先去设置支付密码")){
+							location.href = "/yjpai/platform/myPurse/setPassWord.html?type=dingdan&orderId="+orderId;
+						}
+					}else{
+						if(balance < money){//余额是否够付款
+							allFun.alertDiv("余额不足，请先去充值");
+							return false;
+						}
+						funKeybord(1,0,function(pwd){
+							//验证密码正确性
+							$.ajax({
+								url: hostPm+'/yjpai/platform/user/checkPaypwd',
+								type: "post",
+								data:{"pwd":pwd},
+								dataType: "json",
+								beforeSend:function(){
+									allFun.loading();
+								},
+								success: function(rs) {
+									allFun.removeLoading();
+									if (rs.resCode == 1) {
+										$(".keybordpw,.bg").remove();
+										//余额支付
+										data.payment_id  = 6;
+										$.ajax({
+											url: host+"/index.php?app=cashier&act=ejgoto_pay",
+											cache: false,
+											dataType: "json",
+											type: "POST",
+											data: data,
+											success: function(rs) {
+												if (rs.code == 0) {
+													var d = rs.data;
+													location.href = "/shop/html/cart/paySuccess.html?orderId="+orderId+"&type="+type+"";
+												}else{
+													$(".recharge_a").removeClass("on").html("确认支付");
+													allFun.alertDiv(rs.msg);
+												}
+											},
+											timeout: function() {
+												$(".recharge_a").removeClass("on").html("确认支付");
+											},
+											error: function() {
+												$(".recharge_a").removeClass("on").html("确认支付");
+											}
+										})
+									}else{
+										allFun.alertDiv(rs.msg);
+									}
+								}
+							});
+						});
+					}
+				}else if(changeType == 2){//微信
+					$(this).addClass("on").html("正在支付中");
+					data.payment_id  = 2;
+					$.ajax({
+						url: host+"/index.php?app=cashier&act=ejgoto_pay",
+						cache: false,
+						dataType: "json",
+						type: "POST",
+						data: data,
+						success: function(rs) {
+							if (rs.code == 0) {
+								var d = rs.data;
+								WeixinJSBridge.invoke(
+									'getBrandWCPayRequest', {
+										'appId': d.appId,
+										'timeStamp': d.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+										'nonceStr': d.nonceStr, // 支付签名随机串，不长于 32 位
+										'package': d.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+										'signType': d.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+										'paySign': d.paySign // 支付签名
+									},function(res) {
+										if(res.err_msg == "get_brand_wcpay_request:ok"){//支付成功
+											location.href = "/shop/html/cart/paySuccess.html?orderId="+orderId+"&type="+type+"";
+										}else if(res.err_msg == "get_brand_wcpay_request:cancel"){//取消支付
+											$(".recharge_a").removeClass("on").html("确认支付");
+										}else if(res.err_msg == "get_brand_wcpay_request:fail"){//支付失败
+											allFun.alertDiv("支付失败，请重新支付");
+											$(".recharge_a").removeClass("on").html("确认支付");
+										}
+									}
+								);
+							}else{
+								$(".recharge_a").removeClass("on").html("确认支付");
+								allFun.alertDiv(rs.msg);
+							}
+						},
+						timeout: function() {
+							$(".recharge_a").removeClass("on").html("确认支付");
+						},
+						error: function() {
+							$(".recharge_a").removeClass("on").html("确认支付");
+						}
+					})
+				}
+			})
+		});
+		
+		//获取个人信息
+		function getPersonal(){
+			$.ajax({
+				url: hostPm+'/yjpai/platform/user/userAccount',
+				type: "get",
+				dataType: "json",
+				success: function(rs) {
+					if (rs.resCode == 1) {
+						var d = rs.data;
+						balance = d.balance;
+						pwdType = d.passWord;
+						$("#balance").html("¥"+balance+"元");
+						/*if(balance < money){
+							$("#chongzhi").show();
+						}*/
+					}else{
+						allFun.alertDiv(rs.msg);
+					}
+				}
+			});
 			$.ajax({
 				url: host + '/index.php?app=order&act=getpayorder',
 				type: "get",
@@ -83,6 +231,7 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						var d = rs.data;
+						money = d.amount;
 						$(".operate span").html("¥"+d.amount+"");
 					} else {
 						allFun.alertDiv(rs.msg);
@@ -92,61 +241,7 @@
 					allFun.removeLoading();
 					allFun.alertDiv("error!")
 				}
-			})
-			
-			//支付
-			$("body").on("click",".recharge_a",function(){
-				if($(this).hasClass("on")){
-					return false;
-				}
-				$(this).addClass("on").html("正在支付中");
-				//微信支付
-				var data = {};
-				data.order_id = orderId;
-				data.payment_id  = 2;//交易方式 2微信支付
-				data.type = type;//0：单个订单 1：合单
-				$.ajax({
-					url: host+"/index.php?app=cashier&act=ejgoto_pay",
-					cache: false,
-					dataType: "json",
-					type: "POST",
-					data: data,
-					success: function(rs) {
-						if (rs.code == 0) {
-							var d = rs.data;
-							WeixinJSBridge.invoke(
-								'getBrandWCPayRequest', {
-									'appId': d.appId,
-									'timeStamp': d.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-									'nonceStr': d.nonceStr, // 支付签名随机串，不长于 32 位
-									'package': d.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-									'signType': d.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-									'paySign': d.paySign // 支付签名
-								},function(res) {
-									if(res.err_msg == "get_brand_wcpay_request:ok"){//支付成功
-										location.href = "/shop/html/cart/paySuccess.html?orderId="+orderId+"&type="+type+"";
-									}else if(res.err_msg == "get_brand_wcpay_request:cancel"){//取消支付
-										$(".recharge_a").removeClass("on").html("确认支付");
-									}else if(res.err_msg == "get_brand_wcpay_request:fail"){//支付失败
-										allFun.alertDiv("支付失败，请重新支付");
-										$(".recharge_a").removeClass("on").html("确认支付");
-									}
-								}
-							);
-						}else{
-							$(".recharge_a").removeClass("on").html("确认支付");
-							allFun.alertDiv(rs.msg);
-						}
-					},
-					timeout: function() {
-						$(".recharge_a").removeClass("on").html("确认支付");
-					},
-					error: function() {
-						$(".recharge_a").removeClass("on").html("确认支付");
-					}
-				})
-			})
-			
-		});
+			});
+		}
 	</script>
 </html>

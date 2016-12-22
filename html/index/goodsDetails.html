@@ -142,6 +142,21 @@
 	var bannerList = [],
 		lotId = allFun.getRequest("goodsId");//商品id
     $(function () {
+    	//是否关注公众号
+		$.ajax({
+		   	type: "POST",
+		   	url: hostPm+"/yjpai/platform/user/subsricb",
+		   	data:{"lotId":lotId},
+		   	success: function(rs){
+		   		var d=rs.data;
+		   		if(d == "no"){//未关注公众号
+		   			allFun.gzewm();
+		   		}
+		   	},
+		   	error:function(rs){
+		   		allFun.alertDiv(rs.msg);
+		   	}
+		});
         goodsList(lotId);
         function goodsList(lotId){
             $.ajax({
@@ -171,6 +186,7 @@
                     var swiper = new Swiper('#goodsBanner', {
                         pagination: '.swiper-pagination',
                         autoplay: 3000,
+                        autoplayDisableOnInteraction : false,
                         loop: true
                     });
 
@@ -300,16 +316,33 @@
 
         //加入购物车
         $("body").on("click",".cart", function() {
-            var tel=$('.cart').attr("data_m");
-            if(tel==null){
-                phoneVerify.start();
-            }else{
-                var quantity=1;
-                var spec_id=$('.pro-info .name').attr("spec_id");
-                cart(spec_id,quantity);
-            }
+        	allFun.loading();
+        	//是否关注公众号
+			$.ajax({
+			   	type: "POST",
+			   	url: hostPm+"/yjpai/platform/user/subsricb",
+			   	data:{"lotId":lotId},
+			   	success: function(rs){
+			   		allFun.removeLoading();
+			   		var d=rs.data;
+			   		if(d == "no"){//未关注公众号
+			   			allFun.gzewm();
+			   		}else{
+			   			var tel=$('.cart').attr("data_m");
+			            if(tel==null){
+			                phoneVerify.start();
+			            }else{
+			                var quantity=1;
+			                var spec_id=$('.pro-info .name').attr("spec_id");
+			                cart(spec_id,quantity);
+			            }
+			   		}
+			   	},
+			   	error:function(rs){
+			   		allFun.alertDiv(rs.msg);
+			   	}
+			});
         });
-
     });
     
     function cart(spec_id,quantity) {

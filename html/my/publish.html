@@ -320,7 +320,7 @@
 				})
 			})
 			//输入框输入限制（价格,运费）
-			$("body").on("keyup","#gPrice,#gTransportation",function(){
+			/*$("body").on("keyup","#gPrice,#gTransportation",function(){
 				var regStrs = [
 			        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
 			        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
@@ -334,6 +334,22 @@
 						this.value=this.value.replace(/[^0-9]/g,'');
 					}
 			    }
+			})*/
+			//输入框输入限制（价格）
+			$("body").on("keyup","#gPrice",function(){
+				if(this.value.length==1){
+					this.value=this.value.replace(/[^1-9]/g,'');
+				}else{
+					this.value=this.value.replace(/\D/g,'');
+				}
+			})
+			//输入框输入限制（运费）
+			$("body").on("keyup","#gTransportation",function(){
+				if(this.value.length==1){
+					this.value=this.value.replace(/[^0-9]/g,'');
+				}else{
+					this.value=this.value.replace(/\D/g,'');
+				}
 			})
 			//输入框输入限制（库存，预警）
 			$("body").on("keyup","#gRepertory,#gWarning",function(){

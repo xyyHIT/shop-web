@@ -152,9 +152,6 @@
 		   		if(d == "no"){//未关注公众号
 		   			allFun.gzewm();
 		   		}
-		   	},
-		   	error:function(rs){
-		   		allFun.alertDiv(rs.msg);
 		   	}
 		});
         goodsList();
@@ -248,7 +245,9 @@
                         success: function(rs) {
                             if(rs.resCode==1){
                                 var userData = rs.data;
-                                $(".cart").attr("data_m",userData.mobile);
+                                if(userData != undefined){
+                                	$(".cart").attr("data_m",userData.mobile);
+                                }
                             }
                         }
                     });
@@ -315,7 +314,6 @@
 
         //加入购物车
         $("body").on("click",".cart", function() {
-        	allFun.loading();
         	//是否关注公众号
 			$.ajax({
 			   	type: "POST",
@@ -331,14 +329,14 @@
 			            if(!tel){
 			                phoneVerify.start();
 			            }else{
-			                var quantity=1;
 			                var spec_id=$('.pro-info .name').attr("spec_id");
-			                cart(spec_id,quantity);
+			                cart(spec_id,1);
 			            }
 			   		}
 			   	},
-			   	error:function(rs){
-			   		allFun.alertDiv(rs.msg);
+			   	error:function(){
+	                var spec_id=$('.pro-info .name').attr("spec_id");
+	                cart(spec_id,1);
 			   	}
 			});
         });
@@ -359,14 +357,15 @@
                     	$(".detailFooter .icon-gouwudai").html("<em class='r-red'>1</em>");
                     }
                 }else if (rs.code == 3005) {//未登录
-                    var uurl = encodeURIComponent(host+"/shop/html/index/goodsDetails.html?goodsId="+goodsId+"&addCart=addCart");
-                    $.ajax({
-		                url: host + '/index.php?app=wechat&act=redirectBusiness&url='+uurl,
+                    /*$.ajax({
+		                url: host + '/index.php?app=wechat&act=redirectBusiness',
 		                type: "get",
+		                data:{"url":encodeURIComponent(location.href.split('#')[0])},
 		                success: function (rs) {
 		                    cart($('.pro-info .name').attr('spec_id'),1);
 		                }
-		            })
+		            })*/
+                    location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]);
                 }else{
                 	allFun.alertDiv(rs.msg);
                     return false;

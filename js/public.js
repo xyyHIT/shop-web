@@ -287,44 +287,55 @@ var allFun = {
 	},
     //关注和喜欢
     attention:function (type,status,t) {// type=store 商品 type=goods  //status: add-关注 drop-取消关注
-    $.ajax({
-        url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
-        type: "get",
-        beforeSend: function () {
-        },
-        success: function (rs) {
-            if (rs.code != 0) {
-                allFun.alertDiv(rs.msg);
-                return false;
-            }
-            var num=parseInt($("#likeCount").html());
-            if(type=="store"){
-                if(status == "drop"){//取消关注
-                    t.html("+关注");
-                    t.attr("dataStatus","add");
-                }else{
-                    t.html("已关注");
-                    t.attr("dataStatus","drop")
-                }
-            }else if(type=="goods"){
-                if(status == "drop") {
-                    t.removeClass("grey");
-                    t.attr("dataStatus","add");
-                    $("#likeCount").html(num-1);
-                }
-                else{
-                    t.addClass("grey");
-                    t.attr("dataStatus","drop");
-                    $("#likeCount").html(num+1);
-                }
-            }
-        },
-        error: function() {
-            allFun.removeLoading();
-            allFun.alertDiv("error!")
-        }
-    });
-},
+	    $.ajax({
+	        url: host + '/index.php?app=my_favorite&act='+status+'&type='+type+'&item_id='+item_id+'',
+	        type: "get",
+	        beforeSend: function () {
+	        },
+	        success: function (rs) {
+	            if (rs.code == 0) {
+	            	var num=parseInt($("#likeCount").html());
+		            if(type=="store"){
+		                if(status == "drop"){//取消关注
+		                    t.html("+关注");
+		                    t.attr("dataStatus","add");
+		                }else{
+		                    t.html("已关注");
+		                    t.attr("dataStatus","drop")
+		                }
+		            }else if(type=="goods"){
+		                if(status == "drop") {
+		                    t.removeClass("grey");
+		                    t.attr("dataStatus","add");
+		                    $("#likeCount").html(num-1);
+		                }
+		                else{
+		                    t.addClass("grey");
+		                    t.attr("dataStatus","drop");
+		                    $("#likeCount").html(num+1);
+		                }
+		            }
+	            }else if (rs.code == 3005) {//未登录
+	                /*$.ajax({
+		                url: host + '/index.php?app=wechat&act=redirectBusiness',
+		                type: "get",
+		                data:{"url":encodeURIComponent(location.href.split('#')[0])},
+		                success: function (rs) {
+		                    
+		                }
+		            })*/
+	                location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]);
+	            }else{
+	            	allFun.alertDiv(rs.msg);
+	                return false;
+	            }
+	        },
+	        error: function() {
+	            allFun.removeLoading();
+	            allFun.alertDiv("error!")
+	        }
+	    });
+	},
 	//格式化金额
 	fmoney: function(s, n) {
 	    n = n > 0 && n <= 20 ? n : 2;  

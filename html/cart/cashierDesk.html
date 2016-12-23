@@ -97,16 +97,16 @@
 				data.order_id = orderId;
 				data.type = type;//0：单个订单 1：合单
 				if(changeType == 6){//余额
+					if(balance < money){//余额是否够付款
+						allFun.alertDiv("余额不足，请先去充值");
+						return false;
+					}
 					//验证是否设置过密码
 					if(pwdType == 0){//未设置支付密码
 						if(confirm("请先去设置支付密码")){
-							location.href = "/yjpai/platform/myPurse/setPassWord.html?type=dingdan&orderId="+orderId;
+							location.href = "/shop/html/my/setPassWord.html?orderId="+orderId+"&type="+type+"";
 						}
 					}else{
-						if(balance < money){//余额是否够付款
-							allFun.alertDiv("余额不足，请先去充值");
-							return false;
-						}
 						funKeybord(1,0,function(pwd){
 							//验证密码正确性
 							$.ajax({

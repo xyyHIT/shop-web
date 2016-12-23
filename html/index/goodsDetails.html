@@ -134,6 +134,9 @@
 	var bannerList = [],
 		goodsId = allFun.getRequest("goodsId");//商品id
     $(function () {
+    	if(allFun.getRequest("addCart") == "addCart"){
+    		cart($('.pro-info .name').attr('spec_id'),1);
+    	}
     	//是否关注公众号
 		$.ajax({
 		   	type: "POST",
@@ -357,7 +360,7 @@
 		                    cart($('.pro-info .name').attr('spec_id'),1);
 		                }
 		            })*/
-                    location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]);
+                    location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0])+"&addCart=addCart";
                 }else{
                 	allFun.alertDiv(rs.msg);
                     return false;

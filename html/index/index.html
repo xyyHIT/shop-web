@@ -136,6 +136,7 @@
             //返回到当前位置
             if (sessionStorage.getItem("indexShopStorage") && allFun.getRequest("history") == -1) {
                 var Storage = JSON.parse(sessionStorage.getItem("indexShopStorage"));
+                finished = true;
                 curr_page = Storage.curr_page;
                 $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
@@ -145,6 +146,7 @@
                 sessionStorage.removeItem("indexShopStorage");
                 gooodsList();
                 gooods();
+
             }
 
 			//一级导航
@@ -313,7 +315,7 @@
             //点击导航其他选项的列表
 			function cate(nav_id) {
                 $.ajax({
-                    url: host + '/index.php?app=catinfo&cate_id='+nav_id+'&page='+curr_page+'',
+                    url: host + '/index.php?app=catinfo&cate_id='+nav_id+'',
                     type: "post",
 					data:{"cate_id":nav_id},
                     beforeSend: function () {
@@ -413,7 +415,7 @@
                 location.href=imageLink;
             });
             //点击列表跳转
-            $("body").on("click", ".inner a,.pre-item a", function () {
+            $("body").on("click", ".topic a,.inner a,.pre-item a", function () {
                 var _t = $(this);
                 delFn(_t,"/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId"));
             });

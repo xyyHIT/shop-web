@@ -41,7 +41,7 @@
             #search-button{float:right;border-radius:4px; border:1px solid #5f5f5f;width:6rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#5f5f5f;}
             .searchBg{position: absolute; top:1.25rem; left:2rem; font-size:1.6rem; color:#6e6e6e;}
 
-			.gather_node{overflow: hidden; height:100%;}
+			.gather_node{overflow: hidden; height:100%;margin-bottom: 1rem;}
             .categorys .swiper-slide{ float:left; width:33.33%;}
 			.categorys .swiper-slide .inner{padding-top:0;}
 			.categorys .swiper-slide .inner a{display: table-cell;width: 9.4rem;height:9.4rem;vertical-align: middle;overflow: hidden;}
@@ -53,7 +53,6 @@
 	</head>
 	<body>
 	<div class="container">
-		<div class="mask"></div>
 		<!--//导航-->
 		<header>
 			<nav class="tNav">
@@ -204,7 +203,7 @@
 						var bannerData = rs.data.cycleImages;
 						var bannerList = "",red = "";
 						for(var z = 0;z<bannerData.length;z++){
-							bannerList+='<div class="swiper-slide"><a href="'+bannerData[z].image_link+'"><img src="'+bannerData[z].image_url+'/platform"/></a></div>'
+							bannerList+='<div class="swiper-slide"><a class="Ibanner" href="javascript:;" imageLink="'+bannerData[z].image_link+'"><img src="'+bannerData[z].image_url+'/platform"/></a></div>'
 						}
 						red += '<div class="swiper-container banner indexBanner"><div class="swiper-wrapper">'
 							+ bannerList
@@ -329,11 +328,11 @@
                         var cate=rs.data,cateList='',bannerList = "",bannerData = cate.cycle_image,category=cate.sub_data,red="";
                         //banner轮播
                         for(var j = 0;j<bannerData.length;j++){
-                            bannerList+='<div class="swiper-slide"><a href="'+bannerData[j].image_link+'"><img src="'+bannerData[j].image_url+'/platform"/></a></div>'
+                            bannerList+='<div class="swiper-slide"><a class="Lbanner" href="javascript:;" imageLink="'+bannerData[j].image_link+'"><img src="'+bannerData[j].image_url+'/platform"/></a></div>'
                         }
                         red += '<div class="swiper-container banner indexBanner2"><div class="swiper-wrapper">'
 							+ bannerList
-							+'</div><div class="swiper-pagination tion2"></div></div>'
+							+'</div><div class="swiper-pagination tion2"></div></div>';
 						$(".publicBanner").html(red);
                         var swiper = new Swiper('.indexBanner2', {
                             pagination: '.tion2',
@@ -366,7 +365,7 @@
 
                                         for (var w = 3; w < catinfo.length; w++) {
                                             obj+='<li><div class="pre-item">'
-                                                +'<a href="/shop/html/index/goodsDetails.html?goodsId='+catinfo[w].goods_id+'" goodsId="'+catinfo[w].goods_id+'"><img class="pre-img" src="'+catinfo[w].default_image+'/square" alt=""> </a>'
+                                                +'<a href="javascript:;" class="listMore" goodsId="'+catinfo[w].goods_id+'"><img class="pre-img" src="'+catinfo[w].default_image+'/square" alt=""> </a>'
                                                 +'<div class="pre-info">'
                                                 +'<p class="pre-subtitle over over1" >'+catinfo[w].goods_name+'</p>'
                                                 +'<p class="pre-price"><span class="left">¥<em>'+catinfo[w].price+'</em></span><span class="right payment"><em>'+catinfo[w].sales+'</em>人付款</span></p>'
@@ -401,9 +400,20 @@
                     }
                 });
             }
-
+            //点击banner跳转
+            $("body").on("click",".Lbanner,.Ibanner",function(){
+                var _t = $(this);
+                imageLink=_t.attr("imageLink");
+                var obj = {};
+                obj.curr_page = curr_page;
+                obj.cont = $(".container").html();
+                obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                sessionStorage.setItem("indexShopStorage", JSON.stringify(obj));
+                history.replaceState(null, null, "?history=-1");
+                location.href=imageLink;
+            });
             //点击列表跳转
-            $("body").on("click", ".topic a,.inner a,pre-item a", function () {
+            $("body").on("click", ".inner a,.pre-item a", function () {
                 var _t = $(this);
                 delFn(_t,"/shop/html/index/goodsDetails.html?goodsId="+_t.attr("goodsId"));
             });

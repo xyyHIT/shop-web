@@ -114,6 +114,9 @@
 	<script src="/shop/js/public.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
+		var curr_page=1,
+            finished = false,
+            nav_id=0;
 		$(function () {
 			//分享
 			allFun.share("艺加商城-Add art to life","艺加商城，完美结合了艺术、人文、生活，让您感受到独特的生活美学，让您更懂生活。",host+"/shop/html/index/index.html",host+"/shop/imgs/icon/yj_logo.png");
@@ -131,12 +134,12 @@
             $("body").on("click","#zixun",function(){
                 location.href = hostPm+"/yjpai/news/list.html";
             });
-            var curr_page=1;
-            finished = false;
+            
             //返回到当前位置
             if (sessionStorage.getItem("indexShopStorage") && allFun.getRequest("history") == -1) {
                 var Storage = JSON.parse(sessionStorage.getItem("indexShopStorage"));
                 finished = true;
+                nav_id = Storage.nav_id;
                 curr_page = Storage.curr_page;
                 $(".container").html(Storage.cont);
                 $("body").scrollTop(Storage.scrollTop);
@@ -150,7 +153,6 @@
             }
 
 			//一级导航
-            var nav_id=0;
             $("body").on("click",".tNav #navList>div",function(){
                 //获取导航的id
                 nav_id=$(this).attr("nav_id");
@@ -427,6 +429,7 @@
 
             function delFn(t,url){
                 var obj = {};
+                obj.nav_id = nav_id;
                 obj.curr_page = curr_page;
                 obj.cont = $(".container").html();
                 obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;

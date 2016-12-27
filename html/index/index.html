@@ -24,8 +24,8 @@
 			.vertical-view{background: #fff; margin:0rem 0 1rem; padding-top:1rem; overflow: hidden;}
 			.vertical-view a{font-size:1.4rem; color:#3c3c3c;}
 			.vertical-view dl{width:33.33%; text-align: center; float: left;}
-			.vertical-view dl dt.icon{ font-size: 4rem;}
-		    .vertical-view dl dd{padding:1rem 0;}
+			.vertical-view dl dt.icon{ font-size: 3.5rem;color:#EC4747;}
+		    .vertical-view dl dd{padding:.5rem 0 1rem;}
 
             .gather_node .swiper-container{  width: 100%;background: #fff;}
 			.swp_views{background: #fff; padding-left: 1rem; overflow: hidden;}
@@ -87,13 +87,13 @@
 				</a>
 				<a href="#" id="cFindex">
 					<dl>
-						<dt class="icon iconfont icon-zhongchou"></dt>
+						<dt class="icon iconfont icon-zhongchou1"></dt>
 						<dd>众筹</dd>
 					</dl>
 				</a>
 				<a href="#" id="zixun">
 					<dl>
-						<dt class="icon iconfont icon-zixun"></dt>
+						<dt class="icon iconfont icon-zixun1"></dt>
 						<dd>资讯</dd>
 					</dl>
 				</a>
@@ -107,7 +107,7 @@
 		</div>
 	</div>
 	</body>
-	
+
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="/shop/js/swiper.min.js"></script>
@@ -129,12 +129,10 @@
             $("body").on("click","#cFindex",function(){
                 location.href = hostPm+"/yjpai/platform/crowdFunding/cFindex.html";
             });
-
             //点击跳到资讯
             $("body").on("click","#zixun",function(){
                 location.href = hostPm+"/yjpai/news/list.html";
             });
-            
             //返回到当前位置
             if (sessionStorage.getItem("indexShopStorage") && allFun.getRequest("history") == -1) {
                 var Storage = JSON.parse(sessionStorage.getItem("indexShopStorage"));
@@ -149,9 +147,7 @@
                 sessionStorage.removeItem("indexShopStorage");
                 gooodsList();
                 gooods();
-
             }
-
 			//一级导航
             $("body").on("click",".tNav #navList>div",function(){
                 //获取导航的id
@@ -364,7 +360,6 @@
                                                 + '<p>¥<span>' + catinfo[w].price + '</span></p>' + '</a>'
                                                 + ' </div>'
                                                 + ' </div>'
-
                                         }
 
                                         for (var w = 3; w < catinfo.length; w++) {
@@ -392,11 +387,9 @@
 									+obj
 									+'</ul>'
                                     + ' </div>'
-
                             }
                         }
 						$(".sale_all").html(cateList);
-
                     },
                     error: function() {
                         allFun.removeLoading();
@@ -408,13 +401,7 @@
             $("body").on("click",".Lbanner,.Ibanner",function(){
                 var _t = $(this);
                 imageLink=_t.attr("imageLink");
-                var obj = {};
-                obj.curr_page = curr_page;
-                obj.cont = $(".container").html();
-                obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                sessionStorage.setItem("indexShopStorage", JSON.stringify(obj));
-                history.replaceState(null, null, "?history=-1");
-                location.href=imageLink;
+                delFn(_t,imageLink);
             });
             //点击列表跳转
             $("body").on("click", ".topic a,.inner a,.pre-item a", function () {
@@ -425,7 +412,6 @@
                 var _t = $(this);
                 delFn(_t," /shop/html/index/goodsSearch.html?cateId="+_t.attr("cateId"));
             });
-
 
             function delFn(t,url){
                 var obj = {};
@@ -446,7 +432,6 @@
                     spaceBetween: 0,
                     freeMode: true
                 });
-
                 //banner
                 var swiper = new Swiper('.indexBanner', {
                     pagination: '.tion',
@@ -466,9 +451,7 @@
                     paginationClickable: true,
                     spaceBetween: 0
                 });
-
             }
-
        });
 	</script>
 </html>

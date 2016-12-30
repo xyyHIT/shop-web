@@ -239,10 +239,10 @@ var allFun = {
 		+ "<a href='/shop/html/cart/cart.html' class='cartNum'><i></i>购物袋</a>"
 		+ "<a href='/shop/html/my/myBuyer.html'><i></i>我的</a>"
 		+ "</div>");
-		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-nianhuojie");
-		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-faxian");
-		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-gouwudai");
-		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-wode1");
+		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-shangchengshouye");
+		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-shangchengfaxian");
+		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-shangchenggouwudai");
+		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-shangchengwode");
 		$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
 		
 		var publicNavUrl = window.location.href.split('#')[0];

@@ -73,6 +73,9 @@
 			.divTwoInfo .editFont h2 i{ position: absolute; right: 0; width: 4rem; font-size: 1.6rem; color: #979797; text-align: center;}
 			.divTwoInfo .editFont textarea{ width: 95%; height: 17rem; padding: .8rem 1rem; font-size: 1.2rem; line-height: 1.8rem; border:1px solid #EFEFEF; border-radius:5px;}
 			.divTwoInfo .editFont_a{ display: inline-block; width: 95%; height: 4rem; margin-top: 1.3rem; line-height: 4rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; border-radius: 5px; background: #EC4747;}
+			.protocol{ margin-top: 1.5rem; font-size: 1.1rem; color: #333; text-align: center;}
+			.protocol .iconfont{ display: inline-block; margin: 0 .3rem 0 0; color: #c8c8c8; font-size: 1.7rem; vertical-align: middle;}
+			.protocol a{ color: #EC4747;}
 			
 		</style>
 	</head>
@@ -127,6 +130,9 @@
 						</div>
 					</li>
 				</ul>
+				<div class="protocol">
+					<i class="iconfont icon-checkbox_on"></i>同意<a href="http://w.yijiapai.com/yjpai/adBox/info.html?id=257">《易加拍卖服务协议》</a>
+				</div>
 				<div class="operate">
 					<a class="draft">保存草稿</a><a class="on publish">立即发布</a>
 				</div>
@@ -191,6 +197,15 @@
 				getGoodsInfo(id);
 			}
 			
+			$("body").on("click",".protocol .iconfont",function(){
+				var _t = $(this);
+				if(_t.hasClass("icon-checkbox_on")){
+					_t.removeClass("icon-checkbox_on").addClass("icon-checkbox_off");
+				}else{
+					_t.removeClass("icon-checkbox_off").addClass("icon-checkbox_on");
+				}
+			})
+			
 			//发布
 			$("body").on("click",".publish",function(){
 				var obj = {};
@@ -230,6 +245,10 @@
 				}
 				if($(".haveData").html() == ""){
 					allFun.alertDiv("请填写宝贝描述");
+					return false;
+				}
+				if($(".protocol .iconfont").hasClass("icon-checkbox_off")){
+					allFun.alertDiv("必须同意艺加拍卖协议");
 					return false;
 				}
 				publishAndDraft(obj,0);

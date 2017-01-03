@@ -84,23 +84,6 @@
 	<script>
 		$(function () {
 			$.ajax({
-				url: hostPm+"/yjpai/platform/user/getUser",
-				type: "get",
-				dataType: "json",
-				beforeSend: function(){
-					//allFun.loading();
-				},
-				success: function(rs) {
-					//allFun.removeLoading();
-					if(rs.resCode==1){
-						var d = rs.data;
-						if(d.vip == 1){//加V用户
-							$("#woshishangjia").attr("data_v","1");
-						}
-					}
-				}
-			})
-			$.ajax({
 				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
 				type: "get",
 				dataType: "json",
@@ -122,6 +105,9 @@
 								allFun.removeLoading();
 								if(rs.code==0){
 									var d = rs.data,obj = "";
+									if(d.state == 1){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭
+										$("#woshishangjia").attr("data_v","1");
+									}
 									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
 										+ "<img src=/shop/imgs/level/buyer"+d1.buyerLevel.level+".png />"+d.user_name+"</h1>"
 										+ "<p>关注"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
@@ -167,7 +153,7 @@
 			})
 			//判断加V用户
 			$("body").on("click","#woshishangjia",function(){
-				if($(this).attr("data_v") == "1"){//加v用户
+				if($(this).attr("data_v") == "1"){//有店铺
 					location.href = "/shop/html/my/mySaler.html";
 				}else{
 					location.href = "http://w.yijiapai.com/yjpai/adBox/info.html?id=246";

@@ -177,10 +177,10 @@
 					url: host+'/index.php?app=default&act=ejIndex',
 					type: "post",
 					beforeSend:function(){
-						allFun.loading()
+						//allFun.loading()
 					},
 					success: function(rs) {
-						allFun.removeLoading();
+						//allFun.removeLoading();
 						if(rs.code!=0){
 							allFun.alertDiv(rs.msg);
 							return false;

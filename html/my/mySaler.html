@@ -8,6 +8,7 @@
 		<script src="/shop/js/rem.js"></script>
 		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<script src="/shop/css/font/iconfont.js"></script>
 		<style>
 			.top{ position: relative; height: 8rem; padding: 1.5rem 3rem 0 8rem; background: #FAF9FB;}
 			.top h1{ font-size: 1.4rem; color: #545454; line-height: 2rem; letter-spacing: 1px;}
@@ -19,14 +20,28 @@
 			.dMoney{ padding: 1.8rem 1rem 1.5rem 1rem; font-size: 1.2rem; color: #aaa; text-align: center; background: #fff;}
 			.dMoney span{ display: block; margin-top: .5rem; font-size: 1.8rem; color: #EC4747;}
 			
-			.box{ margin-top: .5rem; background: #fff;}
+			.dBox{ margin-bottom: 1rem; background: #fff;}
+			.dBox > a{ position: relative; display: block; height: 4rem; padding: 0 1.5rem; line-height: 4rem; font-size: 1.3rem; color: #878787; border-bottom: 1px solid #EFEFEF;}
+			#woshishangjia{ border: none;}
+			.dBox > a i{ position: absolute; right: 1rem; font-size: 1.5rem; color: #878787;}
+			.dBox > div a{ float: left; display: block; width: 25%; padding: 1.8rem 0 1.5rem 0; font-size: 1.2rem; color: #878787; text-align: center;}
+			.dBox > div a i{ position: relative; display: block; width: 2.5rem; height: 2.5rem; margin: 0 auto; margin-bottom: .2rem; font-size: 2.2rem;}
+			.dBox > div a i b{ position: absolute; top: -.2rem; right: -.2rem; min-width: 1.4rem; height: 1.4rem; line-height: 1.4rem; font-size: .9rem; color: #EC4747; text-align: center; background: #fff; border: 1px solid #EC4747; border-radius: 100%;}
+			.dBox svg.icon { width: 2.4rem; height: 2.4rem; margin-bottom: .2rem;}
+			.icon-daifukuan,.icon-daifahuo,.icon-chongzhi,.icon-xiaoxi{ color: #3C3C3C;}
+			i.icon-open-release{ color: #EC4747;}
+			i.icon-fahuoguanli{ color: #79b3e8;}
+			i.icon-jiaoyiguanli{ color: #e5c775;}
+			i.icon-wodeqianbao{ color: #ff8383;}
+			
+			/*.box{ margin-top: .5rem; background: #fff;}
 			.box a{ float: left; display: block; width: 25%; height: 7.5rem; font-size: 1.2rem; color: #878787; text-align: center; border-bottom: 1px solid #EFEFEF; border-right: 1px solid #EFEFEF;}
 			.box a:nth-child(4n){ border-right: none;}
 			.box a i.iconfont{ display: block; margin: 1.5rem 0 .1rem 0; font-size: 2.3rem;}
 			.box a i.icon-open-release{ color: #EC4747;}
 			.box a i.icon-fahuoguanli{ color: #79b3e8;}
 			.box a i.icon-jiaoyiguanli{ color: #e5c775;}
-			.box a i.icon-wodeqianbao{ color: #ff8383;}
+			.box a i.icon-wodeqianbao{ color: #ff8383;}*/
 			
 		</style>
 	</head>
@@ -38,18 +53,45 @@
 				<p>粉丝8</p>
 				<i class="iconfont icon-zhankai-copy"></i>-->
 			</div>
-			<div class="dMoney">
-				累计收入<span><!--¥1000.00--></span>
+			<!--<div class="dMoney">
+				累计收入<span></span>
+			</div>-->
+			<div class="dBox">
+				<a href="/shop/html/order/orderList.html?linkType=all&type=1">我的订单<i class="iconfont icon-zhankai-copy"></i></a>
+				<div class="fix">
+					<a href="/shop/html/order/orderList.html?linkType=pending&type=1"><i class="iconfont icon-daifukuan"></i>待付款</a>
+					<a href="/shop/html/order/orderList.html?linkType=accepted&type=1"><i class="iconfont icon-daifahuo"></i>待发货</a>
+					<a href="/shop/html/order/orderList.html?linkType=shipped&type=1"><i class="iconfont icon-chongzhi"></i>待收货</a>
+					<a href="/shop/html/order/orderList.html?linkType=finished&type=1"><i class="iconfont icon-xiaoxi"></i>已完成</a>
+				</div>
 			</div>
-			<div class="box fix">
+			<div class="dBox">
+				<a href="/shop/html/my/myBuyer.html" style="border: none;">我是买家<i class="iconfont icon-zhankai-copy"></i></a>
+			</div>
+			<div class="dBox">
+				<a>常用入口</a>
+				<div class="fix">
+					<a href="/shop/html/my/publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
+					<a href="/shop/html/my/goodsManage.html"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
+					<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
+				</div>
+			</div>
+			<div class="dBox">
+				<a>旗下产品</a>
+				<div class="fix">
+					<a id="yijiapaimai">
+						<svg class="icon" aria-hidden="true">
+						    <use xlink:href="#icon-yijiapaimai"></use>
+						</svg><br />
+						艺加拍卖
+					</a>
+				</div>
+			</div> 
+			<!--<div class="box fix">
 				<a href="/shop/html/my/publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
 				<a href="/shop/html/my/goodsManage.html"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
-				<a href="/shop/html/order/orderList.html?linkType=all&type=1"><i class="iconfont icon-jiaoyiguanli"></i>交易管理</a>
 				<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
-				<!--<a></a>
-				<a></a>
-				<a></a>-->
-			</div>
+			</div>-->
 		</div>
 	</body>
 	
@@ -82,11 +124,21 @@
 								allFun.removeLoading();
 								if(rs.code==0){
 									var d = rs.data,obj = "";
-									$(".dMoney span").html("¥"+d.grossIncome);
+									//$(".dMoney span").html("¥"+d.grossIncome);
 									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
 										+ "<img src=/shop/imgs/level/saler"+d1.salerLevel.level+".png />"+d.user_name+"</h1>"
 										+ "<p>粉丝"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
 									$(".top").html(obj);
+									
+									if(d.order_sta.order_pending > 0){
+										$(".icon-daifukuan").append("<b>"+d.order_sta.order_pending+"</b>");
+									}
+									if(d.order_sta.order_accepted > 0){
+										$(".icon-daifahuo").append("<b>"+d.order_sta.order_accepted+"</b>");
+									}
+									if(d.order_sta.order_shipped > 0){
+										$(".icon-chongzhi").append("<b>"+d.order_sta.order_shipped+"</b>");
+									}
 								}
 							}
 						})
@@ -106,6 +158,10 @@
 			//点击跳到我的钱包
 			$("body").on("click","#wodeqianbao",function(){
 				location.href = hostPm+"/yjpai/platform/my/myWallet.html";
+			})
+			//点击跳到艺加拍卖
+			$("body").on("click","#yijiapaimai",function(){
+				location.href = hostPm+"/yjpai/platform/index.html";
 			})
 			
 		});

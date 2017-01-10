@@ -235,7 +235,7 @@ var allFun = {
 	publicIcon: function () {
 		$("body").append("<div class='footer footerInit footerDay'>"
 		+ "<a href='/shop/html/index/index.html?from=wechat'><i></i>年货节</a>"
-		+ "<a href='/shop/html/category/category.html'><i></i>发现</a>"
+		+ "<a href='/shop/html/category/category.html'><i></i>分类</a>"
 		+ "<a href='/shop/html/cart/cart.html' class='cartNum'><i></i>购物袋</a>"
 		+ "<a href='/shop/html/my/myBuyer.html'><i></i>我的</a>"
 		+ "</div>");

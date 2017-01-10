@@ -105,7 +105,7 @@
 								allFun.removeLoading();
 								if(rs.code==0){
 									var d = rs.data,obj = "";
-									if(d.state == 1){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭
+									if(d.state == 1 || d.state == 3){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭 3 -> 店铺已关闭，但还有订单需处理
 										$("#woshishangjia").attr("data_v","1");
 									}
 									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
@@ -151,7 +151,7 @@
 			$("body").on("click","#yijiapaimai",function(){
 				location.href = hostPm+"/yjpai/platform/index.html";
 			})
-			//判断加V用户
+			//判断有无店铺
 			$("body").on("click","#woshishangjia",function(){
 				if($(this).attr("data_v") == "1"){//有店铺
 					location.href = "/shop/html/my/mySaler.html";

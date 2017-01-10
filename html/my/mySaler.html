@@ -68,8 +68,8 @@
 			<div class="dBox">
 				<a>常用入口</a>
 				<div class="fix">
-					<a href="/shop/html/my/publish.html"><i class="iconfont icon-open-release"></i>发布商品</a>
-					<a href="/shop/html/my/goodsManage.html"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
+					<a id="fabushangpin"><i class="iconfont icon-open-release"></i>发布商品</a>
+					<a id="shangpinguanli"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
 					<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
 				</div>
 			</div>
@@ -125,6 +125,9 @@
 								if(rs.code==0){
 									var d = rs.data,obj = "";
 									//$(".dMoney span").html("¥"+d.grossIncome);
+									if(d.state == 1){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭 3 -> 店铺已关闭，但还有订单需处理
+										$("#fabushangpin,#shangpinguanli").attr("data_v","1");
+									}
 									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
 										+ "<img src=/shop/imgs/level/saler"+d1.salerLevel.level+".png />"+d.user_name+"</h1>"
 										+ "<p>粉丝"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
@@ -163,7 +166,22 @@
 			$("body").on("click","#yijiapaimai",function(){
 				location.href = hostPm+"/yjpai/platform/index.html";
 			})
-			
+			//发布商品
+			$("body").on("click","#fabushangpin",function(){
+				if($(this).attr("data_v") == "1"){//有店铺
+					location.href = "/shop/html/my/publish.html";
+				}else{
+					allFun.alertDiv("店铺已关闭，如有问题请联系微信号 yijiapaimai01。");
+				}
+			})
+			//商品管理
+			$("body").on("click","#shangpinguanli",function(){
+				if($(this).attr("data_v") == "1"){//有店铺
+					location.href = "/shop/html/my/goodsManage.html";
+				}else{
+					allFun.alertDiv("店铺已关闭，如有问题请联系微信号 yijiapaimai01。");
+				}
+			})
 		});
 		
 	</script>

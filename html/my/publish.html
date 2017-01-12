@@ -745,7 +745,7 @@
 						if(d.images.length > 0){
 							var obj1 = "";
 							for(var i = 0; i < d.images.length; i++){
-								obj1 += "<li><img src="+d.images[i].image_url+"/square data_id="+d.images[i].file_id+" /><i class='iconCha'></i></li>";
+								obj1 += "<li><img src="+d.images[i].image_url+"/square data_id="+d.images[i].file_id+" data_initSrc="+d.images[i].image_url+" /><i class='iconCha'></i></li>";
 							}
 							$("#uploadImg").before(obj1);
 						}

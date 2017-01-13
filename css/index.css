@@ -33,7 +33,7 @@
 .faxian h3{font-size: 1.3rem; color: #3c3c3c;    width: 16rem;}
 .faxian dd{width:10rem;}
 .faxian h3 span img,.faxian h3 img{display: inline-block; margin-top:.1rem; float: left; margin-right:.5rem; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
-.faxian .more{float: right;  display: inline-block;}
+.faxian .more{ display: inline-block;}
 .faxian dd p{margin-top:.2rem;  }
 .faxian dd p span{font-size: 1.1rem; margin-right:1rem;color: #878787;}
 .faxian em{position: absolute; right:1rem; top:2.4rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;  border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}

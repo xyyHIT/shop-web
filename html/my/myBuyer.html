@@ -84,48 +84,34 @@
 	<script>
 		$(function () {
 			$.ajax({
-				url: hostPm+"/yjpai/platform/user/getUserInterestCount",
+				url: host+"/index.php?app=member&act=ejIndex",
 				type: "get",
 				dataType: "json",
 				beforeSend: function(){
 					allFun.loading();
 				},
 				success: function(rs) {
-					//allFun.removeLoading();
-					if(rs.resCode==1){
-						var d1 = rs.data;
-						$.ajax({
-							url: host+"/index.php?app=member&act=ejIndex",
-							type: "get",
-							dataType: "json",
-							beforeSend: function(){
-								//allFun.loading();
-							},
-							success: function(rs) {
-								allFun.removeLoading();
-								if(rs.code==0){
-									var d = rs.data,obj = "";
-									if(d.state == 1 || d.state == 3){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭 3 -> 店铺已关闭，但还有订单需处理
-										$("#woshishangjia").attr("data_v","1");
-									}
-									obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
-										+ "<img src=/shop/imgs/level/buyer"+d1.buyerLevel.level+".png />"+d.user_name+"</h1>"
-										+ "<p>关注"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
-									$(".top").html(obj);
-									
-									if(d.order_sta.order_pending > 0){
-										$(".icon-daifukuan").append("<b>"+d.order_sta.order_pending+"</b>");
-									}
-									if(d.order_sta.order_accepted > 0){
-										$(".icon-daifahuo").append("<b>"+d.order_sta.order_accepted+"</b>");
-									}
-									if(d.order_sta.order_shipped > 0){
-										$(".icon-chongzhi").append("<b>"+d.order_sta.order_shipped+"</b>");
-									}
-									
-								}
-							}
-						})
+					allFun.removeLoading();
+					if(rs.code==0){
+						var d = rs.data,obj = "";
+						if(d.state == 1 || d.state == 3){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭 3 -> 店铺已关闭，但还有订单需处理
+							$("#woshishangjia").attr("data_v","1");
+						}
+						obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
+							+ "<img src=/shop/imgs/level/buyer"+d.level+".png />"+d.user_name+"</h1>"
+							+ "<p>关注"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
+						$(".top").html(obj);
+						
+						if(d.order_sta.order_pending > 0){
+							$(".icon-daifukuan").append("<b>"+d.order_sta.order_pending+"</b>");
+						}
+						if(d.order_sta.order_accepted > 0){
+							$(".icon-daifahuo").append("<b>"+d.order_sta.order_accepted+"</b>");
+						}
+						if(d.order_sta.order_shipped > 0){
+							$(".icon-chongzhi").append("<b>"+d.order_sta.order_shipped+"</b>");
+						}
+						
 					}
 				}
 			})
@@ -160,27 +146,5 @@
 				}
 			})
 		});
-		
-		//获取个人信息
-		function getMyInfo(){
-			$.ajax({
-				url: host+"/index.php?app=member&act=ejIndex",
-				type: "get",
-				dataType: "json",
-				beforeSend: function(){
-					//allFun.loading();
-				},
-				success: function(rs) {
-					//allFun.removeLoading();
-					if(rs.code==0){
-						var d = rs.data,obj = "";
-						obj += "<img class='head' src="+d.portrait+" /><h1 class='over'>"
-							+ "<img src=/shop/imgs/level/buyer"+d.user_id+".png />"+d.user_name+"</h1>"
-							+ "<p>关注"+d.followers+"</p><i class='iconfont icon-zhankai-copy'></i>"
-						$(".top").html(obj);
-					}
-				}
-			})
-		}
 	</script>
 </html>

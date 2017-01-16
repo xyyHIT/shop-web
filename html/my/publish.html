@@ -315,10 +315,18 @@
 															obj += "<li><img src="+data[i].file_path+"/square data_id="+data[i].file_id+" /><i class='iconCha'></i></li>";
 														}*/
 														$.each(data, function(i,v) {
-															obj += "<li><img src="+v.file_path+"/square data_id="+v.file_id+" data_initSrc="+v.file_path+" /><i class='iconCha'></i></li>";
+															if(v.code != -1){
+																obj += "<li><img src="+v.file_path+"/square data_id="+v.file_id+" data_initSrc="+v.file_path+" /><i class='iconCha'></i></li>";
+															}/*else{
+																allFun.removeUploadImgPrompt();
+																allFun.alertDiv(v.desc);
+															}*/
 														});
-														$("#uploadImg").before(obj);
 														allFun.removeUploadImgPrompt();
+														if(obj == ""){
+															return false;
+														}
+														$("#uploadImg").before(obj);
 														//自动保存草稿
 														var obj = {};
 														obj.is_draft = 1;//1 保存草稿
@@ -559,8 +567,17 @@
 													if (rs.code == 0) {
 														var data = rs.data,obj = "";
 														$.each(data, function(i,v) {
-															obj += "<img src="+v.file_path+" data_id="+v.file_id+" />";
+															if(v.code != -1){
+																obj += "<img src="+v.file_path+" data_id="+v.file_id+" />";
+															}/*else{
+																allFun.removeUploadImgPrompt();
+																allFun.alertDiv(v.desc);
+															}*/
 														});
+														allFun.removeUploadImgPrompt();
+														if(obj == ""){
+															return false;
+														}
 														if(_t.attr("class") == "tanchu_update"){//替换图片
 															_t.parents(".dData").find("div.dDataB").html(obj);
 															$(".tanchu").remove();
@@ -568,7 +585,6 @@
 															$(".noData").remove();
 															$(".haveData").append("<div class='dData'><div class='dDataB'>"+obj+"</div><a class='aEdit'>编辑</a></div>");
 														}
-														allFun.removeUploadImgPrompt();
 														//自动保存草稿
 														var obj = {};
 														obj.is_draft = 1;//1 保存草稿

@@ -241,7 +241,7 @@ var allFun = {
 		+ "</div>");
 		$(".footerInit a:nth-child(1) i").attr("class","iconfont icon-shangchengshouye");
 		$(".footerInit a:nth-child(2) i").attr("class","iconfont icon-shangchengfaxian");
-		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-shangchenggouwudai");
+		$(".footerInit a:nth-child(3) i").attr("class","iconfont icon-shangchenggouwudai-copy");
 		$(".footerInit a:nth-child(4) i").attr("class","iconfont icon-shangchengwode");
 		$(".footerInit a:nth-child(5) i").attr("class","iconfont icon-dibudaohangwodeoff");
 		

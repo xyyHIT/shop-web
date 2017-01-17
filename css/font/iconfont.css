@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1483410000917'); /* IE9*/
-  src: url('iconfont.eot?t=1483410000917#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1483410000917') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1483410000917') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1483410000917#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1484644362322'); /* IE9*/
+  src: url('iconfont.eot?t=1484644362322#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1484644362322') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1484644362322') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1484644362322#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -148,4 +148,6 @@
 .icon-shangchengzhongchou:before { content: "\e610"; }
 
 .icon-shangchengzixun:before { content: "\e611"; }
+
+.icon-shangchenggouwudai-copy:before { content: "\e824"; }
 

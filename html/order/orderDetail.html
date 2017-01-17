@@ -151,8 +151,13 @@
 							+ "<em>收件人：</em><span>"+d.consignee.consignee+"  "+d.consignee.phone_mob+"</span><br />"
 							+ "<em>收件地址：</em><span>"+d.consignee.address+"</span></div></a></div>";
 						
-						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+" data_invoice_no="+d.invoice_no+"><h2><a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a>"
-								+ "<i class='iconfont icon-zhankai-copy'></i><em>"+d.statusname+"</em></h2><ul>";
+						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+" data_invoice_no="+d.invoice_no+"><h2>";
+						if(type == 0){//买家
+							obj += "<a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
+						}else{//卖家
+							obj += "<a>"+d.buyer_name+"</a>";
+						}
+						obj += "<em>"+d.statusname+"</em></h2><ul>";
 						$.each(d.goods_list, function(i,v) {
 							obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods_id+"><li>"
 								+ "<img src="+v.goods_image+"/square /><strong class='over over2'>"+v.goods_name+"</strong>"

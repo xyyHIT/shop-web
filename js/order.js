@@ -192,11 +192,42 @@
 						allFun.alertDiv("延长收货成功！")
 						var str = location.href.split('#')[0];
 						if(str.indexOf("orderList") > 0){//列表页
-							/*_t.parents(".box").find("h2 em").html("交易完成");
-							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");*/
+							
 						}else{//详情页
 							location.replace(location.href+"&t="+Date.now());;
 						}
+					} else {
+						allFun.alertDiv(rs.msg);
+					}
+				},
+				error: function() {
+					allFun.removeLoading();
+					allFun.alertDiv("error!")
+				}
+			})
+		})
+		//卖家提醒收货
+		$("body").on("click",".tixingshouhuo",function(){
+			var _t = $(this),
+				order_id = _t.parents(".box").attr("data_order_id");
+			$.ajax({
+				url: host + '/index.php?app=seller_order&act=remindreceipt',
+				type: "get",
+				dataType: "json",
+				data:{"order_id":order_id},
+				beforeSend:function(){
+					allFun.loading("正在提醒收货！");
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.code == 0) {
+						allFun.alertDiv("提醒收货成功！")
+						/*var str = location.href.split('#')[0];
+						if(str.indexOf("orderList") > 0){//列表页
+							
+						}else{//详情页
+							location.replace(location.href+"&t="+Date.now());;
+						}*/
 					} else {
 						allFun.alertDiv(rs.msg);
 					}

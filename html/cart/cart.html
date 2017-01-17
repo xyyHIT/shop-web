@@ -84,7 +84,7 @@
 							<a><img src='../../imgs/test/0.jpg' /></a>
 							<strong class='over'>自然造物 | 一物 ·【看道·寻瓷】</strong>
 							<p class='fix'>
-								<span>¥200</span>
+								<span>￥200</span>
 							</p>
 							<div class='liInput addSubtract'>
 								<i class='jianshao on'>－</i><input type='tel' value='1' maxlength='4' readonly='readonly' /><i class='zengjia'>＋</i>
@@ -105,7 +105,7 @@
 							<img src="../../imgs/test/0.jpg" />
 							<strong class="over">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
 							<p class="fix">
-								<span>¥200</span><em>x1</em>
+								<span>￥200</span><em>x1</em>
 							</p>
 							<div class="liInput addSubtract">
 								<i class="jianshao on">－</i><input type="tel" value="1" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
@@ -117,7 +117,7 @@
 							<img src="../../imgs/test/0.jpg" />
 							<strong class="over">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
 							<p class="fix">
-								<span>¥200</span><em>x1</em>
+								<span>￥200</span><em>x1</em>
 							</p>
 							<div class="liInput addSubtract">
 								<i class="jianshao">－</i><input type="tel" value="10" maxlength="4" readonly="readonly" /><i class="zengjia">＋</i>
@@ -128,7 +128,7 @@
 				</div>
 				<div class='operate'>
 					<i class='iconfont icon-querenoff1 icon-radio'></i>
-					合计：<span>¥<b id='summation'>0.00</b></span>
+					合计：<span>￥<b id='summation'>0.00</b></span>
 					<a>结算（<b id='settleAccounts'>0</b>）</a>
 				</div>-->
 			</div>
@@ -396,7 +396,7 @@
 				}
 				if(_t.hasClass("icon-queren1")){
 					numAll += parseInt(_t.parents("li").find("input").val() || 0);
-					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("¥","")) * parseInt(_t.parents("li").find("input").val() || 0);
+					moneyAll += parseFloat(_t.parents("li").find("p span").text().replace("￥","")) * parseInt(_t.parents("li").find("input").val() || 0);
 				}
 				cartNum += parseInt(_t.parents("li").find("input").val() || 0);
 			})
@@ -464,7 +464,7 @@
 									}
 									obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+"><img src="+v.goods[i].goods_image+"/square /></a>"
 										+ "<strong class='over'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
-										+ "<span>¥"+v.goods[i].price+"</span></p>";
+										+ "<span>￥"+v.goods[i].price+"</span></p>";
 									if(v.goods[i].closed == 0){
 										obj += "<div class='liInput addSubtract'>";
 										if(v.goods[i].quantity == 1){
@@ -481,7 +481,7 @@
 								obj += "</ul></div>";
 							});
 							obj += "<div class='operate'><i class='iconfont icon-querenoff1 icon-radio'></i>"
-								+ "合计：<span>¥<b id='summation'>0.00</b></span>"
+								+ "合计：<span>￥<b id='summation'>0.00</b></span>"
 								+ "<a>结算（<b id='settleAccounts'>0</b>）</a></div>";
 						}
 						$(".list").html(obj);

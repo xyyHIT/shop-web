@@ -112,7 +112,7 @@
 					allFun.removeLoading();
 					if(rs.code==0){
 						var d = rs.data,obj = "";
-						//$(".dMoney span").html("¥"+d.grossIncome);
+						//$(".dMoney span").html("￥"+d.grossIncome);
 						if(d.state == 1){//店铺状态 0 -> 店铺未审核（基本用不上） 1 -> 店铺正常 2 -> 店铺未开启，或者被关闭 3 -> 店铺已关闭，但还有订单需处理
 							$("#fabushangpin,#shangpinguanli").attr("data_v","1");
 						}

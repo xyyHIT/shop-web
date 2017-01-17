@@ -50,7 +50,7 @@
 							</a>
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
 							<p class="fix">
-								<span>¥200</span><em>x1</em>
+								<span>￥200</span><em>x1</em>
 							</p>
 						</li>
 						<li>
@@ -59,7 +59,7 @@
 							</a>
 							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
 							<p class="fix">
-								<span>¥200</span><em>x1</em>
+								<span>￥200</span><em>x1</em>
 							</p>
 						</li>
 					</ul>
@@ -70,11 +70,11 @@
 						买家留言<input placeholder='选填：对本次交易的说明最多50字' maxlength='50' />
 					</div>
 					<div class='dTotal'>
-						合计：<span>¥300.00</span>
+						合计：<span>￥300.00</span>
 					</div>
 				</div>
 				<div class='operate'>
-					合计：<span>¥600.00</span><a id='placeAnOrder'>确认下单</a>
+					合计：<span>￥600.00</span><a id='placeAnOrder'>确认下单</a>
 				</div>-->
 			</div>
 		</div>
@@ -161,13 +161,13 @@
 								obj += "<li><a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods[i].goods_id+">"
 									+ "<img src="+v.goods[i].goods_image+"/square /></a>"
 									+ "<strong class='over over2'>"+v.goods[i].goods_name+"</strong><p class='fix'>"
-									+ "<span>¥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p></li>";
+									+ "<span>￥"+v.goods[i].price+"</span><em>x"+v.goods[i].quantity+"</em></p></li>";
 							}
 							obj += "</ul></div>"
 								+ "<div class='sundry fix'>快递费用<span>"+v.shiprice+"</span></div>"
-								+ "<div class='dTotal'>小计：<span>¥"+v.amount+"</span></div>";
+								+ "<div class='dTotal'>小计：<span>￥"+v.amount+"</span></div>";
 						});
-						obj += "<div class='operate'>合计：<span>¥"+rs.data.totalamount+"</span><a id='placeAnOrder'>确认下单</a></div>";
+						obj += "<div class='operate'>合计：<span>￥"+rs.data.totalamount+"</span><a id='placeAnOrder'>确认下单</a></div>";
 						$(".list").html(obj);
 					} else {
 						allFun.alertDiv(rs.msg);

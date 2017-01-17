@@ -36,7 +36,7 @@
 				<li data_changeType="6">
 					<i class="iconfont icon-balance"></i>
 					<p>余额支付</p>
-					<span id="balance"><!--¥20000元--></span>
+					<span id="balance"><!--￥20000元--></span>
 					<i class="iconfont icon-radio icon-queren1"></i>
 				</li>
 				<li data_changeType="2">
@@ -210,7 +210,7 @@
 						var d = rs.data;
 						balance = d.balance;
 						pwdType = d.passWord;
-						$("#balance").html("¥"+balance+"元");
+						$("#balance").html("￥"+balance+"元");
 						/*if(balance < money){
 							$("#chongzhi").show();
 						}*/
@@ -232,7 +232,7 @@
 					if(rs.code == 0) {
 						var d = rs.data;
 						money = d.amount;
-						$(".operate span").html("¥"+d.amount+"");
+						$(".operate span").html("￥"+d.amount+"");
 					} else {
 						allFun.alertDiv(rs.msg);
 					}

@@ -49,6 +49,9 @@
 			.categorys .swiper-slide .inner img{  width: 100%;  margin-bottom: 4px;  height: 9.4rem;  }
 			.categorys .swiper-slide .inner a h4,.categorys .swiper-slide .inner a p{padding:0 .5rem;}
 			.categorys .swiper-slide .inner a p{margin-top:.5rem;}
+			
+			.gather_tit a.more{ position: absolute; top: 0; right: 1rem; color: #333;}
+			.gather_tit a.more .icon-zhankai-copy{ margin-left: .2rem; font-size: 1rem; color: #333;}
 
 
 		</style>
@@ -378,7 +381,7 @@
                                 }
                                 cateList += '<div class="gather_node">'
                                     + '<div class="gather_tit">'
-                                    + '<a class="more" href="javascript:;" cateId="'+ category[z].cate_id+'"> <h3><b class="iconfont icon-zhankai-copy"></b>' + category[z].cate_name + '</h3></a>'
+                                    + '<h3>' + category[z].cate_name + '</h3><a class="more" href="javascript:;" cateId="'+ category[z].cate_id+'">更多<b class="iconfont icon-zhankai-copy"></b></a>'
                                     + '</div>'
                                     + '<div class="swp_views">'
                                     + '<div class="swp_list categorys">'

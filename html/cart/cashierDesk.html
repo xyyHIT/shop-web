@@ -220,7 +220,7 @@
 				}
 			});
 			$.ajax({
-				url: host + '/index.php?app=order&act=getpayorder',
+				url: host + '/index.php?app=order&act=getpayorder&step=1',
 				type: "get",
 				dataType: "json",
 				data:{"order_id":orderId,"type":type},

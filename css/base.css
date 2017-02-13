@@ -50,7 +50,7 @@ pre {
 .comment-button{padding: 1rem;border:1px solid #828282;border-radius: 3px;text-align: center;font-size: 1.8rem;color:#5f5f5f;}
 .red-button{text-align: center;color: #FFFFFF;background-color: #eb4849;padding: 1rem;font-size: 1.3rem;border-radius: 2px;}
 
-.footer{ position: fixed; width: 100%; bottom: 0; left: 0;height: 4.8rem; border-top: 1px solid #EFEFEF; background:url(../imgs/footer_bg.jpg) center top; z-index: 999;}/* rgba(250,250,250,.95)*/
+.footer{ position: fixed; width: 100%; bottom: 0; left: 0;height: 4.8rem; border-top: 1px solid #EFEFEF; background: rgba(250,250,250,.95);z-index: 999;}/* rgba(250,250,250,.95)*/
 .footer a{ position: relative; display: inline-block; width: 25%; height: 100%; font-size: 1.25rem; line-height: 1.25rem; color:#333; text-align: center;}
 .footer a i{ position: relative; display: block; width: 2.5rem; height: 2.5rem; margin: 0 auto; margin-top: .3rem; margin-bottom: .2rem; color: #E73D2E;line-height: 2.5rem; font-size: 2rem;}
 .footer a i em{ position: absolute; top: .1rem; left: 2rem; display: block; padding: 0 .3rem; min-width: 1.2rem; height: 1.2rem; line-height: 1.3rem; border-radius: 1.1rem; font-size: 1rem; color: #fff; text-align: center; background: #EC4747; overflow: hidden;}

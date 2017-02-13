@@ -2,7 +2,7 @@
 /*导航*/
 .tNav{height:4rem; line-height: 4rem;  }
 .tNav #navList>div{position: relative;}
-.tNav #navList>div.rent{ color: #FFCC19; border-bottom: 2px solid #FFCC19;width:100%;box-sizing: border-box;  bottom:1px; left:0px; text-align: center; font-size:1.3rem;}
+.tNav #navList>div.rent{ color: #ee4849; border-bottom: 2px solid #ee4849;width:100%;box-sizing: border-box;  bottom:1px; left:0px; text-align: center; font-size:1.3rem;}
 /*搜索*/
 .search_button{background-color: #fff;padding: 1rem 2rem; margin-top: .5rem; }
 .search_button{display: block;}

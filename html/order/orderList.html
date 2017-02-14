@@ -10,11 +10,23 @@
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
 		<style>
-			.list{ margin-top: 4.5rem;}
+			.header{padding: 1rem 1.5rem;background-color:#fff;position: relative;z-index: 200; border-bottom: 1px solid #EFEFEF;}
+			.header #searchInput{font-size:1.1rem;color:#9e9e9e;float:left;height:3rem;line-height:3.2rem;width:100%;padding-left:3rem;background:#e7e7e7;border:none;border-radius:5px;}
+			#search-button{float:right;border-radius:4px; border:1px solid #5f5f5f;width:6rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#5f5f5f;}
+			.searchBg{position: absolute; top:1.5rem; left:2rem; font-size:1.6rem; color:#9e9e9e;}
 		</style>
 	</head>
 	<body>
 		<div class="container">
+
+			<!--搜索-->
+			<div class="header fix">
+				<a href="/shop/html/order/orderSearch.html">
+					<div class="searchBg iconfont icon-sousuo"></div>
+					<div id="searchInput">输入搜索的订单...</div>
+				</a>
+			</div>
+
 			<nav class="nav5">
 				<a data_type='all'>全部</a><a data_type='pending'>待付款</a><a data_type='accepted'>待发货</a><a data_type='shipped'>待收货</a><a data_type='finished'>已完成</a>
 			</nav>

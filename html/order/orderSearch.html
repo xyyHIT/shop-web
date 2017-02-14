@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>订单搜索</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
+    <style>
+        body{background: #f9f9f9;  height:100%;}
+
+        .header{padding: 1rem 1.5rem;background-color:#fff;position: relative;z-index: 200;}
+        .header input{font-size:1.1rem;float:left;width: 60%;height:2.6rem;border-top-left-radius :0px;border-bottom-left-radius:0px;border-top-right-radius :5px;border-bottom-right-radius:5px;padding:0 1rem; color:#9e9e9e; background: #EFEFEF;border:none;background-size: 1.6rem;background-position-y: 0.3rem;background-position-x: 0.5rem;}
+
+        .s-input-tab{display:inline-block;position:relative; background: #EFEFEF;border-top-left-radius :5px;border-bottom-left-radius:5px; }
+        .s-input-tab .s-input-tab-txt{width:4.2rem;height:2.6rem;line-height:2.6rem; text-align:center;color:#3c3c3c;font-size:1.1rem;}
+        .s-input-tab-txt{position: relative;}
+        .s-input-tab-txt em{ width:0;  height:0;  border-top:5px solid transparent;  border-bottom: 5px solid transparent;  border-left: 5px solid #3c3c3c;position: absolute; right: 0;  bottom:-.1rem;  transform:rotate(45deg);  -ms-transform:rotate(45deg); 	/* IE 9 */  -moz-transform:rotate(45deg); 	/* Firefox */  -webkit-transform:rotate(45deg); /* Safari 和 Chrome */  -o-transform:rotate(45deg); 	/* Opera */}
+        .s-input-tab .s-input-tab-nav{position:absolute;left:0;top:30px;z-index:101;padding:10px; display: none;}
+        .s-input-tab .s-input-tab-nav.off{display:none}
+        .s-input-tab .s-input-tab-nav ul{background:#3c3c3c;border-radius:6px;width:10rem;overflow:hidden;color:#c7c8c9}
+        .s-input-tab .s-input-tab-nav ul:after{position:absolute;left:20px;top:5px;content:'';display:inline-block;width:10px;height:10px;background:#3c3c3c;-webkit-transform:rotate(45deg)}
+        .s-input-tab .s-input-tab-nav li{border-top:1px solid #707476;margin-top:-1px;height:3rem;line-height:3rem; text-align: center;}
+
+        #search-button{float:right;border:1px solid #878787;border-radius:4px;width:5rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#606060;}
+        .nav{display:none;padding: 1rem 1.5rem;background-color: #FFFFFF;font-size: 0;position: relative;z-index: 200;}
+        .nav span{display: inline-block;width: 50%;font-size: 1.4rem;color:#666666;text-align: center;}
+        .nav span i.iconfont {display: inline-block;margin-left:  .4rem;font-size: 1.2rem;font-weight: bold; vertical-align: middle;}
+        .nav span.up,.nav span.down{ color: #3C3C3C;}
+        .nav span i.iconfont{ display: inline-block; margin: -.2rem 0 0 .3rem; font-size: 1.2rem; font-weight: bold; vertical-align: middle;}
+        .nav span.up i.iconfont{ color: #eb4849;}
+        .nav span.down i.iconfont{ color: #eb4849; -webkit-transform: rotate(180deg); transform: rotate(180deg);}
+        .nonePageImg{z-index: 100;}
+
+        .trade_contents ol{display: none;}
+        .trade_contents ol.on{display: block;}
+        .seemore, .nextpage {clear:both;}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header fix">
+        <div class="s-input-tab left">
+            <div class="s-input-tab-txt"><em></em><span>商品</span></div>
+            <div class="s-input-tab-nav" id="J_TabNav">
+                <ul>
+                    <li class="all">商品</li>
+                    <li class="shop">店铺</li>
+                </ul>
+            </div>
+        </div>
+        <form action="javascript:void(0)">
+            <input type="search" id="searchInput" placeholder="请输入搜索的订单..." autocapitalize="off" autocorrect="off" />
+        </form>
+        <span id="search-button">搜索</span>
+    </div>
+
+    <!--订单-->
+    <div class="list">
+
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+
+    $(function () {
+        //分享
+        wx.ready(function(){
+            wx.showAllNonBaseMenuItem();
+        });
+           type = allFun.getRequest("type"),//0买家 1卖家
+            curr_page = 1,//当前页
+            keyword = "",//search_goodsname = '按商品搜索(商品名称)'seller_name = '按卖家名称搜索（卖家名称）'buyer_name = '买家名称（按买家搜索）'search_goodsname = '按商品搜索(商品名称)'
+            finished = true;
+
+        //缓存
+        if(sessionStorage.getItem("orderSearchShopStorage") && allFun.getRequest("history") == -1){
+            var orderSearchShopStorage = JSON.parse(sessionStorage.getItem("orderSearchShopStorage"));
+            curr_page = orderSearchShopStorage.curr_page;
+            keyword = orderSearchShopStorage.keyword;
+            $(".container").html(orderSearchShopStorage.cont);
+            $("#searchInput").val(keyword);
+            $("body").scrollTop(orderSearchShopStorage.scrollTop);
+            sessionStorage.removeItem("orderSearchShopStorage");
+        }else{
+            sessionStorage.removeItem("orderSearchShopStorage");
+            getOrderSearch(keyword,0);
+
+        }
+        //点击搜索按钮
+        $("body").on('click',"#search-button",function(){
+            keyword=$("#searchInput").val();
+            if(keyword==""){
+                allFun.alertDiv("请输入搜索内容");
+                return false;
+            }
+            curr_page = 1;
+            var textSpan=$('.s-input-tab-txt span').text();
+            if(textSpan==="商品"){
+                getOrderSearch(keyword,0);
+            }else if(textSpan==="店铺") {
+                getOrderSearch(keyword,1);
+            }
+        });
+        //点击虚拟按键搜索
+        $(document).keydown(function (event){
+            if(event.keyCode === 13) {
+                keyword=$("#searchInput").val();
+                if(keyword==""){
+                    allFun.alertDiv("请输入搜索内容");
+                    return false;
+                }
+                curr_page = 1;
+                var textSpan=$('.s-input-tab-txt span').text();
+                if(textSpan==="商品"){
+                    getOrderSearch(keyword,0);
+                }else if(textSpan==="店铺") {
+                    getOrderSearch(keyword,1);
+                }
+            }
+        });
+
+        //点击查看更多
+        $(window).on('scroll', function () {
+            var dHeight = document.documentElement.offsetHeight;
+            var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+            var wHeight = document.documentElement.clientHeight;
+            if (finished && dHeight - (sHeight + wHeight) < 200) {
+                finished = false;
+                if($(".seemore").attr("data_d") != "no"){
+                    curr_page++;
+                    var text=$(".s-input-tab-txt span").text();
+                    if(text=="商品"){
+                        getOrderSearch(keyword,0);
+                    }else {
+                        getOrderSearch(keyword,1);
+                    }
+                }
+            }
+        });
+
+        function  getOrderSearch(keyword,word){
+            var uu = "";
+            if (word == 0) {//商品
+                uu = "/index.php?app=seller_order&act=index&search_goodsname ="+keyword+"&t=" + Date.now();
+            } else {//买家
+                if (type == 1) {//卖家
+                    uu = "/index.php?app=buyer_order&act=index&buyer_name="+keyword+"&t=" + Date.now();
+                } else {
+                    uu = "/index.php?app=buyer_order&act=index&seller_name="+keyword+"&t=" + Date.now();
+                }
+            }
+            $.ajax({
+                url: host + uu +"&page=" + curr_page,
+                type: "get",
+                dataType: "json",
+                beforeSend:function(){
+                    if(curr_page == 1){//第一次
+                        allFun.loading();
+                    }
+                },
+                success: function(rs) {
+                    allFun.removeLoading();
+                    if(rs.code == 0) {
+                        $(".seemore").remove();
+                        curr_page = rs.data.page.curr_page;
+                        finished = true;
+                        var obj = "",
+                            d = rs.data.orderlist,
+                            item_count = rs.data.page.item_count,//总条数
+                            pageper = rs.data.page.pageper;//每页条数
+                        if(item_count == 0){//无数据(第一次进来)
+                            obj += allFun.noDataImg("您还没有相关的订单");
+                        }else{
+                            $.each(d, function(i,v) {
+                                obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2>";
+                                if(type == 0){//买家
+                                    obj += "<a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
+                                }
+                                else{//卖家
+                                    obj += "<a>"+v.seller_name+"</a>";
+                                }
+                                obj += "<em>"+v.statusname+"</em></h2><ul>";
+                                for(var i = 0; i < v.order_goods.length; i++){
+                                    obj += "<li><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
+                                        + "<p class='fix'><span>￥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
+                                }
+                                obj += "</ul><div class='dTotal'>合计：<span>￥"+v.order_amount+"</span></div>"+v.button+"</div>";
+                            });
+                            if(curr_page < Math.ceil(item_count/pageper)){//有数据
+                                obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";
+                            }else{//没有更多数据
+                                obj += "<div class='seemore' data_d='no'></div>";
+                            }
+                        }
+                        $(".list").html(obj);
+                    } else {
+                        allFun.alertDiv(rs.msg);
+                    }
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
+                }
+            })
+        }
+
+        //选择店铺和商品下拉框
+        $(".s-input-tab-txt").click(function() {
+            $("#J_TabNav").toggle();
+        });
+
+        $("#J_TabNav li").click(function() {
+            var text=$(this).text();
+            $(".s-input-tab-txt span").html(text);
+            $("#J_TabNav").hide();
+        });
+    });
+</script>
+</html>

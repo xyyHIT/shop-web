@@ -95,7 +95,7 @@
             sessionStorage.removeItem("orderSearchShopStorage");
         }else{
             sessionStorage.removeItem("orderSearchShopStorage");
-            getOrderSearch(keyword,0);
+            //getOrderSearch(keyword,0);
 
         }
         //点击搜索按钮
@@ -150,13 +150,30 @@
             }
         });
 
+        //点击跳转到详情
+        $("body").on("click",".box li",function(){
+            var _t = $(this),obj = {};
+            obj.cont = $(".container").html();
+            obj.curr_page = curr_page;
+            obj.keyword=$("#searchInput").val();
+            obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            sessionStorage.setItem("orderSearchShopStorage", JSON.stringify(obj));
+            history.replaceState(null,null,"?type="+type+"&history=-1");
+            location.href = "/shop/html/order/orderDetail.html?orderId="+_t.parents(".box").attr("data_order_id")+"&type="+type+"";
+        });
+
         function  getOrderSearch(keyword,word){
             var uu = "";
             if (word == 0) {//商品
-                uu = "/index.php?app=seller_order&act=index&search_goodsname ="+keyword+"&t=" + Date.now();
-            } else {//买家
                 if (type == 1) {//卖家
-                    uu = "/index.php?app=buyer_order&act=index&buyer_name="+keyword+"&t=" + Date.now();
+                    uu = "/index.php?app=seller_order&act=index&search_goodsname="+keyword+"&t=" + Date.now();
+                } else {
+                    uu = "/index.php?app=buyer_order&act=index&search_goodsname="+keyword+"&t=" + Date.now();
+                }
+
+            } else {//店铺
+                if (type == 1) {//卖家
+                    uu = "/index.php?app=seller_order&act=index&buyer_name="+keyword+"&t=" + Date.now();
                 } else {
                     uu = "/index.php?app=buyer_order&act=index&seller_name="+keyword+"&t=" + Date.now();
                 }

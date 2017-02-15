@@ -155,7 +155,6 @@
             var _t = $(this),obj = {};
             obj.cont = $(".container").html();
             obj.curr_page = curr_page;
-            obj.keyword=$("#searchInput").val();
             obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             sessionStorage.setItem("orderSearchShopStorage", JSON.stringify(obj));
             history.replaceState(null,null,"?type="+type+"&history=-1");

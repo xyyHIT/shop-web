@@ -58,7 +58,7 @@
 	<script type="text/javascript">
 		var invoice_no = allFun.getRequest("invoice_no");//物流单号
 		$.ajax({
-			url: hostPm+"/yjpai/orderTrace/queryDelivery?nu="+invoice_no,
+			url: hostPm+"/yjpai/platform/order/getOrderTraceByCode?logisticCode="+invoice_no,
 			type: "get",
 			beforeSend:function(){
 				allFun.loading();

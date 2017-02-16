@@ -75,10 +75,6 @@
 <script>
 
     $(function () {
-        //分享
-        wx.ready(function(){
-            wx.showAllNonBaseMenuItem();
-        });
            type = allFun.getRequest("type"),//0买家 1卖家
             curr_page = 1,//当前页
             keyword = "",//search_goodsname = '按商品搜索(商品名称)'seller_name = '按卖家名称搜索（卖家名称）'buyer_name = '买家名称（按买家搜索）'search_goodsname = '按商品搜索(商品名称)'
@@ -91,12 +87,10 @@
             keyword = orderSearchShopStorage.keyword;
             $(".container").html(orderSearchShopStorage.cont);
             $("#searchInput").val(keyword);
-            $("body").scrollTop(orderSearchShopStorage.scrollTop);
+            //
             sessionStorage.removeItem("orderSearchShopStorage");
         }else{
             sessionStorage.removeItem("orderSearchShopStorage");
-            //getOrderSearch(keyword,0);
-
         }
         //点击搜索按钮
         $("body").on('click',"#search-button",function(){
@@ -108,13 +102,16 @@
             curr_page = 1;
             var textSpan=$('.s-input-tab-txt span').text();
             if(textSpan==="商品"){
+                $(".list").empty();
                 getOrderSearch(keyword,0);
             }else if(textSpan==="店铺") {
+                $(".list").empty();
                 getOrderSearch(keyword,1);
             }
         });
         //点击虚拟按键搜索
         $(document).keydown(function (event){
+
             if(event.keyCode === 13) {
                 keyword=$("#searchInput").val();
                 if(keyword==""){
@@ -124,8 +121,10 @@
                 curr_page = 1;
                 var textSpan=$('.s-input-tab-txt span').text();
                 if(textSpan==="商品"){
+                    $(".list").empty();
                     getOrderSearch(keyword,0);
                 }else if(textSpan==="店铺") {
+                    $(".list").empty();
                     getOrderSearch(keyword,1);
                 }
             }
@@ -155,6 +154,7 @@
             var _t = $(this),obj = {};
             obj.cont = $(".container").html();
             obj.curr_page = curr_page;
+            obj.keyword=keyword;
             obj.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             sessionStorage.setItem("orderSearchShopStorage", JSON.stringify(obj));
             history.replaceState(null,null,"?type="+type+"&history=-1");
@@ -220,7 +220,7 @@
                                 obj += "<div class='seemore' data_d='no'></div>";
                             }
                         }
-                        $(".list").html(obj);
+                        $(".list").append(obj);
                     } else {
                         allFun.alertDiv(rs.msg);
                     }

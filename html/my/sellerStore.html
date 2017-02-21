@@ -206,10 +206,6 @@
             });
         }
         //添加关注
-        if(allFun.getRequest("addStore") == "addStore"){
-            item_id=$(".faxian em").attr("item_id");
-            allFun.attention("store","add",$(".faxian em"));
-        }
         $("body").on("click",".faxian em",function(){
             var t=$(this);
             item_id=t.attr("item_id");

@@ -125,9 +125,7 @@
 	var bannerList = [],
 		goodsId = allFun.getRequest("goodsId");//商品id
     $(function () {
-    	if(allFun.getRequest("addCart") == "addCart"){
-    		cart($('.pro-info .name').attr('spec_id'),1);
-    	}
+    	
     	//是否关注公众号
 		$.ajax({
 		   	type: "POST",
@@ -182,7 +180,9 @@
                     }else {
                         $(".liks").html('<p class="heart iconfont icon-xihuan grey" item_id="'+goodsData.goods_id+'" dataStatus="drop"></p>');
                     }
-
+                    if(allFun.getRequest("addCart") == "addCart"){//增加一个
+			    		cart($('.pro-info .name').attr('spec_id'),1);
+			    	}
 
                     $(".pro-info .kinds .freight").html(goodsData.ship_price);
                     //$(".ways .freight em").html(goodsData.ship_price);
@@ -351,7 +351,7 @@
 		                    cart($('.pro-info .name').attr('spec_id'),1);
 		                }
 		            })*/
-                    location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0])+"&addCart=addCart";
+                    location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]+"&addCart=addCart");
                 }else{
                 	allFun.alertDiv(rs.msg);
                     return false;

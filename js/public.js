@@ -324,7 +324,11 @@ var allFun = {
 		                    
 		                }
 		            })*/
-	                location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]);
+                    if(type=="store"){
+                        location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]+"&addStore=addStore");
+					}else if(type=="goods"){
+                        location.href = host + '/index.php?app=wechat&act=redirectBusiness&url='+encodeURIComponent(location.href.split('#')[0]+"&addGoods=addGoods");
+                    }
 	            }else{
 	            	allFun.alertDiv(rs.msg);
 	                return false;

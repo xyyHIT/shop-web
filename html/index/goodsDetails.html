@@ -204,7 +204,14 @@
                     } else {
                         $('.faxian em').remove();//是当前的用户没有关注按钮 status=2当前用户
                     }
-                    
+                    if(allFun.getRequest("addGoods") == "addGoods"){
+                        item_id=$(".liks p").attr("item_id");
+                        allFun.attention("goods","add",$(".liks p"));
+                    }
+                    if(allFun.getRequest("addStore") == "addStore"){
+                        item_id=$(".gz i").attr("item_id");
+                        allFun.attention("store","add",$(".gz i"));
+                    }
                     //是当前用户加入购物袋 变灰色
 	                if (status == 2) {
 	                    var t=$(".detailFooter a:last");

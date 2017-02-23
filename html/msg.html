@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>请在微信里扫描二维码，进行访问</title>
+    <style>
+        * {
+            -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+            outline: none;
+        }
+
+        html {
+            background-color: #f0f0f0;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Microsoft Yahei', Simsun, Arial, 'Segoe UI', sans-serif;
+            font-size: 12px;
+            color: #404040;
+            margin: 0 auto;
+            padding: 0;
+            max-width: 640px;
+            background-color: #FFF;
+            min-height: 100%;
+        }
+
+        .qrcodeMain {
+            width: 100%;
+            display: table;
+            padding-top: 30px;
+        }
+
+        .qrcodeMain .continue {
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
+            padding: 10px 0 25px 0;
+            color: #06BC07;
+        }
+
+        .qrcodeMain .continue .button {
+            display: block;
+            width: 92%;
+            height: 45px;
+            margin: 0 auto;
+            line-height: 45px;
+            background-color: #06BC07;
+            color: #FFF;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .qrcodeMain .continue a {
+        	display: block;
+            width: 80%;
+            height: 3em;
+            margin: 0 auto;
+            line-height: 3em;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            background: #54DC66;
+        }
+
+        .qrcodeMain .tips {
+            width: 100%;
+            padding: 25px 0 10px 0;
+            line-height: 24px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .qrcodeMain .tips .h1,
+        .qrcodeMain .continue .h1 {
+            color: #C90B00;
+        }
+
+        .qrcodeMain .qrcode {
+            width: 165px;
+            height: 165px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/javascript" src="/shop/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/shop/js/qrcode_erweima.js"></script>
+    
+</head><body>
+<div class="qrcodeMain">
+    <div class="logo"></div>
+    <div class="tips">
+        <span class="h1">微信扫描</span> 二维码<br>
+        或 <span class="h1">微信关注</span> 艺加拍卖(yijiapaimai)<br>
+        或 <span class="h1">复制网址至微信</span> 打开<br>
+    </div>
+    <div class="qrcode"></div>
+    <div class="tips" style="padding: 10px 0 15px 0;border-bottom: 10px solid #DDD;">“拍”醒你的梦想，幸运瞬间释放，你敢拍么？</div>
+    <div class="tips" style="padding-top: 0px; padding-bottom: 0px;">
+        <span class="h1" style="font-size: 26px;"></span><br>
+    </div>
+    <div class="continue">
+        <a>如果您在微信里，请您点击访问</a>
+    </div>
+</div>
+<input id="codeUrl" type="hidden" value="{$codeUrl}" />
+
+</body>
+<script language="javascript">
+    $(function () {
+    	var codeUrl = $("#codeUrl").val();
+        $('.qrcode').qrcode({
+			width: 165, //宽度 
+		    height:165, //高度 
+		    text:codeUrl
+		});
+		$(".continue a").attr("href",codeUrl);
+    });
+</script>
+</html>

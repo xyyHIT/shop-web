@@ -340,6 +340,32 @@ var allFun = {
 	        }
 	    });
 	},
+    //打开二维码
+    openQrcode:function(type,id){//type：类别 ,id：id
+        $("body").on('click',"#openQrcode",function(){
+            allFun.loading("正在生成二维码");
+            $.ajax({//category:	Lot(1), LotPerformance(2), User(3), ZcActivity(4), ZcItem(5);
+                url: host+'/yjpai/platform/share/getCodeImg?type='+type+'&id='+id+'',
+                type: "get",
+                dataType: "json",
+                success: function(rs) {
+                    allFun.removeLoading();
+                    if (rs.code == 0) {
+                        var erweimaimgList = [];
+                        erweimaimgList.push(rs.data);
+                        wx.ready(function() {
+                            wx.previewImage({
+                                current: erweimaimgList[0], // 当前显示图片的http链接
+                                urls: erweimaimgList // 需要预览的图片http链接列表
+                            });
+                        })
+                    } else {
+                        allFun.alertDiv(rs.msg);
+                    }
+                }
+            });
+        })
+    },
 	//格式化金额
 	fmoney: function(s, n) {
 	    n = n > 0 && n <= 20 ? n : 2;  

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>发表评价</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="/shop/css/font/iconfont.js"></script>
+    <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
+    <style>
+        .container{}
+        .storeComment,.allStar,store{background: #fff;padding:0 1rem;}
+        .allStar{padding-bottom:1rem;}
+        .storeComment h1{color:#333; font-size:1.2rem;  padding:1rem 0 1.5rem 0;}
+        .storeComment h1 em{ width: 2rem; height: 2rem;display:inline-block;float:left; margin-right:1rem;background: url(/shop/imgs/icon/store.png) no-repeat ; background-size: 100%;}
+        .storeComment span{color:#dcdcdc; font-size:1rem;margin-left:1rem;}
+
+        .stars{color:#dcdcdc;height:3rem;line-height: 3rem;font-size:1.2rem ;}
+        .tip{position:absolute;top:0;left:0;z-index:9999;border: 1px solid #D6D6D6;padding:5px 12px;background-color: #FFF;display: none;color:#FF6600;}
+        .intro{margin-left:8px;color:#1B1B1B}
+        .stars img{vertical-align: middle;position: relative;top:-1px;cursor:pointer; width:1.9rem; height:1.9rem;}
+        .stars label{display: inline-block;color:#333;float: left; margin-right:1rem;}
+        .comment_title{margin-left:1rem;display: inline-block}
+
+        .evaluation{padding:1rem; background: #fff;  overflow: hidden;}
+        .evaluation dt{ float: left; width:6rem; height:6rem; margin-right:2rem;}
+        .evaluation dt img{width:6rem; height:6rem;}
+        .evaluation dd {float: left;}
+        .evaluation dd h1{margin-top:1rem;font-size: 1.2rem;}
+
+        .divOneInfo{ backgrund:#fff;margin:1rem 0;}
+        .divOneInfo .imgList{ height: 6.5rem; background: #fff; overflow: hidden;}
+        .divOneInfo .imgList li{ position: relative; float: left; width: 5rem; height: 5rem; margin: 1rem 0 1.5rem 1.2rem;}
+        .divOneInfo .imgList li img{ width: 100%;}
+        .divOneInfo .imgList li i.up{ position: absolute; display: block; width: 4.5rem; height: 4.5rem; top: 0; right: 0; background: url(/shop/imgs/icon/icon_up.png) no-repeat; background-size: 100%;}
+        .divOneInfo .imgList li i.up{ font-size: 4.9rem; }
+
+        .describe{background: #f9f9f9; padding:1rem; }
+        .describe #fontContent{ width: 100%;background: #f9f9f9;  height: 8.5rem;   font-size: 1.2rem;  line-height: 1.8rem;  border:none;  border-radius: 5px;}
+
+        .footer { display: none;}
+        .present{width: 100%;height:4.9rem; line-height: 4.9rem; background: #ec4747; position: fixed; bottom:0; left: 0; text-align: center; color:#fff; font-size: 1.3rem;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <!--商品评价-->
+    <dl class="evaluation">
+        <dt ><img src="/shop/imgs/banner4.jpg"/></dt>
+        <dd>
+            <h1>商品评价</h1>
+            <div class="stars">
+                <img src="/shop/imgs/star_gold.png"/>
+                <img src="/shop/imgs/star_gold.png"/>
+                <img src="/shop/imgs/star_gold.png"/>
+                <img src="/shop/imgs/star_gold.png"/>
+                <img src="/shop/imgs/star_gold.png"/>
+            </div>
+        </dd>
+    </dl>
+
+
+    <div class="describe">
+        <textarea id="fontContent" placeholder="请输入内容,不超过100个字"></textarea>
+    </div>
+    <div class="divOneInfo">
+        <ul class="imgList fix">
+            <!--<li>
+                <img src='../../imgs/test/0.jpg' />
+                <i class='iconCha'></i>
+            </li>-->
+            <li id='uploadImg'>
+                <i class='up'></i>
+            </li>
+        </ul>
+    </div>
+
+    <!--店铺评价-->
+    <div class="store">
+        <div class="storeComment">
+            <h1><em></em>店铺评分<span>满意请给打五分~</span></h1>
+        </div>
+        <div class="allStar">
+            <div class="stars">
+                <label>描述相符</label>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+            </div>
+            <div class="stars">
+                <label>物流服务</label>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+            </div>
+            <div class="stars">
+                <label>服务态度</label>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+                <img src="/shop/imgs/star_gray.png"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="present">提交评价</div>
+
+</div>
+</body>
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        //定义三维数组
+        var data = [
+            [
+                ['不符合'],
+                ['一般'],
+                ['符合' ],
+                ['很符合'],
+                ['非常符合']
+            ],
+            [
+                ['很差'],
+                ['一般'],
+                ['好' ],
+                ['很好'],
+                ['非常好']
+            ],
+            [
+                ['很差'],
+                ['一般'],
+                ['好' ],
+                ['很好'],
+                ['非常好']
+            ]
+        ];
+        //定义悬浮每行各个星星图片
+        var stars = [
+            ['star_gold.png', 'star_gray.png', 'star_gray.png', 'star_gray.png', 'star_gray.png'],
+            ['star_gold.png', 'star_gold.png', 'star_gray.png', 'star_gray.png', 'star_gray.png'],
+            ['star_gold.png', 'star_gold.png', 'star_gold.png', 'star_gray.png', 'star_gray.png'],
+            ['star_gold.png', 'star_gold.png', 'star_gold.png', 'star_gold.png', 'star_gray.png'],
+            ['star_gold.png', 'star_gold.png', 'star_gold.png', 'star_gold.png', 'star_gold.png']
+        ];
+
+
+        $(".stars").find("img").click(function() { //当点击每颗星星
+            var obj = $(this);//当前对象
+            var star_area = obj.parent(".stars"); //当前父级.stars
+            var star_area_index = star_area.parent().find(".stars").index(star_area);//当前父级.stars索引
+            var index = obj.parent(".stars").find("img").index($(this));//当前星星索引
+
+            var comment_title = data[star_area_index][index][0];//标题
+            var comment_description = data[star_area_index][index][1];//描述
+            star_area.attr("data-default-index", index);//记录点击后的索引，用来鼠标移出星星后，获取之前点击后的星星索引
+            for (var i = 0; i < 5; i++) {
+                star_area.find("img").eq(i).attr("src", "/shop/imgs/" + stars[index][i]);//切换每个星星
+            }
+            star_area.find(".comment_description").remove();//显示切换描述
+            star_area.append("<span class='comment_description'><span class='comment_title'>" + comment_title + "</span></span>");
+        })
+
+        $("body").on("click",".present",function(){
+
+        })
+
+
+    })
+</script>
+</html>

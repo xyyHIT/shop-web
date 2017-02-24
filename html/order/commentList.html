@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>订单列表</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
+    <style>
+        .list{background: #fff;margin:1rem;overflow: hidden;border-radius:10px;  padding-bottom:1rem;}
+        .list .boxs{ overflow:hidden; padding-bottom:.5rem; }
+        .list .boxs .boxList {padding:1rem 1rem 0 1rem ; position: relative}
+        .list .boxs .boxList .content{height:3rem; line-height:3rem; font-size:1.1rem; color:#333;}
+        .list .boxs .boxList .date{ position: absolute; right:1rem; top:.5rem ;font-size:1rem; color:#999;}
+        .list .boxs ul{padding:0 .7rem;}
+        .list .boxs ul li{float: left; width:33.33%; padding:0 .3rem;}
+        .list .boxs ul li img{width:100%;}
+
+        .reply{background:#ededed; margin:0 1rem; cilor:#999; padding:1rem;}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <nav class="nav5">
+        <a data_type='all'>全部</a><a data_type='pending'>好<em>(1)</em></a><a data_type='accepted'>一般<em>(11)</em></a><a data_type='shipped'>差<em>(1212)</em></a><a data_type='finished'>有图<em>(1)</em></a>
+    </nav>
+    <div class="list">
+        <div class='boxs'>
+            <div class="boxList">
+                    <div><span><a href="javascript:;"><img src=""></a></span><span class="level"></span><span>sdsdsdsd</span></div>
+                    <div class="content">该唱片的的质量有点暴躁考点附近路口的房间看到了福....</div>
+                    <div class="date">2017-01-23</div>
+            </div>
+            <ul>
+                <li><img src='../../imgs/test/0.jpg' /></li><li><img src='../../imgs/test/0.jpg' /></li><li><img src='../../imgs/test/0.jpg' /></li>
+            </ul>
+
+        </div>
+
+        <div class="reply">
+            店家回复：福建分行经理看粉红色看警方很快锁定
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/order.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+
+</script>
+</html>

@@ -95,7 +95,7 @@
                         +'<p class="more"><span>'+d.followers+'个粉丝</span></p>'
                         +'</dd>';
                         if( d.is_follow == 0){//未关注
-                            obj += "<em item_id="+store_id+" dataStatus='add'>+关注</em>";
+                            obj += "<em class='on' item_id="+store_id+" dataStatus='add'>+关注</em>";
                         }else if( d.is_follow == 1){
                             obj += "<em item_id="+store_id+" dataStatus='drop'>已关注</em>";
                         }else{

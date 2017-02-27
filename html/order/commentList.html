@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>订单列表</title>
+    <title>评价列表</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="format-detection" content="telephone=no">
     <script src="/shop/js/rem.js"></script>
@@ -26,7 +26,7 @@
 <div class="container">
 
     <nav class="nav5">
-        <a data_type='all'>全部</a><a data_type='pending'>好<em>(1)</em></a><a data_type='accepted'>一般<em>(11)</em></a><a data_type='shipped'>差<em>(1212)</em></a><a data_type='finished'>有图<em>(1)</em></a>
+        <a data_type="0">全部</a><a data_type="1">好<em>(1)</em></a><a data_type="2">一般<em>(11)</em></a><a data_type="3">差<em>(1212)</em></a><a data_type="4">有图<em>(1)</em></a>
     </nav>
     <div class="list">
         <div class='boxs'>
@@ -55,6 +55,103 @@
 <script src="/shop/js/order.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
+    var goodsId = allFun.getRequest("goodsId");//商品id
+        evaluation = allFun.getRequest("evaluation");//tab类型
+        curr_page = 1;
+        finished = true;
+    if(!evaluation){
+        evaluation = 0;
+    }
+    $(function () {
+        //缓存
+        if(sessionStorage.getItem("commentListShopStorage") && allFun.getRequest("history") == -1){
+            var commentListShopStorage = JSON.parse(sessionStorage.getItem("commentListShopStorage"));
+            evaluation = commentListShopStorage.evaluation;
+           //getOrderList(linkType);
+            sessionStorage.removeItem("commentListShopStorage");
+        }else{
+            sessionStorage.removeItem("commentListShopStorage");
+            getCommentList(goodsId,evaluation);
+        }
 
+
+
+        $("nav a").each(function(){
+            if($(this).attr("data_type") == evaluation){
+                $(this).addClass("on").siblings().removeClass("on");
+            }
+        });
+
+        //tab切换
+        $("nav a").click(function () {
+            evaluation = $(this).attr("data_type");
+            console.log(evaluation);
+            $(this).addClass("on").siblings().removeClass("on");
+            $(".list").empty();
+            curr_page = 1;
+            getCommentList(goodsId,evaluation);
+        });
+        //点击查看更多
+        $(window).on('scroll', function () {
+            var dHeight = document.documentElement.offsetHeight;
+            var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+            var wHeight = document.documentElement.clientHeight;
+            if (finished && dHeight - (sHeight + wHeight) < 200) {
+                finished = false;
+                if($(".seemore").attr("data_d") != "no"){
+                    curr_page++;
+                    //getCommentList(linkType);
+                }
+            }
+        })
+
+        //点击跳转到详情
+        $("body").on("click",".box li",function(){
+            var _t = $(this),obj = {};
+            obj.evaluation = evaluation;
+            sessionStorage.setItem("commentListShopStorage", JSON.stringify(obj));
+           // history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+
+           // location.href = "/shop/html/order/orderDetail.html?orderId="+_t.parents(".box").attr("data_order_id")+"&type="+type+"";
+        })
+
+        //点击搜索跳转
+        $("body").on("click",".header a",function(){
+            location.href = "/shop/html/order/orderSearch.html?type="+type+"";
+        })
+
+    })
+    function getCommentList(goodsId,evaluation){//evaluation类别   （评论类别: 0 => 所有 1 => 差评 2 => 中评 3 => 好评 4 => 有图）
+
+        $.ajax({
+            url: host + "/index.php?app=goods&act=ejComments&evaluation="+evaluation+"&goodsId="+goodsId+"&page="+curr_page+"",
+            type: "get",
+            dataType: "json",
+            beforeSend:function(){
+                if(curr_page == 1){//第一次
+                    allFun.loading();
+                }
+            },
+            success: function(rs) {
+                allFun.removeLoading();
+                if(rs.code == 0) {
+                    $(".seemore").remove();
+                    curr_page = rs.data.page.curr_page;
+                    finished = true;
+                    var obj = "",
+                        d = rs.data.comments,
+                        item_count = rs.data.page.item_count,//总条数
+                        pageper = rs.data.page.pageper;//每页条数
+                        console.log(d);
+                } else {
+                    allFun.alertDiv(rs.msg);
+                }
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
+            }
+        })
+    }
 </script>
 </html>

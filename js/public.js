@@ -345,11 +345,11 @@ var allFun = {
 	    });
 	},
     //打开二维码
-    openQrcode:function(type,id){//type：类别 ,id：id
+    openQrcode:function(id){//id：id
         $("body").on('click',"#openQrcode",function(){
             allFun.loading("正在生成二维码");
-            $.ajax({//category:	Lot(1), LotPerformance(2), User(3), ZcActivity(4), ZcItem(5);
-                url: host+'/yjpai/platform/share/getCodeImg?type='+type+'&id='+id+'',
+            $.ajax({
+                url:  host + '/index.php?app=goods&act=ejQRCode&id='+id+'',
                 type: "get",
                 dataType: "json",
                 success: function(rs) {

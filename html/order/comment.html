@@ -329,8 +329,8 @@
     //点击提交评价
     $("body").on("click",".present",function(){
         //获取评分所对应的星级个数
-        var goodComment=$(".goodComment").attr("data-default-index"),describe = $(".describes").attr("data-default-index"),logistics = $(".logistics").attr("data-default-index"),manner = $(".manner").attr("data-default-index");
-/*
+        var goodComment=$(".goodComment").attr("data-default-index"),desc_stars = $(".describes").attr("data-default-index"),logi_stars = $(".logistics").attr("data-default-index"),serv_stars = $(".manner").attr("data-default-index");
+            /*
             if(goodComment==undefined){
                allFun.alertDiv("请对商品做出评价！");
                return false;
@@ -340,21 +340,21 @@
                 allFun.alertDiv("请输入购买体会和使用感受！");
                 return false;
             }
-            if(describe==undefined){
+            if(desc_stars==undefined){
                 allFun.alertDiv("请对商品描述做出评价！");
                 return false;
                 }
-            if(logistics==undefined){
+            if(logi_stars==undefined){
                 allFun.alertDiv("请对物流服务做出评价！");
                 return false;
             }
-            if(manner==undefined){
+            if(serv_stars==undefined){
                 allFun.alertDiv("请对服务态度做出评价！");
                 return false;
             }
 
 
-            var obj={};
+              var obj={};
               var des = {evaluations: []};
                  $(".comList .content").each(function(){
                     var _t = $(this),
@@ -368,13 +368,13 @@
                     des.evaluations.push(row);
                 });
                 obj.evaluations = JSON.stringify(des);
-                    comment(181,obj.evaluations);
+                    comment(181,desc_stars,logi_stars,serv_stars,obj.evaluations);
                 })
             });
 
     function  comment(orderId,evaluations){
             $.ajax({
-                url: host + '/index.php?app=buyer_order&act=ejEvaluate&order_id='+orderId+'&evaluations='+evaluations+'',
+                url: host + '/index.php?app=buyer_order&act=ejEvaluate&order_id='+orderId+'&evaluations='+evaluations+'&desc_stars='+desc_stars+'&logi_stars='+logi_stars+'&serv_stars='+serv_stars+'',
                 type: "get",
                 beforeSend: function () {
 

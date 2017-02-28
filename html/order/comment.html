@@ -372,7 +372,7 @@
                 })
             });
 
-    function  comment(orderId,evaluations){
+    function  comment(orderId,desc_stars,logi_stars,serv_stars,evaluations){
             $.ajax({
                 url: host + '/index.php?app=buyer_order&act=ejEvaluate&order_id='+orderId+'&evaluations='+evaluations+'&desc_stars='+desc_stars+'&logi_stars='+logi_stars+'&serv_stars='+serv_stars+'',
                 type: "get",

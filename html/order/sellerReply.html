@@ -9,11 +9,16 @@
     <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <style>
-        .list{background: #fff;margin:1rem;overflow: hidden;border-radius:10px;  padding-bottom:1rem;}
+        .list{background: #fff;margin:1rem;overflow: hidden;border-radius:10px;}
         .list .boxs{ overflow:hidden; padding-bottom:.5rem; }
         .list .boxs .boxList {padding:1rem 1rem 0 1rem ; position: relative}
-        .list .boxs .boxList .content{ line-height:2rem; font-size:1.1rem; color:#333;}
-        .list .boxs .boxList .date{ position: absolute; right:1rem; top:.5rem ;font-size:1rem; color:#999;}
+        .list .boxs .boxList div{overflow: hidden}
+        .list .boxs .boxList .title{line-height: 2.5rem;}
+        .list .boxs .boxList span img{ width: 2.5rem;  height:2.5rem;  border-radius: 100%; float: left;margin-right: 1rem;}
+        .list .boxs .boxList span.level img { display: inline-block;  margin-top: .5rem;  float: left;  margin-right: .5rem;  background-size: 1.5rem 1.5rem;  height: 1.5rem;  width: 1.5rem;}
+
+        .list .boxs .boxList .content{ line-height:3rem; font-size:1.1rem; color:#333;}
+        .list .boxs .boxList .date{ position: absolute; right:1rem; top:1.2rem ;font-size:1rem; color:#999;}
         .list .boxs ul{padding:.5rem .7rem 0;}
         .list .boxs ul li{float: left; width:33.33%; padding:0 .3rem;}
         .list .boxs ul li img{width:100%;}
@@ -29,44 +34,33 @@
         .evaluation dd h1{margin-top:1rem;font-size: 1.2rem;}
 
         .describe{background: #f9f9f9; padding:1rem; }
-        .describe #fontContent{ width: 100%;background: #f9f9f9;  height: 8.5rem;   font-size: 1.2rem;  line-height: 1.8rem;  border:none;  border-radius: 5px;}
-
-
+        .describe .fontContent{ width: 100%;background: #f9f9f9;  height: 8.5rem;   font-size: 1.2rem;  line-height: 1.8rem;  border:none;  border-radius: 5px;}
+        .footer{display: none;}
+        .present{width: 100%;height:4.9rem; line-height: 4.9rem; background: #ec4747; position: fixed; bottom:0; left: 0; text-align: center; color:#fff; font-size: 1.3rem;}
     </style>
 </head>
 <body>
 <div class="container">
     <div class="list">
         <div class='boxs'>
-            <div class="boxList">
-                <div><span><a href="javascript:;"><img src=""></a></span><span class="level"></span><span>sdsdsdsd</span></div>
-                <div class="content">该唱片的的质该唱片的的质量有点暴躁考点附近路口的房间看到了福该唱片的的质量有点暴躁考点附近路口的房间看到了福量有点暴躁考点附近路口的房间看到了福....</div>
-                <div class="date">2017-01-23</div>
-            </div>
-            <ul>
-                <li><img src='../../imgs/test/0.jpg' /></li><li><img src='../../imgs/test/0.jpg' /></li><li><img src='../../imgs/test/0.jpg' /></li>
-            </ul>
+
 
         </div>
     </div>
 
     <dl class="evaluation">
-        <dt ><img src="/shop/imgs/banner4.jpg"/></dt>
+        <dt ><img src=""/></dt>
         <dd>
             <h1>商品评价</h1>
             <div class="stars">
-                <img src="/shop/imgs/star_gold.png"/>
-                <img src="/shop/imgs/star_gold.png"/>
-                <img src="/shop/imgs/star_gold.png"/>
-                <img src="/shop/imgs/star_gold.png"/>
-                <img src="/shop/imgs/star_gold.png"/>
             </div>
         </dd>
     </dl>
 
     <div class="describe">
-        <textarea id="fontContent" placeholder="请输入内容,不超过100个字"></textarea>
+        <textarea class="fontContent" placeholder="请输入内容,不超过100个字"></textarea>
     </div>
+    <div class="present">提交评价</div>
 </div>
 </body>
 
@@ -76,6 +70,86 @@
 <script src="/shop/js/order.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
+    var rec_id = allFun.getRequest("rec_id");
+    cComment(rec_id);
+    function cComment(rec_id){
+        $.ajax({
+            url: host + "/index.php?app=seller_order&act=ejEvaluate&rec_id="+rec_id+"",
+            type: "get",
+            beforeSend:function(){
+            },
+            success: function (rs) {
+                allFun.removeLoading();
+                if(rs.code == 0) {
+                    var obj = '', d = rs.data;
+                    console.log(d);
+                        obj+='<div class="boxs"> <div class="boxList">'
 
+                            +'<div class="title"><span class="img"><a href="javascript:;"><img src="'+d.portrait+'"></a></span><span class="level"><img src="/shop/imgs/level/saler'+d.level+'.png"></span><span>' + d.buyer_name + '</span></div>'
+                            +'<div class="content">"'+d.comment+'"</div><div class="date">'+d.evaluation_time+'</div>'
+                            +'</div>'
+                            +'<ul>';
+                                for(var i=0; i<d.imgs.length;i++){
+                                obj+='<li><img src="'+d.imgs[i]+'" /></li>'
+                                }
+                           obj+='</ul>'
+                            +'</div>';
+                    $(".list").html(obj);
+
+                    $(".evaluation dt img").attr("src",d.goods_image);
+                    if(d.evaluation==5){
+                        $(".stars").html('<img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/><img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/>' )
+                    }else if(d.evaluation==4){
+                        $(".stars").html('<img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/><img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/>' )
+                    }
+                    else if(d.evaluation==3){
+                        $(".stars").html('<img src="/shop/imgs/star_gold.png"/><img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/>' )
+                    }
+                    else if(d.evaluation==2){
+                        $(".stars").html('<img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/>' )
+                    }
+                    else if(d.evaluation==1){
+                        $(".stars").html('<img src="/shop/imgs/star_gold.png"/>' )
+                    }
+                } else {
+                    allFun.alertDiv(rs.msg);
+                }
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
+            }
+        });
+    }
+    $("body").on("click",".present",function(){
+        var reply = $(".fontContent").val();
+        console.log(reply);
+        if(reply==''){
+            allFun.alertDiv("回复买家评论！");
+            return false;
+        }
+        replyComment(rec_id,reply);
+    });
+
+    function replyComment(rec_id,reply){
+        $.ajax({
+            url: host + "/index.php?app=seller_order&act=ejReplyEvaluate&rec_id="+rec_id+"&reply="+reply+"",
+            type: "get",
+            beforeSend:function(){
+            },
+            success: function (rs) {
+                allFun.removeLoading();
+                if(rs.code == 0) {
+                    allFun.alertDiv(rs.msg);
+                } else {
+                    allFun.alertDiv(rs.msg);
+                }
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
+            }
+        });
+    }
 </script>
 </html>

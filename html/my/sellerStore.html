@@ -86,6 +86,7 @@
                         return false;
                     }
                     var d = rs.data,obj = '';
+                    console.log(d);
                     //分享
 					allFun.share("艺加商城【"+d.user_name+"】的新品上架了，欢迎围观。",host+"/shop/html/my/sellerStore.html?storeId="+d.user_id+"",d.portrait);
                     obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
@@ -101,7 +102,7 @@
                         }else{
                             obj += "";
                         }
-                    obj +='<ul class="com-comment"><li>描述相符<span>3.0</span></li> <li>物流服务<span>3.0</span></li> <li>服务态度<span>3.0</span></li> </ul>'
+                    obj +='<ul class="com-comment"><li>描述相符<span>'+d.desc_stars+'</span></li> <li>物流服务<span>'+d.logi_stars+'</span></li> <li>服务态度<span>'+d.serv_stars+'</span></li> </ul>'
                     obj +='</dl>' ;
                     $(".seller").append(obj);
                     //获取当前店铺的telphone

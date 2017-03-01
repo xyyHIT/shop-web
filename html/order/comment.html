@@ -34,11 +34,16 @@
 
         .divOneInfo{ backgrund:#fff;margin:1rem 0;}
         .divOneInfo .imgList{ height: 6.5rem; background: #fff; overflow: hidden;}
-        .divOneInfo .imgList li{font-size: 1.2rem; color:#333; line-height: 6rem;}
-        .divOneInfo .imgList li#uploadImg{ position: relative; float: left; width: 5rem; height: 5rem; margin: 1rem 1rem 1.5rem 1.2rem;}
-        .divOneInfo .imgList li img{ width: 100%;}
+        .divOneInfo .imgList li{font-size: 1.2rem; color:#333;width: 5rem; height: 5rem; line-height: 6rem;position: relative;
+            float: left;margin-left: 1rem;}
+        .divOneInfo .imgList li.uploadImg{ float: left; width: 5rem; height: 5rem; margin: 1rem 1rem 1.5rem 1.2rem;}
+        .divOneInfo .imgList li img{ width:100%;}
         .divOneInfo .imgList li i.up{ position: absolute; display: block; width: 4.5rem; height: 4.5rem; top: 0; right: 0; background: url(/shop/imgs/icon/icon_up.png) no-repeat; background-size: 100%;}
         .divOneInfo .imgList li i.up{ font-size: 4.9rem; }
+        .divOneInfo .imgList li i.iconCha{ position: absolute; display: block; width: 1.5rem; height: 1.5rem; top: 0; right: 0; background: url(/shop/imgs/icon/icon_cha.png) no-repeat; background-size: 100%;}
+        .divOneInfo .imgList li i.iconfont{ font-size: 4.9rem; color: #979797;}
+        .divOneInfo .imgList div.ph{float: left; line-height: 6rem;}
+
 
         .describe{background: #f9f9f9; padding:1rem; }
         .describe #fontContent{ width: 100%;background: #f9f9f9;  height: 8.5rem;   font-size: 1.2rem;  line-height: 1.8rem;  border:none;  border-radius: 5px;}
@@ -68,17 +73,17 @@
 
         <div class="describe">
             <textarea id="fontContent" class="fontContent" placeholder="请输入内容,不超过100个字的购买体会和使用感受来帮助其他买家"></textarea>
-        </div>
-        <div class="divOneInfo">
+        </div>-->
+       <!-- <div class="divOneInfo">
             <ul class="imgList fix">
-                &lt;!&ndash;<li>
+                <li>
                     <img src='../../imgs/test/0.jpg' />
                     <i class='iconCha'></i>
-                </li>&ndash;&gt;
-                <li id='uploadImg'>
+                </li>
+                <li class='uploadImg'>
                     <i class='up'></i>
                 </li>
-                <li>发照片，最多上传五张！</li>
+                <div class="ph" >发照片，最多上传五张！</div>
             </ul>
         </div>-->
     </div>
@@ -115,7 +120,7 @@
 <script src="/shop/js/fastclick.js"></script>
 <script type="text/javascript">
     $(function() {
-        var orderId = allFun.getRequest("orderId");type = allFun.getRequest("type");//商品id
+        var orderId = allFun.getRequest("order_id");type = allFun.getRequest("type");//商品id
         //评分
        function start() {
         //定义三维数组
@@ -161,13 +166,13 @@
     }
         start();
         //购买商品列表
-        getOrderDetail();
+          getOrderDetail();
         function getOrderDetail(){
             $.ajax({
                 url: host + '/index.php?app=buyer_order&act=view',
                 type: "get",
                 dataType: "json",
-                data:{"order_id":181,"type":0},
+                data:{"order_id":orderId,"type":0},
                 beforeSend:function(){
                     allFun.loading();
                 },
@@ -177,10 +182,9 @@
 
                         var d = rs.data, obj = "";
                         $.each(d.goods_list, function(i,v) {
-                            console.log(d.goods_list.goods_image);
-                            obj +='<div class="content">'
+                            obj +='<div class="content" rec_id='+v.rec_id+'>'
                             obj += '<dl class="evaluation">'
-                                + '<dt><img src='+v.goods_image+'/square /></dt>'
+                                + '<dt><a href=/shop/html/index/goodsDetails.html?goodsId='+v.goods_id+'><img src='+v.goods_image+'/square /></a></dt>'
                                 + '<dd><h1>商品评价</h1>'
                                 + '<div class="stars goodComment" data-default-index="4">'
                                 + '<img src="/shop/imgs/star_gold.png"/>' +
@@ -195,8 +199,8 @@
 
                             obj += '<div class="divOneInfo">'
                                 + '<ul class="imgList fix">'
-                                + '<li id="uploadImg"><i class="up"></i></li>'
-                                + '<li>发照片，最多上传五张！</li>'
+                                + '<li class="uploadImg"><i class="up"></i></li>'
+                                + '<div class="ph">发照片，最多上传五张！</div>'
                                 + '</ul>'
                                 + '</div>';
                             obj +='</div>';
@@ -214,78 +218,90 @@
         }
 
     //订单评价上传图片
-    $("body").on("click","#uploadImg",function(){
-        wx.ready(function() {
-            var count = 5 - $(".imgList img").length,
-                images = {
-                    localId: [],
-                    serverId: []
-                };
-            wx.chooseImage({
-                count: count, // 默认9
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                success: function(res) {
-                    images.localId = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                    var	i = 0,
-                        len = images.localId.length;
-                    if (len == 0) {
-                        return;
-                    }
-                    allFun.uploadImgPrompt(1,len);
-                    function upload(){
-                        wx.uploadImage({
-                            localId: images.localId[i],
-                            isShowProgressTips: 0, // 默认为1，显示进度提示
-                            success: function(res) {
-                                i++;
-                                allFun.uploadImgPrompt(i,len);
-                                images.serverId.push(res.serverId);
+       /* $(".content .imgList li.uploadImg").each(function() {
+            $(this).click(function() {
+         alert("ddd")
 
-                                if (i < len) {
-                                    upload();
-                                } else {
-                                    $.ajax({
-                                        url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&belong=4',
-                                        type: "post",
-                                        data: {
-                                            'mediaID': images.serverId.join(",")
-                                            //"id":id || ""
-                                        },
-                                        dataType: "json",
-                                        success: function(rs) {
-                                            if (rs.code == 0) {
-                                                var data = rs.data,obj = "";
-
-                                                $.each(data, function(i,v) {
-                                                    if(v.code != -1){
-                                                        obj += "<li><img src="+v.file_path+"/square data_id="+v.file_id+" data_initSrc="+v.file_path+" /><i class='iconCha'></i></li>";
-                                                    }
-                                                });
-                                                allFun.removeUploadImgPrompt();
-                                                if(obj == ""){
-                                                    return false;
-                                                }
-                                                $("#uploadImg").before(obj);
-                                            } else {
-                                                allFun.alertDiv(rs.msg);
-                                            }
-                                        }
-                                    });
-                                }
-                            },
-                            fail: function(res) {
-                                allFun.removeUploadImgPrompt();
-                                allFun.alertDiv("上传超时，请重试！");
-                                //alert(JSON.stringify(res));
-                            }
-                        });
-                    }
-                    upload();
-                }
             });
-        })
-    });
+        });*/
+
+        $("body").on("click",".uploadImg",function(){
+            var _t = $(this);
+                wx.ready(function() {
+                    var count = 5 - $(".imgList img").length,
+                        images = {
+                            localId: [],
+                            serverId: []
+                        };
+                    wx.chooseImage({
+                        count: count, // 默认9
+                        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                        success: function(res) {
+                            images.localId = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                            var	i = 0,
+                                len = images.localId.length;
+                            if (len == 0) {
+                                return;
+                            }
+                            allFun.uploadImgPrompt(1,len);
+                            function upload(){
+                                wx.uploadImage({
+                                    localId: images.localId[i],
+                                    isShowProgressTips: 0, // 默认为1，显示进度提示
+                                    success: function(res) {
+                                        i++;
+                                        allFun.uploadImgPrompt(i,len);
+                                        images.serverId.push(res.serverId);
+
+                                        if (i < len) {
+                                            upload();
+                                        } else {
+                                            $.ajax({
+                                                url: host+'/index.php?app=comupload&act=ejUploadFile4Wechat&belong=4',
+                                                type: "post",
+                                                data: {
+                                                    'mediaID': images.serverId.join(",")
+                                                    //"id":id || ""
+                                                },
+                                                dataType: "json",
+                                                success: function(rs) {
+                                                    if (rs.code == 0) {
+                                                        var data = rs.data,obj = "";
+
+                                                        $.each(data, function(i,v) {
+                                                            if(v.code != -1){
+                                                                obj += "<li><img src="+v.file_path+"/square data_id="+v.file_id+" data_initSrc="+v.file_path+" /><i class='iconCha'></i></li>";
+                                                            }
+                                                        });
+                                                        allFun.removeUploadImgPrompt();
+                                                        if(obj == ""){
+                                                            return false;
+                                                        }
+                                                        _t.before(obj);
+                                                        $(".ph").hide();
+
+                                                    } else {
+                                                        allFun.alertDiv(rs.msg);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    },
+                                    fail: function(res) {
+                                        allFun.removeUploadImgPrompt();
+                                        allFun.alertDiv("上传超时，请重试！");
+                                        //alert(JSON.stringify(res));
+                                    }
+                                });
+                            }
+                            upload();
+                        }
+                    });
+                })
+            });
+
+
 
     //查看大图
     $("body").on("click",".imgList img",function(){
@@ -317,7 +333,10 @@
             success: function(rs) {
                 allFun.removeLoading();
                 if(rs.code == 0){
-                    _t.parent("li").remove();
+                    _t.parents("li").remove();
+                    if(_t.parents("imgList").find("img").length==0){
+                        $(".ph").show();
+                    }
                 }else{
                     allFun.alertDiv(rs.msg);
                 }
@@ -354,38 +373,28 @@
             }
 
 
-              var obj={};
-              var des = {evaluations: []};
-                 $(".comList .content").each(function(){
-                    var _t = $(this),
-                        row = {},img=[];
-                    row.evaluation = parseInt(_t.find(".goodComment").attr("data-default-index"))+1;
-                    row.comment = _t.find(".fontContent").val();
-                    $(".imgList li img").each(function(){
-                        img.push($(this).attr("data_id"));
-                    });
-                    row.img_id = JSON.stringify(img);
-                    des.evaluations.push(row);
+              var obj={},img=[],row = {};
+                $(".imgList li img").each(function(){
+                    img.push($(this).attr("data_id"));
                 });
-                obj.evaluations = JSON.stringify(des);
-                    comment(181,desc_stars,logi_stars,serv_stars,obj.evaluations);
+                 $(".comList .content").each(function(){
+                    var _t = $(this);
+                    row[$(this).attr("rec_id")] = {"evaluation":parseInt(_t.find(".goodComment").attr("data-default-index"))+1,"comment":_t.find(".fontContent").val(),"img_id":img.join()};
+                });
+                    comment(orderId,desc_stars,logi_stars,serv_stars,JSON.stringify(row));
                 })
             });
 
     function  comment(orderId,desc_stars,logi_stars,serv_stars,evaluations){
             $.ajax({
                 url: host + '/index.php?app=buyer_order&act=ejEvaluate&order_id='+orderId+'&evaluations='+evaluations+'&desc_stars='+desc_stars+'&logi_stars='+logi_stars+'&serv_stars='+serv_stars+'',
-                type: "get",
-                beforeSend: function () {
-
-                },
+                type: "post",
                 success: function (rs) {
-                    allFun.removeLoading();
-                    if (rs.code != 0) {
+                    if(rs.code == 0){
                         allFun.alertDiv(rs.msg);
-                        return false;
+                    }else{
+                        allFun.alertDiv(rs.msg);
                     }
-
 
                 }
             });

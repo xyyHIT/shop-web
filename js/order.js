@@ -252,5 +252,17 @@
 			}
 			location.href = "/shop/html/my/logistics.html?invoice_no="+invoice_no;
 		})
+
+		//卖家回复评论
+        $("body").on("click",".huifupinglun",function(){
+            var _t = $(this),obj = {},rec_id = _t.parents(".reply").attr("data_rec_id");
+            var str = location.href.split('#')[0];
+            if(str.indexOf("orderList") > 0){//列表页
+                obj.linkType = linkType;
+                sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+                history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+            }
+            location.href = "/shop/html/order/sellerReply.html?rec_id="+rec_id;
+        })
 	})
 })();

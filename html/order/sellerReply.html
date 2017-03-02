@@ -60,7 +60,7 @@
     <div class="describe">
         <textarea class="fontContent" placeholder="请输入内容,不超过100个字"></textarea>
     </div>
-    <div class="present">提交评价</div>
+    <div class="present">提交回复</div>
 </div>
 </body>
 
@@ -75,7 +75,7 @@
     function cComment(rec_id){
         $.ajax({
             url: host + "/index.php?app=seller_order&act=ejEvaluate&rec_id="+rec_id+"",
-            type: "get",
+            type: "post",
             beforeSend:function(){
             },
             success: function (rs) {
@@ -134,7 +134,7 @@
     function replyComment(rec_id,reply){
         $.ajax({
             url: host + "/index.php?app=seller_order&act=ejReplyEvaluate&rec_id="+rec_id+"&reply="+reply+"",
-            type: "get",
+            type: "post",
             beforeSend:function(){
             },
             success: function (rs) {

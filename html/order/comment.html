@@ -392,6 +392,7 @@
                 success: function (rs) {
                     if(rs.code == 0){
                         allFun.alertDiv(rs.msg);
+                        location.href = "/shop/html/order/orderDetail.html?orderId="+orderId+"&type=0";
                     }else{
                         allFun.alertDiv(rs.msg);
                     }

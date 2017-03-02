@@ -425,7 +425,6 @@
     }
 
     //评论列表
-
     function cComment(id){
         $.ajax({
             url: host + "/index.php?app=goods&act=ejComments&id="+goodsId+"",
@@ -436,16 +435,15 @@
                 allFun.removeLoading();
                 if(rs.code == 0) {
                     var obj = '',d = rs.data.comments;
-                        console.log(d)
                         if(d.length <= 0){
                             $(".sComment .more").hide();
-                        }else {
-                            $.each(d,function (j,v) {
-                            obj+='<li>'
-                                +'<div class="title"><span><a href="javascript:;"><img src="'+v.portrait+'" /></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>' + v.buyer_name + '</span></div>'
-                                +'<div class="content over">' + v.comment + '</div>'
-                                +'<div class="date">' + v.evaluation_time + '</div>'
-                            });
+                        }else if(0<d.length <=2){//显示两条评论，查看更多
+                                $.each(d,function (j,v) {
+                                    obj+='<li>'
+                                        +'<div class="title"><span><a href="javascript:;"><img src="'+v.portrait+'" /></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>' + v.buyer_name + '</span></div>'
+                                        +'<div class="content over">' + v.comment + '</div>'
+                                        +'<div class="date">' + v.evaluation_time + '</div>'
+                                });
                         }
 
 

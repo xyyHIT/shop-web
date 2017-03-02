@@ -268,14 +268,14 @@
 		
 		//卖家回复评论(待评价)
 		$("body").on("click",".huifupinglun",function(){
-			var _t = $(this),obj = {},rec_id = _t.parents(".box").attr("data_rec_id");
+			var _t = $(this),obj = {},rec_id = _t.parents(".reply").attr("data_rec_id"),order_id = _t.parents(".box").attr("data_order_id");
 			var str = location.href.split('#')[0];
 			if(str.indexOf("orderList") > 0){//列表页
 				obj.linkType = linkType;
 				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
-			location.href = "/shop/html/order/sellerReply.html?rec_id="+rec_id;
+			location.href = "/shop/html/order/sellerReply.html?&order_id="+order_id+"&rec_id="+rec_id;
 		})
 	})
 })();

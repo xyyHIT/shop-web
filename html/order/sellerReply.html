@@ -17,7 +17,7 @@
         .list .boxs .boxList span img{ width: 2.5rem;  height:2.5rem;  border-radius: 100%; float: left;margin-right: 1rem;}
         .list .boxs .boxList span.level img { display: inline-block;  margin-top: .5rem;  float: left;  margin-right: .5rem;  background-size: 1.5rem 1.5rem;  height: 1.5rem;  width: 1.5rem;}
 
-        .list .boxs .boxList .content{ line-height:3rem; font-size:1.1rem; color:#333;}
+        .list .boxs .boxList .content{ line-height:2rem; font-size:1.1rem; color:#333;}
         .list .boxs .boxList .date{ position: absolute; right:1rem; top:1.2rem ;font-size:1rem; color:#999;}
         .list .boxs ul{padding:.5rem .7rem 0;}
         .list .boxs ul li{float: left; width:33.33%; padding:0 .3rem;}
@@ -71,6 +71,7 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     var rec_id = allFun.getRequest("rec_id");
+    var orderId = allFun.getRequest("order_id");
     cComment(rec_id);
     function cComment(rec_id){
         $.ajax({
@@ -97,7 +98,7 @@
                     $(".list").html(obj);
 
                     $(".evaluation dt img").attr("src",d.goods_image);
-                    if(d.evaluation==5){
+                    if(d.evaluation==5){//判断买家星级评论
                         $(".stars").html('<img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/><img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/>' )
                     }else if(d.evaluation==4){
                         $(".stars").html('<img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/><img src="/shop/imgs/star_gold.png"/> <img src="/shop/imgs/star_gold.png"/>' )
@@ -141,6 +142,7 @@
                 allFun.removeLoading();
                 if(rs.code == 0) {
                     allFun.alertDiv(rs.msg);
+                    location.href = "/shop/html/order/orderDetail.html?orderId="+orderId+"&type=1";
                 } else {
                     allFun.alertDiv(rs.msg);
                 }

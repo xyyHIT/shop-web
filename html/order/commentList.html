@@ -10,18 +10,20 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
     <style>
-        .list{background: #fff;margin:1rem;overflow: hidden;border-radius:10px;  padding-bottom:1rem;}
-        .list .boxs{ overflow:hidden; padding-bottom:.5rem; }
+        .list{background: #fff;margin:1rem;overflow: hidden;border-radius:10px; }
+        .list .boxs{ overflow:hidden; }
         .list .boxs .boxList {padding:1rem 1rem 0 1rem ; position: relative}
-        .list .boxs .boxList .content{height:3rem; line-height:3rem; font-size:1.1rem; color:#333;}
-        .list .boxs .boxList .date{ position: absolute; right:1rem; top:.5rem ;font-size:1rem; color:#999;}
-        .list .boxs ul{padding:1rem .7rem 0;}
-        .list .boxs ul li{float: left; width:33.33%; height:9rem; padding:0 .3rem;}
-        .list .boxs ul li img{width:100%;}
-        .boxList span img{ width: 4rem;  height: 4rem;  border-radius: 100%; float: left;margin-right: 1.5rem;}
-        .boxList span.level img { display: inline-block;  margin-top: .1rem;  float: left;  margin-right: .5rem;  background-size: 1.5rem 1.5rem;  height: 1.5rem;  width: 1.5rem;}
+        .list .boxs .boxList div{overflow: hidden;}
+        .list .boxs .boxList .content{ line-height:2rem; font-size:1.1rem; color:#333;padding-top:.5rem;}
+        .list .boxs .boxList .date{ position: absolute; right:1rem; top:1.2rem ;font-size:1rem; color:#999;}
+        .title{line-height:2.5rem;}
+        .list .boxs ul{ overflow: hidden; padding:0 1rem;}
+        .list .boxs ul li{float: left; width:33.33%; height:9rem; padding:0 .3rem 0rem; margin:.6rem 0;}
+        .list .boxs ul li img{width:100%; height:100%;}
+        .boxList span img{ width: 2.5rem;  height:2.5rem;  border-radius: 100%; float: left;margin-right: 1rem;}
+        .boxList span.level img { display: inline-block;  margin-top:.5rem;  float: left;  margin-right: .5rem;  background-size: 1.5rem 1.5rem;  height: 1.5rem;  width: 1.5rem;}
 
-        .reply{background:#ededed; margin:0 1rem; cilor:#999; padding:1rem;}
+        .reply{background:#ededed; margin:0 1rem; color:#999; padding:.5rem; line-height: 1.8rem;}
     </style>
 </head>
 <body>
@@ -76,8 +78,6 @@
             getCommentList(goodsId,evaluation);
         }
 
-
-
         $("nav a").each(function(){
             if($(this).attr("data_type") == evaluation){
                 $(this).addClass("on").siblings().removeClass("on");
@@ -111,7 +111,6 @@
 
     });
     function getCommentList(id,evaluation){//evaluation类别   （评论类别: 0 => 所有 1 => 差评 2 => 中评 3 => 好评 4 => 有图）
-
         $.ajax({
             url: host + "/index.php?app=goods&act=ejComments&evaluation="+evaluation+"&id="+goodsId+"&page="+curr_page+"",
             type: "get",
@@ -131,35 +130,35 @@
                         d = rs.data.comments;
                         item_count = rs.data.page_info.item_count;//总条数
                         pageper = rs.data.page_info.pageper;//每页条数
-                        $.each(d,function (j,v) {
-                            obj+='<div class="boxs"><div class="boxList">'
-                                +'<div><span><a href="javascript:;"><img src="'+v.portrait+'"></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>'+v.buyer_name+'</span></div>'
-                                +'<div class="content">'+v.comment+'</div>'
-                                +'<div class="date">'+v.evaluation_time+'</div>'
-                                +'</div>'
-                                +'<ul>';
+                        if(item_count == 0){//无数据(第一次进来)
+                            obj += allFun.noDataImg("暂无评价！");
+                        }else {
+                            $.each(d, function (j, v) {
+                                obj += '<div class="boxs"><div class="boxList">'
+                                    + '<div class="title"><span><a href="javascript:;"><img src="' + v.portrait + '"></a></span><span class="level"><img src="/shop/imgs/level/saler' + v.level + '.png"></span><span>' + v.buyer_name + '</span></div>'
+                                    + '<div class="content">' + v.comment + '</div>'
+                                    + '<div class="date">' + v.evaluation_time + '</div>'
+                                    + '</div>';
+                                obj += '<ul>';
+                                for (var u = 0; u < v.imgs.length; u++) {
+                                    obj += '<li><img src="' + v.imgs[u] + '" /></li>'
+                                }
+                                obj += '</ul>';
+                                obj += '</div>';
+                                if (v.reply != "") {
+                                    obj += '<div class="reply">店家回复：' + v.reply + '  </div>'
 
-                                    for(var u=0;u<v.imgs.length;u++){
-                                        obj +='<li><img src="'+v.imgs[u]+'" /></li>'
-                                    }
-                                obj +='</ul>';
-                                obj +='</div>';
-                             if(v.reply!=""){
-                                 obj+='<div class="reply">店家回复：'+v.reply+'  </div>'
-
-                             }else {
-                                 $(".reply").hide();
-                             }
-
-                            if(curr_page < Math.ceil(item_count/pageper)){//有数据
+                                } else {
+                                    $(".reply").hide();
+                                }
+                            });
+                            if (curr_page < Math.ceil(item_count / pageper)) {//有数据
                                 obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";
-                            }else{//没有更多数据
+                            } else {//没有更多数据
                                 obj += "<div class='seemore' data_d='no'></div>";
                             }
-                        });
+                        }
                     $(".list").html(obj);
-
-
                 } else {
                     allFun.alertDiv(rs.msg);
                 }

@@ -145,7 +145,7 @@
         ];
 
         $(".goodComment").find("img").click(function () {
-
+           $(".area").hide();
         });
         $(".stars").find("img").click(function() { //当点击每颗星星
             var obj = $(this);//当前对象
@@ -191,7 +191,8 @@
                                 '<img src="/shop/imgs/star_gold.png"/>' +
                                 '<img src="/shop/imgs/star_gold.png"/>' +
                                 '<img src="/shop/imgs/star_gold.png"/>' +
-                                '<img src="/shop/imgs/star_gold.png"/>'
+                                '<img src="/shop/imgs/star_gold.png"/>'+
+                                '<span class="area">非常符合</span>'
                                 + '</div> </dd></dl>';
                             obj += '<div class="describe">'
                                 + '<textarea id="fontContent" class="fontContent" placeholder="请输入内容,不超过100个字的购买体会和使用感受来帮助其他买家"></textarea>'
@@ -355,10 +356,7 @@
                return false;
             }*/
             var fontContent = $(".fontContent").val();
-            if(fontContent==''){
-                allFun.alertDiv("请输入购买体会和使用感受！");
-                return false;
-            }
+
             if(desc_stars==undefined){
                 allFun.alertDiv("请对商品描述做出评价！");
                 return false;
@@ -391,7 +389,7 @@
                 type: "post",
                 success: function (rs) {
                     if(rs.code == 0){
-                        allFun.alertDiv(rs.msg);
+                        //allFun.alertDiv(rs.msg);
                         location.href = "/shop/html/order/orderDetail.html?orderId="+orderId+"&type=0";
                     }else{
                         allFun.alertDiv(rs.msg);

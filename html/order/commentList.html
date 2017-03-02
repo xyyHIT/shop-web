@@ -10,8 +10,8 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
     <style>
-        .list{background: #fff;margin:1rem;overflow: hidden;border-radius:10px; }
-        .list .boxs{ overflow:hidden; }
+        .list{margin:1rem;overflow: hidden;}
+        .list .boxs{ overflow: hidden;  border-radius: 10px;  background: #fff;  margin-bottom: 1rem;  padding-bottom: 1rem; }
         .list .boxs .boxList {padding:1rem 1rem 0 1rem ; position: relative}
         .list .boxs .boxList div{overflow: hidden;}
         .list .boxs .boxList .content{ line-height:2rem; font-size:1.1rem; color:#333;padding-top:.5rem;}
@@ -144,13 +144,14 @@
                                     obj += '<li><img src="' + v.imgs[u] + '" /></li>'
                                 }
                                 obj += '</ul>';
-                                obj += '</div>';
+
                                 if (v.reply != "") {
                                     obj += '<div class="reply">店家回复：' + v.reply + '  </div>'
 
                                 } else {
                                     $(".reply").hide();
                                 }
+                                obj += '</div>';
                             });
                             if (curr_page < Math.ceil(item_count / pageper)) {//有数据
                                 obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";

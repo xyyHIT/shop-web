@@ -209,9 +209,9 @@
 								obj += "<em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
 									obj += "<li><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
-										+ "<p class='fix'><span>￥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p></li>"
+										+ "<p class='fix'><span>￥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p>";
                                     if(type == 1){
-                                        obj+="<div class='reply' data_rec_id="+v.order_goods[i].rec_id+">"+v.order_goods[i].button+"</div>";
+                                        obj+="<div class='reply' data_rec_id="+v.order_goods[i].rec_id+">"+v.order_goods[i].button+"</div></li>";
                                     }
 								}
 								obj += "</ul><div class='dTotal'>合计：<span>￥"+v.order_amount+"</span></div>"+v.button+"</div>";

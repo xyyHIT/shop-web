@@ -437,16 +437,19 @@
                     var obj = '',d = rs.data.comments;
                         if(d.length <= 0){
                             $(".sComment .more").hide();
-                        }else if(0<d.length <=2){//显示两条评论，查看更多
-                                $.each(d,function (j,v) {
-                                    obj+='<li>'
-                                        +'<div class="title"><span><a href="javascript:;"><img src="'+v.portrait+'" /></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>' + v.buyer_name + '</span></div>'
-                                        +'<div class="content over">' + v.comment + '</div>'
-                                        +'<div class="date">' + v.evaluation_time + '</div>'
-                                });
                         }
-
-
+                                $.each(d,function (j,v) {
+                                    if(j<2){
+                                        obj+='<li>'
+                                            +'<div class="title"><span><a href="javascript:;"><img src="'+v.portrait+'" /></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>' + v.buyer_name + '</span></div>'
+                                            +'<div class="content over">' + v.comment + '</div>'
+                                        if(v.comment==undefined){
+                                            +'<div class="content over">此用户没有填写评价</div>'
+                                        }else{
+                                            +'<div class="date">' + v.evaluation_time + '</div>'
+                                        }
+                                    }
+                                });
                     $(".sComment ul").html(obj);
 
                 } else {

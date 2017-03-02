@@ -124,11 +124,6 @@
     }
     $("body").on("click",".present",function(){
         var reply = $(".fontContent").val();
-        console.log(reply);
-        if(reply==''){
-            allFun.alertDiv("回复买家评论！");
-            return false;
-        }
         replyComment(rec_id,reply);
     });
 

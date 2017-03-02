@@ -30,7 +30,7 @@
 <div class="container">
 
     <nav class="nav5">
-        <a data_type="0">全部</a><a data_type="3">好<em>(1)</em></a><a data_type="2">一般<em>(11)</em></a><a data_type="1">差<em>(1212)</em></a><a data_type="4">有图<em>(1)</em></a>
+        <a data_type="0">全部</a><a data_type="3" class="goods">好<em></em></a><a data_type="2" class="general">一般<em></em></a><a data_type="1" class="bad">差<em></em></a><a data_type="4" class="picture">有图<em></em></a>
     </nav>
     <div class="list">
        <!-- <div class='boxs'>
@@ -127,7 +127,7 @@
                     curr_page = rs.data.page_info.curr_page;
                     finished = true;
                     var obj = '',
-                        d = rs.data.comments;
+                        d = rs.data.comments;amount=rs.data.type_amount;
                         item_count = rs.data.page_info.item_count;//总条数
                         pageper = rs.data.page_info.pageper;//每页条数
                         if(item_count == 0){//无数据(第一次进来)
@@ -159,6 +159,11 @@
                             }
                         }
                     $(".list").html(obj);
+                        //评价数量
+                    $(".nav5 .goods em").html("("+amount.good+")");
+                    $(".nav5 .general em").html("("+amount.common+")");
+                    $(".nav5 .bad em").html("("+amount.bad+")");
+                    $(".nav5 .picture em").html("("+amount.have_img+")");
                 } else {
                     allFun.alertDiv(rs.msg);
                 }

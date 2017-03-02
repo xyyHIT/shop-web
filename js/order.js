@@ -104,7 +104,7 @@
 						var str = location.href.split('#')[0];
 						if(str.indexOf("orderList") > 0){//列表页
 							_t.parents(".box").find("h2 em").html("卖家已发货");
-							_t.parents(".box").find(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
+							_t.parents(".box").find(".dOperate").html("<a class='chakanwuliu'>查看物流</a><a class='tixingshouhuo'>提醒收货</a>");
 							_t.parents(".box").attr("data_invoice_no",invoice_no);
 							$(".dScanCode").remove();
 						}else{//详情页
@@ -160,7 +160,7 @@
 						var str = location.href.split('#')[0];
 						if(str.indexOf("orderList") > 0){//列表页
 							_t.parents(".box").find("h2 em").html("交易完成");
-							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a>");
+							_t.parents(".dOperate").html("<a class='chakanwuliu'>查看物流</a><a class='qupingjia'>去评价</a>");
 						}else{//详情页
 							location.replace(location.href+"&t="+Date.now());
 						}
@@ -240,7 +240,7 @@
 		})
 		
 		/****************  *****************/
-		//买家、卖家 查看物流(待收货、已完成)
+		//买家、卖家 查看物流(待收货、待评价、已完成)
 		$("body").on("click",".chakanwuliu",function(){
 			var _t = $(this),obj = {},invoice_no = _t.parents(".box").attr("data_invoice_no");
 			
@@ -251,6 +251,32 @@
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
 			location.href = "/shop/html/my/logistics.html?invoice_no="+invoice_no;
+		})
+		
+		//买家去评价(待评价)
+		$("body").on("click",".qupingjia",function(){
+			var _t = $(this),obj = {},order_id = _t.parents(".box").attr("data_order_id");
+			
+			var str = location.href.split('#')[0];
+			if(str.indexOf("orderList") > 0){//列表页
+				obj.linkType = linkType;
+				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+			}
+			location.href = "/shop/html/order/comment.html?order_id="+order_id;
+		})
+		
+		//卖家回复评论(待评价)
+		$("body").on("click",".huifupinglun",function(){
+			var _t = $(this),obj = {},rec_id = _t.parents(".box").attr("data_rec_id");
+			
+			var str = location.href.split('#')[0];
+			if(str.indexOf("orderList") > 0){//列表页
+				obj.linkType = linkType;
+				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+			}
+			location.href = "/shop/html/order/sellerReply.html?rec_id="+rec_id;
 		})
 	})
 })();

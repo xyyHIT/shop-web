@@ -75,7 +75,7 @@
     function cComment(rec_id){
         $.ajax({
             url: host + "/index.php?app=seller_order&act=ejEvaluate&rec_id="+rec_id+"",
-            type: "post",
+            type: "get",
             beforeSend:function(){
             },
             success: function (rs) {

@@ -106,9 +106,19 @@
                 }
             }
         });
-
-
-
+        //查看大图
+        $("body").on("click",".boxs ul li img",function(){
+            var imgList=[], targetSrc=$(this).attr("data_initSrc");
+            $(this).parents(".boxs").find("img").each(function(){
+                imgList.push($(this).attr("data_initSrc"))
+            });
+            wx.ready(function(){
+                wx.previewImage({
+                    current: targetSrc, // 当前显示图片的http链接
+                    urls: imgList // 需要预览的图片http链接列表
+                });
+            })
+        })
     });
     function getCommentList(id,evaluation){//evaluation类别   （评论类别: 0 => 所有 1 => 差评 2 => 中评 3 => 好评 4 => 有图）
         $.ajax({
@@ -135,7 +145,7 @@
                         }else {
                             $.each(d, function (j, v) {
                                 obj += '<div class="boxs"><div class="boxList">'
-                                    + '<div class="title"><span><a href="javascript:;"><img src="' + v.portrait + '"></a></span><span class="level"><img src="/shop/imgs/level/saler' + v.level + '.png"></span><span>' + v.buyer_name + '</span></div>'
+                                    + '<div class="title"><span><a href="javascript:;"><img src="' + v.portrait + '/square"></a></span><span class="level"><img src="/shop/imgs/level/saler' + v.level + '.png"></span><span>' + v.buyer_name + '</span></div>'
                                 if(v.comment==""){
                                     obj+='<div class="content over">此用户没有填写评价!</div>'
                                 }else{
@@ -145,7 +155,7 @@
                                     + '</div>';
                                 obj += '<ul>';
                                 for (var u = 0; u < v.imgs.length; u++) {
-                                    obj += '<li><img src="' + v.imgs[u] + '" /></li>'
+                                    obj += '<li><img data_initSrc="' + v.imgs[u] + '" src="' + v.imgs[u] + '/square" /></li>'
                                 }
                                 obj += '</ul>';
 

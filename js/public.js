@@ -358,7 +358,8 @@ var allFun = {
                     allFun.removeLoading();
                     if (rs.code == 0) {
                         var erweimaimgList = [];
-                        erweimaimgList.push(rs.data);
+                        erweimaimgList.push(rs.data.img);
+                        console.log(erweimaimgList);
                         wx.ready(function() {
                             wx.previewImage({
                                 current: erweimaimgList[0], // 当前显示图片的http链接

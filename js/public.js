@@ -165,7 +165,7 @@ var allFun = {
 		yy = yy.substring(0, yy.length - 3);
 		return yy;
 	},
-    getLocalTime:function(nS){
+    getLocalTime:function(nS){//1177824835把时间戳转换成日期格式2010/2/23
         return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,9);
 	},
 	gzewm: function () {
@@ -301,14 +301,13 @@ var allFun = {
 		            if(type=="store"){
 		                if(status == "drop"){//取消关注
                             $(".more em").addClass("on");
-                            $(".faxian em").addClass("on");
 		                    t.html("+关注");
 		                    t.attr("dataStatus","add");
 		                }else{
                             $(".more em").removeClass("on");
-                            $(".faxian em").removeClass("on");
 		                    t.html("已关注");
-		                    t.attr("dataStatus","drop")
+                            t.attr("dataStatus","drop");
+
 		                }
 		            }else if(type=="goods"){
 		                if(status == "drop") {

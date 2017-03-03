@@ -11,6 +11,7 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <style>
         body{background: #f9f9f9; height:100%;}
+        .attention{clear:both;}
         .seemore, .nextpage{clear: both;}
         .trade{width: 100%; line-height:4rem; background: #fff;}
         .trade span{width:30%; margin:0 10%; position: relative; text-align: center; font-size: 1.3rem; display: inline-block; color:#3f3f3f;}
@@ -223,6 +224,7 @@
             item_id=t.attr("item_id");
             if(t.attr("dataStatus")=="drop"){
                 allFun.attention("store","drop",t);
+                $(this).parent(".faxian").remove();
             }else{
                 allFun.attention("store","add",t);
             }

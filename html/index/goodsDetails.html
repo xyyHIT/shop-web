@@ -434,22 +434,27 @@
             success: function (rs) {
                 allFun.removeLoading();
                 if(rs.code == 0) {
-                    var obj = '',d = rs.data.comments;
+                    var obj = '',d = rs.data.comments,index=0;
                         if(d.length <= 0){
                             $(".sComment .more").hide();
                         }
-                                $.each(d,function (j,v) {
-                                    if(j<2){
-                                        obj+='<li>'
-                                            +'<div class="title"><span><a href="javascript:;"><img src="'+v.portrait+'" /></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>' + v.buyer_name + '</span></div>'
-                                            +'<div class="content over">' + v.comment + '</div>'
-                                        if(v.comment==undefined){
-                                            +'<div class="content over">此用户没有填写评价</div>'
-                                        }else{
-                                            +'<div class="date">' + v.evaluation_time + '</div>'
-                                        }
+
+                            $.each(d,function (j,v) {
+                                index++;
+                                console.log(index)
+                                if(index<3){
+                                obj+='<li>'
+                                    +'<div class="title"><span><a href="javascript:;"><img src="'+v.portrait+'" /></a></span><span class="level"><img src="/shop/imgs/level/saler'+v.level+'.png"></span><span>' + v.buyer_name + '</span></div>'
+                                    if(v.comment==""){
+                                        obj+='<div class="content over">此用户没有填写评价!</div>'
+                                    }else{
+                                        obj+='<div class="content over" >' + v.comment + '</div>'
                                     }
-                                });
+                                    obj+= '<div class="date">' + v.evaluation_time + '</div>'
+                                }
+                            });
+
+
                     $(".sComment ul").html(obj);
 
                 } else {

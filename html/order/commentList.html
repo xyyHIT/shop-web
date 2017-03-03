@@ -136,8 +136,12 @@
                             $.each(d, function (j, v) {
                                 obj += '<div class="boxs"><div class="boxList">'
                                     + '<div class="title"><span><a href="javascript:;"><img src="' + v.portrait + '"></a></span><span class="level"><img src="/shop/imgs/level/saler' + v.level + '.png"></span><span>' + v.buyer_name + '</span></div>'
-                                    + '<div class="content">' + v.comment + '</div>'
-                                    + '<div class="date">' + v.evaluation_time + '</div>'
+                                if(v.comment==""){
+                                    obj+='<div class="content over">此用户没有填写评价!</div>'
+                                }else{
+                                    obj+='<div class="content over" >' + v.comment + '</div>'
+                                }
+                                    obj+= '<div class="date">' + v.evaluation_time + '</div>'
                                     + '</div>';
                                 obj += '<ul>';
                                 for (var u = 0; u < v.imgs.length; u++) {

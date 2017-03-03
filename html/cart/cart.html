@@ -458,7 +458,11 @@
 								for(var i = 0; i < v.goods.length; i++){
 									obj += "<li data_spec_id="+v.goods[i].spec_id+" data_stock="+v.goods[i].stock+">";
 									if(v.goods[i].closed == 0){//0 -> 商品正常  1 -> 商品被删除或禁售
-										obj += "<i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>";
+										if(v.goods[i].quantity > 0){
+											obj += "<i class='iconfont icon-querenoff1 icon-radio' data_rec_id="+v.goods[i].rec_id+"></i>";
+										}else{
+											obj += "<i class='iconfont icon-querenoff1 icon-radio disabled' data_rec_id="+v.goods[i].rec_id+"></i>";
+										}
 									}else{
 										obj += "<i class='iconfont icon-querenoff1 icon-radio disabled' data_rec_id="+v.goods[i].rec_id+"></i>";
 									}

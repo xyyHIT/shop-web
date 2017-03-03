@@ -87,7 +87,7 @@
                         obj+='<div class="boxs"> <div class="boxList">'
 
                             +'<div class="title"><span class="img"><a href="javascript:;"><img src="'+d.portrait+'"></a></span><span class="level"><img src="/shop/imgs/level/saler'+d.level+'.png"></span><span>' + d.buyer_name + '</span></div>'
-                            +'<div class="content">"'+d.comment+'"</div><div class="date">'+d.evaluation_time+'</div>'
+                            +'<div class="content">"'+d.comment+'"</div><div class="date">'+ allFun.getLocalTime(d.evaluation_time) +'</div>'
                             +'</div>'
                             +'<ul>';
                                 for(var i=0; i<d.imgs.length;i++){
@@ -124,7 +124,11 @@
     }
     $("body").on("click",".present",function(){
         var reply = $(".fontContent").val();
-        replyComment(rec_id,reply);
+        if(reply==""){
+            allFun.alertDiv("请输入回复内容！");
+            return false;
+        }
+            replyComment(rec_id,reply);
     });
 
     function replyComment(rec_id,reply){
@@ -136,7 +140,6 @@
             success: function (rs) {
                 allFun.removeLoading();
                 if(rs.code == 0) {
-                    allFun.alertDiv(rs.msg);
                     location.href = "/shop/html/order/orderDetail.html?orderId="+orderId+"&type=1";
                 } else {
                     allFun.alertDiv(rs.msg);

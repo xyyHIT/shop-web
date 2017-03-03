@@ -349,23 +349,24 @@
     //点击提交评价
     $("body").on("click",".present",function(){
         //获取评分所对应的星级个数
-        var goodComment=$(".goodComment").attr("data-default-index"),desc_stars = $(".describes").attr("data-default-index"),logi_stars = $(".logistics").attr("data-default-index"),serv_stars = $(".manner").attr("data-default-index");
+        var goodComment=$(".goodComment").attr("data-default-index"),desc_stars =parseInt( $(".describes").attr("data-default-index"))+1,logi_stars = parseInt($(".logistics").attr("data-default-index"))+1,serv_stars = parseInt($(".manner").attr("data-default-index"))+1;
             /*
             if(goodComment==undefined){
                allFun.alertDiv("请对商品做出评价！");
                return false;
             }*/
             var fontContent = $(".fontContent").val();
+            console.log(desc_stars);
 
-            if(desc_stars==undefined){
+            if(isNaN(desc_stars)){
                 allFun.alertDiv("请对商品描述做出评价！");
                 return false;
                 }
-            if(logi_stars==undefined){
+            if(isNaN(logi_stars)){
                 allFun.alertDiv("请对物流服务做出评价！");
                 return false;
             }
-            if(serv_stars==undefined){
+            if(isNaN(serv_stars)){
                 allFun.alertDiv("请对服务态度做出评价！");
                 return false;
             }
@@ -390,7 +391,7 @@
                 success: function (rs) {
                     if(rs.code == 0){
                         //allFun.alertDiv(rs.msg);
-                        location.href = "/shop/html/order/orderDetail.html?orderId="+orderId+"&type=0";
+                       location.href = "/shop/html/order/orderDetail.html?orderId="+orderId+"&type=0";
                     }else{
                         allFun.alertDiv(rs.msg);
                     }

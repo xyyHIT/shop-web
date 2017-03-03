@@ -62,7 +62,7 @@
 					<a href="/shop/html/order/orderList.html?linkType=pending&type=1"><i class="iconfont icon-daifukuan"></i>待付款</a>
 					<a href="/shop/html/order/orderList.html?linkType=accepted&type=1"><i class="iconfont icon-daifahuo"></i>待发货</a>
 					<a href="/shop/html/order/orderList.html?linkType=shipped&type=1"><i class="iconfont icon-chongzhi"></i>待收货</a>
-					<a href="/shop/html/order/orderList.html?linkType=finished&type=1"><i class="iconfont icon-xiaoxi"></i>待评价</a>
+					<a href="/shop/html/order/orderList.html?linkType=finished&type=1"><i class="iconfont icon-xiaoxi"></i>待回复</a>
 				</div>
 			</div>
 			<div class="dBox">
@@ -130,6 +130,9 @@
 						if(d.order_sta.order_shipped > 0){
 							$(".icon-chongzhi").append("<b>"+d.order_sta.order_shipped+"</b>");
 						}
+                        if(d.order_sta.order_penevaluation > 0){
+                            $(".icon-xiaoxi").append("<b>"+d.order_sta.order_penevaluation+"</b>");
+                        }
 					}
 				}
 			})

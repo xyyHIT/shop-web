@@ -15,7 +15,7 @@
         .list .boxs .boxList {padding:1rem 1rem 0 1rem ; position: relative}
         .list .boxs .boxList div{overflow: hidden;}
         .list .boxs .boxList .content{ line-height:2rem; font-size:1.1rem; color:#333;padding-top:.5rem;}
-        .list .boxs .boxList .date{ position: absolute; right:1rem; top:1.2rem ;font-size:1rem; color:#999;}
+        .list .boxs .boxList .date{ position: absolute; right:1rem; top:1.5rem ;font-size:1rem; color:#999;}
         .title{line-height:2.5rem;}
         .list .boxs ul{ overflow: hidden; padding:0 1rem;}
         .list .boxs ul li{float: left; width:33.33%; height:9rem; padding:0 .3rem 0rem; margin:.6rem 0;}
@@ -139,9 +139,9 @@
                                 if(v.comment==""){
                                     obj+='<div class="content over">此用户没有填写评价!</div>'
                                 }else{
-                                    obj+='<div class="content over" >' + v.comment + '</div>'
+                                    obj+='<div class="content" >' + v.comment + '</div>'
                                 }
-                                    obj+= '<div class="date">' + v.evaluation_time + '</div>'
+                                    obj+= '<div class="date">' +  allFun.getLocalTime(v.evaluation_time) + '</div>'
                                     + '</div>';
                                 obj += '<ul>';
                                 for (var u = 0; u < v.imgs.length; u++) {
@@ -163,7 +163,7 @@
                                 obj += "<div class='seemore' data_d='no'></div>";
                             }
                         }
-                    $(".list").html(obj);
+                    $(".list").append(obj);
                         //评价数量
                     $(".nav5 .goods em").html("("+amount.good+")");
                     $(".nav5 .general em").html("("+amount.common+")");

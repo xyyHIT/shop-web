@@ -165,6 +165,9 @@ var allFun = {
 		yy = yy.substring(0, yy.length - 3);
 		return yy;
 	},
+    getLocalTime:function(nS){
+        return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,9);
+	},
 	gzewm: function () {
 		if ($(".gzewm").length <= 0) {
 			$("body").append("<div class='gzewm animated bounceInDown'><img src='/shop/imgs/test/erweima.jpg' /><div>~长按二维码关注我们~<span>Wuli小艺关注后就能接收消息提醒哦！ </span></div></div>");

@@ -217,8 +217,7 @@
                 }
             })
         }
-
-
+    //上传图片
         $("body").on("click",".uploadImg",function(){
             var _t = $(this);
                 wx.ready(function() {
@@ -296,7 +295,6 @@
             });
 
 
-
     //查看大图
     $("body").on("click",".imgList img",function(){
         var imgList=[], targetSrc=$(this).attr("data_initSrc");
@@ -349,8 +347,6 @@
                return false;
             }*/
             var fontContent = $(".fontContent").val();
-            console.log(desc_stars);
-
             if(isNaN(desc_stars)){
                 allFun.alertDiv("请对商品描述做出评价！");
                 return false;
@@ -365,7 +361,7 @@
             }
 
 
-              var obj={},img=[],row = {};
+              var img=[],row = {};
                 $(".imgList li img").each(function(){
                     img.push($(this).attr("data_id"));
                 });

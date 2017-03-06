@@ -161,7 +161,11 @@
 						$.each(d.goods_list, function(i,v) {
 							obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods_id+"><li>"
 								+ "<img src="+v.goods_image+"/square /><strong class='over over2'>"+v.goods_name+"</strong>"
-								+ "<p class='fix'><span>￥"+v.price+"</span><em>x"+v.quantity+"</em></p></li></a>"
+								+ "<p class='fix'><span>￥"+v.price+"</span><em>x"+v.quantity+"</em></p>";
+								if(type == 1){
+                                    obj+="<div class='reply' data_rec_id="+v.rec_id+">"+v.button+"</div>";
+                                }
+                                obj+="</li></a>";
 						})
 						obj += "</ul><div class='sundry fix'>快递费用<span>"+d.consignee.shipping_fee+"元</span></div><div class='dTotal'>合计：<span>￥"+d.order_amount+"</span></div>"
 						

@@ -23,7 +23,7 @@
         .boxList span img{ width: 2.5rem;  height:2.5rem;  border-radius: 100%; float: left;margin-right: 1rem;}
         .boxList span.level img { display: inline-block;  margin-top:.5rem;  float: left;  margin-right: .5rem;  background-size: 1.5rem 1.5rem;  height: 1.5rem;  width: 1.5rem;}
 
-        .reply{background:#ededed; margin:0 1rem; color:#999; padding:.5rem; line-height: 1.8rem;}
+        .replyDiv{background:#ededed; margin: .3rem 1rem 0 1rem; color:#999; padding:.5rem; line-height: 1.8rem;}
     </style>
 </head>
 <body>
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="reply">
+        <div class="replyDiv">
             店家回复：福建分行经理看粉红色看警方很快锁定
         </div>-->
 
@@ -153,17 +153,19 @@
                                 }
                                     obj+= '<div class="date">' +  allFun.getLocalTime(v.evaluation_time) + '</div>'
                                     + '</div>';
-                                obj += '<ul>';
-                                for (var u = 0; u < v.imgs.length; u++) {
-                                    obj += '<li><img data_initSrc="' + v.imgs[u] + '" src="' + v.imgs[u] + '/square" /></li>'
+                                if(v.imgs.length > 0){
+                                	obj += '<ul>';
+	                                for (var u = 0; u < v.imgs.length; u++) {
+	                                    obj += '<li><img data_initSrc="' + v.imgs[u] + '" src="' + v.imgs[u] + '/square" /></li>'
+	                                }
+	                                obj += '</ul>';
                                 }
-                                obj += '</ul>';
 
                                 if (v.reply != "") {
-                                    obj += '<div class="reply">店家回复：' + v.reply + '  </div>'
+                                    obj += '<div class="replyDiv">店家回复：' + v.reply + '  </div>'
 
                                 } else {
-                                    $(".reply").hide();
+                                    $(".replyDiv").hide();
                                 }
                                 obj += '</div>';
                             });

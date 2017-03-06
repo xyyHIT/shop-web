@@ -182,17 +182,17 @@
 
                         var d = rs.data, obj = "";
                         $.each(d.goods_list, function(i,v) {
-                            obj +='<div class="content" rec_id='+v.rec_id+'>'
+                            obj +='<div class="content" rec_id='+v.rec_id+'>';
                             obj += '<dl class="evaluation">'
                                 + '<dt><a href=/shop/html/index/goodsDetails.html?goodsId='+v.goods_id+'><img src='+v.goods_image+'/square /></a></dt>'
                                 + '<dd><h1>商品评价</h1>'
                                 + '<div class="stars goodComment" data-default-index="4">'
-                                + '<img src="/shop/imgs/star_gold.png"/>' +
-                                '<img src="/shop/imgs/star_gold.png"/>' +
-                                '<img src="/shop/imgs/star_gold.png"/>' +
-                                '<img src="/shop/imgs/star_gold.png"/>' +
-                                '<img src="/shop/imgs/star_gold.png"/>'+
-                                '<span class="area">非常符合</span>'
+                                + '<img src="/shop/imgs/star_gold.png"/>'
+                                + '<img src="/shop/imgs/star_gold.png"/>'
+                                + '<img src="/shop/imgs/star_gold.png"/>'
+                                + '<img src="/shop/imgs/star_gold.png"/>'
+                                + '<img src="/shop/imgs/star_gold.png"/>'
+                                + '<span class="area">非常符合</span>'
                                 + '</div> </dd></dl>';
                             obj += '<div class="describe">'
                                 + '<textarea id="fontContent" class="fontContent" maxlength="100" placeholder="请输入内容,不超过100个字的购买体会和使用感受来帮助其他买家"></textarea>'
@@ -218,13 +218,6 @@
             })
         }
 
-    //订单评价上传图片
-       /* $(".content .imgList li.uploadImg").each(function() {
-            $(this).click(function() {
-         alert("ddd")
-
-            });
-        });*/
 
         $("body").on("click",".uploadImg",function(){
             var _t = $(this);

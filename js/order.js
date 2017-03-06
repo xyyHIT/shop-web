@@ -267,7 +267,8 @@
 		})
 		
 		//卖家回复评论(待评价)
-		$("body").on("click",".huifupinglun",function(){
+		$("body").on("click",".huifupinglun",function(event){
+			event.stopPropagation();
 			var _t = $(this),obj = {},rec_id = _t.parents(".reply").attr("data_rec_id"),order_id = _t.parents(".box").attr("data_order_id");
 			var str = location.href.split('#')[0];
 			if(str.indexOf("orderList") > 0){//列表页

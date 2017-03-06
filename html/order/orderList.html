@@ -126,6 +126,9 @@
 					$(this).addClass("on").siblings().removeClass("on");
 				}
 			})
+			if(type == 1){//卖家
+				$("nav a:last-child").text("待回复");
+			}
 
 			//tab切换
 			$("nav a").click(function () {

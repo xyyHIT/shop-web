@@ -128,6 +128,11 @@
 			type = allFun.getRequest("type");
 		$(function () {
 			getOrderDetail();
+			//点击跳转到详情
+		    $("body").on("click",".box li",function(){
+		    	var _t = $(this);
+		    	location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("data_goodsId");
+			})
 			
 		})
 		function getOrderDetail(){
@@ -159,13 +164,13 @@
 						}
 						obj += "<em>"+d.statusname+"</em></h2><ul>";
 						$.each(d.goods_list, function(i,v) {
-							obj += "<a href=/shop/html/index/goodsDetails.html?goodsId="+v.goods_id+"><li>"
+							obj += "<li data_goodsId="+v.goods_id+">"
 								+ "<img src="+v.goods_image+"/square /><strong class='over over2'>"+v.goods_name+"</strong>"
 								+ "<p class='fix'><span>￥"+v.price+"</span><em>x"+v.quantity+"</em></p>";
 								if(type == 1){
                                     obj+="<div class='reply' data_rec_id="+v.rec_id+">"+v.button+"</div>";
                                 }
-                                obj+="</li></a>";
+                                obj+="</li>";
 						})
 						obj += "</ul><div class='sundry fix'>快递费用<span>"+d.consignee.shipping_fee+"元</span></div><div class='dTotal'>合计：<span>￥"+d.order_amount+"</span></div>"
 						

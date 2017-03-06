@@ -77,6 +77,6 @@ nav.nav5 a{ width: 20%;}
 a.goHome{ position: fixed; left: 1.5rem; bottom: 6rem; width: 4.5rem; height: 4.5rem;}
 a.goHome svg.icon{ width: 4.5rem; height: 4.5rem;}
 
-.reply{ position: absolute; right: 1rem; bottom: 1rem; z-index: 88;}
-.reply .huifupinglun{ color: #EB4849;}
+.reply{ position: absolute; right: .5rem; bottom: .5rem;}
+.reply .huifupinglun{ display: block; padding: .5rem 1rem; font-size: 1.1rem; color: #EB4849;}
 

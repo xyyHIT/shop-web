@@ -87,7 +87,6 @@
         //tab切换
         $("nav a").click(function () {
             evaluation = $(this).attr("data_type");
-            console.log(evaluation);
             $(this).addClass("on").siblings().removeClass("on");
             $(".list").empty();
             curr_page = 1;

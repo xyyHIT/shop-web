@@ -301,10 +301,12 @@ var allFun = {
 		            if(type=="store"){
 		                if(status == "drop"){//取消关注
                             $(".more em").addClass("on");
+                            $(".faxian em").addClass("on");
 		                    t.html("+关注");
 		                    t.attr("dataStatus","add");
 		                }else{
                             $(".more em").removeClass("on");
+                            $(".faxian em").removeClass("on");
 		                    t.html("已关注");
                             t.attr("dataStatus","drop");
 

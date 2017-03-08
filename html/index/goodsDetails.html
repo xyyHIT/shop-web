@@ -108,6 +108,7 @@
                     <li class="desc_stars">描述相符<span>3.0</span></li>
                     <li class="logi_stars">物流服务<span>3.0</span></li>
                     <li class="serv_stars">服务态度<span>3.0</span></li>
+                    <a class="paimai" href="javascript:;">进入拍卖 ></a>
                 </ul>
 
         </dl>
@@ -289,6 +290,11 @@
                     });
                     //客服电话（卖家电话）
                     $(".aKefu").attr("href","tel:"+storeData.tel+"");
+
+                    //点击跳到艺加拍卖
+                    $("body").on("click",".paimai",function(){
+                        location.href = hostPm+"/yjpai/platform/index.html";
+                    });
 
                     //图文详情
                     $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');

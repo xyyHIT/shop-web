@@ -26,6 +26,8 @@
         .tel{position: fixed; left:1.2rem; bottom:5.6rem;   z-index: 9999}
         #openQrcode{ width: 3.1rem; height: 3.1rem;  background: url("/shop/imgs/code.png") no-repeat;background-size: 3.1rem 3.1rem;}
 
+
+
     </style>
 </head>
 <body>
@@ -102,7 +104,7 @@
                         }else{
                             obj += "";
                         }
-                    obj +='<ul class="com-comment"><li>描述相符<span>'+d.desc_stars+'</span></li> <li>物流服务<span>'+d.logi_stars+'</span></li> <li>服务态度<span>'+d.serv_stars+'</span></li> </ul>'
+                    obj +='<ul class="com-comment"><li>描述相符<span>'+d.desc_stars+'</span></li> <li>物流服务<span>'+d.logi_stars+'</span></li> <li>服务态度<span>'+d.serv_stars+'</span></li> <a class="paimai" href="javascript:;">进入拍卖 ></a></ul>';
                     obj +='</dl>' ;
                     $(".seller").append(obj);
                     //获取当前店铺的telphone
@@ -118,6 +120,11 @@
                 }
             });
         }
+
+        //点击跳到艺加拍卖
+        $("body").on("click",".paimai",function(){
+            location.href = hostPm+"/yjpai/platform/index.html";
+        });
         //切换 默认  销量和价格
         $("body").on("click",".trade span",function () {
             var index = $(".trade span").index(this);

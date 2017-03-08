@@ -41,6 +41,7 @@
 .faxian em i{width:100%; height:100%; display:inline-block;}
 .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
 
-.com-comment{clear: both; margin:1rem 0 0 5.6rem;}
+.com-comment{clear: both; margin:1rem 0 0 5.6rem; position: relative;}
 .com-comment li{font-size:1.1rem;  padding-top:0.5rem;}
 .com-comment li span{color:#ec4747;margin-left:.5rem;}
+.paimai{position: absolute; bottom:.3rem; right:.3rem; font-size: 1.1rem; color: #ec4747;}

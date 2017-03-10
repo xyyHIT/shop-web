@@ -24,10 +24,11 @@
 			.dBox > a{ position: relative; display: block; height: 4rem; padding: 0 1.5rem; line-height: 4rem; font-size: 1.3rem; color: #878787; border-bottom: 1px solid #EFEFEF;}
 			#woshishangjia{ border: none;}
 			.dBox > a i{ position: absolute; right: 1rem; font-size: 1.5rem; color: #878787;}
-			.dBox > div a{ float: left; display: block; width: 25%; padding: 1.8rem 0 1.5rem 0; font-size: 1.2rem; color: #878787; text-align: center;}
+			.dBox > div a{ float: left; display: block; width: 20%; padding: 1.8rem 0 1.5rem 0; font-size: 1.2rem; color: #878787; text-align: center;}
 			.dBox > div a i{ position: relative; display: block; width: 2.5rem; height: 2.5rem; margin: 0 auto; margin-bottom: .2rem; font-size: 2.2rem;}
 			.dBox > div a i b{ position: absolute; top: -.2rem; right: -.2rem; min-width: 1.4rem; height: 1.4rem; line-height: 1.4rem; font-size: .9rem; color: #EC4747; text-align: center; background: #fff; border: 1px solid #EC4747; border-radius: 100%;}
 			.dBox svg.icon { width: 2.4rem; height: 2.4rem; margin-bottom: .2rem;}
+			.dBox .fix2 a{width: 25% !important;}
 			.icon-daifukuan,.icon-daifahuo,.icon-chongzhi,.icon-xiaoxi{ color: #3C3C3C;}
 			i.icon-open-release{ color: #EC4747;}
 			i.icon-fahuoguanli{ color: #79b3e8;}
@@ -60,14 +61,15 @@
 				<a href="/shop/html/order/orderList.html?linkType=all&type=1">我的订单<i class="iconfont icon-zhankai-copy"></i></a>
 				<div class="fix">
 					<a href="/shop/html/order/orderList.html?linkType=pending&type=1"><i class="iconfont icon-daifukuan"></i>待付款</a>
-					<a href="/shop/html/order/orderList.html?linkType=accepted&type=1"><i class="iconfont icon-daifahuo"></i>待发货</a>
-					<a href="/shop/html/order/orderList.html?linkType=shipped&type=1"><i class="iconfont icon-chongzhi"></i>待收货</a>
+					<a href="/shop/html/order/orderList.html?linkType=accepted&type=1"><i class="iconfont icon-daifahuo "></i>待发货</a>
+					<a href="/shop/html/order/orderList.html?linkType=shipped&type=1"><i class="iconfont icon-chongzhi icon-chongzhi2"></i>待收货</a>
 					<a href="/shop/html/order/orderList.html?linkType=finished&type=1"><i class="iconfont icon-xiaoxi"></i>待回复</a>
+					<a href="/shop/html/order/refundList.html?linkType=returning&type=0"><i class="iconfont icon-chongzhi icon-tuihuo"></i>退货</a>
 				</div>
 			</div>
 			<div class="dBox">
 				<a>常用入口</a>
-				<div class="fix">
+				<div class="fix fix2">
 					<a id="fabushangpin"><i class="iconfont icon-open-release"></i>发布商品</a>
 					<a id="shangpinguanli"><i class="iconfont icon-fahuoguanli"></i>商品管理</a>
 					<a id="wodeqianbao"><i class="iconfont icon-wodeqianbao"></i>我的钱包</a>
@@ -128,11 +130,14 @@
 							$(".icon-daifahuo").append("<b>"+d.order_sta.order_accepted+"</b>");
 						}
 						if(d.order_sta.order_shipped > 0){
-							$(".icon-chongzhi").append("<b>"+d.order_sta.order_shipped+"</b>");
+							$(".icon-chongzhi2").append("<b>"+d.order_sta.order_shipped+"</b>");
 						}
                         if(d.order_sta.order_penevaluation > 0){
                             $(".icon-xiaoxi").append("<b>"+d.order_sta.order_penevaluation+"</b>");
                         }
+						/*if(d.order_sta.order_penevaluation > 0){
+						 $(".icon-tuihuo").append("<b>"+d.order_sta.order_penevaluation+"</b>");
+						 }*/
 					}
 				}
 			})

@@ -165,9 +165,30 @@ var allFun = {
 		yy = yy.substring(0, yy.length - 3);
 		return yy;
 	},
-    getLocalTime:function(nS){//1177824835把时间戳转换成日期格式2010/2/23
-        return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,9);
-	},
+    getLocalTime:function(nS) {//1177824835把时间戳转换成日期格式2010-2-23
+        function add0(m) { return m < 10 ? '0' + m : m }
+        //nS，否则要parseInt转换
+        var time = new Date(parseInt(nS)*1000);
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + add0(m) + '-' + add0(d);
+    },
+    getTime:function(nS) {//1177824835把时间戳转换成日期格式2010-2-23 13:13:22
+        function add0(m) { return m < 10 ? '0' + m : m }
+        //nS，否则要parseInt转换
+        var time = new Date(parseInt(nS)*1000);
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+    },
 	gzewm: function () {
 		if ($(".gzewm").length <= 0) {
 			$("body").append("<div class='gzewm animated bounceInDown'><img src='/shop/imgs/test/erweima.jpg' /><div>~长按二维码关注我们~<span>Wuli小艺关注后就能接收消息提醒哦！ </span></div></div>");
@@ -275,6 +296,7 @@ var allFun = {
 					break;
 			}
 		}
+		//底部统计购物袋的产品数量
 		$.ajax({
             url: host + '/index.php?app=cart&act=ejCount',
             type: "get",
@@ -301,15 +323,14 @@ var allFun = {
 		            if(type=="store"){
 		                if(status == "drop"){//取消关注
                             $(".more em").addClass("on");
-                            $(".faxian em").addClass("on");
+                            $(".faxian2 em").addClass("on");
 		                    t.html("+关注");
 		                    t.attr("dataStatus","add");
 		                }else{
                             $(".more em").removeClass("on");
-                            $(".faxian em").removeClass("on");
+                            $(".faxian2 em").removeClass("on");
 		                    t.html("已关注");
                             t.attr("dataStatus","drop");
-
 		                }
 		            }else if(type=="goods"){
 		                if(status == "drop") {
@@ -387,4 +408,4 @@ var allFun = {
 	    }  
 	    return f + t.split("").reverse().join("") + "." + r.substring(0,2);//保留2位小数  如果要改动 把substring 最后一位数改动就可
 	}  
-}
+};

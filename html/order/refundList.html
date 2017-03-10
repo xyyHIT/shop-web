@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>退货列表</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
+    <style>
+        .header{padding: 1rem 1.5rem;background-color:#fff;position: relative;z-index: 200; border-bottom: 1px solid #EFEFEF;}
+        .header #searchInput{font-size:1.1rem;color:#9e9e9e;float:left;height:3rem;line-height:3.2rem;width:100%;padding-left:3rem;background:#e7e7e7;border:none;border-radius:5px;}
+        #search-button{float:right;border-radius:4px; border:1px solid #5f5f5f;width:6rem;height:2.5rem;display: inline-block;text-align: center;line-height: 2.5rem;font-size: 1.1rem;color:#5f5f5f;}
+        .searchBg{position: absolute; top:1.5rem; left:2rem; font-size:1.6rem; color:#9e9e9e;}
+        nav.nav5 a{width:50% !important;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="nav5">
+		<a data_type='returning'>退货中</a><a data_type='all'>全部</a>
+    </nav>
+    <div class="list">
+        <div class='box'>
+					<h2>
+						<a>viishow旗舰店</a>
+						<i class='iconfont icon-zhankai-copy'></i>
+						<em>卖家已发货</em>
+					</h2>
+					<ul>
+						<li>
+							<a href='orderDetail.html'>
+								<img src='../../imgs/test/0.jpg' />
+							</a>
+							<strong class='over2'>自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
+							<p class='fix'>
+								<span>￥200</span><em>x1</em>
+							</p>
+						</li>
+					</ul>
+					<div class='dTotal'>
+						合计：<span>￥300.00</span>
+					</div>
+					<div class='dOperate'>
+						<a class='chakanwuliu'>查看物流</a>
+					</div>
+				</div>
+				<div class="box">
+					<h2>
+						<a>viishow旗舰店</a>
+						<i class="iconfont icon-zhankai-copy"></i>
+						<em>卖家已发货</em>
+					</h2>
+					<ul>
+						<li>
+							<a href="orderDetail.html">
+								<img src="../../imgs/test/0.jpg" />
+							</a>
+							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
+							<p class="fix">
+								<span>￥200</span><em>x1</em>
+							</p>
+						</li>
+						<li>
+							<a href="orderDetail.html">
+								<img src="../../imgs/test/0.jpg" />
+							</a>
+							<strong class="over2">自然造物 | 一物 ·【看道·寻瓷】看道·寻瓷看道·寻瓷</strong>
+							<p class="fix">
+								<span>￥200</span><em>x1</em>
+							</p>
+						</li>
+					</ul>
+					<div class='dTotal'>
+						合计：<span>￥300.00</span>
+					</div>
+					<div class='dOperate'>
+						<a class='chakanwuliu'>查看物流</a>
+					</div>
+				</div>
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/order.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    var linkType = allFun.getRequest("linkType"),//tab类型
+        type = allFun.getRequest("type"),//0买家 1卖家
+        curr_page = 1,//当前页
+        finished = true;
+    $(function () {
+        //缓存
+        if(sessionStorage.getItem("returnListShopStorage") && allFun.getRequest("history") == -1){
+            var returnListShopStorage = JSON.parse(sessionStorage.getItem("returnListShopStorage"));
+            linkType = returnListShopStorage.linkType;
+            getOrderList(linkType);
+            sessionStorage.removeItem("returnListShopStorage");
+        }else{
+            sessionStorage.removeItem("returnListShopStorage");
+            getOrderList(linkType);
+        }
+
+
+        if(!linkType){
+            linkType = "all";
+        }
+        if(!type){
+            type = 0;
+        }
+        $("nav a").each(function(){
+            if($(this).attr("data_type") == linkType){
+                $(this).addClass("on").siblings().removeClass("on");
+            }
+        })
+        if(type == 1){//卖家
+            $("nav a:last-child").text("待回复");
+        }
+
+        //tab切换
+        $("nav a").click(function () {
+            $(this).addClass("on").siblings().removeClass("on");
+            linkType = $(this).attr("data_type");
+            $(".list").empty();
+            curr_page = 1;
+            getOrderList(linkType);
+        })
+        //点击查看更多
+        $(window).on('scroll', function () {
+            var dHeight = document.documentElement.offsetHeight;
+            var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+            var wHeight = document.documentElement.clientHeight;
+            if (finished && dHeight - (sHeight + wHeight) < 200) {
+                finished = false;
+                if($(".seemore").attr("data_d") != "no"){
+                    curr_page++;
+                    getOrderList(linkType);
+                }
+            }
+        })
+
+        //点击跳转到详情
+        $("body").on("click",".box li",function(){
+            var _t = $(this),obj = {};
+            obj.linkType = linkType;
+            sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
+            history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
+
+            location.href = "/shop/html/order/orderDetail.html?orderId="+_t.parents(".box").attr("data_order_id")+"&type="+type+"";
+        })
+
+    })
+    function getOrderList(tp){//tp类别   （全部：all 待付款：pending 待发货：accepted 待收货：shipped 待评价：finished）
+        var uu = "";
+        if(type == 1) {//卖家
+            uu = "/index.php?app=seller_order&act=index&t="+Date.now();
+        }else{//买家
+            uu = "/index.php?app=buyer_order&act=index&t="+Date.now();
+        }
+        $.ajax({
+            url: host + uu + "&type=" + tp + "&page=" + curr_page,
+            type: "get",
+            dataType: "json",
+            beforeSend:function(){
+                if(curr_page == 1){//第一次
+                    allFun.loading();
+                }
+            },
+            success: function(rs) {
+                allFun.removeLoading();
+                if(rs.code == 0) {
+                    $(".seemore").remove();
+                    curr_page = rs.data.page.curr_page;
+                    finished = true;
+                    var obj = "",
+                        d = rs.data.orderlist,
+                        item_count = rs.data.page.item_count,//总条数
+                        pageper = rs.data.page.pageper;//每页条数
+
+                    if(item_count == 0){//无数据(第一次进来)
+                        obj += allFun.noDataImg("您还没有相关的订单");
+                    }else{
+                        $.each(d, function(i,v) {
+                            obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2>";
+                            if(type == 0){//买家
+                                obj += "<a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
+                            }
+                            else{//卖家
+                                obj += "<a>"+v.buyer_name+"</a>";
+                            }
+                            obj += "<em>"+v.statusname+"</em></h2><ul>";
+                            for(var i = 0; i < v.order_goods.length; i++){
+                                obj += "<li><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
+                                    + "<p class='fix'><span>￥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p>";
+                                if(type == 1){
+                                    obj+="<div class='reply' data_rec_id="+v.order_goods[i].rec_id+">"+v.order_goods[i].button+"</div>";
+                                }
+                                obj+="</li>";
+                            }
+                            obj += "</ul><div class='dTotal'>合计：<span>￥"+v.order_amount+"</span></div>"+v.button+"</div>";
+
+
+                        });
+                        if(curr_page < Math.ceil(item_count/pageper)){//有数据
+                            obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";
+                        }else{//没有更多数据
+                            obj += "<div class='seemore' data_d='no'></div>";
+                        }
+                    }
+                    $(".list").append(obj);
+                } else {
+                    allFun.alertDiv(rs.msg);
+                }
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
+            }
+        })
+    }
+</script>
+</html>

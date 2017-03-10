@@ -91,7 +91,7 @@
                     console.log(d);
                     //分享
 					allFun.share("艺加商城【"+d.user_name+"】的新品上架了，欢迎围观。",host+"/shop/html/my/sellerStore.html?storeId="+d.user_id+"",d.portrait);
-                    obj += '<dl class="faxian" auction_id="'+d.auction_id+'">'
+                    obj += '<dl class="faxian faxian2" auction_id="'+d.auction_id+'">'
                         +'<dt class="left"><img src="'+d.portrait+'" /></dt>'
                         +'<dd  class="left">'
                         +'<h3><img src="/shop/imgs/level/saler'+d.level+'.png"><p class="over">'+d.user_name+'</p></h3>'
@@ -120,11 +120,12 @@
                 }
             });
         }
-
         //点击跳到艺加拍卖
         $("body").on("click",".paimai",function(){
             location.href = hostPm+"/yjpai/platform/index.html";
         });
+        //打开二维码
+       // allFun.openQrcode(store_id);
         //切换 默认  销量和价格
         $("body").on("click",".trade span",function () {
             var index = $(".trade span").index(this);
@@ -151,7 +152,6 @@
                 }
             }
             goodsList(order,store_id);
-
         });
         //点击查看更多
         $(window).on('scroll', function () {
@@ -224,8 +224,6 @@
                 allFun.attention("store","add",t);
             }
         });
-
-
     });
 </script>
 </html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>退款管理</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="/shop/css/font/iconfont.js"></script>
+
+    <style>
+        body{background: #fff;}
+        .refundDetails .refundTitle{width:100%;overflow: hidden;}
+        .refundTitle{width:100%; padding:1rem; }
+
+        .refundTitle .pro dl ,.refundTitle .pro2 dl{ position: relative;float: left; text-align: center; width: 33%;}
+        .refundTitle .pro2 dl {  width: 20%;}
+        .refundTitle .pro dl .line,.refundTitle .pro2 dl .line{border-top:1px solid #d8d8d8; position: absolute; top:.8rem; left: 6.2rem; width:100%;z-index: -1;}
+        .refundTitle .pro2 dl .line{left: 3rem; }
+        .refundTitle .pro dl.left .line,.refundTitle .pro2 dl.left .line{ left: 3.5rem; width:100%;z-index: -1;}
+        .refundTitle .pro2 dl.left .line{ left: 3.5rem;}
+        .refundTitle dl.left{text-align: left;}
+        .refundTitle dl.right{text-align: right;}
+        .refundTitle dl.left dt {text-align: left; margin-left:.8rem;}
+        .refundTitle dl.right dt {text-align: right;margin-right:.8rem;}
+        .refundTitle dl dd{font-size:1rem;color: #d8d8d8;}
+        .refundTitle dl span{width:2.5rem; text-align: center; background:#fff;display: inline-block;}
+        .refundTitle dl em{display:inline-block;width:1.6rem; height: 1.6rem; line-height: 1.6rem; text-align: center; color:#fff; background: #d8d8d8; border-radius: 50%;}
+        .refundTitle dl.on em{ background:#ec4747; border-radius: 50%;}
+        .refundTitle dl.on dd{color:#ec4747;}
+        .refundTitle dl dt{margin-bottom:.5rem;}
+
+        .refundContent{background:#FBB7B7; padding: 1rem;}
+        .refundContent .title{padding:.5rem 0 1.5rem; border-bottom: 1px solid  #fff;}
+        .refundContent .title span{color:#fff; font-size: 1.2rem;}
+        .refundContent .title span em{width:1.5rem; height:1.5rem;display: inline-block; margin-right: .2rem;}
+
+        .content{color:#fff;font-size: 1.1rem; padding:1rem 0rem;}
+        .content span{color:#333;padding:0 .5rem;}
+        .call span{display:inline-block;height:3rem; line-height:3rem; width:48%; text-align: center; background:#fff; border-radius: 5px;}
+        .call .agree{margin-right:1rem;}
+
+        .main{background:#f8f8f8; padding:1rem; margin-top:1rem;}
+        .main .record { padding-bottom: 1.5rem; border-bottom: 1px solid #d8d8d8;}
+        .main .record span{font-size:1.2rem; color:#333; font-weight: bold;}
+        .main .record .seat{color:#999;font-size:1rem;font-weight: normal;}
+        .list .record span{font-size:1.1rem;font-weight: normal;}
+        .list .record{padding:1rem 0; border-bottom: none;}
+        .list ul li{padding:.5rem 0 .5rem 1rem;font-size:1rem;}
+        .consent .record{padding:1rem 0;}
+        .consent .record span{font-weight: normal;}
+        .address{margin:.5rem 0 0 0.5rem ;color:#999;}
+
+        .buyerCall span{display:inline-block;height:3rem; line-height:3rem; width:100%; text-align: center; background:#fff; border-radius: 5px;}
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="refundDetails">
+       <nav class="refundTitle">
+           <!--退钱-->
+           <div class="pro">
+               <dl class="left on">
+                   <div class="line"></div>
+                   <dt><span><em>1</em></span></dt>
+                   <dd>申请退款</dd>
+               </dl>
+               <dl>
+                   <div class="line"></div>
+                   <dt><span><em>2</em></span></dt>
+                   <dd>卖家处理</dd>
+               </dl>
+               <dl class="right">
+                   <dt><span><em>3</em></span></dt>
+                   <dd>交易完成</dd>
+               </dl>
+           </div>
+           <!--退钱退货-->
+          <!-- <div class="pro2">
+               <dl class="left on" >
+                   <div class="line"></div>
+                   <dt><span><em>1</em></span></dt>
+                   <dd>申请退款</dd>
+               </dl>
+               <dl>
+                   <div class="line"></div>
+                   <dt><span><em>2</em></span></dt>
+                   <dd>卖家处理</dd>
+               </dl>
+               <dl>
+                   <div class="line"></div>
+                   <dt><span><em>3</em></span></dt>
+                   <dd>交易完成</dd>
+               </dl>
+               <dl>
+                   <div class="line"></div>
+                   <dt><span><em>4</em></span></dt>
+                   <dd>申请退款</dd>
+               </dl>
+               <dl class="right">
+                   <dt><span><em>5</em></span></dt>
+                   <dd>卖家处理</dd>
+               </dl>
+           </div>-->
+       </nav>
+  </div>
+
+    <div class="refundContent">
+        <div class="title">
+            <span>等待卖家处理</span><span class="right"><em class="iconfont icon-bodadianhua"></em>联系卖家</span>
+        </div>
+        <div class="content">
+            卖家在<span>6天23小时59分</span>内未处理，系统将自动同意退款。
+        </div>
+        <!--卖家-->
+        <!--<div class="call"><span class="agree">同意申请</span><span>拒绝申请</span></div>-->
+        <!--买家-->
+        <div class="buyerCall">
+            <span class="quxiaotuikuan">取消退款</span>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="record">
+            <span>协商记录</span><span class="right seat"> 退款单号：2017021710093890</span>
+        </div>
+        <div class="consent">
+            <div class="record">
+                <span>*卖家已退款</span><span class="right seat"> 2017-02-17 1:35:35</span>
+                <div class="address">
+                    退货地址：封口令警方联手开发建设降幅可达浪费18号楼
+                </div>
+            </div>
+        </div>
+        <div class="consent">
+            <div class="record">
+                <span>*买家家申请退款</span><span class="right seat"> 2017-02-17 1:35:35</span>
+            </div>
+        </div>
+        <div class="list">
+            <h2 class="record"><span>*买家家申请退款</span><span class="right seat">2017-02-17 1:35:35</span></h2>
+            <ul>
+                <li>退款原因：不想买了</li>
+                <li>退款金额：299元</li>
+                <li>退款说明：不想买</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    $(function () {
+        $("body").on("click",".agree",function(){
+            if(confirm("同意退钱就会还给买家哦，真的想好了吗?")){
+
+            }
+        })
+        $("body").on("click",".buyerCall .quxiaotuikuan",function(){
+            if(confirm("取消退款后，您的申请蒋会自动撤回。确定要取消吗?")){
+
+            }
+        })
+
+    })
+</script>
+</html>

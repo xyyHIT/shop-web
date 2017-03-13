@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>提交申请</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="/shop/css/font/iconfont.js"></script>
+
+    <style>
+        .container{}
+        .apply{padding:1rem;}
+        .apply dl{width:100%;margin-bottom:1rem;border:1px solid #ededed; overflow: hidden; border-radius: 4px; height:4.5rem; line-height:4.5rem; padding:0 1rem; font-size:1rem; color:#999;}
+        .apply dl dt{margin-right: 1rem;}
+        .reason{position: relative;}
+        .present{width:15rem; text-align: center; margin:1rem auto 0; border-radius: 4px; height:3rem; line-height: 3rem; color:#fff; font-size:1.3rem; background:#ec4747;}
+        .instructions{border-radius: 4px;border:1px solid #ededed;color:#999; padding:1rem;}
+        .instructions .fontContent{border:none; background: #f9f9f9; width:100%; height:9rem; color:#999; font-size:1.1rem;}
+        .reason i{position: absolute; right:1rem; top:0rem;transform:rotate(90deg);
+            -ms-transform:rotate(90deg); 	/* IE 9 */
+            -moz-transform:rotate(90deg); 	/* Firefox */
+            -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+            -o-transform:rotate(90deg); 	/* Opera */}
+        .gCategory{border: none; background: #f9f9f9;color:#999;}
+
+        .container .fenlei{ display: none; position: fixed; left: 0;margin:-50% 5% 0;border: 1px solid #ddd; top: 50%; width: 90%;  padding-top: 5rem; font-size: 1.3rem; color: #878787; border-radius: 4px; z-index: 9991;}
+        .container .fenlei h2,.fenlei .fenleiT{ text-align: center; height: 5rem; padding: 0 1rem; line-height: 5rem; overflow: hidden;}
+        .container .fenlei h2{ position: absolute; top: 0; left: 0; width: 100%; font-size: 1.3rem; color: #333; background: #d8d8d8;}
+        .container .fenlei .fenleiBox{ position: relative; height: 100%; background: #fff; overflow-y: auto; overflow-x: hidden;}
+        .container .fenlei .fenleiT{ border-bottom: 1px solid #EFEFEF; background: #fff; color:#333; font-size:1.2rem;}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="apply">
+        <dl>
+            <dt class="left">退款金额</dt>
+            <dd class="left">100元</dd>
+        </dl>
+        <dl class="reason">
+            <i class="iconfont icon-zhankai-copy"></i>
+            <dt class="left">* 退款原因 </dt>
+            <input type="text" id="gCategory" class="gCategory" readonly="readonly" />
+            <dd class="left"></dd>
+        </dl>
+        <dl>
+            <dt class="left">* 退款方式</dt>
+            <dd class="left">原路退回（1-3个工作日退回原支付方）</dd>
+        </dl>
+        <div class="instructions">
+            <textarea id="fontContent" class="fontContent" placeholder="退款说明 最多200字" maxlength="200"></textarea>
+        </div>
+    </div>
+    <div class='fenlei'>
+        <h2>选择退款理由</h2>
+        <ul class='fenleiBox'>
+            <li class='fenleiT'>协商一致退款</li>
+            <li class='fenleiT'>未收到货</li>
+            <li class='fenleiT'>收到的货有破损</li>
+            <li class='fenleiT'>商品质量有问题</li>
+            <li class='fenleiT'>其他</li>
+        </ul>
+    </div>
+    <div class="present">提交申请</div>
+</div>
+</body>
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    $(function () {
+        //显示退款的类型
+        $("body").on("click",".reason",function(){
+            $("body").append("<div class='bg'></div>");
+            $(".bg,.fenlei").show();
+        });
+        //获取退款原因中的类型
+        $("body").on("click",".fenleiBox li",function(){
+            $(".bg").remove();
+            $(".fenlei").hide();
+            var listContent=$(this).html();
+            var gCategory=$("#gCategory").val(listContent);
+            console.log(listContent)
+        });
+       //提交申请
+        $("body").on("click",".present",function(){
+            var gCategory = $(".gCategory").val();
+            var fontContent = $(".fontContent").val();
+            console.log(fontContent,gCategory);
+        })
+
+    })
+</script>
+</html>

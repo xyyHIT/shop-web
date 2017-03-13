@@ -24,7 +24,7 @@
         .trade_contents ol.current{ display: block;}
 
         .tel{position: fixed; left:1.2rem; bottom:5.6rem;   z-index: 9999}
-        #openQrcode{ width: 3.1rem; height: 3.1rem;  background: url("/shop/imgs/code.png") no-repeat;background-size: 3.1rem 3.1rem;}
+        #openQrcodes{ width: 3.1rem; height: 3.1rem;  background: url("/shop/imgs/code.png") no-repeat;background-size: 3.1rem 3.1rem;}
 
 
 
@@ -32,7 +32,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="tel" id="openQrcode"></div>
+    <div class="tel" id="openQrcodes"></div>
         <div class="seller">
             <!--<dl class='faxian'>
                 <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
@@ -125,7 +125,31 @@
             location.href = hostPm+"/yjpai/platform/index.html";
         });
         //打开二维码
-       // allFun.openQrcode(store_id);
+            $("body").on('click',"#openQrcodes",function(){
+                allFun.loading("正在生成二维码");
+                $.ajax({
+                    url:  host + '/index.php?app=store&act=ejQRCode&id='+store_id+'',
+                    type: "get",
+                    dataType: "json",
+                    success: function(rs) {
+                        allFun.removeLoading();
+                        if (rs.code == 0) {
+                            var erweimaimgList = [];
+                            erweimaimgList.push(rs.data.img);
+                            wx.ready(function() {
+                                wx.previewImage({
+                                    current: erweimaimgList[0], // 当前显示图片的http链接
+                                    urls: erweimaimgList // 需要预览的图片http链接列表
+                                });
+                            })
+                        } else {
+                            allFun.alertDiv(rs.msg);
+                        }
+                    }
+                });
+            });
+
+
         //切换 默认  销量和价格
         $("body").on("click",".trade span",function () {
             var index = $(".trade span").index(this);

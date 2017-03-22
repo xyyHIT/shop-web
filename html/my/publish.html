@@ -188,6 +188,7 @@
 	<script src="/shop/js/jquery-2.1.4.min.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/verifyPhone.js"></script>
 	<script src="/shop/js/fastclick.js"></script>
 	<script>
 		var id = allFun.getRequest("id");
@@ -697,9 +698,9 @@
 						}else{
 							id = d.goods_id || id;
 						}
-					} else {
-						allFun.alertDiv(rs.msg);
-					}
+					} else if (rs.code == 1014){//请先绑定您的手机号，再来发布商品
+                        phoneVerify.start();
+                    }
 				}
 			})
 		}

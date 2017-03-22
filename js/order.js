@@ -35,7 +35,7 @@
 					}
 				})
 			}
-		})
+		});
 		//买家去付款
 		$("body").on("click",".qufukuan",function(){
 			var _t = $(this),obj = {},order_id = _t.parents(".box").attr("data_order_id");
@@ -47,7 +47,7 @@
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
 			location.href = "/shop/html/cart/cashierDesk.html?orderId="+order_id+"&type=0";
-		})
+		});
 		
 		/**************** 待发货 *****************/
 		//买家提醒发货
@@ -75,11 +75,11 @@
 					allFun.alertDiv("error!")
 				}
 			})
-		})
+		});
 		//卖家去发货
 		$("body").on("click",".qufahuo",function(){
 			$(this).parents(".box").append("<div class='dScanCode'><div class='cc'><h2><i class='iconfont icon-123'></i></h2><p><label>运单号</label><input placeholder='请输入货单号' /><i class='iconfont icon-erweima'></i></p><a>确认</a></div><div class='bb'></div></div>")	
-		})
+		});
 		//确认二维码
 		$("body").on("click",".dScanCode a",function(){
 			var _t = $(this),
@@ -119,7 +119,7 @@
 					allFun.alertDiv("error!")
 				}
 			})
-		})
+		});
 		//扫描二维码
 		$("body").on("click",".dScanCode p i",function(){
 			wx.ready(function(){
@@ -134,11 +134,11 @@
 					}
 				});
 			})
-		})
+		});
 		//关闭二维码框
 		$("body").on("click",".dScanCode .bb,.dScanCode h2 i",function(){
 			$(".dScanCode").remove();
-		})
+		});
 		
 		/**************** 待收货 *****************/
 		//买家确认收货
@@ -173,7 +173,7 @@
 					allFun.alertDiv("error!")
 				}
 			})
-		})
+		});
 		//买家延长收货
 		$("body").on("click",".yanchangshouhuo",function(){
 			var _t = $(this),
@@ -189,12 +189,12 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
-						allFun.alertDiv("延长收货成功！")
+						allFun.alertDiv("延长收货成功！");
 						var str = location.href.split('#')[0];
 						if(str.indexOf("orderList") > 0){//列表页
 							
 						}else{//详情页
-							location.replace(location.href+"&t="+Date.now());;
+							location.replace(location.href+"&t="+Date.now());
 						}
 					} else {
 						allFun.alertDiv(rs.msg);
@@ -205,7 +205,7 @@
 					allFun.alertDiv("error!")
 				}
 			})
-		})
+		});
 		//卖家提醒收货
 		$("body").on("click",".tixingshouhuo",function(){
 			var _t = $(this),
@@ -221,7 +221,7 @@
 				success: function(rs) {
 					allFun.removeLoading();
 					if(rs.code == 0) {
-						allFun.alertDiv("提醒收货成功！")
+						allFun.alertDiv("提醒收货成功！");
 						/*var str = location.href.split('#')[0];
 						if(str.indexOf("orderList") > 0){//列表页
 							
@@ -237,7 +237,7 @@
 					allFun.alertDiv("error!")
 				}
 			})
-		})
+		});
 		
 		/****************  *****************/
 		//买家、卖家 查看物流(待收货、待评价、已完成)
@@ -251,12 +251,11 @@
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
 			location.href = "/shop/html/my/logistics.html?invoice_no="+invoice_no;
-		})
+		});
 		
 		//买家去评价(待评价)
 		$("body").on("click",".qupingjia",function(){
 			var _t = $(this),obj = {},order_id = _t.parents(".box").attr("data_order_id");
-			
 			var str = location.href.split('#')[0];
 			if(str.indexOf("orderList") > 0){//列表页
 				obj.linkType = linkType;
@@ -264,7 +263,7 @@
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
 			location.href = "/shop/html/order/comment.html?order_id="+order_id;
-		})
+		});
 		
 		//卖家回复评论(待评价)
 		$("body").on("click",".huifupinglun",function(event){
@@ -276,7 +275,98 @@
 				sessionStorage.setItem("orderListShopStorage", JSON.stringify(obj));
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 			}
-			location.href = "/shop/html/order/sellerReply.html?&order_id="+order_id+"&rec_id="+rec_id;
-		})
+			location.href = "/shop/html/order/sellerReply.html?order_id="+order_id+"&rec_id="+rec_id;
+		});
+
+        /**************** 退款 *****************/
+        //买家申请退款
+        $("body").on("click",".shenqingtuikuan",function(event){
+            event.stopPropagation();
+            var _t = $(this),rec_id = _t.parents(".refund").attr("data_rec_id"),order_id = _t.parents(".box").attr("data_order_id");
+            location.href = "/shop/html/order/refundApplication.html?order_id="+order_id+"&rec_id="+rec_id;
+        });
+        //买家取消退款
+        $("body").on("click",".quxiaotuikuan",function(){
+            if(confirm("确定取消退款吗?")){
+                var _t = $(this),
+                    refund_id = _t.parents(".tent").attr("data_refund_id");
+                $.ajax({
+                    url: host + '/index.php?app=refund&act=cancle_refund',
+                    type: "post",
+                    dataType: "json",
+                    data:{"refund_id":refund_id},
+                    beforeSend:function(){
+                        allFun.loading("正在取消退款！");
+                    },
+                    success: function(rs) {
+                        allFun.removeLoading();
+                        if(rs.code == 0) {
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                            var str = location.href.split('#')[0];
+                            if(str.indexOf("orderList") > 0){//列表页
+                                _t.parents(".box").find("h2 em").html("退款关闭");
+                                _t.parents(".dOperate").remove();
+                            }else{//详情页
+                                location.replace(location.href+"&t="+Date.now());
+                            }
+                        } else {
+                            allFun.alertDiv(rs.msg);
+                        }
+                    },
+                    error: function() {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
+                    }
+                })
+            }
+        });
+
+        //买家重新申请
+		//卖家同意退款
+        $("body").on("click",".tongyishenqing",function(){
+            if(confirm("同意申请钱就会退还给买家了，真的想好了吗？")){
+                var _t = $(this),
+					refund_id = _t.parents(".tent").attr("data_refund_id");
+                location.href = "/shop/html/order/refundAddAddress.html?refund_id="+refund_id+"";
+            }
+        });
+        //卖家拒绝退款
+
+        $("body").on("click",".jujueshenqing ,.jujuetuikuan",function(){
+            $(".divTwoInfo").append("<div class='editFont'><div class='cc'><h2>请输入拒绝理由</h2><textarea id='fontContents' placeholder='请输入内容,不超过50个字'></textarea>" +
+				"<div class='edit'><a href='javascript:;' class='callOff'>取消</a><a class='editFont_a' data_t='0'>确认</a></div></div><div class='bb'></div></div>");
+			$("body").append("<div class='bg'></div>");
+            $(".bg").show();
+            //点击取消
+            $("body").on("click",".callOff",function(){
+                $(".bg,.editFont").remove();
+			});
+            var _t = $(this), refund_id = _t.parents(".tent").attr("data_refund_id");
+            //点击确认
+            $("body").on("click",".editFont_a",function(){
+            	var reason=$("#fontContents").val();
+                $.ajax({
+                    url: host + '/index.php?app=refund&act=refuse_apply&refund_id='+refund_id+'&reason='+reason+'',
+                    type: "get",
+                    dataType: "json",
+                    beforeSend: function () {
+                    },
+                    success: function (rs) {
+                        allFun.removeLoading();
+                        if (rs.code == 0) {
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                        } else {
+                            allFun.alertDiv(rs.msg);
+                        }
+                    },
+                    error: function () {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
+                    }
+                })
+            });
+
+
+        });
 	})
 })();

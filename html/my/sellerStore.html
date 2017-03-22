@@ -128,7 +128,7 @@
             $("body").on('click',"#openQrcodes",function(){
                 allFun.loading("正在生成二维码");
                 $.ajax({
-                    url:  host + '/index.php?app=store&act=ejQRCode&id='+store_id+'',
+                    url:  host + '/index.php?app=&storeact=ejQRCode&id='+store_id+'',
                     type: "get",
                     dataType: "json",
                     success: function(rs) {

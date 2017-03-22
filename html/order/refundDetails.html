@@ -39,12 +39,15 @@
 
         .content{color:#fff;font-size: 1.1rem; padding:1rem 0rem;}
         .content span{color:#333;padding:0 .5rem;}
+        .content div{padding-bottom:.5rem;}
         .call span{display:inline-block;height:3rem; line-height:3rem; width:48%; text-align: center; background:#fff; border-radius: 5px;}
+        .call span a{color:#333;}
         .call .agree{margin-right:1rem;}
 
         .main{background:#f8f8f8; padding:1rem; margin-top:1rem;}
         .main .record { padding-bottom: 1.5rem; border-bottom: 1px solid #d8d8d8;}
         .main .record span{font-size:1.2rem; color:#333; font-weight: bold;}
+        .main .record em{font-style: normal;}
         .main .record .seat{color:#999;font-size:1rem;font-weight: normal;}
         .list .record span{font-size:1.1rem;font-weight: normal;}
         .list .record{padding:1rem 0; border-bottom: none;}
@@ -54,29 +57,22 @@
         .address{margin:.5rem 0 0 0.5rem ;color:#999;}
 
         .buyerCall span{display:inline-block;height:3rem; line-height:3rem; width:100%; text-align: center; background:#fff; border-radius: 5px;}
+
+        .divTwoInfo .editFont{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9991;}
+        .divTwoInfo .editFont div.cc{ position: absolute;left: 50%; top: 50%; width: 92%; height: 30rem; text-align: center; background: #fff; border-radius: 5px; overflow: hidden; -webkit-transform: translate(-50%,-50%); z-index: 9993;}
+        .divTwoInfo .editFont h2{ position: relative; height: 5rem; line-height: 5rem; color:#333; font-size:1.1rem; background: #FAF9FB;}
+        .divTwoInfo .editFont h2 i{ position: absolute; right: 0; width: 4rem; font-size: 1.6rem; color: #979797; text-align: center;}
+        .divTwoInfo .editFont textarea{ width: 95%; height: 17rem; padding: .8rem 1rem; font-size: 1.2rem; line-height: 1.8rem; border:1px solid #EFEFEF; border-radius:5px;}
+        .divTwoInfo .edit a{ display: inline-block; width: 42%; height: 4rem; margin-top: 1.3rem; line-height: 4rem; font-size: 1.5rem; color: #fff; letter-spacing: 2px; text-align: center; border-radius: 5px; background: #EC4747;}
+        .divTwoInfo .editFont_a{margin-left:6%;}
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container divTwoInfo">
   <div class="refundDetails">
        <nav class="refundTitle">
            <!--退钱-->
-           <div class="pro">
-               <dl class="left on">
-                   <div class="line"></div>
-                   <dt><span><em>1</em></span></dt>
-                   <dd>申请退款</dd>
-               </dl>
-               <dl>
-                   <div class="line"></div>
-                   <dt><span><em>2</em></span></dt>
-                   <dd>卖家处理</dd>
-               </dl>
-               <dl class="right">
-                   <dt><span><em>3</em></span></dt>
-                   <dd>交易完成</dd>
-               </dl>
-           </div>
+
            <!--退钱退货-->
           <!-- <div class="pro2">
                <dl class="left on" >
@@ -106,46 +102,19 @@
            </div>-->
        </nav>
   </div>
-
-    <div class="refundContent">
-        <div class="title">
-            <span>等待卖家处理</span><span class="right"><em class="iconfont icon-bodadianhua"></em>联系卖家</span>
-        </div>
-        <div class="content">
-            卖家在<span>6天23小时59分</span>内未处理，系统将自动同意退款。
-        </div>
-        <!--卖家-->
-        <!--<div class="call"><span class="agree">同意申请</span><span>拒绝申请</span></div>-->
-        <!--买家-->
-        <div class="buyerCall">
-            <span class="quxiaotuikuan">取消退款</span>
-        </div>
-    </div>
+  <div class="tent"></div>
 
     <div class="main">
-        <div class="record">
-            <span>协商记录</span><span class="right seat"> 退款单号：2017021710093890</span>
+        <div class="record records">
+            <span>协商记录</span><span class="right seat">退款单号：<em></em></span>
         </div>
-        <div class="consent">
+      <!--  <div class="consent consents">
             <div class="record">
-                <span>*卖家已退款</span><span class="right seat"> 2017-02-17 1:35:35</span>
-                <div class="address">
-                    退货地址：封口令警方联手开发建设降幅可达浪费18号楼
-                </div>
+                <span>*卖家已退款</span><span class="right seat">2017-02-17 1:35:35</span>
+                <div class="address">退货地址：封口令警方联手开发建设降幅可达浪费18号楼</div>
             </div>
-        </div>
-        <div class="consent">
-            <div class="record">
-                <span>*买家家申请退款</span><span class="right seat"> 2017-02-17 1:35:35</span>
-            </div>
-        </div>
-        <div class="list">
-            <h2 class="record"><span>*买家家申请退款</span><span class="right seat">2017-02-17 1:35:35</span></h2>
-            <ul>
-                <li>退款原因：不想买了</li>
-                <li>退款金额：299元</li>
-                <li>退款说明：不想买</li>
-            </ul>
+        </div>-->
+        <div class="consent consent2">
         </div>
     </div>
 </div>
@@ -153,19 +122,76 @@
 <script src="/shop/js/jquery-2.1.4.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/shop/js/public.js"></script>
+<script src="/shop/js/order.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
-        $("body").on("click",".agree",function(){
-            if(confirm("同意退钱就会还给买家哦，真的想好了吗?")){
+        var refund_id=allFun.getRequest("refund_id"); type = allFun.getRequest("type");//0买家 1卖家
+        var uu = "";
+        if(type == 1) {//卖家
+            uu = "/index.php?app=refund&act=seller_view&t="+Date.now();
+        }else{//买家
+            uu = "/index.php?app=refund&act=buyer_view&t="+Date.now();
+        }
+        $.ajax({
+            url: host + uu + "&refund_id=" + refund_id,
+            type: "get",
+            beforeSend: function () {},
+            success: function (rs) {
+                if(rs.code == 0){
+                    var d = rs.data,mark=d.log;step=d.step;obj = "";res='';dType=d.type;step=d.step;
+                    if(dType==20){//3步退款
+                        $('.refundTitle').html('<div class="pro"><dl class="left"><div class="line"></div><dt><span><em>1</em></span></dt><dd>申请退款</dd></dl><dl><div class="line"></div> <dt><span><em>2</em></span></dt> <dd>卖家处理</dd> </dl> <dl class="right"> <dt><span><em>3</em></span></dt> <dd class="end">交易完成</dd></dl> </div>')
+                    }else {// 5步退款
+                        $('.refundTitle').html('<div class="pro pro2"> <dl class="left" > <div class="line"></div> <dt><span><em>1</em></span></dt> <dd>申请退款</dd> </dl> <dl> <div class="line"></div> <dt><span><em>2</em></span></dt> <dd>卖家处理</dd> </dl> <dl> <div class="line"></div> <dt><span><em>3</em></span></dt> <dd>买家退货</dd> </dl> <dl> <div class="line"></div> <dt><span><em>4</em></span></dt> <dd>卖家退款</dd> </dl> <dl class="right"> <dt><span><em>5</em></span></dt> <dd>交易完成</dd> </dl> </div>')
+                    }
+                    if(1==step){
+                        $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
+                    }else if(2==step){
+                        $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(2)").addClass("on");
+                    }else if(3==step){
+                        $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(2)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
+                    }
+                    else if(4==step){
+                        $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(2)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(4)").addClass("on");
+                    }
+                    else if(5==step){
+                        $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(2)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(4)").addClass("on");
+                        $(".refundTitle .pro").find("dl:nth-child(5)").addClass("on");
+                    }
 
+                    obj+=d.button;
+                    $(".tent").html(obj);
+                    $(".tent").attr("data_refund_id",d.id);
+                    $(".records .seat em").html(d.refund_sn);
+                    for(var i=0; i<mark.length;i++){
+                    res+='<div class="record"> <span>'+mark[i].remark+'</span><span class="right seat">'+mark[i].log_time+'</span></div>'
+                        res+='<div class="list">'+mark[i].content+'</div>';
+                        if(mark[i].refund_status==="3"){
+                            $(".refundTitle .pro").find("dl dd.end").html("交易关闭");
+                        }
+                    }
+                    $(".consent").append(res);
+                }else{
+                    allFun.alertDiv(rs.msg);
+                }
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
             }
-        })
-        $("body").on("click",".buyerCall .quxiaotuikuan",function(){
-            if(confirm("取消退款后，您的申请蒋会自动撤回。确定要取消吗?")){
+        });
 
-            }
-        })
+
 
     })
 </script>

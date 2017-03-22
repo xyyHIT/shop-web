@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>退货管理</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <script src="/shop/js/rem.js"></script>
+    <link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
+    <style>
+        .container{padding:0 1rem;}
+        .container h2{color:#333; font-size:1.2rem; padding:1rem 0;  border-bottom: 1px solid #ededed; overflow: hidden;}
+        .container .pro{font-size:1.1rem; color:#999;  }
+        .container .pro li{padding-top:1rem;}
+        .apply{padding:2rem 0 1rem; position: relative;}
+        .apply dl{width:100%;margin-bottom:1rem;border:1px solid #ededed; overflow: hidden; border-radius: 4px; height:4.5rem; line-height:4.5rem; padding:0 1rem; font-size:1rem; color:#999;}
+        .apply dl dt{margin-right: 1rem;}
+        .reason i{position: absolute; right:1rem; top:2rem;transform:rotate(90deg);
+            -ms-transform:rotate(90deg); 	/* IE 9 */
+            -moz-transform:rotate(90deg); 	/* Firefox */
+            -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+            -o-transform:rotate(90deg); 	/* Opera */}
+        .gCategory{border: none; background: #f9f9f9;color:#999;}
+        #number{border: none; background: #f9f9f9;color:#999;}
+    </style>
+</head>
+<body>
+<div class="container">
+  <h2>收货信息</h2>
+    <ul class="pro">
+        <li class="consignee">收货人：xiaoming</li>
+        <li class="tel">电话：8528829</li>
+        <li class="address">地址：天通苑北一区1201</li>
+    </ul>
+    <div class="apply">
+        <dl class="reason">
+            <i class="iconfont icon-zhankai-copy"></i>
+            <dt class="left">*快递公司</dt>
+            <input type="text" id="gCategory" class="gCategory" readonly="readonly" />
+            <dd class="left"></dd>
+        </dl>
+        <dl class="reason">
+            <dt class="left">*快递单号</dt>
+            <input type="tel" value="" placeholder="请输入或扫描运单号" id="number"/><em id="erweima"></em>
+            <dd class="left"></dd>
+        </dl>
+    </div>
+</div>
+</body>
+
+<script src="/shop/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/shop/js/public.js"></script>
+<script src="/shop/js/order.js"></script>
+<script src="/shop/js/fastclick.js"></script>
+<script>
+    $(function () {
+        var refund_id = allFun.getRequest("refund_id");
+        information(refund_id);
+        function information(refund_id){
+            $.ajax({
+                url: host + '/index.php?app=refund&act=ship_address&refund_id='+refund_id+'',
+                type: "get",
+                beforeSend: function () {},
+                success: function (rs) {
+                    if (rs.code != 0) {
+                        allFun.alertDiv(rs.msg);
+                        return false;
+                    }
+                    var d = rs.data;
+                    $(".pro .consignee").html(d.consignee);
+                    $(".pro .tel").html(d.mobile);
+                    $(".pro .address").html(d.address);
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
+                }
+            });
+        }
+
+    });
+
+    //运单号二维码
+    $("body").on('click','#erweima',function(){
+        wx.ready(function(){
+            wx.scanQRCode({
+                desc: 'scanQRCode desc',
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                    result=result.split(",");
+                    $("body #number").val(result[1]);
+                }
+            });
+        })
+    });
+
+    //提交退货
+
+    $("body").on('click','#erweima',function(){
+
+        $.ajax({
+            url: host + '/index.php?app=refund&act=refund_ship&refund_id='+refund_id+'',
+            type: "get",
+            beforeSend: function () {},
+            success: function (rs) {
+                if (rs.code != 0) {
+                    allFun.alertDiv(rs.msg);
+                    return false;
+                }
+                var d = rs.data;
+                $(".pro .consignee").html(d.consignee);
+                $(".pro .tel").html(d.mobile);
+                $(".pro .address").html(d.address);
+            },
+            error: function() {
+                allFun.removeLoading();
+                allFun.alertDiv("error!")
+            }
+        });
+
+    })
+
+</script>
+</html>

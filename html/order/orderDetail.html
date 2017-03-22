@@ -13,7 +13,10 @@
 		<style>
 			.footer{ display: none;}
 			.list{ margin-top: .5rem;}
-			
+			.list ul li{position: relative;}
+			.dOperate{border-top: none; background: none;}
+			.refund{ position:absolute; right:1rem; bottom:-.5rem; z-index:8888;}
+			.refund  .dOperate a{color:#ec4747;border:1px solid  #ec4747;}
 		</style>
 	</head>
 	<body>
@@ -132,9 +135,13 @@
 		    $("body").on("click",".box li",function(){
 		    	var _t = $(this);
 		    	location.href = "/shop/html/index/goodsDetails.html?goodsId="+_t.attr("data_goodsId");
-			})
+			});
+           //提交申请退货
+          /*  $("body").on("click",".application",function(){
+                location.href = "/shop/html/order/refundApplication.html?rec_id="+data_rec_id+"";
+            });*/
 			
-		})
+		});
 		function getOrderDetail(){
 			$.ajax({
 				url: host + '/index.php?app=buyer_order&act=view',
@@ -148,7 +155,7 @@
 					allFun.removeLoading();
 					if(rs.code == 0) {
 						var d = rs.data, obj = "";
-						
+						console.log(d);
 						obj += d.topshow;
 						
 						//订单详情肯定会有地址
@@ -170,8 +177,15 @@
 								if(type == 1){
                                     obj+="<div class='reply' data_rec_id="+v.rec_id+">"+v.button+"</div>";
                                 }
+                                if(type==0){
+                                    obj+="<div class='refund'data_rec_id="+v.rec_id+" ><div class='dOperate'><a class='shenqingtuikuan'>申请退款</a></div></div>";
+                                }
+                                //申请退款
+								/*if(type == 0){
+									obj+="<div class='application' data_rec_id="+v.rec_id+">"+v.button+"</div>";
+								}*/
                                 obj+="</li>";
-						})
+						});
 						obj += "</ul><div class='sundry fix'>快递费用<span>"+d.consignee.shipping_fee+"元</span></div><div class='dTotal'>合计：<span>￥"+d.order_amount+"</span></div>"
 						
 						obj += d.button + "</div></div>";

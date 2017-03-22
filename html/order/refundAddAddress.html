@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>退款地址</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<script src="/shop/js/rem.js"></script>
+		<link href="/shop/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
+		<link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
+		<style>
+			.header{position:relative;display:block;padding: 0 0.6rem 0 1.2rem;font-size: 1.2rem;background-color: #FFFFFF;margin-bottom: 1rem;color:#3c3c3c;}
+			.header dt{line-height: 4rem;border-bottom: 1px solid #efefef;}
+			.address{padding:0 0 1rem;width: 29rem;}
+			.ifo{padding-right:4rem;}
+			.address div{line-height: 3rem;}
+			.address div span{float: left;}
+			.address div em{float: right;}
+			.address p{line-height:1.8rem;;}
+			.header .left,.header .right{display:table-cell;vertical-align: middle;}
+			.header .right{text-align: right; position: absolute; right:1rem; top:4.6rem;}
+			.header .right em{font-size: 1.8rem;margin-left: 0.5rem;}
+			.go-address{padding: 1.5rem 0 1.5rem 3rem;width:29rem;}
+			.address p{padding:1rem 0 .5rem;}
+			.address h2{border-bottom: 1px solid #ededed; color:#1B1B1B; padding:0 0rem 1rem;}
+			.footer{display: none;}
+			.send-address{width:100%;position:fixed; bottom:0; left: 0; background: #ec4747; height:4rem; line-height:4rem; text-align: center; color:#fff;}
+		</style>
+	</head>
+	<body id="body">
+	<!--	<a href="/yjpai/platform/my/manageAddress.html?addressPageId=1" class="header">
+			<div class="address  left">
+				<h2>退货地址</h2>
+				<div class="ifo">
+					<p>北京市北京市北京市北京市北京市北北京市北京市北京市北京市北京市北京市北京市北京市</p>
+					<div class='fix'>
+						<span>收货人：王哈哈</span>
+						<em>18610761221</em>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<em class="iconfont icon-jiantou">ssss</em>
+			</div>
+		</a>-->
+		
+	
+	</body>
+	<script src="/shop/js/jquery-2.1.4.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="/shop/js/public.js"></script>
+	<script src="/shop/js/order.js"></script>
+	<script src="/shop/js/fastclick.js"></script>
+	<script type="text/javascript">
+
+		var id = allFun.getRequest("id");
+		var refund_id = allFun.getRequest("refund_id");
+		if(id!=undefined){
+			$.ajax({
+				url: host+'/yjpai/platform/address/getUserAddress?id='+id,
+				type: "get",
+				data:"",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode!=1){
+						allFun.alertDiv(rs.msg);
+						return false;
+					}
+					
+					$("#body").html('<a href="/yjpai/platform/my/manageAddress.html?addressPageId=1&refund_id='+refund_id+'" class="header"><div class="address  left"><h2>退货地址</h2><div class="ifo"><p>'+rs.data.provinceName+rs.data.cityName+rs.data.countryName+rs.data.detailInfo+'</p><div class="fix"><span>收货人：'+rs.data.userName+'</span><em>'+rs.data.telNumber+'</em></div></div></div><div class="right"><em class="iconfont icon-zhankai-copy"></em></div></a><a class="order-nutton send-address" id="">发送地址</a>')
+				}
+			});
+		}else{
+			$.ajax({
+				url: host+'/yjpai/platform/address/getDefaultAddress',
+				type: "get",
+				data:"",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+					if(rs.resCode!=1){
+						allFun.alertDiv(rs.msg);
+						return false;
+					}
+					if(rs.data==null){
+						$("#body").html('<a href="/yjpai/platform/my/manageAddress.html?addressPageId=1&refund_id='+refund_id+'" class="header"><div class="go-address fix left">去添加地址</div><div class="right"><em class="iconfont icon-jiantou"></em></div></a>');
+					}else{
+						id= rs.data.id;
+                        $("#body").html('<a href="/yjpai/platform/my/manageAddress.html?addressPageId=1&refund_id='+refund_id+'" class="header"><div class="address  left"><h2>退货地址</h2><div class="ifo"><p>'+rs.data.provinceName+rs.data.cityName+rs.data.countryName+rs.data.detailInfo+'</p><div class="fix"><span>收货人：'+rs.data.userName+'</span><em>'+rs.data.telNumber+'</em></div></div></div><div class="right"><em class="iconfont icon-zhankai-copy"></em></div></a><a class="order-nutton send-address" data_address='+rs.data.provinceName+rs.data.cityName+rs.data.countryName+rs.data.detailInfo+' data_consignee='+rs.data.userName+' data_mobile ='+rs.data.telNumber+'>发送地址</a>')
+                    }
+				}
+			});
+		}
+		$("body").on('click','.send-address',function(){
+		    var _t=$(this);
+		    var address=_t.attr("data_address");
+            consignee=_t.attr("data_consignee");
+            mobile=_t.attr("data_mobile");
+			$.ajax({
+				url: host+'/index.php?app=refund&act=agree_apply&refund_id='+refund_id+'&consignee='+consignee+'&mobile ='+mobile+'&address='+address,
+				type: "get",
+				data:"",
+				dataType: "json",
+				beforeSend:function(){
+					allFun.loading();
+				},
+				success: function(rs) {
+					allFun.removeLoading();
+                    if(rs.code == 0){
+                        location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                    }
+
+				}
+			});
+		})
+	</script>
+</html>
+
+

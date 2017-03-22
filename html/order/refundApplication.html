@@ -39,7 +39,7 @@
     <div class="apply">
         <dl>
             <dt class="left">退款金额</dt>
-            <dd class="left">100元</dd>
+            <dd class="left money"> <span></span>元</dd>
         </dl>
         <dl class="reason">
             <i class="iconfont icon-zhankai-copy"></i>
@@ -74,6 +74,27 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
+        var order_id = allFun.getRequest("order_id"),rec_id= allFun.getRequest("rec_id");//订单id和订单商品号
+        applyRefund(order_id,rec_id);
+        function applyRefund(order_id,rec_id){
+            $.ajax({
+                url: host + '/index.php?app=refund&act=applyRefund&order_id='+order_id+'&rec_id='+rec_id+'',
+                type: "get",
+                beforeSend: function () {},
+                success: function (rs) {
+                    if (rs.code != 0) {
+                        allFun.alertDiv(rs.msg);
+                        return false;
+                    }
+                    var d = rs.data;
+                    $(".apply dl dd.money span").html(d.refund_price);
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
+                }
+            });
+        }
         //显示退款的类型
         $("body").on("click",".reason",function(){
             $("body").append("<div class='bg'></div>");
@@ -85,15 +106,29 @@
             $(".fenlei").hide();
             var listContent=$(this).html();
             var gCategory=$("#gCategory").val(listContent);
-            console.log(listContent)
         });
        //提交申请
         $("body").on("click",".present",function(){
             var gCategory = $(".gCategory").val();
             var fontContent = $(".fontContent").val();
-            console.log(fontContent,gCategory);
-        })
-
+            $.ajax({
+                url: host + '/index.php?app=refund&act=act_applyRefund&order_id='+order_id+'&rec_id='+rec_id+'&reason='+gCategory+'&postscript='+fontContent+'',
+                type: "post",
+                beforeSend: function () {},
+                success: function (rs) {
+                    if(rs.code == 0){
+                       var kind = rs.data,refund_id=kind.refund_id;//0:3步退款   1：5步退款  退款单号id
+                           location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                    }else{
+                        allFun.alertDiv(rs.msg);
+                    }
+                },
+                error: function() {
+                    allFun.removeLoading();
+                    allFun.alertDiv("error!")
+                }
+            });
+        });
     })
 </script>
 </html>

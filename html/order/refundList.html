@@ -140,7 +140,7 @@
                         obj += allFun.noDataImg("您还没有相关的订单");
                     }else{
                        for(var j=0; j<d.length;j++){
-                           obj+='<div class="box tent" data_refund_id='+d[j].id+'>'
+                           obj+='<div class="box tent" data_refund_id='+d[j].id+' data_order_id='+d[j].order_id+'  data_rec_id='+d[j].rec_id+'>'
                                +'<h2><a>'+d[j].seller_name+'</a><i class="iconfont icon-zhankai-copy"></i><em>'+d[j].status_value+'</em> </h2>'
                                +'<ul><li>'
                                +'<a href="/shop/html/order/refundDetails.html?type='+type+'&refund_id='+d[j].id+'"><img src="'+d[j].goods_image+'" /> </a>'

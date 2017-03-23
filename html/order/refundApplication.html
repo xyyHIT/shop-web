@@ -87,7 +87,14 @@
                         return false;
                     }
                     var d = rs.data;
-                    $(".apply dl dd.money span").html(d.refund_price);
+                    if(d.reason==""){
+                        $(".apply dl dd.money span").html(d.refund_price);
+                    }else {
+                        $(".apply dl dd.money span").html(d.refund_price);
+                        $(".apply dl .gCategory").val(d.reason);
+                        $(".instructions .fontContent").html(d.postscript );
+                    }
+
                 },
                 error: function() {
                     allFun.removeLoading();

@@ -168,10 +168,11 @@
                         $(".refundTitle .pro").find("dl:nth-child(4)").addClass("on");
                         $(".refundTitle .pro").find("dl:nth-child(5)").addClass("on");
                     }
-
                     obj+=d.button;
                     $(".tent").html(obj);
                     $(".tent").attr("data_refund_id",d.id);
+                    $(".tent").attr("data_rec_id",d.rec_id);
+                    $(".tent").attr("data_order_id",d.order_id);
                     $(".records .seat em").html(d.refund_sn);
                     for(var i=0; i<mark.length;i++){
                     res+='<div class="record"> <span>'+mark[i].remark+'</span><span class="right seat">'+mark[i].log_time+'</span></div>'

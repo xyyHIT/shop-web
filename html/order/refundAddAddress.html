@@ -27,7 +27,7 @@
 			.address p{padding:1rem 0 .5rem;}
 			.address h2{border-bottom: 1px solid #ededed; color:#1B1B1B; padding:0 0rem 1rem;}
 			.footer{display: none;}
-			.send-address{width:100%;position:fixed; bottom:0; left: 0; background: #ec4747; height:4rem; line-height:4rem; text-align: center; color:#fff;}
+			.send-address{width:100%;position:fixed; bottom:0; left: 0;font-size: 1.2rem; background: #ec4747; height:4rem; line-height:4rem; text-align: center; color:#fff;}
 		</style>
 	</head>
 	<body id="body">
@@ -73,9 +73,8 @@
 						allFun.alertDiv(rs.msg);
 						return false;
 					}
-					
-					$("#body").html('<a href="/yjpai/platform/my/manageAddress.html?addressPageId=1&refund_id='+refund_id+'" class="header"><div class="address  left"><h2>退货地址</h2><div class="ifo"><p>'+rs.data.provinceName+rs.data.cityName+rs.data.countryName+rs.data.detailInfo+'</p><div class="fix"><span>收货人：'+rs.data.userName+'</span><em>'+rs.data.telNumber+'</em></div></div></div><div class="right"><em class="iconfont icon-zhankai-copy"></em></div></a><a class="order-nutton send-address" id="">发送地址</a>')
-				}
+                    $("#body").html('<a href="/yjpai/platform/my/manageAddress.html?addressPageId=1&refund_id='+refund_id+'" class="header"><div class="address  left"><h2>退货地址</h2><div class="ifo"><p>'+rs.data.provinceName+rs.data.cityName+rs.data.countryName+rs.data.detailInfo+'</p><div class="fix"><span>收货人：'+rs.data.userName+'</span><em>'+rs.data.telNumber+'</em></div></div></div><div class="right"><em class="iconfont icon-zhankai-copy"></em></div></a><a class="order-nutton send-address" data_address='+rs.data.provinceName+rs.data.cityName+rs.data.countryName+rs.data.detailInfo+' data_consignee='+rs.data.userName+' data_mobile ='+rs.data.telNumber+'>发送地址</a>')
+                }
 			});
 		}else{
 			$.ajax({
@@ -107,7 +106,7 @@
             consignee=_t.attr("data_consignee");
             mobile=_t.attr("data_mobile");
 			$.ajax({
-				url: host+'/index.php?app=refund&act=agree_apply&refund_id='+refund_id+'&consignee='+consignee+'&mobile ='+mobile+'&address='+address,
+				url: host+'/index.php?app=refund&act=agree_apply&refund_id='+refund_id+'&consignee='+consignee+'&mobile='+mobile+'&address='+address,
 				type: "get",
 				data:"",
 				dataType: "json",

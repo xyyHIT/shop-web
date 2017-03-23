@@ -322,7 +322,44 @@
         });
 
         //买家重新申请
+        $("body").on("click",".chongxinshenqing,.agreeapply",function(){
+            var _t = $(this),rec_id = _t.parents(".tent").attr("data_rec_id"),order_id = _t.parents(".tent").attr("data_order_id");
+            location.href = "/shop/html/order/refundApplication.html?order_id="+order_id+"&rec_id="+rec_id;
+			}
+        );
+        //查看钱的去向
+        $("body").on("click",".qiandequxiang",function(){
+            location.href = hostPm+"/yjpai/platform/my/myWallet.html";
+            }
+        );
+
 		//卖家同意退款
+        $("body").on("click",".tongyituikuan",function(){
+            if(confirm("同意申请钱就会退还给买家了，真的想好了吗？")){
+                var _t = $(this),
+                    refund_id = _t.parents(".tent").attr("data_refund_id");
+                $.ajax({
+                    url: host + '/index.php? app=refund&act=do_refund&refund_id='+refund_id+'',
+                    type: "get",
+                    dataType: "json",
+                    beforeSend: function () {
+                    },
+                    success: function (rs) {
+                        allFun.removeLoading();
+                        if (rs.code == 0) {
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                        } else {
+                            allFun.alertDiv(rs.msg);
+                        }
+                    },
+                    error: function () {
+                        allFun.removeLoading();
+                        allFun.alertDiv("error!")
+                    }
+                });
+            }
+        });
+		//卖家同意申请
         $("body").on("click",".tongyishenqing",function(){
             if(confirm("同意申请钱就会退还给买家了，真的想好了吗？")){
                 var _t = $(this),
@@ -331,7 +368,6 @@
             }
         });
         //卖家拒绝退款
-
         $("body").on("click",".jujueshenqing ,.jujuetuikuan",function(){
             $(".divTwoInfo").append("<div class='editFont'><div class='cc'><h2>请输入拒绝理由</h2><textarea id='fontContents' placeholder='请输入内容,不超过50个字'></textarea>" +
 				"<div class='edit'><a href='javascript:;' class='callOff'>取消</a><a class='editFont_a' data_t='0'>确认</a></div></div><div class='bb'></div></div>");
@@ -365,8 +401,12 @@
                     }
                 })
             });
-
-
+        });
+        //去退货
+        $("body").on("click",".qutuihuo",function(){
+            var _t = $(this),
+                refund_id = _t.parents(".tent").attr("data_refund_id");
+            location.href = "/shop/html/order/returnedGoods.html?refund_id="+refund_id+"";
         });
 	})
 })();

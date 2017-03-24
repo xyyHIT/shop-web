@@ -61,7 +61,7 @@
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
-        var refund_id = allFun.getRequest("refund_id");
+        var refund_id = allFun.getRequest("refund_id");type = allFun.getRequest("type");//0买家 1卖家
 
         information(refund_id);
         function information(refund_id){
@@ -106,14 +106,13 @@
 
         $("body").on('click','.tijaotuihuo a',function(){
             var invoice_no=$("#number").val();
-            console.log(invoice_no);
                 $.ajax({
-                    url: host + '/index.php?app=refund&act=refund_ship&refund_id='+refund_id+'&invoice_no='+invoice_no +'',
+                    url: host + '/index.php?app=refund&act=refund_ship&refund_id='+refund_id+'&invoice_no='+invoice_no+'',
                     type: "get",
                     beforeSend: function () {},
                     success: function (rs) {
-                        if (rs.code= 0) {
-                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                        if (rs.code==0) {
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&type=0";
                         }
                     },
                     error: function() {

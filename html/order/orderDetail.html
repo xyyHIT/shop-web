@@ -163,7 +163,7 @@
 							+ "<em>收件人：</em><span>"+d.consignee.consignee+"  "+d.consignee.phone_mob+"</span><br />"
 							+ "<em>收件地址：</em><span>"+d.consignee.address+"</span></div></a></div>";
 						
-						obj += "<div class='list'><div class='box' data_order_id="+d.order_id+" data_invoice_no="+d.invoice_no+"><h2>";
+						obj += "<div class='list'><div class='box'  data_order_id="+d.order_id+" data_invoice_no="+d.invoice_no+"><h2>";
 						if(type == 0){//买家
 							obj += "<a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
 						}else{//卖家
@@ -178,7 +178,7 @@
                                     obj+="<div class='reply' data_rec_id="+v.rec_id+">"+v.button+"</div>";
                                 }
                                 if(type==0){
-                                    obj+="<div class='refund'data_rec_id="+v.rec_id+" ><div class='dOperate'><a class='shenqingtuikuan'>申请退款</a></div></div>";
+                                    obj+="<div class='refund'  data_refund_id="+v.refund_id+"  data_order_id="+d.order_id+" data_rec_id="+v.rec_id+" >"+v.rbutton+"</div>";
                                 }
                                 //申请退款
 								/*if(type == 0){

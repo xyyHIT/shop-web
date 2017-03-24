@@ -279,12 +279,6 @@
 		});
 
         /**************** 退款 *****************/
-        //买家申请退款
-        $("body").on("click",".shenqingtuikuan",function(event){
-            event.stopPropagation();
-            var _t = $(this),rec_id = _t.parents(".refund").attr("data_rec_id"),order_id = _t.parents(".box").attr("data_order_id");
-            location.href = "/shop/html/order/refundApplication.html?order_id="+order_id+"&rec_id="+rec_id;
-        });
         //买家取消退款
         $("body").on("click",".quxiaotuikuan",function(){
             if(confirm("确定取消退款吗?")){
@@ -320,21 +314,37 @@
                 })
             }
         });
-
-        //买家重新申请
-        $("body").on("click",".chongxinshenqing,.agreeapply",function(){
+        //买家申请退款 和买家重新申请
+        $("body").on("click",".chongxinshenqing,.agreeapply,.agree,.shenqingtuikuan",function(event){
+            event.stopPropagation();
             var _t = $(this),rec_id = _t.parents(".tent").attr("data_rec_id"),order_id = _t.parents(".tent").attr("data_order_id");
             location.href = "/shop/html/order/refundApplication.html?order_id="+order_id+"&rec_id="+rec_id;
 			}
         );
+        //买家去退货
+        $("body").on("click",".qutuihuo",function(){
+            var _t = $(this),
+                refund_id = _t.parents(".tent").attr("data_refund_id");
+            location.href = "/shop/html/order/returnedGoods.html?refund_id="+refund_id+"";
+        });
         //查看钱的去向
-        $("body").on("click",".qiandequxiang",function(){
-            location.href = hostPm+"/yjpai/platform/my/myWallet.html";
+        $("body").on("click",".qiandequxiang,.qianquxiang",function(){
+            var id = allFun.getRequest("id");
+            var _t = $(this), id = _t.parents(".tent").attr("data_streamid");
+            location.href = hostPm+"/yjpai/platform/myPurse/historydDetail.html?id="+id+"";
+            }
+        );
+        //买家退款中
+        $("body").on("click",".tuikuanzhong",function(event){
+            event.stopPropagation();
+                var _t = $(this),
+                    refund_id = _t.parents(".refund").attr("data_refund_id");
+            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
             }
         );
 
 		//卖家同意退款
-        $("body").on("click",".tongyituikuan",function(){
+        $("body").on("click",".tongyituikuan,.tongyituihuo",function(){
             if(confirm("同意申请钱就会退还给买家了，真的想好了吗？")){
                 var _t = $(this),
                     refund_id = _t.parents(".tent").attr("data_refund_id");
@@ -347,7 +357,9 @@
                     success: function (rs) {
                         allFun.removeLoading();
                         if (rs.code == 0) {
-                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                        	var d=rs.data;
+
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&id="+d.id+"";
                         } else {
                             allFun.alertDiv(rs.msg);
                         }
@@ -364,7 +376,7 @@
             if(confirm("同意申请钱就会退还给买家了，真的想好了吗？")){
                 var _t = $(this),
 					refund_id = _t.parents(".tent").attr("data_refund_id");
-                location.href = "/shop/html/order/refundAddAddress.html?refund_id="+refund_id+"";
+                location.href = "/shop/html/order/refundAddAddress.html?refund_id="+refund_id+"&type=1";
             }
         });
         //卖家拒绝退款
@@ -402,11 +414,6 @@
                 })
             });
         });
-        //去退货
-        $("body").on("click",".qutuihuo",function(){
-            var _t = $(this),
-                refund_id = _t.parents(".tent").attr("data_refund_id");
-            location.href = "/shop/html/order/returnedGoods.html?refund_id="+refund_id+"";
-        });
+
 	})
 })();

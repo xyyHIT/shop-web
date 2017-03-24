@@ -57,7 +57,7 @@
 	<script type="text/javascript">
 
 		var id = allFun.getRequest("id");
-		var refund_id = allFun.getRequest("refund_id");
+		var refund_id = allFun.getRequest("refund_id");type = allFun.getRequest("type");
 		if(id!=undefined){
 			$.ajax({
 				url: host+'/yjpai/platform/address/getUserAddress?id='+id,
@@ -116,7 +116,7 @@
 				success: function(rs) {
 					allFun.removeLoading();
                     if(rs.code == 0){
-                        location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                        location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&type=1";
                     }
 
 				}

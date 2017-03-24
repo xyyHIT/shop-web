@@ -216,7 +216,7 @@
                                         obj+="<div class='reply' data_rec_id="+v.order_goods[i].rec_id+">"+v.order_goods[i].button+"</div>";
                                     }
                                     if(type == 0){
-                                        obj+="<div class='refunds'><em>退</em>退款中</div>";
+                                        obj+=v.order_goods[i].rbutton;
                                     }
                                     obj+="</li>";
 								}

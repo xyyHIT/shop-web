@@ -125,7 +125,7 @@
                 success: function (rs) {
                     if(rs.code == 0){
                        var kind = rs.data,refund_id=kind.refund_id;//0:3步退款   1：5步退款  退款单号id
-                           location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                         location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
                     }else{
                         allFun.alertDiv(rs.msg);
                     }

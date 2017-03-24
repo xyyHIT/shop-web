@@ -37,19 +37,22 @@
         .refundContent .title span{color:#fff; font-size: 1.2rem;}
         .refundContent .title span em{width:1.5rem; height:1.5rem;display: inline-block; margin-right: .2rem;}
 
-        .content{color:#fff;font-size: 1.1rem; padding:1rem 0rem;}
+        .content{color:#fff;font-size: 1.1rem; padding:.5rem 0rem 0;}
         .content span{color:#333;padding:0 .5rem;}
         .content div{padding-bottom:.5rem;}
         .call span{display:inline-block;height:3rem; line-height:3rem; width:48%; text-align: center; background:#fff; border-radius: 5px;}
         .call span a{color:#333;}
         .call .agree{margin-right:1rem;}
+        .buyerCall{padding-top:1rem;}
 
         .main{background:#f8f8f8; padding:1rem; margin-top:1rem;}
-        .main .record { padding-bottom: 1.5rem; border-bottom: 1px solid #d8d8d8;}
+        .main .record { padding-bottom: 1.5rem;}
+        .records{ border-bottom: 1px solid #d8d8d8;}
         .main .record span{font-size:1.2rem; color:#333; font-weight: bold;}
         .main .record em{font-style: normal;}
         .main .record .seat{color:#999;font-size:1rem;font-weight: normal;}
         .list .record span{font-size:1.1rem;font-weight: normal;}
+        .list{    border-top: 1px solid #d8d8d8;}
         .list .record{padding:1rem 0; border-bottom: none;}
         .list ul li{padding:.5rem 0 .5rem 1rem;font-size:1rem;}
         .consent .record{padding:1rem 0;}
@@ -143,7 +146,7 @@
                     if(dType==20){//3步退款
                         $('.refundTitle').html('<div class="pro"><dl class="left"><div class="line"></div><dt><span><em>1</em></span></dt><dd>申请退款</dd></dl><dl><div class="line"></div> <dt><span><em>2</em></span></dt> <dd>卖家处理</dd> </dl> <dl class="right"> <dt><span><em>3</em></span></dt> <dd class="end">交易完成</dd></dl> </div>')
                     }else {// 5步退款
-                        $('.refundTitle').html('<div class="pro pro2"> <dl class="left" > <div class="line"></div> <dt><span><em>1</em></span></dt> <dd>申请退款</dd> </dl> <dl> <div class="line"></div> <dt><span><em>2</em></span></dt> <dd>卖家处理</dd> </dl> <dl> <div class="line"></div> <dt><span><em>3</em></span></dt> <dd>买家退货</dd> </dl> <dl> <div class="line"></div> <dt><span><em>4</em></span></dt> <dd>卖家退款</dd> </dl> <dl class="right"> <dt><span><em>5</em></span></dt> <dd>交易完成</dd> </dl> </div>')
+                        $('.refundTitle').html('<div class="pro pro2"> <dl class="left" > <div class="line"></div> <dt><span><em>1</em></span></dt> <dd>申请退款</dd> </dl> <dl> <div class="line"></div> <dt><span><em>2</em></span></dt> <dd>卖家处理</dd> </dl> <dl> <div class="line"></div> <dt><span><em>3</em></span></dt> <dd>买家退货</dd> </dl> <dl> <div class="line"></div> <dt><span><em>4</em></span></dt> <dd>卖家退款</dd> </dl> <dl class="right"> <dt><span><em>5</em></span></dt> <dd class="end">交易完成</dd> </dl> </div>')
                     }
                     if(1==step){
                         $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
@@ -174,14 +177,31 @@
                     $(".tent").attr("data_rec_id",d.rec_id);
                     $(".tent").attr("data_order_id",d.order_id);
                     $(".records .seat em").html(d.refund_sn);
+                    $(".tent").attr("data_streamid",d.streamid);
                     for(var i=0; i<mark.length;i++){
                     res+='<div class="record"> <span>'+mark[i].remark+'</span><span class="right seat">'+mark[i].log_time+'</span></div>'
                         res+='<div class="list">'+mark[i].content+'</div>';
-                        if(mark[i].refund_status==="3"){
-                            $(".refundTitle .pro").find("dl dd.end").html("交易关闭");
-                        }
+                       var status=mark[i].refund_status;
+                       if(dType==20){
+                           if(status==0){
+                               $(".refundTitle .pro").find("dl dd.end").html("交易关闭");
+                               $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
+                           }
+                       }else {
+                           if(status==0){
+                               $(".refundTitle .pro").find("dl dd.end").html("交易关闭");
+                               $(".refundTitle .pro").find("dl:nth-child(5)").addClass("on");
+                           }
+                           if(status==3){
+                               $(".refundTitle .pro").find("dl dd.end").html("交易关闭");
+                               $(".refundTitle .pro").find("dl:nth-child(2)").addClass("on");
+                               $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
+                               $(".refundTitle .pro").find("dl:nth-child(5)").addClass("on");
+                           }
+                       }
                     }
                     $(".consent").append(res);
+                    $('.consent .list:last').css("border","none")
                 }else{
                     allFun.alertDiv(rs.msg);
                 }
@@ -191,9 +211,6 @@
                 allFun.alertDiv("error!")
             }
         });
-
-
-
     })
 </script>
 </html>

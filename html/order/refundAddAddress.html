@@ -12,7 +12,7 @@
 		<link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
 		<link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
 		<style>
-			.header{position:relative;display:block;padding: 0 0.6rem 0 1.2rem;font-size: 1.2rem;background-color: #FFFFFF;margin-bottom: 1rem;color:#3c3c3c;}
+			.header{position:relative;display:block;padding: 1rem 0.6rem 0 1.2rem;overflow:hidden;font-size: 1.2rem;background-color: #FFFFFF;margin-bottom: 1rem;color:#3c3c3c;}
 			.header dt{line-height: 4rem;border-bottom: 1px solid #efefef;}
 			.address{padding:0 0 1rem;width: 29rem;}
 			.ifo{padding-right:4rem;}
@@ -27,7 +27,7 @@
 			.address p{padding:1rem 0 .5rem;}
 			.address h2{border-bottom: 1px solid #ededed; color:#1B1B1B; padding:0 0rem 1rem;}
 			.footer{display: none;}
-			.send-address{width:100%;position:fixed; bottom:0; left: 0;font-size: 1.2rem; background: #ec4747; height:4rem; line-height:4rem; text-align: center; color:#fff;}
+			.send-address{width:15rem;position:absolute; bottom:12rem; left: 50%;margin-left:-7.5rem;border-radius:4px;font-size: 1.2rem; background: #ec4747; height:3rem; line-height:3rem; text-align: center; color:#fff;}
 		</style>
 	</head>
 	<body id="body">
@@ -118,7 +118,6 @@
                     if(rs.code == 0){
                         location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&type=1";
                     }
-
 				}
 			});
 		})

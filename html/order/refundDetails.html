@@ -40,6 +40,7 @@
         .content{color:#fff;font-size: 1.1rem; padding:.5rem 0rem 0;}
         .content span{color:#333;padding:0 .5rem;}
         .content div{padding-bottom:.5rem;}
+        .call{margin-top:1rem;}
         .call span{display:inline-block;height:3rem; line-height:3rem; width:48%; text-align: center; background:#fff; border-radius: 5px;}
         .call span a{color:#333;}
         .call .agree{margin-right:1rem;}
@@ -52,12 +53,12 @@
         .main .record em{font-style: normal;}
         .main .record .seat{color:#999;font-size:1rem;font-weight: normal;}
         .list .record span{font-size:1.1rem;font-weight: normal;}
-        .list{    border-top: 1px solid #d8d8d8;}
+        .list{    border-bottom: 1px solid #d8d8d8;}
         .list .record{padding:1rem 0; border-bottom: none;}
-        .list ul li{padding:.5rem 0 .5rem 1rem;font-size:1rem;}
+        .list ul li{padding:0rem 0 1rem .5rem;font-size:1rem; color:#999;}
         .consent .record{padding:1rem 0;}
         .consent .record span{font-weight: normal;}
-        .address{margin:.5rem 0 0 0.5rem ;color:#999;}
+        .address{margin:0rem 0 1rem 0.5rem ;color:#999;}
 
         .buyerCall span{display:inline-block;height:3rem; line-height:3rem; width:100%; text-align: center; background:#fff; border-radius: 5px;}
 
@@ -125,7 +126,6 @@
 <script src="/shop/js/jquery-2.1.4.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/shop/js/public.js"></script>
-<script src="/shop/js/order.js"></script>
 <script src="/shop/js/fastclick.js"></script>
 <script>
     $(function () {
@@ -148,7 +148,7 @@
                     }else {// 5步退款
                         $('.refundTitle').html('<div class="pro pro2"> <dl class="left" > <div class="line"></div> <dt><span><em>1</em></span></dt> <dd>申请退款</dd> </dl> <dl> <div class="line"></div> <dt><span><em>2</em></span></dt> <dd>卖家处理</dd> </dl> <dl> <div class="line"></div> <dt><span><em>3</em></span></dt> <dd>买家退货</dd> </dl> <dl> <div class="line"></div> <dt><span><em>4</em></span></dt> <dd>卖家退款</dd> </dl> <dl class="right"> <dt><span><em>5</em></span></dt> <dd class="end">交易完成</dd> </dl> </div>')
                     }
-                    if(1==step){
+                    if(1==step){//根据step判断显示的圆圈状态
                         $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
                     }else if(2==step){
                         $(".refundTitle .pro").find("dl:nth-child(1)").addClass("on");
@@ -179,7 +179,7 @@
                     $(".records .seat em").html(d.refund_sn);
                     $(".tent").attr("data_streamid",d.streamid);
                     for(var i=0; i<mark.length;i++){
-                    res+='<div class="record"> <span>'+mark[i].remark+'</span><span class="right seat">'+mark[i].log_time+'</span></div>'
+                    res+='<div class="record"> <span>'+mark[i].remark+'</span><span class="right seat">'+mark[i].log_time+'</span></div>';
                         res+='<div class="list">'+mark[i].content+'</div>';
                        var status=mark[i].refund_status;
                        if(dType==20){
@@ -213,4 +213,5 @@
         });
     })
 </script>
+<script src="/shop/js/order.js"></script>
 </html>

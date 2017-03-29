@@ -357,7 +357,6 @@
                         allFun.removeLoading();
                         if (rs.code == 0) {
                             var d=rs.data;
-
                             location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&id="+d.id+"";
                         } else {
                             allFun.alertDiv(rs.msg);
@@ -393,7 +392,8 @@
             $("body").on("click",".editFont_a",function(){
                 var reason=$("#fontContents").val();
                 if(reason==''){
-                    allFun.alertDiv("请输入拒绝理由！")
+                    allFun.alertDiv("请输入拒绝理由！");
+                    return false;
                 }
                 $.ajax({
                     url: host + '/index.php?app=refund&act=refuse_apply&refund_id='+refund_id+'&reason='+reason+'',
@@ -404,7 +404,7 @@
                     success: function (rs) {
                         allFun.removeLoading();
                         if (rs.code == 0) {
-                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&type=1";
                         } else {
                             allFun.alertDiv(rs.msg);
                         }

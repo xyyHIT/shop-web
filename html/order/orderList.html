@@ -215,14 +215,10 @@
                                     if(type == 1){
                                         obj+="<div class='reply' data_rec_id="+v.order_goods[i].rec_id+">"+v.order_goods[i].button+"</div>";
                                     }
-                                    if(type == 0){
                                         obj+=v.order_goods[i].rbutton;
-                                    }
                                     obj+="</li>";
 								}
 								obj += "</ul><div class='dTotal'>合计：<span>￥"+v.order_amount+"</span></div>"+v.button+"</div>";
-
-
 							});
 							if(curr_page < Math.ceil(item_count/pageper)){//有数据
 								obj += "<div class='seemore'><div class='com-loading'><div></div></div>拼命加载中</div>";

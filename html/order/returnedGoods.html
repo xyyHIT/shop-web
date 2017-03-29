@@ -10,7 +10,7 @@
     <link href="/shop/css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="/shop/css/order.css" rel="stylesheet" type="text/css" />
     <style>
-        .container{padding:0 1rem;}
+        .container{padding:0 1rem; position: relative;}
         .container h2{color:#333; font-size:1.2rem; padding:1rem 0;  border-bottom: 1px solid #ededed; overflow: hidden;}
         .container .pro{font-size:1.1rem; color:#999;  }
         .container .pro li{padding-top:1rem;}
@@ -26,7 +26,8 @@
         #number{border: none; background: #f9f9f9;color:#999;}
         #erweima{float: right;}
         .footer{display: none;}
-        .tijaotuihuo a{position:fixed;bottom:0; left: 0; background: #ec4747; height:4rem; line-height: 4rem; text-align: center; width:100%; color:#fff; font-size: 1.2rem;}
+        .tijaotuihuo{ text-align: center; margin:2rem auto 0; width:100%;}
+        .tijaotuihuo a{width:15rem;border-radius: 4px; display:inline-block; background: #ec4747; height:3rem; line-height: 3rem; text-align: center;  color:#fff; font-size: 1.2rem;}
     </style>
 </head>
 <body>
@@ -106,6 +107,10 @@
 
         $("body").on('click','.tijaotuihuo a',function(){
             var invoice_no=$("#number").val();
+            if(invoice_no==''){
+                allFun.alertDiv("请输入快递单号！");
+                return false;
+            }
                 $.ajax({
                     url: host + '/index.php?app=refund&act=refund_ship&refund_id='+refund_id+'&invoice_no='+invoice_no+'',
                     type: "get",

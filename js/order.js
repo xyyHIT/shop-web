@@ -315,7 +315,7 @@
             }
         });
         //买家申请退款 和买家重新申请
-        $("body").on("click",".chongxinshenqing,.agreeapply,.agree,.shenqingtuikuan",function(event){
+        $("body").on("click",".chongxinshenqing,.agreeapply,.b-agreeapply,.shenqingtuikuan",function(event){
             event.stopPropagation();
             var _t = $(this),rec_id = _t.parents(".tent").attr("data_rec_id"),order_id = _t.parents(".tent").attr("data_order_id");
             location.href = "/shop/html/order/refundApplication.html?order_id="+order_id+"&rec_id="+rec_id;

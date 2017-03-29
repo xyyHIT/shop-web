@@ -117,6 +117,10 @@
        //提交申请
         $("body").on("click",".present",function(){
             var gCategory = $(".gCategory").val();
+            if(gCategory==''){
+                allFun.alertDiv("请输入退款原因！");
+                return false;
+            }
             var fontContent = $(".fontContent").val();
             $.ajax({
                 url: host + '/index.php?app=refund&act=act_applyRefund&order_id='+order_id+'&rec_id='+rec_id+'&reason='+gCategory+'&postscript='+fontContent+'',
@@ -126,8 +130,6 @@
                     if(rs.code == 0){
                        var kind = rs.data,refund_id=kind.refund_id;//0:3步退款   1：5步退款  退款单号id
                          location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
-                    }else{
-                        allFun.alertDiv(rs.msg);
                     }
                 },
                 error: function() {

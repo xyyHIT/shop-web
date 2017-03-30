@@ -78,8 +78,14 @@
 		});
 		//卖家去发货
 		$("body").on("click",".qufahuo",function(){
-			$(this).parents(".box").append("<div class='dScanCode'><div class='cc'><h2><i class='iconfont icon-123'></i></h2><p><label>运单号</label><input placeholder='请输入货单号' /><i class='iconfont icon-erweima'></i></p><a>确认</a></div><div class='bb'></div></div>")	
-		});
+            var _t = $(this),
+                is_refund = _t.parents(".box").attr("is_refund");
+				if(is_refund==1){
+                    allFun.alertDiv("该订单中存在有退款记录的宝贝，请处理完成后再进行发货操作！");
+			     }else {
+                    _t.parents(".box").append("<div class='dScanCode'><div class='cc'><h2><i class='iconfont icon-123'></i></h2><p><label>运单号</label><input placeholder='请输入货单号' /><i class='iconfont icon-erweima'></i></p><a>确认</a></div><div class='bb'></div></div>")
+                }
+	});
 		//确认二维码
 		$("body").on("click",".dScanCode a",function(){
 			var _t = $(this),
@@ -145,6 +151,11 @@
 		$("body").on("click",".querenshouhuo",function(){
 			var _t = $(this),
 				order_id = _t.parents(".box").attr("data_order_id");
+            is_refund = _t.parents(".box").attr("is_refund");
+            if(is_refund==1){
+                allFun.alertDiv("该订单中存在有退款记录的宝贝，请处理完成后在进行此操作！");
+                return false;
+            }
 			$.ajax({
 				url: host + '/index.php?app=buyer_order&act=confirm_order',
 				type: "get",
@@ -279,7 +290,6 @@
 		});
 
         /**************** 退款 *****************/
-        /**************** 退款 *****************/
         //买家取消退款
         $("body").on("click",".quxiaotuikuan",function(){
             if(confirm("确定取消退款吗?")){
@@ -333,15 +343,6 @@
                 location.href = hostPm+"/yjpai/platform/myPurse/historydDetail.html?id="+id+"";
             }
         );
-        //买家退款中
-        $("body").on("click",".tuikuanzhong",function(event){
-                event.stopPropagation();
-                var _t = $(this),
-                    refund_id = _t.parents(".refund").attr("data_refund_id");
-                location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"";
-            }
-        );
-
         //卖家同意退款
         $("body").on("click",".tongyituikuan,.tongyituihuo",function(){
             if(confirm("同意申请钱就会退还给买家了，真的想好了吗？")){
@@ -357,7 +358,7 @@
                         allFun.removeLoading();
                         if (rs.code == 0) {
                             var d=rs.data;
-                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&id="+d.id+"";
+                            location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&id="+d.id+"&type=1";
                         } else {
                             allFun.alertDiv(rs.msg);
                         }
@@ -405,8 +406,6 @@
                         allFun.removeLoading();
                         if (rs.code == 0) {
                             location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&type=1";
-                        } else {
-                            allFun.alertDiv(rs.msg);
                         }
                     },
                     error: function () {

@@ -34,7 +34,7 @@
 
         .refundContent{background:#FBB7B7; padding: 1rem;}
         .refundContent .title{padding:.5rem 0 1.5rem; border-bottom: 1px solid  #fff;}
-        .refundContent .title span{color:#fff; font-size: 1.2rem;}
+        .refundContent .title span,.refundContent .title span a{color:#fff; font-size: 1.2rem;}
         .refundContent .title span em{width:1.5rem; height:1.5rem;display: inline-block; margin-right: .2rem;}
 
         .content{color:#fff;font-size: 1.1rem; padding:.5rem 0rem 0;}
@@ -188,7 +188,7 @@
                                $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
                            }
                        }else {
-                           if(status==0){
+                           /* if(status==0){
                                $(".refundTitle .pro").find("dl dd.end").html("交易关闭");
                                $(".refundTitle .pro").find("dl:nth-child(5)").addClass("on");
                            }
@@ -197,7 +197,7 @@
                                $(".refundTitle .pro").find("dl:nth-child(2)").addClass("on");
                                $(".refundTitle .pro").find("dl:nth-child(3)").addClass("on");
                                $(".refundTitle .pro").find("dl:nth-child(5)").addClass("on");
-                           }
+                           }*/
                        }
                     }
                     $(".consent").append(res);

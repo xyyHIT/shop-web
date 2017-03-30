@@ -17,6 +17,9 @@
 			.dOperate{border-top: none; background: none;}
 			.refund{ position:absolute; right:1rem; bottom:-.5rem; z-index:8888;}
 			.refund  .dOperate a{color:#ec4747;border:1px solid  #ec4747;}
+			.refunds{color:#ec4747; margin-top:1rem;}
+			.refunds em{display: inline-block; width:1.5rem; height:1.5rem; text-align: center; line-height:1.5rem; background:#ec4747;color:#fff; margin-right:.5rem;}
+
 		</style>
 	</head>
 	<body>
@@ -140,8 +143,18 @@
           /*  $("body").on("click",".application",function(){
                 location.href = "/shop/html/order/refundApplication.html?rec_id="+data_rec_id+"";
             });*/
-			
-		});
+
+            //买家和卖家退款中和退款完成
+            $("body").on("click",".tuikuanzhong,.tuikuanwancheng",function(event){
+                    event.stopPropagation();
+                    var _t = $(this),
+                        refund_id = _t.parents(".refund").attr("data_refund_id");
+                    location.href = "/shop/html/order/refundDetails.html?refund_id="+refund_id+"&type="+type+"";
+                }
+            );
+
+
+        });
 		function getOrderDetail(){
 			$.ajax({
 				url: host + '/index.php?app=buyer_order&act=view',
@@ -163,7 +176,7 @@
 							+ "<em>收件人：</em><span>"+d.consignee.consignee+"  "+d.consignee.phone_mob+"</span><br />"
 							+ "<em>收件地址：</em><span>"+d.consignee.address+"</span></div></a></div>";
 						
-						obj += "<div class='list'><div class='box'  data_order_id="+d.order_id+" data_invoice_no="+d.invoice_no+"><h2>";
+						obj += "<div class='list'><div class='box'  data_order_id="+d.order_id+" is_refund="+d.is_refund+" data_invoice_no="+d.invoice_no+"><h2>";
 						if(type == 0){//买家
 							obj += "<a href=/shop/html/my/sellerStore.html?storeId="+d.seller_id+">"+d.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
 						}else{//卖家
@@ -177,9 +190,7 @@
 								if(type == 1){
                                     obj+="<div class='reply' data_rec_id="+v.rec_id+">"+v.button+"</div>";
                                 }
-                                if(type==0){
                                     obj+="<div class='refund tent'   data_order_id="+d.order_id+" data_rec_id="+v.rec_id+"  data_refund_id="+v.refund_id+">"+v.rbutton+"</div>";
-                                }
                                 //申请退款
 								/*if(type == 0){
 									obj+="<div class='application' data_rec_id="+v.rec_id+">"+v.button+"</div>";

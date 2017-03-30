@@ -162,14 +162,14 @@
 				history.replaceState(null,null,"?linkType="+linkType+"&type="+type+"&history=-1");
 
 		        location.href = "/shop/html/order/orderDetail.html?orderId="+_t.parents(".box").attr("data_order_id")+"&type="+type+"&linkType="+linkType+"";
-			})
+			});
 
 			//点击搜索跳转
             $("body").on("click",".header a",function(){
                 location.href = "/shop/html/order/orderSearch.html?type="+type+"";
-            })
+            });
 
-		})
+		});
 		function getOrderList(tp){//tp类别   （全部：all 待付款：pending 待发货：accepted 待收货：shipped 待评价：finished）
 			var uu = "";
 			if(type == 1) {//卖家
@@ -201,7 +201,7 @@
 							obj += allFun.noDataImg("您还没有相关的订单");
 						}else{
 							$.each(d, function(i,v) {
-								obj += "<div class='box' data_order_id="+v.order_id+" data_invoice_no="+v.invoice_no+"><h2>";
+								obj += "<div class='box' data_order_id="+v.order_id+" is_refund="+v.is_refund+" data_invoice_no="+v.invoice_no+"><h2>";
 								if(type == 0){//买家
 									obj += "<a href=/shop/html/my/sellerStore.html?storeId="+v.seller_id+">"+v.seller_name+"</a><i class='iconfont icon-zhankai-copy'></i>";
 								}
@@ -210,7 +210,7 @@
 								}
 								obj += "<em>"+v.statusname+"</em></h2><ul>";
 								for(var i = 0; i < v.order_goods.length; i++){
-									obj += "<li><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
+									obj += "<li  ><img src="+v.order_goods[i].goods_image+"/square /><strong class='over over2'>"+v.order_goods[i].goods_name+"</strong>"
 										+ "<p class='fix'><span>￥"+v.order_goods[i].price+"</span><em>x"+v.order_goods[i].quantity+"</em></p>";
                                     if(type == 1){
                                         obj+="<div class='reply' data_rec_id="+v.order_goods[i].rec_id+">"+v.order_goods[i].button+"</div>";

@@ -145,7 +145,8 @@
         ];
 
         $(".goodComment").find("img").click(function () {
-           $(".area").hide();
+            var _t=$(this);
+            _t.siblings(".area").hide();
         });
         $(".stars").find("img").click(function() { //当点击每颗星星
             var obj = $(this);//当前对象
@@ -206,7 +207,6 @@
                                 + '</div>';
                             obj +='</div>';
                         });
-
                         $(".comList").html(obj);
                         start();
                     }

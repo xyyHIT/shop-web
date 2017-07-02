@@ -100,13 +100,13 @@
                     <h3><span class="level"></span><p class="over over1 name"></p></h3>
                     <p class=""><span>商品<i class="p_num"></i></span><span>关注<i class="g_num"></i></span></p>
                 </dd>
-                <em>+关注</em>
+                <em class="gz"></em>
 
         </dl>
     </div>
 <!--图文详情和评价-->
     <div class="trade">
-        <span class="current"><em class="alert"></em>图文详情</span><span id="buyer">商品评价</span>
+        <span class="current"><em class="alert"></em>图文详情</span><!--<span id="buyer">商品评价</span>-->
     </div>
     <div class="trade_contents">
         <ol class="current" id="rradeMain">
@@ -131,29 +131,6 @@
         <div class="goodsTitle">热门推荐</div>
 
         <ul class="pre-list pre-list-2">
-
-       <!-- <li>
-                 <div class="pre-item">
-                     <a href="">
-                         <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
-                     </a>
-                     <div class="pre-info">
-                         <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
-                         <p class="pre-price"><span>¥2680</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li>
-                 <div class="pre-item">
-                     <a href="">
-                         <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
-                     </a>
-                     <div class="pre-info">
-                         <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
-                         <p class="pre-price"><span>¥2680</span></p>
-                     </div>
-                 </div>
-             </li>-->
         </ul>
     </div>
 
@@ -216,31 +193,64 @@
                     $(".faxian dd .name").html(storeData.name);
                     $(".faxian dd .p_num").html(storeData.goods_count);
                     $(".faxian dd .g_num").html(storeData.collect_count);
+                    $(".faxian .gz").html('<i item_id="'+goodsData.store_id+'"  >+关注</i>');
                     $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
                     $("#rradeMain").html('<p>'+goodsData.vediourl+'</p><p>'+goodsData.detail_image+'</p><p>'+goodsData.detail_desc+'</p>');
+
+                    //添加关注
+                    $(".gz i").click(function () {
+                        var t=$(this);
+                        item_id=$(this).attr("item_id");
+                        xhgz(t);
+                    });
 
                     //热门推荐
                     var mend='', commend=goodsData.commend_goods;
                     console.log(commend);
                     $.each(commend,function (j,v) {
-
                              mend+='<li><div class="pre-item">'
-                                +'<a href=""><img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt=""> </a>'
+                                +'<a href="/shop/html/index/goodsDetails.html?data_lotid='+commend[j].goods_id+'" data_lotid="'+commend[j].goods_id+'"><img class="pre-img" src="'+commend[j].default_image+'" alt=""> </a>'
                                 +'<div class="pre-info">'
-                                +'<p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>'
-                                +'<p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>'
+                                +'<p class="pre-subtitle over over1" >'+commend[j].goods_name+'</p>'
+                                +'<p class="pre-price"><span class="left">¥<em>'+commend[j].price+'</em></span><span class="right payment">7人付款</span></p>'
                                 +' </div>'
                                 +'</div></li>'
-
-
                     });
-
-                    $(".pre-list").html(mend)
+                    $(".pre-list").html(mend);
 
                 }
             });
 
         }
+        //关注和喜欢
+        function xhgz(t) {// type=store 商品 type=goods
+            $.ajax({
+                url: host + 'index.php?app=my_favorite&act=add',
+                type: "post",
+                beforeSend: function () {
+                    allFun.loading();
+                },
+                success: function (rs) {
+                    allFun.removeLoading();
+                    if (rs.code = 0) {
+                        t.html("已关注");
+                    }
+                       /* if(status == 1){//取消关注
+                        t.removeClass("on").html("+关注");
+                    }else{
+                        t.addClass("on").html("已关注");
+                    }
+                    } else {
+                        allFun.alertDiv(rs.msg);
+                    }*/
+
+                },
+                error:function(){
+                    alert("错误")
+                }
+            });
+        }
+
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',

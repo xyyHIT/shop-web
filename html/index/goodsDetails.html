@@ -16,8 +16,8 @@
         .pro-info .price { font-size: 1.5rem; color: #ec4747; margin:0.3rem 0;  }
         .pro-info .kinds span{color:#aaa; font-size:1.2rem; margin-right:1rem; }
         .pro-info .like{position: absolute; right:1rem; bottom:1rem;color:#878787; font-size:1rem; }
-        .pro-info .like .img{  margin-bottom:.3rem;  text-align: center; font-size: 2.4rem}
-
+        .pro-info .like .heart{  margin-bottom:.3rem;  text-align: center; font-size: 2.4rem;}
+        .pro-info .like .red{color: #ec4747;}
         .ways{height:4rem; line-height: 4rem; background: #fcfcfc; padding:0 1rem;}
         .ways .freight{font-size: 1.2rem; color: #aaa;}
         .ways .sales{font-size: 1.2rem; color: #808080;}
@@ -26,9 +26,9 @@
         .faxian { position: relative; margin:.5rem 0;height: 7rem; padding: 1.4rem 1rem; font-size: 1.3rem; color: #5F5F5F;  background: #fff;}
         .faxian dt img{  width: 4rem; height: 4rem; border-radius: 100%; margin-right:1.5rem;}
         .faxian h3{font-size: 1.3rem; color: #3c3c3c;}
-        .faxian h3 span{display: inline-block; float: left; margin-right:.5rem;background:url("/shop/imgs/test/1.jpg") no-repeat left center; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
-        .faxian dd p{margin-top:.2rem;}
-        .faxian dd p span{font-size: 1.1rem; color: #878787;}
+        .faxian h3 span img{display: inline-block; margin-top:.2rem; float: left; margin-right:.5rem; background-size:1.5rem 1.5rem; height:1.5rem; width: 1.5rem; }
+        .faxian dd p{margin-top:.2rem;  }
+        .faxian dd p span{font-size: 1.1rem; margin-right:1rem;color: #878787;}
         .faxian em{position: absolute; right:1rem; top:2.4rem; display: inline-block; width:5rem; text-align: center;border:1px solid #878787;  border-radius:5px; height:2.4rem; line-height: 2.4rem; font-size: 1.1rem;}
         .faxian .noLine{border:none !important; font-size:1.1rem; color:#aaa; top:1.4rem;}
 
@@ -37,7 +37,7 @@
         .trade span.current{color:#ec4747; border-bottom:2px solid #ec4747 }
 
         .trade_contents{ overflow: hidden;}
-        .trade_contents ol{ display: none; background: #faf9fb;}
+        .trade_contents ol{ display: none; background: #faf9fb; padding:1rem;}
         .trade_contents ol.current{ display: block;}
         .goodsHot .goodsTitle{background:#fff;width: 100%; padding-left:1rem; margin-bottom:.5rem; line-height:4rem;height: 4rem; font-size: 1.3rem; color: #5f5f5f;}
         .pre-info{margin:.5rem;    overflow: hidden;}
@@ -69,10 +69,8 @@
 <div class="container">
     <!--轮播banner-->
     <div class="swiper-container banner" id="goodsBanner">
-        <div class="swiper-wrapper" id="banner">
-            <div class="swiper-slide">
-                <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
-            </div>
+        <div class="swiper-wrapper" id="bannerList">
+
             <div class="swiper-slide">
                 <a href=""><img src="/shop/imgs/banner4.jpg" alt=""></a>
             </div>
@@ -83,24 +81,24 @@
         <div class="swiper-pagination"></div>
     </div>
     <div class="pro-info">
-        <p class="name over over2">冻顶乌龙 著名茶家何健监制 山田土出品 台湾进口 2016春茶 火漆印章茶礼</p>
-        <p class="price">¥1180</p>
-        <p class="kinds"><span>1万人付款</span><span>90%好评</span></p>
+        <p class="name over over2"></p>
+        <p class="price">￥<span></span></p>
+        <p class="kinds"><span><em class="person"></em>人付款</span><span><em class="assess"></em>好评</span></p>
         <div class="like">
-            <p class="img iconfont icon-xihuan"></p>
-            <p>10人喜欢</p>
+            <p class="heart iconfont icon-xihuan red"  rel="like"></p>
+            <p><em class="num likeCount" id="likeCount"></em>人喜欢</p>
         </div>
     </div>
 
     <div class="ways">
-        <div class="left sales"><span class="left iconfont icon-7tianwuliyoutuihuo"></span>七天无理由退货</div><div class="right freight">运费：10元</div>
+        <div class="left sales"><span class="left iconfont icon-7tianwuliyoutuihuo"></span>七天无理由退货</div><div class="right freight">运费：<em></em>元</div>
     </div>
     <div class="attention">
         <dl class='faxian'>
                 <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
                 <dd  class="left">
-                    <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
-                    <p class=""><span>商品999</span><span>关注999</span></p>
+                    <h3><span class="level"></span><p class="over over1 name"></p></h3>
+                    <p class=""><span>商品<i class="p_num"></i></span><span>关注<i class="g_num"></i></span></p>
                 </dd>
                 <em>+关注</em>
 
@@ -108,15 +106,13 @@
     </div>
 <!--图文详情和评价-->
     <div class="trade">
-        <span class="current"><em class="alert"></em>图文详情</span><span>商品评价</span>
+        <span class="current"><em class="alert"></em>图文详情</span><span id="buyer">商品评价</span>
     </div>
     <div class="trade_contents">
         <ol class="current" id="rradeMain">
-          dddd
-
         </ol>
-        <ol>
-            <div class="attention">
+        <ol id="coment">
+           <!-- <div class="attention">
                 <dl class='faxian'>
                     <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
                     <dd  class="left attMian">
@@ -127,17 +123,7 @@
 
                 </dl>
             </div>
-            <div class="attention">
-                <dl class='faxian'>
-                    <dt class="left"><img src='../../imgs/test/scene.jpg' /></dt>
-                    <dd  class="left attMian">
-                        <h3><span></span><p class="over over1">淡淡的的地方</p></h3>
-                        <p class=""><span  class="over over1">淡淡的的地方淡淡的的地方</span></p>
-                    </dd>
-                    <em class="noLine">2016.12.12</em>
-
-                </dl>
-            </div>
+           -->
         </ol>
     </div>
 
@@ -145,39 +131,29 @@
         <div class="goodsTitle">热门推荐</div>
 
         <ul class="pre-list pre-list-2">
-            <li>
-                <div class="pre-item">
-                    <a href="">
-                        <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
-                    </a>
-                    <div class="pre-info">
-                        <p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>
-                        <p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="pre-item">
-                    <a href="">
-                        <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
-                    </a>
-                    <div class="pre-info">
-                        <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
-                        <p class="pre-price"><span>¥2680</span></p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="pre-item">
-                    <a href="">
-                        <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
-                    </a>
-                    <div class="pre-info">
-                        <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
-                        <p class="pre-price"><span>¥2680</span></p>
-                    </div>
-                </div>
-            </li>
+
+       <!-- <li>
+                 <div class="pre-item">
+                     <a href="">
+                         <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                     </a>
+                     <div class="pre-info">
+                         <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                         <p class="pre-price"><span>¥2680</span></p>
+                     </div>
+                 </div>
+             </li>
+             <li>
+                 <div class="pre-item">
+                     <a href="">
+                         <img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt="">
+                     </a>
+                     <div class="pre-info">
+                         <p class="pre-subtitle over over1">静音，高效，无耗材，赠送车载净化器，2色可选</p>
+                         <p class="pre-price"><span>¥2680</span></p>
+                     </div>
+                 </div>
+             </li>-->
         </ul>
     </div>
 
@@ -196,6 +172,75 @@
 <script>
 
     $(function () {
+        var lotId = allFun.getRequest("data_lotid");//商品id
+        console.log(lotId);
+        goodsList(lotId);
+        function goodsList(lotId){
+            $.ajax({
+                url: host+'/index.php?app=goods&act=index&id='+lotId+'',
+                type: "post",
+                data:{"id":lotId},
+                beforeSend:function(){
+                    allFun.loading();
+                },
+                success: function(rs) {
+                    allFun.removeLoading();
+                    if(rs.code!=0){
+                        allFun.alertDiv(rs.msg);
+                        return false;
+                    }
+                    var goodsData=rs.data.goods,storeData=rs.data.store;
+                    console.log(goodsData);
+                    $(".pro-info .name").html(goodsData.goods_name);
+                    $(".pro-info .price span").html(goodsData.ship_price);
+                    $(".pro-info .kinds .person").html(goodsData.sales);
+                    $(".pro-info .kinds .assess").html(goodsData.good_comment);
+                    $(".ways .freight em").html(goodsData.ship_price);
+                    $(".like p .num").html(goodsData.collects);
+                    //点击喜欢和不喜欢
+                    $(".heart").click(function (){
+                        var C=parseInt($("#likeCount").html());
+                        var D=$(this).attr("rel");
+                        if(D === 'like') {
+                            $("#likeCount").html(C+1);
+                            $(this).removeClass("red").attr("rel","unlike");
+                        }
+                        else{
+                            $("#likeCount").html(C-1);
+                            $(this).addClass("red").attr("rel","like");
+                        }
+                    });
+                    //店铺关注
+                    console.log(storeData);
+                    $(".faxian dt img").attr("src",storeData.logo);
+                    $(".faxian dd .name").html(storeData.name);
+                    $(".faxian dd .p_num").html(storeData.goods_count);
+                    $(".faxian dd .g_num").html(storeData.collect_count);
+                    $(".faxian h3 .level").html('<img src="/shop/imgs/level/saler'+storeData.sgrade+'.png">');
+                    $("#rradeMain").html('<p>'+goodsData.vediourl+'</p><p>'+goodsData.detail_image+'</p><p>'+goodsData.detail_desc+'</p>');
+
+                    //热门推荐
+                    var mend='', commend=goodsData.commend_goods;
+                    console.log(commend);
+                    $.each(commend,function (j,v) {
+
+                             mend+='<li><div class="pre-item">'
+                                +'<a href=""><img class="pre-img" src="http://prod.image.yit.com/5/8/5826caa49c05f.jpg-h5square1" alt=""> </a>'
+                                +'<div class="pre-info">'
+                                +'<p class="pre-subtitle over over1" >静音，高效，无耗材，赠送车载净化器，2色可选</p>'
+                                +'<p class="pre-price"><span class="left">¥2680</span><span class="right payment">700人付款</span></p>'
+                                +' </div>'
+                                +'</div></li>'
+
+
+                    });
+
+                    $(".pre-list").html(mend)
+
+                }
+            });
+
+        }
         //banner轮播
         var swiper = new Swiper('#goodsBanner', {
             pagination: '.swiper-pagination',
